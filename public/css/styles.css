@@ -1,2 +1,4 @@
-body {
-  background-color: black; }
+.modal {
+  height: 500px;
+  width: 500px;
+  background-color: yellow; }
