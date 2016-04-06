@@ -24,8 +24,9 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
-    "watchify": "^3.7.0",
+    "angular-route": "^1.5.3",
+    "node-sass": "latest",
     "serve": "latest",
-    "node-sass": "latest"
+    "watchify": "^3.7.0"
   }
 }
