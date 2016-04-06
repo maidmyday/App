@@ -3,15 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="16bc1cc7-8c8a-4f4f-93a3-d852d45355af" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/theironyard/controllers/MaidMyDayController.java" afterPath="$PROJECT_DIR$/src/main/java/com/theironyard/controllers/MaidMyDayController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/theironyard/entities/Client.java" afterPath="$PROJECT_DIR$/src/main/java/com/theironyard/entities/Client.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/theironyard/entities/Job.java" afterPath="$PROJECT_DIR$/src/main/java/com/theironyard/entities/Job.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/theironyard/entities/Notification.java" afterPath="$PROJECT_DIR$/src/main/java/com/theironyard/entities/Notification.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/theironyard/entities/Provider.java" afterPath="$PROJECT_DIR$/src/main/java/com/theironyard/entities/Provider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/theironyard/entities/Rating.java" afterPath="$PROJECT_DIR$/src/main/java/com/theironyard/entities/Rating.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/theironyard/entities/Request.java" afterPath="$PROJECT_DIR$/src/main/java/com/theironyard/entities/Request.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/theironyard/services/ProviderRepository.java" afterPath="$PROJECT_DIR$/src/main/java/com/theironyard/services/ProviderRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/theironyard/MaidMyDayApplicationTests.java" afterPath="$PROJECT_DIR$/src/test/java/com/theironyard/MaidMyDayApplicationTests.java" />
     </list>
     <ignored path="App.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,14 +44,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MaidMyDayController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MaidMyDayController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/theironyard/controllers/MaidMyDayController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="73" column="62" selection-start-line="73" selection-start-column="62" selection-end-line="73" selection-end-column="62" />
+            <state relative-caret-position="-672">
+              <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="36" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MaidMyDayApplication.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/theironyard/MaidMyDayApplication.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MaidMyDayApplicationTests.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/theironyard/MaidMyDayApplicationTests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="555">
+              <caret line="50" column="75" selection-start-line="50" selection-start-column="75" selection-end-line="50" selection-end-column="75" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -538,7 +550,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/theironyard/services/RequestRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/theironyard/services/RatingRepository.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/src/test/java/com/theironyard/MaidMyDayApplicationTests.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/theironyard/services/ClientRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/theironyard/services/ProviderRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/theironyard/entities/Client.java" />
@@ -549,6 +560,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/theironyard/entities/Request.java" />
         <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/theironyard/controllers/MaidMyDayController.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/theironyard/MaidMyDayApplicationTests.java" />
       </list>
     </option>
   </component>
@@ -1148,7 +1160,14 @@
       <option name="project" value="LOCAL" />
       <updated>1459965650014</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Small tweaking/rearranging of login/create routes. Still basic">
+      <created>1459971011223</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1459971011224</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1197,7 +1216,8 @@
     <MESSAGE value="Merge branch 'master' of github.com:maidmyday/App&#10;&#10;# Conflicts:&#10;#&#9;.idea/modules.xml&#10;" />
     <MESSAGE value="Committing for example pull request" />
     <MESSAGE value="Added simple create routes for both Client and Provider" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added simple create routes for both Client and Provider" />
+    <MESSAGE value="Small tweaking/rearranging of login/create routes. Still basic" />
+    <option name="LAST_COMMIT_MESSAGE" value="Small tweaking/rearranging of login/create routes. Still basic" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1257,28 +1277,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/theironyard/MaidMyDayApplicationTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#541#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/theironyard/MaidMyDayApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1375,13 +1377,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/theironyard/MaidMyDayApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/theironyard/controllers/MaidMyDayController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="73" column="62" selection-start-line="73" selection-start-column="62" selection-end-line="73" selection-end-column="62" />
+        <state relative-caret-position="-672">
+          <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="36" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/theironyard/MaidMyDayApplicationTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="50" column="75" selection-start-line="50" selection-start-column="75" selection-end-line="50" selection-end-column="75" />
+          <folding />
         </state>
       </provider>
     </entry>
