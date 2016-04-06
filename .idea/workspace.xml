@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="16bc1cc7-8c8a-4f4f-93a3-d852d45355af" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/theironyard/MaidMyDayApplicationTests.java" afterPath="$PROJECT_DIR$/src/test/java/com/theironyard/MaidMyDayApplicationTests.java" />
     </list>
     <ignored path="App.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -1167,7 +1166,14 @@
       <option name="project" value="LOCAL" />
       <updated>1459971011224</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="In the middle of writing tests.&#10;Small tweaking/rearranging of login/create routes. Still basic">
+      <created>1459972242546</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1459972242546</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1217,7 +1223,8 @@
     <MESSAGE value="Committing for example pull request" />
     <MESSAGE value="Added simple create routes for both Client and Provider" />
     <MESSAGE value="Small tweaking/rearranging of login/create routes. Still basic" />
-    <option name="LAST_COMMIT_MESSAGE" value="Small tweaking/rearranging of login/create routes. Still basic" />
+    <MESSAGE value="In the middle of writing tests.&#10;Small tweaking/rearranging of login/create routes. Still basic" />
+    <option name="LAST_COMMIT_MESSAGE" value="In the middle of writing tests.&#10;Small tweaking/rearranging of login/create routes. Still basic" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
