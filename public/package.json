@@ -12,7 +12,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "angular": "^1.5.3",
     "angular-material": "^1.0.7",
+    "angular-router": "0.0.2",
     "browserify": "^13.0.0",
     "jquery": "^2.2.3",
     "node-sass": "^3.4.2",
