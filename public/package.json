@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run watch & ./node_modules/.bin/serve",
+    "start": "npm run watch-js & npm run watch-css & ./node_modules/.bin/serve",
     "bundle": "./node_modules/.bin/browserify --entry app.module.js -o bundle.js",
-    "watch": "./node_modules/.bin/watchify --entry app.module.js -o bundle.js"
+    "watch-js": "./node_modules/.bin/watchify --entry app.module.js -o bundle.js",
+    "watch-css": "./node_modules/.bin/node-sass -w css/styles.scss css/styles.css"
   },
   "author": "",
   "license": "ISC",
@@ -17,7 +18,7 @@
     "angular-material-icons": "latest",
     "angular-router": "0.0.2",
     "jquery": "^2.2.3",
-    "underscore": "^1.8.3",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "watchify": "^3.7.0",
