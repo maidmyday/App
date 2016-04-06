@@ -62,7 +62,6 @@ public class MaidMyDayApplicationTests {
                 MockMvcRequestBuilders.post("/createClient")
                         .content(json)
                         .contentType("application/json")
-                //.sessionAttr("username", "Alice")
         );
         Assert.assertTrue(clientRepository.count() == 1);
 	}
