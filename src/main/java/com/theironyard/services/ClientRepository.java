@@ -4,4 +4,5 @@ import com.theironyard.entities.Client;
 import org.springframework.data.repository.CrudRepository;
 
 public interface ClientRepository extends CrudRepository<Client, Integer> {
+    Client findByEmail(String email);
 }
