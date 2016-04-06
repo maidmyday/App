@@ -1,7 +1,10 @@
 package com.theironyard;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.theironyard.entities.Client;
 import com.theironyard.services.*;
+import com.theironyard.utilities.PasswordStorage;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -12,6 +15,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -47,8 +51,20 @@ public class MaidMyDayApplicationTests {
 
     // creating a client account
 	@Test
-	public void testA() {
-        Client client = new Client("asdf", "asdf", "asdf", "asdf", "asdf");
+	public void testA() throws Exception {
+        Client client = new Client("asdf", "asdf", PasswordStorage.createHash("asdf"), "asdf", "asdf");
+
+        //this is for creating JSON strings
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(client);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.post("/createClient")
+                        .content(json)
+                        .contentType("application/json")
+                //.sessionAttr("username", "Alice")
+        );
+        Assert.assertTrue(clientRepository.count() == 1);
 	}
 
 }
