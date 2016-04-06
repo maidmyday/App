@@ -25,6 +25,9 @@ public class Client {
     @Column(nullable = false)
     private String phoneNumber;
 
+    public Client() {
+    }
+
     public Client(String firstName, String lastName, String password, String email, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;

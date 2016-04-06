@@ -37,6 +37,9 @@ public class Provider {
 //        this.companyName = companyName;  // Not sure if we want to include a company name for provider
     }
 
+    public Provider() {
+    }
+
     public String getFirstName() {
         return firstName;
     }

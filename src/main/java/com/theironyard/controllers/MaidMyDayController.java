@@ -48,7 +48,11 @@ public class MaidMyDayController {
         dbui.stop();
     }
 
-    @RequestMapping(path = "/client", method = RequestMethod.POST)
+
+    // implement enum for both the provider class and client class ????
+
+
+    @RequestMapping(path = "/createClient", method = RequestMethod.POST)
     public Client createClient(@RequestBody Client client) throws PasswordStorage.CannotPerformOperationException {
 
         client.setPassword(PasswordStorage.createHash(client.getPassword()));
@@ -56,7 +60,7 @@ public class MaidMyDayController {
         return clientRepository.save(client);
     }
 
-    @RequestMapping(path = "/provider", method = RequestMethod.POST)
+    @RequestMapping(path = "/createProvider", method = RequestMethod.POST)
     public Provider createProvider(@RequestBody Provider provider) throws PasswordStorage.CannotPerformOperationException {
 
         provider.setPassword(PasswordStorage.createHash(provider.getPassword()));
@@ -64,8 +68,8 @@ public class MaidMyDayController {
         return providerRepository.save(provider);
     }
 
-    @RequestMapping(path = "/clientLogin", method = RequestMethod.POST)
-    public Client clientLogin(HttpSession session, @RequestBody HashMap data) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
+    @RequestMapping(path = "/loginClient", method = RequestMethod.POST)
+    public Client loginClient(HttpSession session, @RequestBody HashMap data) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
 
         Client client = clientRepository.findByEmail("email");
 
@@ -77,8 +81,17 @@ public class MaidMyDayController {
         }
     }
 
-//    @RequestMapping(path = "/providerLogin", method = RequestMethod.POST)
-//    public Provider providerLogin(HttpSession session) {
-//
-//    }
+    @RequestMapping(path = "/loginProvider", method = RequestMethod.POST)
+    public Provider loginProvider(HttpSession session, @RequestBody HashMap data) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
+
+        Provider provider = providerRepository.findByEmail("email");
+
+        if (provider != null && PasswordStorage.verifyPassword((String) data.get("password"), provider.getPassword())) {
+            session.setAttribute("email", provider.getEmail());
+            return provider;
+        } else {
+            return null;
+        }
+
+    }
 }
