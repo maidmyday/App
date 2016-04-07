@@ -85,7 +85,32 @@ angular
 
 
 
+})
+.controller('AppCtrl', function($mdDialog, $log) {
+    var self = this;
+
+        self.login = function ($event) {
+            $mdDialog.show({
+                controller: 'dialogCtrl',
+                controllerAs: 'lc',
+                templateUrl: 'loginFeature/templates/test.html'
+            });
+        };
   })
+  .controller('dialogCtrl', function($scope, $log) {
+    var self = this;
+    self.show_form = 'login';
+
+    self.showRegister = function() {
+      self.show_form = 'register';
+      console.log('show register');
+    };
+
+    self.showLogin = function() {
+      self.show_form = 'login';
+      console.log('show login');
+    };
+  });
 
 },{"./clientHome":6,"./loginFeature":7,"./spHome":22,"angular":21,"angular-material":15,"angular-messages":17,"angular-route":19}],2:[function(require,module,exports){
 
@@ -62120,6 +62145,8 @@ angular
 },{}],25:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
+require('angular-material');
+require('angular-messages');
 
 angular
   .module('spHome',['ngRoute'])
@@ -62131,7 +62158,7 @@ angular
     })
   })
 
-},{"angular":21,"angular-route":19}],26:[function(require,module,exports){
+},{"angular":21,"angular-material":15,"angular-messages":17,"angular-route":19}],26:[function(require,module,exports){
 angular
   .module('spHome')
   .service('SpService',function($http, $q, $cacheFactory) {
