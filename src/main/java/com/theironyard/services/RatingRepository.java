@@ -1,10 +1,7 @@
-package com.theironyard.services;
+package com.theironyard.services;//Created by KevinBozic on 4/6/16.
 
 import com.theironyard.entities.Rating;
 import org.springframework.data.repository.CrudRepository;
 
-/**
- * Created by Caroline on 4/6/16.
- */
 public interface RatingRepository extends CrudRepository<Rating, Integer> {
 }
