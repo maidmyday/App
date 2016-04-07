@@ -1,4 +1,4 @@
-package com.theironyard.utilities;
+package com.theironyard.utils;
 
 import java.security.SecureRandom;
 import javax.crypto.spec.PBEKeySpec;
@@ -201,3 +201,4 @@ public class PasswordStorage
     }
 
 }
+
