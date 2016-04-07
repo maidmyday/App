@@ -14,7 +14,6 @@ angular
     $routeProvider
       .when('/',{
         templateUrl: 'login.html'
-
       })
       .when('/404',{
         template: '<h1> 404 </h1>'
