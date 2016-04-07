@@ -1,8 +1,8 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
-require('angular-material');
-require('angular-messages');
+// require('angular-material');
+// require('angular-messages');
 // require('angular-material-icons');
 require('./loginFeature');
 require('./clientHome');
@@ -12,8 +12,8 @@ require('./spHome');
 angular
   .module('maidApp',[
     'ngRoute',
-    'ngMaterial',
-    'ngMessages',
+    // 'ngMaterial',
+    // 'ngMessages',
     'loginFeature',
     'cHome',
     'spHome'
@@ -112,7 +112,7 @@ angular
     };
   });
 
-},{"./clientHome":6,"./loginFeature":7,"./spHome":22,"angular":21,"angular-material":15,"angular-messages":17,"angular-route":19}],2:[function(require,module,exports){
+},{"./clientHome":6,"./loginFeature":7,"./spHome":22,"angular":21,"angular-route":19}],2:[function(require,module,exports){
 
 },{}],3:[function(require,module,exports){
 angular
@@ -128,13 +128,13 @@ angular
 },{}],4:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
-require('angular-material');
-require('angular-messages');
+// require('angular-material');
+// require('angular-messages');
 // require('angular-material-icons');
 
 
 angular
-  .module('cHome',['ngRoute','ngMaterial'])
+  .module('cHome',['ngRoute'])
   .config(function($routeProvider){
     $routeProvider
     .when('/clienthome',{
@@ -143,7 +143,7 @@ angular
     })
   })
 
-},{"angular":21,"angular-material":15,"angular-messages":17,"angular-route":19}],5:[function(require,module,exports){
+},{"angular":21,"angular-route":19}],5:[function(require,module,exports){
 angular
   .module('cHome')
   .service('ClientService',function($http, $q, $cacheFactory) {
@@ -62145,8 +62145,8 @@ angular
 },{}],25:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
-require('angular-material');
-require('angular-messages');
+// require('angular-material');
+// require('angular-messages');
 
 angular
   .module('spHome',['ngRoute'])
@@ -62158,7 +62158,7 @@ angular
     })
   })
 
-},{"angular":21,"angular-material":15,"angular-messages":17,"angular-route":19}],26:[function(require,module,exports){
+},{"angular":21,"angular-route":19}],26:[function(require,module,exports){
 angular
   .module('spHome')
   .service('SpService',function($http, $q, $cacheFactory) {
