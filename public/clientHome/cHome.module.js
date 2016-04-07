@@ -2,8 +2,8 @@ var angular = require('angular');
 var angularRoute = require('angular-route');
 require('angular-material');
 require('angular-messages');
-require('angular-animate');
-require('angular-aria');
+require('angular-material-icons');
+
 
 angular
   .module('cHome',['ngRoute','ngMaterial'])
