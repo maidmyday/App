@@ -4,21 +4,23 @@
 
 
   <md-content class="autoScroll">
+  <div ng-if="!showSection">
+    <h1>Sign In</h1>
     <md-input-container class="md-block">
-
       <input ng-model="client.email" type="email" placeholder="email (required)" ng-required="true">
     </md-input-container>
-    <md-input-container class="md-block">
 
+    <md-input-container class="md-block">
       <input ng-model="client.password" type="password" placeholder="password" ng-required="true">
     </md-input-container>
-
-
-
-
-
-
+    <md-button ng-click="changeVis()">Create Account<md-icon class="material-icons">add_circle_outline</md-icon></md-button>
+    <md-button ng-click="hide($event)">Log In  <md-icon class="material-icons" >vpn_key</md-icon></md-button>
+  </div>
+  <div ng-if="showSection">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus sapiente eveniet nesciunt repudiandae quaerat fugiat ratione atque laboriosam non et. Soluta eaque, veritatis hic, consequatur quos dolore autem fugit unde.</p>
+  </div>
 
   </md-content>
+
 
 </div>

@@ -28,14 +28,13 @@ angular
   })
 
 
-  .controller('ModalController', function($scope, $mdDialog) {
-
+  .controller('ModalController', function($scope, $mdDialog, $rootScope) {
 
     $scope.showModal = function(ev) {
-
+      console.log($mdDialog);
       $mdDialog.show({
 
-       controller: DialogController,
+       controller: SignInController,
        templateUrl: 'loginFeature/templates/signInModal.html',
        parent: angular.element(document.body),
        targetEvent: ev,
@@ -44,44 +43,31 @@ angular
 
       });
     };
+    $scope.showSection = true;
+    $scope.changeVis = function () {
+      console.log($scope.showSection);
+      $scope.showSection = !$scope.showSection;
+    }
 
-    $scope.createAccount = function(ev) {
 
-      $mdDialog.show({
 
-       controller: DialogController,
-       templateUrl: 'templates/createAccountModal.html',
-       parent: angular.element(document.body),
-       targetEvent: ev,
-       clickOutsideToClose:true,
 
-      });
-    };
-
-    function DialogController($scope, $mdDialog) {
+    function SignInController($scope, $mdDialog) {
     $scope.hide = function() {
       $mdDialog.hide();
     };
+  };
 
-    $scope.cancel = function() {
-      $mdDialog.cancel();
-    };
+  $scope.client = {
 
-    $scope.answer = function(answer) {
-      $mdDialog.hide(answer);
-    };
+    email: '',
+    password: ''
   }
 
 
 
   })
-  .controller('DemoCtrl', function($scope) {
-      $scope.client = {
 
-        email: '',
-        password: ''
-      }
-    })
 
 
 
