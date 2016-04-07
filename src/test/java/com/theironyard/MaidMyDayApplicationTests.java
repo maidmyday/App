@@ -29,8 +29,6 @@ public class MaidMyDayApplicationTests {
     @Autowired
     ClientRepository clientRepository;
     @Autowired
-    JobRepository jobRepository;
-    @Autowired
     NotificationRepository notificationRepository;
     @Autowired
     ProviderRepository providerRepository;
@@ -38,6 +36,8 @@ public class MaidMyDayApplicationTests {
     RatingRepository ratingRepository;
     @Autowired
     RequestRepository requestRepository;
+    @Autowired
+    TaskRepository taskRepository;
 
     @Autowired
     WebApplicationContext wap;
@@ -60,7 +60,7 @@ public class MaidMyDayApplicationTests {
         String json = mapper.writeValueAsString(client);
 
         mockMvc.perform(
-                MockMvcRequestBuilders.post("/createClient")
+                MockMvcRequestBuilders.post("/client")
                         .content(json)
                         .contentType("application/json")
         );
@@ -77,17 +77,10 @@ public class MaidMyDayApplicationTests {
         String json = mapper.writeValueAsString(provider);
 
         mockMvc.perform(
-                MockMvcRequestBuilders.post("/createProvider")
+                MockMvcRequestBuilders.post("/provider")
                         .content(json)
                         .contentType("application/json")
         );
         Assert.assertTrue(providerRepository.count() == 1);
     }
-
-    // deleting a client account
-//    @Test
-//    public void testZ() {
-//
-//    }
-
 }

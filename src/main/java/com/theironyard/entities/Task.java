@@ -1,4 +1,4 @@
-package com.theironyard.entities;//Created by KevinBozic on 4/6/16.
+package com.theironyard.entities;//Created by KevinBozic on 4/7/16.
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,13 +6,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table (name = "jobs")
-public class Job {
+@Table(name = "tasks")
+public class Task {
 
     @Id
     @GeneratedValue
     private int id;
-
-    public Job() {
-    }
 }
