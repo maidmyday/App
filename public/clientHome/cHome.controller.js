@@ -6,5 +6,4 @@ angular
 
   function ClientController($scope,$rootScope,$location,ClientService) {
 
-    })
   }

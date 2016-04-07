@@ -5261,17 +5261,17 @@ require('angular-messages');
 angular
   .module('maidApp',[
     'ngRoute',
-    'loginFeature',
     'ngMaterial',
-    'ngMessages'
-
+    'ngMessages',
+    'loginFeature',
+    'cHome',
+    'spHome'
     ])
   .config(function($routeProvider) {
     $routeProvider
       .when('/',{
-        templateUrl: "login.html",
+        templateUrl: 'login.html',
          controller: 'ModalController'
-
       })
       .when('/404',{
         template: '<h1> 404 </h1>'
@@ -5340,15 +5340,57 @@ angular
 
 
   require('./loginFeature');
+  require('./clientHome');
+  require('./spHome');
 
-},{"./loginFeature":8,"angular":16,"angular-material":12,"angular-messages":6,"angular-route":14}],8:[function(require,module,exports){
+},{"./clientHome":12,"./loginFeature":13,"./spHome":22,"angular":21,"angular-material":17,"angular-messages":6,"angular-route":19}],8:[function(require,module,exports){
+
+},{}],9:[function(require,module,exports){
+angular
+  .module('cHome')
+  .controller('ClientController', ClientController);
+
+  ClientController.$inject = ['$scope','$rootScope','$location','ClientService'];
+
+  function ClientController($scope,$rootScope,$location,ClientService) {
+
+  }
+
+},{}],10:[function(require,module,exports){
+var angular = require('angular');
+var angularRoute = require('angular-route');
+
+angular
+  .module('cHome',['ngRoute'])
+  .config(function($routeProvider){
+    $routeProvider
+    .when('/clienthome',{
+      templateUrl: 'clientHome/tmpls/clientHome.html',
+      controller: 'ClientController as CliCtrl'
+    })
+  })
+
+},{"angular":21,"angular-route":19}],11:[function(require,module,exports){
+angular
+  .module('cHome')
+  .service('ClientService',function($http, $q, $cacheFactory) {
+
+  })
+
+},{}],12:[function(require,module,exports){
+require('./cHome.module');
+require('./cHome.controller');
+require('./cHome.service');
+require('./cHome.Directive');
+
+},{"./cHome.Directive":8,"./cHome.controller":9,"./cHome.module":10,"./cHome.service":11}],13:[function(require,module,exports){
 require('./login.module');
 require('./login.controller');
 
-},{"./login.controller":9,"./login.module":10}],9:[function(require,module,exports){
+},{"./login.controller":14,"./login.module":15}],14:[function(require,module,exports){
 
 
-},{}],10:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
 require('angular-material');
@@ -5432,7 +5474,7 @@ angular
     }
   })
 
-},{"angular":16,"angular-material":12,"angular-messages":6,"angular-route":14}],11:[function(require,module,exports){
+},{"angular":21,"angular-material":17,"angular-messages":6,"angular-route":19}],16:[function(require,module,exports){
 /*!
  * Angular Material Design
  * https://github.com/angular/material
@@ -30294,7 +30336,7 @@ angular.module("material.core").constant("$MD_THEME_CSS", "md-autocomplete.md-TH
 
 
 })(window, window.angular);;window.ngMaterial={version:{full: "1.0.7"}};
-},{}],12:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 // Should already be required, here for clarity
 require('angular');
 
@@ -30308,7 +30350,7 @@ require('./angular-material');
 // Export namespace
 module.exports = 'ngMaterial';
 
-},{"./angular-material":11,"angular":16,"angular-animate":2,"angular-aria":4}],13:[function(require,module,exports){
+},{"./angular-material":16,"angular":21,"angular-animate":2,"angular-aria":4}],18:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -31332,11 +31374,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],14:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":13}],15:[function(require,module,exports){
+},{"./angular-route":18}],20:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -62051,8 +62093,48 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],16:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":15}]},{},[7]);
+},{"./angular":20}],22:[function(require,module,exports){
+require('./spHome.module');
+require('./spHome.controller');
+require('./spHome.service');
+require('./spHome.Directive');
+
+},{"./spHome.Directive":23,"./spHome.controller":24,"./spHome.module":25,"./spHome.service":26}],23:[function(require,module,exports){
+arguments[4][8][0].apply(exports,arguments)
+},{"dup":8}],24:[function(require,module,exports){
+angular
+  .module('spHome')
+  .controller('SpController', SpController);
+
+  SpController.$inject = ['$scope','$rootScope','$location','SpService'];
+
+  function SpController($scope,$rootScope,$location,SpService) {
+    
+  }
+
+},{}],25:[function(require,module,exports){
+var angular = require('angular');
+var angularRoute = require('angular-route');
+
+angular
+  .module('spHome',['ngRoute'])
+  .config(function($routeProvider){
+    $routeProvider
+    .when('/sphome',{
+      templateUrl: 'spHome/tmpls/spHome.html',
+      controller: 'SpController as SpCtrl'
+    })
+  })
+
+},{"angular":21,"angular-route":19}],26:[function(require,module,exports){
+angular
+  .module('spHome')
+  .service('SpService',function($http, $q, $cacheFactory) {
+
+  })
+
+},{}]},{},[7]);

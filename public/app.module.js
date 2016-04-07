@@ -7,17 +7,17 @@ require('angular-messages');
 angular
   .module('maidApp',[
     'ngRoute',
-    'loginFeature',
     'ngMaterial',
-    'ngMessages'
-
+    'ngMessages',
+    'loginFeature',
+    'cHome',
+    'spHome'
     ])
   .config(function($routeProvider) {
     $routeProvider
       .when('/',{
-        templateUrl: "login.html",
+        templateUrl: 'login.html',
          controller: 'ModalController'
-
       })
       .when('/404',{
         template: '<h1> 404 </h1>'
@@ -86,3 +86,5 @@ angular
 
 
   require('./loginFeature');
+  require('./clientHome');
+  require('./spHome');

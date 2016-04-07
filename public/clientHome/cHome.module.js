@@ -5,8 +5,8 @@ angular
   .module('cHome',['ngRoute'])
   .config(function($routeProvider){
     $routeProvider
-    .when('/cHome',{
-          templateUrl: 'clientHome/tmpls/clientHome.html',
-          controller: 'ClientController as ClientCtrl'
-        })
+    .when('/clienthome',{
+      templateUrl: 'clientHome/tmpls/clientHome.html',
+      controller: 'ClientController as CliCtrl'
+    })
   })
