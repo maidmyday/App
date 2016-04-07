@@ -15,11 +15,15 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Created by Caroline on 4/5/16.
  */
+
+
+
 
 @RestController
 public class MaidMyDayController {
@@ -38,9 +42,18 @@ public class MaidMyDayController {
 
     Server dbui = null;
 
+    ArrayList<Client> clients = new ArrayList<>();
+    ArrayList<Provider> providers = new ArrayList<>();
+
+
     @PostConstruct
     public void init() throws SQLException {
         dbui = Server.createWebServer().start();
+        Client client = new Client("Kevin", "Bacon", "1234", "kbacon@sizzling.com", "843-123-4567");
+        clients.add(client);
+        Provider provider = new Provider("Caroline", "Vail", "1234", "carolineevail@gmail.com", "334-669-5482");
+        providers.add(provider);
+
     }
 
     @PreDestroy
@@ -67,7 +80,7 @@ public class MaidMyDayController {
         return providerRepository.save(provider);
     }
 
-    @RequestMapping(path = "/client", method = RequestMethod.POST)
+    @RequestMapping(path = "/client", method = RequestMethod.GET)
     public Client loginClient(HttpSession session, @RequestBody HashMap data) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
 
         Client client = clientRepository.findByEmail("email");
@@ -80,7 +93,7 @@ public class MaidMyDayController {
         }
     }
 
-    @RequestMapping(path = "/provider", method = RequestMethod.POST)
+    @RequestMapping(path = "/provider", method = RequestMethod.GET)
     public Provider loginProvider(HttpSession session, @RequestBody HashMap data) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
 
         Provider provider = providerRepository.findByEmail("email");
