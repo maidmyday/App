@@ -2,6 +2,7 @@ package com.theironyard;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.theironyard.entities.Client;
+import com.theironyard.entities.Provider;
 import com.theironyard.services.*;
 import com.theironyard.utilities.PasswordStorage;
 import org.junit.Assert;
@@ -65,5 +66,28 @@ public class MaidMyDayApplicationTests {
         );
         Assert.assertTrue(clientRepository.count() == 1);
 	}
+
+    // creating a provider account
+    @Test
+    public void testB() throws Exception {
+        Provider provider = new Provider("2asdf", "2asdf", PasswordStorage.createHash("2asdf"), "2asdf", "2asdf");
+
+        //this is for creating JSON strings
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(provider);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.post("/createProvider")
+                        .content(json)
+                        .contentType("application/json")
+        );
+        Assert.assertTrue(providerRepository.count() == 1);
+    }
+
+    // deleting a client account
+//    @Test
+//    public void testZ() {
+//
+//    }
 
 }
