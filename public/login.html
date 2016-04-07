@@ -1,25 +1,54 @@
 <h1>Splash Page</h1>
 
-<!-- Modals with Angular Material Lite Design -->
-<div id="modal-container">
-  <md-icon aria-label="email" class="md-36 step"></md-icon>
 
-   <md-button class="md-primary md-raised" ng-click="showModal($event)">
-    Client Sign In/ Register
-   </md-button>
+<!-- CLIENT SIGNIN MODAL -->
 
-   <md-button class="md-primary md-raised" ng-click="showSPModal($event)">
-    Service Provider Sign In/ Register
-   </md-button>
+<!-- Modals with Bootstrap Design -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">sign in/ register</button>
 
-   <div ng-controller="AppCtrl as ac">
-   <md-button ng-click="ac.login()">login</md-button>
- </div>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
 
+  </div>
+</div>
 
+<!-- SP SIGNIN MODAL -->
 
+<!-- Modals with Bootstrap Design -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">sign in/ register</button>
 
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
 
+  </div>
 </div>
