@@ -25,6 +25,9 @@ public class Client {
     @Column(nullable = false)
     private String phoneNumber;
 
+
+
+
     public Client() {
     }
 

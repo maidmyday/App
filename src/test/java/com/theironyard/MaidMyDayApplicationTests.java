@@ -3,7 +3,7 @@ package com.theironyard;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.theironyard.entities.Client;
 import com.theironyard.services.*;
-import com.theironyard.utilities.PasswordStorage;
+import com.theironyard.utils.PasswordStorage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -59,7 +59,7 @@ public class MaidMyDayApplicationTests {
         String json = mapper.writeValueAsString(client);
 
         mockMvc.perform(
-                MockMvcRequestBuilders.post("/createClient")
+                MockMvcRequestBuilders.post("/client")
                         .content(json)
                         .contentType("application/json")
         );
