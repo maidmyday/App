@@ -32,14 +32,13 @@ angular
   })
 
 
-  .controller('ModalController', function($scope, $mdDialog) {
-
+  .controller('ModalController', function($scope, $mdDialog, $rootScope) {
 
     $scope.showModal = function(ev) {
-
+      console.log($mdDialog);
       $mdDialog.show({
 
-       controller: DialogController,
+       controller: SignInController,
        templateUrl: 'loginFeature/templates/signInModal.html',
        parent: angular.element(document.body),
        targetEvent: ev,
@@ -49,40 +48,65 @@ angular
       });
     };
 
-    $scope.createAccount = function(ev) {
-
+    $scope.showSPModal = function(ev) {
+      console.log($mdDialog);
       $mdDialog.show({
 
-       controller: DialogController,
-       templateUrl: 'templates/createAccountModal.html',
+       controller: SignInController,
+       templateUrl: 'loginFeature/templates/signInSPModal.html',
        parent: angular.element(document.body),
        targetEvent: ev,
        clickOutsideToClose:true,
 
+
       });
     };
+    $scope.showSection = true;
+    $scope.changeVis = function () {
+      console.log($scope.showSection);
+      $scope.showSection = !$scope.showSection;
+    }
 
-    function DialogController($scope, $mdDialog) {
+
+
+
+    function SignInController($scope, $mdDialog) {
     $scope.hide = function() {
       $mdDialog.hide();
     };
+  };
 
-    $scope.cancel = function() {
-      $mdDialog.cancel();
-    };
+  $scope.client = {
 
-    $scope.answer = function(answer) {
-      $mdDialog.hide(answer);
-    };
+    email: '',
+    password: ''
   }
 
 
 
-  })
-  .controller('DemoCtrl', function($scope) {
-      $scope.client = {
+})
+.controller('AppCtrl', function($mdDialog, $log) {
+    var self = this;
 
-        email: '',
-        password: ''
-      }
-    })
+        self.login = function ($event) {
+            $mdDialog.show({
+                controller: 'dialogCtrl',
+                controllerAs: 'lc',
+                templateUrl: 'loginFeature/templates/test.html'
+            });
+        };
+  })
+  .controller('dialogCtrl', function($scope, $log) {
+    var self = this;
+    self.show_form = 'login';
+
+    self.showRegister = function() {
+      self.show_form = 'register';
+      console.log('show register');
+    };
+
+    self.showLogin = function() {
+      self.show_form = 'login';
+      console.log('show login');
+    };
+  });
