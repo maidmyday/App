@@ -30,8 +30,6 @@ public class MaidMyDayController {
     @Autowired
     ClientRepository clientRepository;
     @Autowired
-    JobRepository jobRepository;
-    @Autowired
     NotificationRepository notificationRepository;
     @Autowired
     ProviderRepository providerRepository;
@@ -39,6 +37,8 @@ public class MaidMyDayController {
     RatingRepository ratingRepository;
     @Autowired
     RequestRepository requestRepository;
+    @Autowired
+    TaskRepository taskRepository;
 
     Server dbui = null;
 
