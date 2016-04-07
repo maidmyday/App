@@ -1,6 +1,7 @@
 package com.theironyard.entities;//Created by KevinBozic on 4/6/16.
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "providers")
@@ -25,8 +26,21 @@ public class Provider {
     @Column(nullable = false)
     private String phoneNumber;
 
+    @OneToMany
+    private List<Task> tasks;
+
 //    @Column(nullable = false)
 //    private String companyName;
+
+    public Provider(String firstName, String lastName, String password, String email, String phoneNumber, List<Task> tasks) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.tasks = tasks;
+//        this.companyName = companyName;  // Not sure if we want to include a company name for provider
+    }
 
     public Provider(String firstName, String lastName, String password, String email, String phoneNumber) {
         this.firstName = firstName;
@@ -34,7 +48,6 @@ public class Provider {
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
-//        this.companyName = companyName;  // Not sure if we want to include a company name for provider
     }
 
     public Provider() {
@@ -80,7 +93,15 @@ public class Provider {
         this.phoneNumber = phoneNumber;
     }
 
-//    public String getCompanyName() {
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    //    public String getCompanyName() {
 //        return companyName;
 //    }
 //
