@@ -1,7 +1,7 @@
 var angular = require('angular');
 var angularRoute = require('angular-route');
-require('angular-material');
-require('angular-messages');
+// require('angular-material');
+// require('angular-messages');
 
 angular
   .module('spHome',['ngRoute'])
