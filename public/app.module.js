@@ -2,7 +2,7 @@ var angular = require('angular');
 var angularRoute = require('angular-route');
 require('angular-material');
 require('angular-messages');
-require('angular-material-icons');
+// require('angular-material-icons');
 require('./loginFeature');
 require('./clientHome');
 require('./spHome');
