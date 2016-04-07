@@ -2,6 +2,9 @@ var angular = require('angular');
 var angularRoute = require('angular-route');
 require('angular-material');
 require('angular-messages');
+require('./loginFeature');
+require('./clientHome');
+require('./spHome');
 
 
 angular
@@ -82,9 +85,3 @@ angular
         password: ''
       }
     })
-
-
-
-  require('./loginFeature');
-  require('./clientHome');
-  require('./spHome');

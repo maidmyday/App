@@ -5256,6 +5256,9 @@ var angular = require('angular');
 var angularRoute = require('angular-route');
 require('angular-material');
 require('angular-messages');
+require('./loginFeature');
+require('./clientHome');
+require('./spHome');
 
 
 angular
@@ -5337,12 +5340,6 @@ angular
       }
     })
 
-
-
-  require('./loginFeature');
-  require('./clientHome');
-  require('./spHome');
-
 },{"./clientHome":12,"./loginFeature":13,"./spHome":22,"angular":21,"angular-material":17,"angular-messages":6,"angular-route":19}],8:[function(require,module,exports){
 
 },{}],9:[function(require,module,exports){
@@ -5359,9 +5356,13 @@ angular
 },{}],10:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
+require('angular-material');
+require('angular-messages');
+require('angular-animate');
+require('angular-aria');
 
 angular
-  .module('cHome',['ngRoute'])
+  .module('cHome',['ngRoute','ngMaterial'])
   .config(function($routeProvider){
     $routeProvider
     .when('/clienthome',{
@@ -5370,7 +5371,7 @@ angular
     })
   })
 
-},{"angular":21,"angular-route":19}],11:[function(require,module,exports){
+},{"angular":21,"angular-animate":2,"angular-aria":4,"angular-material":17,"angular-messages":6,"angular-route":19}],11:[function(require,module,exports){
 angular
   .module('cHome')
   .service('ClientService',function($http, $q, $cacheFactory) {
