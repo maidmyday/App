@@ -3,7 +3,7 @@ package com.theironyard.controllers;
 import com.theironyard.entities.Client;
 import com.theironyard.entities.Provider;
 import com.theironyard.services.*;
-import com.theironyard.utilities.PasswordStorage;
+import com.theironyard.utils.PasswordStorage;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,11 +15,15 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Created by Caroline on 4/5/16.
  */
+
+
+
 
 @RestController
 public class MaidMyDayController {
@@ -38,9 +42,18 @@ public class MaidMyDayController {
 
     Server dbui = null;
 
+    ArrayList<Client> clients = new ArrayList<>();
+    ArrayList<Provider> providers = new ArrayList<>();
+
+
     @PostConstruct
     public void init() throws SQLException {
         dbui = Server.createWebServer().start();
+        Client client = new Client("Kevin", "Bacon", "1234", "kbacon@sizzling.com", "843-123-4567");
+        clients.add(client);
+        Provider provider = new Provider("Caroline", "Vail", "1234", "carolineevail@gmail.com", "334-669-5482");
+        providers.add(provider);
+
     }
 
     @PreDestroy
@@ -49,7 +62,6 @@ public class MaidMyDayController {
     }
 
 
-    // implement enum for both the provider class and client class ????
 
 
     @RequestMapping(path = "/client", method = RequestMethod.POST)

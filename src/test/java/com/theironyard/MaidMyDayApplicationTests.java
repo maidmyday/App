@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.theironyard.entities.Client;
 import com.theironyard.entities.Provider;
 import com.theironyard.services.*;
-import com.theironyard.utilities.PasswordStorage;
+import com.theironyard.utils.PasswordStorage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
