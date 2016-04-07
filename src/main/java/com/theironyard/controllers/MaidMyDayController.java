@@ -3,7 +3,7 @@ package com.theironyard.controllers;
 import com.theironyard.entities.Client;
 import com.theironyard.entities.Provider;
 import com.theironyard.services.*;
-import com.theironyard.utilities.PasswordStorage;
+import com.theironyard.utils.PasswordStorage;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,10 +49,9 @@ public class MaidMyDayController {
     }
 
 
-    // implement enum for both the provider class and client class ????
 
 
-    @RequestMapping(path = "/createClient", method = RequestMethod.POST)
+    @RequestMapping(path = "/client", method = RequestMethod.POST)
     public Client createClient(@RequestBody Client client) throws PasswordStorage.CannotPerformOperationException {
 
         client.setPassword(PasswordStorage.createHash(client.getPassword()));
@@ -60,7 +59,7 @@ public class MaidMyDayController {
         return clientRepository.save(client);
     }
 
-    @RequestMapping(path = "/createProvider", method = RequestMethod.POST)
+    @RequestMapping(path = "/provider", method = RequestMethod.POST)
     public Provider createProvider(@RequestBody Provider provider) throws PasswordStorage.CannotPerformOperationException {
 
         provider.setPassword(PasswordStorage.createHash(provider.getPassword()));
@@ -68,7 +67,7 @@ public class MaidMyDayController {
         return providerRepository.save(provider);
     }
 
-    @RequestMapping(path = "/loginClient", method = RequestMethod.POST)
+    @RequestMapping(path = "/client", method = RequestMethod.POST)
     public Client loginClient(HttpSession session, @RequestBody HashMap data) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
 
         Client client = clientRepository.findByEmail("email");
@@ -81,7 +80,7 @@ public class MaidMyDayController {
         }
     }
 
-    @RequestMapping(path = "/loginProvider", method = RequestMethod.POST)
+    @RequestMapping(path = "/provider", method = RequestMethod.POST)
     public Provider loginProvider(HttpSession session, @RequestBody HashMap data) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
 
         Provider provider = providerRepository.findByEmail("email");
