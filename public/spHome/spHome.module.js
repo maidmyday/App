@@ -5,4 +5,8 @@ angular
   .module('spHome',['ngRoute'])
   .config(function($routeProvider){
     $routeProvider
+    .when('/sphome',{
+      templateUrl: 'spHome/tmpls/spHome.html',
+      controller: 'SpController as SpCtrl'
+    })
   })

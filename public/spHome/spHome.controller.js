@@ -5,6 +5,5 @@ angular
   SpController.$inject = ['$scope','$rootScope','$location','SpService'];
 
   function SpController($scope,$rootScope,$location,SpService) {
-
-    })
+    
   }
