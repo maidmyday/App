@@ -1,8 +1,8 @@
 //header
+h4.navbar-brand{
+  padding: 0 10px;;
+}
 div.panel{
-  h1{
-    display: inline-block;
-  }
   div.textContent{
     display: inline-block;
     text-align: right;
@@ -51,11 +51,47 @@ div.userImgHome{
 }
 
 //for accordion content
-//profile edits
+uib-accordion-heading{
+  background-color: #EAD2AC;
+}
 div.profile-panels{
-  h3{
+  h4{
     display: inline-block;
   }
+}
+
+div.rAndC{
+  max-height: 300px;
+  overflow: auto;
+}
+
+table.rAndC-table{
+  td{
+    p{
+      margin-top: 50px;
+    }
+    button{
+      margin-top: 40px;
+    }
+  }
+}
+  div.userImgSm{
+    background-color: #ead2ac;
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+    img.userIcon{
+      height: 100%;
+      display: block;
+    }
+  }
+
+//for the footer
+div.btmRoom{
+  width: 100%;
+  height: 50px;
 }
 
 //for the commented out bootstrap nav

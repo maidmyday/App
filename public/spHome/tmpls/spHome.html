@@ -3,13 +3,13 @@
 <nav class="navbar">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Maid My Day</a>
+      <!-- <a class="navbar-brand" href="#/">Maid My Day</a> -->
+      <h4 class="navbar-brand">Maid My Day</h4>
     </div>
     <ul class="nav navbar-nav navbar-right">
-      <li><p class="navbar-text">GO ONLINE</p></li>
-      <li><p class="navbar-text">POST JOB</p></li>
       <li><p class="navbar-text">Signed in as NAME</p></li>
-      <li><button class="btn btn-default">Logout</button></li>
+      <li><button class="btn btn-default navbar-btn">GO ONLINE</button></li>
+      <li><button class="btn btn-default navbar-btn">Logout</button></li>
     </ul>
   </div>
 </nav>
@@ -19,7 +19,7 @@
 
 <div class="container">
   <div class="row userImgRow">
-    <div class="userImgHomeParent col-md-12">
+    <div class="userImgHomeParent col-md-12 col-sm-12">
       <div class="userImgHome">
         <img src="./images/bill01.jpg" alt="userImg" class="userImgHome">
         </script>
@@ -32,21 +32,34 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
 
         <uib-accordion>
 
-         <uib-accordion-group heading="Profile" class="panel panel-default">
+         <uib-accordion-group panel-class="panel-default">
+           <uib-accordion-heading>
+             <h3>Profile</h3>
+           </uib-accordion-heading>
            <div class="profile-panels">
-             <div class="panel-body"><button class="btn btn-default">Edit</button></div>
              <div class="panel-heading">
-               <h3>About Me</h3>
+               <h4>Settings</h4>
+               <button class="pull-right btn btn-default">Edit</button>
+             </div>
+             <div class="panel-body">
+               <p>First Name: </p>
+               <p>Last Name: </p>
+               <p>Email: </p>
+             </div>
+             <div class="panel-heading">
+               <h4>About Me</h4>
+               <button class="pull-right btn btn-default">Edit</button>
              </div>
              <div class="panel-body">
                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
              </div>
              <div class="panel-heading">
-               <h3>Specialties</h3>
+               <h4>Specialties</h4>
+               <button class="pull-right btn btn-default">Edit</button>
              </div>
              <div class="panel-body">
                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -54,10 +67,39 @@
            </div>
          </uib-accordion-group>
 
-         <uib-accordion-group heading="Comments and Ratings">
-         </uib-accordion-group>
+         <uib-accordion-group panel-class="panel-default">
+           <uib-accordion-heading>
+             <h3>History</h3>
+           </uib-accordion-heading>
 
-         <uib-accordion-group heading="History">
+           <div class="rAndC">
+             <div class="panel-body">
+
+                 <table class="table rAndC-table">
+                   <tbody class="table-hover">
+
+                     <tr ng-repeat="user in historyData">
+                       <td>
+                         <div class="userImgSm">
+                           <img src={{user.img}} alt="" class="userIcon">
+                         </div>
+                       </td>
+                       <td>
+                         <button class="btn btn-default">{{user.first}} {{user.last}}</button>
+                       </td>
+                       <td>
+                         <p>{{user.rating}}</p>
+                       </td>
+                       <td>
+                         <p>{{user.date}}</p>
+                       </td>
+                     </tr>
+
+                   </tbody>
+                 </table>
+
+             </div>
+           </div>
          </uib-accordion-group>
 
          <uib-accordion-group ng-repeat="accordion in accordionData" heading="{{accordion.title}}" is-disabled="status.isFirstDisabled">
@@ -70,8 +112,6 @@
     </div>
   </div>
 </div>
-
-
 
 
 <!-- me trying to make the menu collapsable -->
