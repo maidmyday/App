@@ -25,6 +25,9 @@ angular
   })
 
 },{"./clientHome":6,"./spHome":11,"angular":10,"angular-route":8}],2:[function(require,module,exports){
+angular
+  .module('cHome')
+  .directive('cliHomeDir', titleBar);
 
 },{}],3:[function(require,module,exports){
 angular
@@ -31820,8 +31823,11 @@ require('./spHome.service');
 require('./spHome.Directive');
 
 },{"./spHome.Directive":12,"./spHome.controller":13,"./spHome.module":14,"./spHome.service":15}],12:[function(require,module,exports){
-arguments[4][2][0].apply(exports,arguments)
-},{"dup":2}],13:[function(require,module,exports){
+angular
+  .module('spHome')
+  .directive('spHomeDir', titleBar);
+
+},{}],13:[function(require,module,exports){
 angular
   .module('spHome')
   .controller('SpController', SpController);
