@@ -1,20 +1,27 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
+var uiBoot = require('angular-ui-bootstrap');
 require('./clientHome');
 require('./spHome');
+
 
 
 angular
   .module('maidApp',[
     'ngRoute',
+    'ui.bootstrap',
     'cHome',
     'spHome'
+
     ])
   .config(function($routeProvider) {
     $routeProvider
       .when('/',{
-        templateUrl: 'login.html'
+
+        templateUrl: './loginFeature/templates/login.html',
+        controller: 'LoginModalController'
+
       })
       .when('/404',{
         template: '<h1> 404 </h1>'
@@ -24,7 +31,107 @@ angular
       })
   })
 
-},{"./clientHome":4,"./spHome":11,"angular":10,"angular-route":6}],2:[function(require,module,exports){
+  .controller('LoginModalController', function ($scope, $uibModal, $log, $location) {
+  $scope.animationsEnabled = true;
+
+  $scope.openSpLoginModal = function (size) {
+
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: './loginFeature/templates/Spmodal.html',
+      controller: 'ModalInstanceController',
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+  };
+
+  $scope.openClientLoginModal = function (size) {
+
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: './loginFeature/templates/Clientmodal.html',
+      controller: 'ModalInstanceController',
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+  };
+
+  $scope.registerClient = function () {
+
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: './loginFeature/templates/Clientregistermodal.html',
+      controller: 'ModalInstanceController',
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+  };
+
+
+
+  })
+  .controller('ModalInstanceController', function ($scope, $uibModalInstance, $location) {
+
+
+  $scope.showModalSection = 'login';
+
+
+  $scope.registerClient = function () {
+    $scope.showModalSection = 'register';
+  }
+
+  $scope.loginClient = function () {
+    $scope.showModalSection = 'login';
+
+
+  };
+  $scope.signInClient = function () {
+    $uibModalInstance.dismiss();
+    // THIS PATH WILL NEED AN ID LIKE /clienthome/id
+    $location.path('/clienthome');
+  };
+
+  $scope.registerClientPath = function () {
+    $uibModalInstance.dismiss();
+    // THIS PATH WILL NEED AN ID LIKE /clienthome/id
+    $location.path('/clienthome');
+  }
+
+
+  $scope.registerSp = function () {
+    $scope.showModalSection = 'register';
+  }
+
+  $scope.loginSp = function () {
+    $scope.showModalSection = 'login';
+
+  };
+  $scope.signInSp = function () {
+    $uibModalInstance.dismiss();
+    // THIS PATH WILL NEED AN ID LIKE /clienthome/id
+    $location.path('/sphome');
+  };
+
+  $scope.registerSpPath = function () {
+    $uibModalInstance.dismiss();
+    // THIS PATH WILL NEED AN ID LIKE /clienthome/id
+    $location.path('/sphome');
+  }
+  });
+
+},{"./clientHome":4,"./spHome":11,"angular":10,"angular-route":6,"angular-ui-bootstrap":8}],2:[function(require,module,exports){
 angular
   .module('cHome')
   .controller('ClientController', ClientController);

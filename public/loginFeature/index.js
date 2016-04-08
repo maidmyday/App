@@ -1,2 +1,3 @@
-require('./login.module');
-require('./login.controller');
+
+require('./signinmodal.controller.js');
+require('./signinmodalinstance.controller.js');
