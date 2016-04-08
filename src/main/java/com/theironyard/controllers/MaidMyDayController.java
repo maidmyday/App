@@ -1,7 +1,6 @@
 package com.theironyard.controllers;
 
-import com.theironyard.entities.Client;
-import com.theironyard.entities.Provider;
+import com.theironyard.entities.*;
 import com.theironyard.services.*;
 import com.theironyard.utils.PasswordStorage;
 import org.h2.tools.Server;
@@ -22,15 +21,10 @@ import java.util.HashMap;
  * Created by Caroline on 4/5/16.
  */
 
-
-
-
 @RestController
 public class MaidMyDayController {
     @Autowired
     ClientRepository clientRepository;
-    @Autowired
-    JobRepository jobRepository;
     @Autowired
     NotificationRepository notificationRepository;
     @Autowired
@@ -39,6 +33,8 @@ public class MaidMyDayController {
     RatingRepository ratingRepository;
     @Autowired
     RequestRepository requestRepository;
+    @Autowired
+    TaskRepository taskRepository;
 
     Server dbui = null;
 
@@ -72,14 +68,6 @@ public class MaidMyDayController {
         return clientRepository.save(client);
     }
 
-    @RequestMapping(path = "/provider", method = RequestMethod.POST)
-    public Provider createProvider(@RequestBody Provider provider) throws PasswordStorage.CannotPerformOperationException {
-
-        provider.setPassword(PasswordStorage.createHash(provider.getPassword()));
-
-        return providerRepository.save(provider);
-    }
-
     @RequestMapping(path = "/client", method = RequestMethod.GET)
     public Client loginClient(HttpSession session, @RequestBody HashMap data) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
 
@@ -93,7 +81,25 @@ public class MaidMyDayController {
         }
     }
 
-    @RequestMapping(path = "/provider", method = RequestMethod.GET)
+    @RequestMapping(path = "/client", method = RequestMethod.PUT)
+    public Client editClient() {
+        return null;
+    }
+
+    @RequestMapping(path = "/client/request", method = RequestMethod.GET)
+    public Client clientServiceHistory() {
+        return null;
+    }
+
+    @RequestMapping(path = "/client/rating", method = RequestMethod.GET)
+    public Client viewClientRatings() {
+        return null;
+    }
+
+
+
+
+    @RequestMapping(path = "/provider/session", method = RequestMethod.GET)
     public Provider loginProvider(HttpSession session, @RequestBody HashMap data) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
 
         Provider provider = providerRepository.findByEmail("email");
@@ -104,6 +110,89 @@ public class MaidMyDayController {
         } else {
             return null;
         }
+    }
 
+    @RequestMapping(path = "/provider", method = RequestMethod.POST)
+    public Provider createProvider(@RequestBody Provider provider) throws PasswordStorage.CannotPerformOperationException {
+
+        provider.setPassword(PasswordStorage.createHash(provider.getPassword()));
+
+        return providerRepository.save(provider);
+    }
+
+    @RequestMapping(path = "/provider", method = RequestMethod.GET)
+    public Provider findProvider() {
+        return null;
+    }
+
+    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
+    public Provider clientViewProviderProfile() {
+        return null;
+    }
+
+    @RequestMapping(path = "/provider/profile", method = RequestMethod.GET)
+    public Provider providerProfile() {
+        return null;
+    }
+
+    @RequestMapping(path = "/provider", method = RequestMethod.PUT)
+    public Provider updateProviderProfile() {
+        return null;
+    }
+
+    @RequestMapping(path = "/provider/task", method = RequestMethod.PUT)
+    public Provider providerSelectTasks() {
+        return null;
+    }
+
+    @RequestMapping(path = "/request", method = RequestMethod.POST)
+    public Request createRequest() {
+        return null;
+    }
+
+    @RequestMapping(path = "/request/{id}", method = RequestMethod.DELETE)
+    public Request deleteRequest() {
+        return null;
+    }
+
+    @RequestMapping(path = "/provider/request", method = RequestMethod.GET)
+    public Client providerServiceHistory() {
+        return null;
+    }
+
+    @RequestMapping(path = "/provider/rating", method = RequestMethod.GET)
+    public Client viewProviderRatings() {
+        return null;
+    }
+
+
+
+    @RequestMapping(path = "/notification", method = RequestMethod.POST)
+    public Notification createNotification() {
+        return null;
+    }
+
+    @RequestMapping(path = "/notification", method = RequestMethod.GET)
+    public Notification viewNotifications() {
+        return null;
+    }
+
+    @RequestMapping(path = "/notification", method = RequestMethod.DELETE)
+    public Notification deleteNotification() {
+        return null;
+    }
+
+
+
+    @RequestMapping(path = "/task", method = RequestMethod.GET)
+    public Task populateTasks() {
+        return null;
+    }
+
+
+
+    @RequestMapping(path = "/rating", method = RequestMethod.POST)
+    public Rating createRating() {
+        return null;
     }
 }

@@ -1,1 +1,57 @@
+//header
+div.panel{
+  h1{
+    display: inline-block;
+  }
+  div.textContent{
+    display: inline-block;
+    text-align: right;
+    height: 100%;
+    p.headerText{
+      display: inline-block;
+      font-weight: 400;
+    }
+    p.headerUser{
+      display: inline-block;
+      font-weight: 700;
+    }
+  }
+}
 
+//user image
+div.userImgRow{
+  margin-top: 10px;
+}
+
+div.userImgHomeParent{
+  text-align: center;
+}
+
+div.userImgHome{
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: inline-block;
+  border-radius: 100%;
+  overflow: hidden;
+  width: 300px;
+  height: 300px;
+  img.userImgHome{
+    height: 100%;
+    display: block;
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translateY(-50%) translateX(-50%);
+  }
+}
+
+//for the commented out bootstrap nav
+nav.home{
+  background-color: #4281A4;
+  color: #ffffff;
+  a {
+    color: #ffffff;
+  }
+}
