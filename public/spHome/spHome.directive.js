@@ -1,3 +1,3 @@
-angular
-  .module('spHome')
-  .directive('spHomeDir', titleBar);
+// angular
+//   .module('spHome')
+//   .directive('spHomeDir', SpService);

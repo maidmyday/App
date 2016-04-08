@@ -24,23 +24,18 @@ angular
       })
   })
 
-},{"./clientHome":6,"./spHome":11,"angular":10,"angular-route":8}],2:[function(require,module,exports){
-angular
-  .module('cHome')
-  .directive('cliHomeDir', titleBar);
-
-},{}],3:[function(require,module,exports){
+},{"./clientHome":4,"./spHome":9,"angular":8,"angular-route":6}],2:[function(require,module,exports){
 angular
   .module('cHome')
   .controller('ClientController', ClientController);
 
-  ClientController.$inject = ['$scope','$rootScope','$location','ClientService'];
+  ClientController.$inject = ['$scope','$rootScope','$location',/*'ClientService'*/];
 
-  function ClientController($scope,$rootScope,$location,ClientService) {
+  function ClientController($scope,$rootScope,$location/*ClientService*/) {
 
   }
 
-},{}],4:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
 
@@ -56,20 +51,13 @@ angular
     })
   })
 
-},{"angular":10,"angular-route":8}],5:[function(require,module,exports){
-angular
-  .module('cHome')
-  .service('ClientService',function($http, $q, $cacheFactory) {
-
-  })
-
-},{}],6:[function(require,module,exports){
+},{"angular":8,"angular-route":6}],4:[function(require,module,exports){
 require('./cHome.module');
 require('./cHome.controller');
-require('./cHome.service');
-require('./cHome.Directive');
+// require('./cHome.service');
+// require('./cHome.Directive');
 
-},{"./cHome.Directive":2,"./cHome.controller":3,"./cHome.module":4,"./cHome.service":5}],7:[function(require,module,exports){
+},{"./cHome.controller":2,"./cHome.module":3}],5:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -1093,11 +1081,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],8:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":7}],9:[function(require,module,exports){
+},{"./angular-route":5}],7:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -31812,39 +31800,34 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],10:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":9}],11:[function(require,module,exports){
+},{"./angular":7}],9:[function(require,module,exports){
 require('./spHome.module');
 require('./spHome.controller');
-require('./spHome.service');
-require('./spHome.Directive');
+// require('./spHome.service');
+// require('./spHome.directive');
 
-},{"./spHome.Directive":12,"./spHome.controller":13,"./spHome.module":14,"./spHome.service":15}],12:[function(require,module,exports){
-angular
-  .module('spHome')
-  .directive('spHomeDir', titleBar);
-
-},{}],13:[function(require,module,exports){
+},{"./spHome.controller":10,"./spHome.module":11}],10:[function(require,module,exports){
 angular
   .module('spHome')
   .controller('SpController', SpController);
 
-  SpController.$inject = ['$scope','$rootScope','$location','SpService'];
+  SpController.$inject = ['$scope','$rootScope','$location'/*'SpService'*/];
 
-  function SpController($scope,$rootScope,$location,SpService) {
-    
+  function SpController($scope,$rootScope,$location/*SpService*/) {
+
   }
 
-},{}],14:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
 
 
 angular
-  .module('spHome',['ngRoute'])
+  .module('spHome',['ngRoute','maidApp'])
   .config(function($routeProvider){
     $routeProvider
     .when('/sphome',{
@@ -31853,11 +31836,4 @@ angular
     })
   })
 
-},{"angular":10,"angular-route":8}],15:[function(require,module,exports){
-angular
-  .module('spHome')
-  .service('SpService',function($http, $q, $cacheFactory) {
-
-  })
-
-},{}]},{},[1]);
+},{"angular":8,"angular-route":6}]},{},[1]);

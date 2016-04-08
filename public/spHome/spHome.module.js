@@ -3,7 +3,7 @@ var angularRoute = require('angular-route');
 
 
 angular
-  .module('spHome',['ngRoute'])
+  .module('spHome',['ngRoute','maidApp'])
   .config(function($routeProvider){
     $routeProvider
     .when('/sphome',{
