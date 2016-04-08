@@ -1,3 +1,3 @@
-angular
-  .module('cHome')
-  .directive('cliHomeDir', titleBar);
+// angular
+//   .module('cHome')
+//   .directive('cliHomeDir', ClientService);

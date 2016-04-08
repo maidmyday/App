@@ -1,5 +1,5 @@
-angular
-  .module('cHome')
-  .service('ClientService',function($http, $q, $cacheFactory) {
-
-  })
+// angular
+//   .module('cHome')
+//   .service('ClientService',function($http, $q, $cacheFactory) {
+//
+//   })
