@@ -72,14 +72,6 @@ public class MaidMyDayController {
         return clientRepository.save(client);
     }
 
-    @RequestMapping(path = "/provider", method = RequestMethod.POST)
-    public Provider createProvider(@RequestBody Provider provider) throws PasswordStorage.CannotPerformOperationException {
-
-        provider.setPassword(PasswordStorage.createHash(provider.getPassword()));
-
-        return providerRepository.save(provider);
-    }
-
     @RequestMapping(path = "/client", method = RequestMethod.GET)
     public Client loginClient(HttpSession session, @RequestBody HashMap data) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
 
@@ -93,7 +85,12 @@ public class MaidMyDayController {
         }
     }
 
-    @RequestMapping(path = "/provider", method = RequestMethod.GET)
+    @RequestMapping(path = "/client", method = RequestMethod.PUT)
+    public Client editClient() {
+        return null;
+    }
+
+    @RequestMapping(path = "/provider/session", method = RequestMethod.GET)
     public Provider loginProvider(HttpSession session, @RequestBody HashMap data) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
 
         Provider provider = providerRepository.findByEmail("email");
@@ -106,4 +103,39 @@ public class MaidMyDayController {
         }
 
     }
+
+    @RequestMapping(path = "/provider", method = RequestMethod.POST)
+    public Provider createProvider(@RequestBody Provider provider) throws PasswordStorage.CannotPerformOperationException {
+
+        provider.setPassword(PasswordStorage.createHash(provider.getPassword()));
+
+        return providerRepository.save(provider);
+    }
+
+    @RequestMapping(path = "/provider", method = RequestMethod.GET)
+    public Provider findProvider() {
+        return null;
+    }
+
+    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
+    public Provider clientViewProviderProfile() {
+        return null;
+    }
+
+    @RequestMapping(path = "/provider/profile", method = RequestMethod.GET)
+    public Provider providerProfile() {
+        return null;
+    }
+
+    @RequestMapping(path = "/provider", method = RequestMethod.PUT)
+    public Provider updateProviderProfile() {
+        return null;
+    }
+
+    @RequestMapping(path = "/provider/task", method = RequestMethod.PUT)
+    public Provider providerSelectTasks() {
+        return null;
+    }
+
+
 }
