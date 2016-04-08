@@ -1,7 +1,6 @@
 package com.theironyard.controllers;
 
-import com.theironyard.entities.Client;
-import com.theironyard.entities.Provider;
+import com.theironyard.entities.*;
 import com.theironyard.services.*;
 import com.theironyard.utils.PasswordStorage;
 import org.h2.tools.Server;
@@ -21,9 +20,6 @@ import java.util.HashMap;
 /**
  * Created by Caroline on 4/5/16.
  */
-
-
-
 
 @RestController
 public class MaidMyDayController {
@@ -90,6 +86,19 @@ public class MaidMyDayController {
         return null;
     }
 
+    @RequestMapping(path = "/client/request", method = RequestMethod.GET)
+    public Client clientServiceHistory() {
+        return null;
+    }
+
+    @RequestMapping(path = "/client/rating", method = RequestMethod.GET)
+    public Client viewClientRatings() {
+        return null;
+    }
+
+
+
+
     @RequestMapping(path = "/provider/session", method = RequestMethod.GET)
     public Provider loginProvider(HttpSession session, @RequestBody HashMap data) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
 
@@ -101,7 +110,6 @@ public class MaidMyDayController {
         } else {
             return null;
         }
-
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.POST)
@@ -137,5 +145,54 @@ public class MaidMyDayController {
         return null;
     }
 
+    @RequestMapping(path = "/request", method = RequestMethod.POST)
+    public Request createRequest() {
+        return null;
+    }
 
+    @RequestMapping(path = "/request/{id}", method = RequestMethod.DELETE)
+    public Request deleteRequest() {
+        return null;
+    }
+
+    @RequestMapping(path = "/provider/request", method = RequestMethod.GET)
+    public Client providerServiceHistory() {
+        return null;
+    }
+
+    @RequestMapping(path = "/provider/rating", method = RequestMethod.GET)
+    public Client viewProviderRatings() {
+        return null;
+    }
+
+
+
+    @RequestMapping(path = "/notification", method = RequestMethod.POST)
+    public Notification createNotification() {
+        return null;
+    }
+
+    @RequestMapping(path = "/notification", method = RequestMethod.GET)
+    public Notification viewNotifications() {
+        return null;
+    }
+
+    @RequestMapping(path = "/notification", method = RequestMethod.DELETE)
+    public Notification deleteNotification() {
+        return null;
+    }
+
+
+
+    @RequestMapping(path = "/task", method = RequestMethod.GET)
+    public Task populateTasks() {
+        return null;
+    }
+
+
+
+    @RequestMapping(path = "/rating", method = RequestMethod.POST)
+    public Rating createRating() {
+        return null;
+    }
 }
