@@ -1,0 +1,43 @@
+div.panel h1 {
+  display: inline-block; }
+
+div.panel div.textContent {
+  display: inline-block;
+  text-align: right;
+  height: 100%; }
+  div.panel div.textContent p.headerText {
+    display: inline-block;
+    font-weight: 400; }
+  div.panel div.textContent p.headerUser {
+    display: inline-block;
+    font-weight: 700; }
+
+div.userImgRow {
+  margin-top: 10px; }
+
+div.userImgHomeParent {
+  text-align: center; }
+
+div.userImgHome {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: inline-block;
+  border-radius: 100%;
+  overflow: hidden;
+  width: 300px;
+  height: 300px; }
+  div.userImgHome img.userImgHome {
+    height: 100%;
+    display: block;
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translateY(-50%) translateX(-50%); }
+
+nav.home {
+  background-color: #4281A4;
+  color: #ffffff; }
+  nav.home a {
+    color: #ffffff; }
