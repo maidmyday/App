@@ -21,6 +21,7 @@ div.panel{
 //user image
 div.userImgRow{
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 div.userImgHomeParent{
@@ -36,14 +37,24 @@ div.userImgHome{
   overflow: hidden;
   width: 300px;
   height: 300px;
+
   img.userImgHome{
     height: 100%;
+    width:100%;
     display: block;
     margin: 0 auto;
     position: absolute;
     left: 50%;
     top: 50%;
     -webkit-transform: translateY(-50%) translateX(-50%);
+  }
+}
+
+//for accordion content
+//profile edits
+div.profile-panels{
+  h3{
+    display: inline-block;
   }
 }
 
