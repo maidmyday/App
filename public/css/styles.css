@@ -1,5 +1,5 @@
-div.panel h1 {
-  display: inline-block; }
+h4.navbar-brand {
+  padding: 0 10px; }
 
 div.panel div.textContent {
   display: inline-block;
@@ -38,8 +38,36 @@ div.userImgHome {
     top: 50%;
     -webkit-transform: translateY(-50%) translateX(-50%); }
 
-div.profile-panels h3 {
+uib-accordion-heading {
+  background-color: #EAD2AC; }
+
+div.profile-panels h4 {
   display: inline-block; }
+
+div.rAndC {
+  max-height: 300px;
+  overflow: auto; }
+
+table.rAndC-table td p {
+  margin-top: 50px; }
+
+table.rAndC-table td button {
+  margin-top: 40px; }
+
+div.userImgSm {
+  background-color: #ead2ac;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 100%;
+  width: 100px;
+  height: 100px; }
+  div.userImgSm img.userIcon {
+    height: 100%;
+    display: block; }
+
+div.btmRoom {
+  width: 100%;
+  height: 50px; }
 
 nav.home {
   background-color: #4281A4;

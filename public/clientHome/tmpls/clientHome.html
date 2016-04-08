@@ -1,12 +1,15 @@
+<!-- bootstraping navbar -->
+
 <nav class="navbar">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Maid My Day</a>
+      <!-- <a class="navbar-brand" href="#/">Maid My Day</a> -->
+      <h4 class="navbar-brand">Maid My Day</h4>
     </div>
     <ul class="nav navbar-nav navbar-right">
-      <li><p class="navbar-text">GO ONLINE</p></li>
-      <li><p class="navbar-text">POST JOB</p></li>
       <li><p class="navbar-text">Signed in as NAME</p></li>
+      <li><button class="btn btn-default navbar-btn">POST JOB</button></li>
+      <li><button class="btn btn-default navbar-btn">Logout</button></li>
     </ul>
   </div>
 </nav>
@@ -16,11 +19,82 @@
 
 <div class="container">
   <div class="row userImgRow">
-    <div class="userImgHomeParent col-md-12">
+    <div class="userImgHomeParent col-md-12 col-sm-12">
       <div class="userImgHome">
-        <img src="./images/bill03.jpg" alt="userImg" class="userImgHome">
+        <img src="./images/bill01.jpg" alt="userImg" class="userImgHome">
         </script>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- angular bootstrap accordion content -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
+
+        <uib-accordion>
+
+         <uib-accordion-group panel-class="panel-default">
+           <uib-accordion-heading>
+             <h3>Profile</h3>
+           </uib-accordion-heading>
+           <div class="profile-panels">
+             <div class="panel-heading">
+               <h4>Settings</h4>
+               <button class="pull-right btn btn-default">Edit</button>
+             </div>
+             <div class="panel-body">
+               <p>First Name: </p>
+               <p>Last Name: </p>
+               <p>Email: </p>
+             </div>
+           </div>
+         </uib-accordion-group>
+
+         <uib-accordion-group panel-class="panel-default">
+           <uib-accordion-heading>
+             <h3>History</h3>
+           </uib-accordion-heading>
+
+           <div class="rAndC">
+             <div class="panel-body">
+
+                 <table class="table rAndC-table">
+                   <tbody class="table-hover">
+
+                     <tr ng-repeat="user in historyData">
+                       <td>
+                         <div class="userImgSm">
+                           <img src={{user.img}} alt="" class="userIcon">
+                         </div>
+                       </td>
+                       <td>
+                         <button class="btn btn-default">{{user.first}} {{user.last}}</button>
+                       </td>
+                       <td>
+                         <p>{{user.rating}}</p>
+                       </td>
+                       <td>
+                         <p>{{user.date}}</p>
+                       </td>
+                     </tr>
+
+                   </tbody>
+                 </table>
+
+             </div>
+           </div>
+         </uib-accordion-group>
+
+         <uib-accordion-group ng-repeat="accordion in accordionData" heading="{{accordion.title}}" is-disabled="status.isFirstDisabled">
+          {{accordion.content}}
+        </uib-accordion-group>
+
+        </uib-accordion>
+
+
     </div>
   </div>
 </div>
