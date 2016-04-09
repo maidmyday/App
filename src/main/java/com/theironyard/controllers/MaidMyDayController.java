@@ -82,8 +82,13 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/client", method = RequestMethod.PUT)
-    public Client editClient() {
-        return null;
+    public Client editClient(@RequestBody Client client, HttpSession session) throws Exception {
+
+        if (client.getEmail().equals(session.getAttribute("email"))) {
+            return clientRepository.save(client);
+        } else {
+            throw new Exception("You're not allowed to edit others' profiles.");
+        }
     }
 
     @RequestMapping(path = "/client/request", method = RequestMethod.GET)
@@ -136,8 +141,13 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.PUT)
-    public Provider updateProviderProfile() {
-        return null;
+    public Provider editProfile(@RequestBody Provider provider, HttpSession session) throws Exception {
+
+        if (provider.getEmail().equals(session.getAttribute("email"))) {
+            return providerRepository.save(provider);
+        } else {
+            throw new Exception("You're not allowed to edit others' profiles.");
+        }
     }
 
     @RequestMapping(path = "/provider/task", method = RequestMethod.PUT)
