@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Caroline on 4/5/16.
@@ -92,8 +93,11 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/client/request", method = RequestMethod.GET)
-    public Client clientServiceHistory() {
-        return null;
+    public List<Request> clientServiceHistory(HttpSession session) {
+        String clientEmail = (String) session.getAttribute("email");
+        Client client = clientRepository.findByEmail(clientEmail);
+        List<Request> localRequests = requestRepository.findByClient(client);
+        return localRequests;
     }
 
     @RequestMapping(path = "/client/rating", method = RequestMethod.GET)

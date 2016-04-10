@@ -24,26 +24,22 @@ public class Request {
     @Column(nullable = false)
     private boolean isDone;
 
-    @OneToMany
-    private List<Task> tasks;
+    @ManyToOne
+    private Client client;
+
+    @ManyToOne
+    private Provider provider;
 
     public Request() {
     }
 
-    public Request(String address, String specialInstructions, LocalDateTime requestDateTime, boolean isDone, List<Task> tasks) {
+    public Request(String address, String specialInstructions, LocalDateTime requestDateTime, boolean isDone, Client client, Provider provider) {
         this.address = address;
         this.specialInstructions = specialInstructions;
         this.requestDateTime = requestDateTime;
         this.isDone = isDone;
-        this.tasks = tasks;
-    }
-
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+        this.client = client;
+        this.provider = provider;
     }
 
     public String getAddress() {
@@ -76,5 +72,21 @@ public class Request {
 
     public void setDone(boolean done) {
         isDone = done;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
     }
 }
