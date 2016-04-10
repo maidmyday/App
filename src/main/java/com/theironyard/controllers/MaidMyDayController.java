@@ -101,6 +101,11 @@ public class MaidMyDayController {
         return null;
     }
 
+    @RequestMapping(path = "/client", method = RequestMethod.DELETE)
+    public void deleteClient(@RequestBody Client client) {
+        clientRepository.delete(client);
+    }
+
 
 
 
@@ -173,6 +178,11 @@ public class MaidMyDayController {
     @RequestMapping(path = "/provider/rating", method = RequestMethod.GET)
     public Client viewProviderRatings() {
         return null;
+    }
+
+    @RequestMapping(path = "/provider", method = RequestMethod.DELETE)
+    public void deleteProvider(@RequestBody Provider provider) {
+        providerRepository.delete(provider);
     }
 
 
