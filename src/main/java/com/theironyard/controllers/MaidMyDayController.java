@@ -101,8 +101,11 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/client/rating", method = RequestMethod.GET)
-    public Client viewClientRatings() {
-        return null;
+    public List<Rating> viewClientRatings(HttpSession session) {
+        String clientEmail = (String) session.getAttribute("email");
+        Client client = clientRepository.findByEmail(clientEmail);
+        List<Rating> localRatings = ratingRepository.findbyClient(client);
+        return localRatings;
     }
 
     @RequestMapping(path = "/client", method = RequestMethod.DELETE)
@@ -175,13 +178,19 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider/request", method = RequestMethod.GET)
-    public Client providerServiceHistory() {
-        return null;
+    public List<Request> providerServiceHistory(HttpSession session) {
+        String providerEmail = (String) session.getAttribute("email");
+        Provider provider = providerRepository.findByEmail(providerEmail);
+        List<Request> localRequests = requestRepository.findByProvider(provider);
+        return localRequests;
     }
 
     @RequestMapping(path = "/provider/rating", method = RequestMethod.GET)
-    public Client viewProviderRatings() {
-        return null;
+    public List<Rating> viewProviderRatings(HttpSession session) {
+        String providerEmail = (String) session.getAttribute("email");
+        Provider provider = providerRepository.findByEmail(providerEmail);
+        List<Rating> localRatings = ratingRepository.findbyProvider(provider);
+        return localRatings;
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.DELETE)
