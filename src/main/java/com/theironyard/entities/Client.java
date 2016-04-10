@@ -25,15 +25,19 @@ public class Client {
     @Column(nullable = false)
     private String phoneNumber;
 
+    @OneToMany
+    Rating rating;
+
     public Client() {
     }
 
-    public Client(String firstName, String lastName, String password, String email, String phoneNumber) {
+    public Client(String firstName, String lastName, String password, String email, String phoneNumber, Rating rating) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.rating = rating;
     }
 
     public String getFirstName() {
@@ -74,5 +78,13 @@ public class Client {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Rating getRating() {
+        return rating;
+    }
+
+    public void setRating(Rating rating) {
+        this.rating = rating;
     }
 }

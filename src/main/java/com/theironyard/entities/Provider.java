@@ -29,17 +29,17 @@ public class Provider {
     @OneToMany
     private List<Task> tasks;
 
-//    @Column(nullable = false)
-//    private String companyName;
+    @OneToMany
+    Rating rating;
 
-    public Provider(String firstName, String lastName, String password, String email, String phoneNumber, List<Task> tasks) {
+    public Provider(String firstName, String lastName, String password, String email, String phoneNumber, List<Task> tasks, Rating rating) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.tasks = tasks;
-//        this.companyName = companyName;  // Not sure if we want to include a company name for provider
+        this.rating = rating;
     }
 
     public Provider(String firstName, String lastName, String password, String email, String phoneNumber) {
@@ -101,11 +101,11 @@ public class Provider {
         this.tasks = tasks;
     }
 
-    //    public String getCompanyName() {
-//        return companyName;
-//    }
-//
-//    public void setCompanyName(String companyName) {
-//        this.companyName = companyName;
-//    }
+    public Rating getRating() {
+        return rating;
+    }
+
+    public void setRating(Rating rating) {
+        this.rating = rating;
+    }
 }
