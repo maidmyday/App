@@ -222,7 +222,8 @@ public class MaidMyDayController {
 
 
     @RequestMapping(path = "/request", method = RequestMethod.POST)
-    public void createRequest() {
+    public void createRequest(@RequestBody Request request, HttpSession session) {
+        requestRepository.save(request);
     }
 
     @RequestMapping(path = "/request/{id}", method = RequestMethod.DELETE)
