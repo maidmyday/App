@@ -16,4 +16,4 @@ angular
     }
   });
 
-  <sp-home-dir mydata="angularObject"></sp-home-dir>
+  // <sp-home-dir mydata="angularObject"></sp-home-dir>
