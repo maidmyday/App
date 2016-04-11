@@ -81,6 +81,12 @@ angular
   function ClientController($scope,$rootScope,$location,$uibModal,$log,ClientService) {
     var vm = this;
 
+    //edit profile content
+    $scope.editInfo = false;
+    $scope.editBtn = function(){
+      $scope.editInfo = !$scope.editInfo;
+    }
+
     //the rating stars
     $scope.rate = 0;
     $scope.max = 5;
@@ -173,7 +179,30 @@ angular
   SpController.$inject = ['$scope','$rootScope','$location','$uibModal','$log','SpService'];
 
   function SpController($scope,$rootScope,$location,$uibModal,$log,SpService) {
-    var vm = this;
+    // var vm = this;
+
+    //go online: change a boolean and show change in dom, switch button?
+    $scope.goOnline = function(){
+      
+    }
+
+    //edit profile content
+    $scope.editInfo = false;
+    $scope.editBtn1 = function(){
+      $scope.editInfo = !$scope.editInfo;
+    }
+
+    //edit about content
+    $scope.editAbout = false;
+    $scope.editBtn2 = function(){
+      $scope.editAbout = !$scope.editAbout;
+    }
+
+    //edit specialties content
+    $scope.editSpecial = false;
+    $scope.editBtn3 = function(){
+      $scope.editSpecial = !$scope.editSpecial;
+    }
 
     //the rating stars
     $scope.rate = 0;
@@ -237,7 +266,7 @@ angular
     $routeProvider
     .when('/sphome',{
       templateUrl: 'home/tmpls/spHome.html',
-      controller: 'SpController as SpCtrl'
+      controller: 'SpController'
     })
   })
 
@@ -315,17 +344,6 @@ angular
   .module('spHome')
   .service('SpService',function($http, $q, $cacheFactory) {
 
-    var accordionData = [
-      {
-        title: 'this is calvin',
-        content: 'this is a great content'
-      },
-      {
-        title: 'this is alex',
-        content: 'this is the great content'
-      }
-    ]
-
     var historyData = [
       {
         img: './images/bill04.jpg',
@@ -351,7 +369,6 @@ angular
     ]
 
     return {
-      accordionData: accordionData,
       historyData: historyData
     }
 

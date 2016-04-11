@@ -2,17 +2,6 @@ angular
   .module('spHome')
   .service('SpService',function($http, $q, $cacheFactory) {
 
-    var accordionData = [
-      {
-        title: 'this is calvin',
-        content: 'this is a great content'
-      },
-      {
-        title: 'this is alex',
-        content: 'this is the great content'
-      }
-    ]
-
     var historyData = [
       {
         img: './images/bill04.jpg',
@@ -38,7 +27,6 @@ angular
     ]
 
     return {
-      accordionData: accordionData,
       historyData: historyData
     }
 

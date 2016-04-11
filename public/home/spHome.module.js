@@ -13,7 +13,7 @@ angular
     $routeProvider
     .when('/sphome',{
       templateUrl: 'home/tmpls/spHome.html',
-      controller: 'SpController as SpCtrl'
+      controller: 'SpController'
     })
   })
 

@@ -7,6 +7,12 @@ angular
   function ClientController($scope,$rootScope,$location,$uibModal,$log,ClientService) {
     var vm = this;
 
+    //edit profile content
+    $scope.editInfo = false;
+    $scope.editBtn = function(){
+      $scope.editInfo = !$scope.editInfo;
+    }
+
     //the rating stars
     $scope.rate = 0;
     $scope.max = 5;
