@@ -1,7 +1,6 @@
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
-<<<<<<< HEAD
 require('./home');
 require('./goOnline');
 require('./loginFeature');
