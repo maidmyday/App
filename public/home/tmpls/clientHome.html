@@ -7,9 +7,11 @@
       <h4 class="navbar-brand">Maid My Day</h4>
     </div>
     <ul class="nav navbar-nav navbar-right">
-      <li><p class="navbar-text">Signed in as </p><p>NAME</p></li>
-      <li><button class="btn btn-default navbar-btn" ng-click="CliCtrl.postJob()">POST JOB</button></li>
-      <li><button class="btn btn-default navbar-btn" ng-click="CliCtrl.logout()">Logout</button></li>
+
+      <li><p class="navbar-text">Signed in as {{user.firstName}}</p></li>
+      <li><button class="btn btn-default navbar-btn">POST JOB</button></li>
+      <li><button class="btn btn-default navbar-btn">Logout</button></li>
+
     </ul>
   </div>
 </nav>

@@ -4,9 +4,17 @@
   border-color: white;
   width: 0%; }
 
+<<<<<<< HEAD
+input.ng-invalid {
+  border-color: red; }
+
+h4.navbar-brand {
+  padding: 0 10px; }
+=======
 h4.navbar-brand {
   padding: 0 10px;
   font-size: 30px; }
+>>>>>>> e2ae370a85e00fca6fa3966090f5395f4f6f3008
 
 div.panel div.textContent {
   display: inline-block;
