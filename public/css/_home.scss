@@ -1,0 +1,126 @@
+//header
+h4.navbar-brand{
+  padding: 0 10px;;
+}
+div.panel{
+  div.textContent{
+    display: inline-block;
+    text-align: right;
+    height: 100%;
+    p.headerText{
+      display: inline-block;
+      font-weight: 400;
+    }
+    p.headerUser{
+      display: inline-block;
+      font-weight: 700;
+    }
+  }
+}
+.panel{
+  color: blue;
+}
+//user image
+div.userImgRow{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+div.userImgHomeParent{
+  text-align: center;
+}
+
+div.userImgHome{
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: inline-block;
+  border-radius: 100%;
+  overflow: hidden;
+  width: 300px;
+  height: 300px;
+
+  img.userImgHome{
+    height: auto;;
+    width:140%;
+    display: block;
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translateY(-50%) translateX(-50%);
+  }
+}
+
+//for accordion content
+div.panel > .panel-heading {
+  background-color: #9CAFB7;
+  border-radius: 0;
+  h3{
+    text-align: center;
+    color: #FFFFFF;
+    a{
+      text-decoration: none;
+    }
+  }
+}
+
+uib-accordion-heading{
+  background-color: #EAD2AC;
+}
+div.profile-panels{
+  h4{
+    display: inline-block;
+  }
+}
+
+div.rAndC{
+  max-height: 500px;
+  overflow: auto;
+}
+
+table.rAndC-table{
+  td{
+    p{
+      margin-top: 50px;
+    }
+    button{
+      margin-top: 40px;
+    }
+  }
+}
+  div.userImgSm{
+    background-color: #ead2ac;
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    img.userIcon{
+      width: 170%;
+      height: auto;
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      -webkit-transform: translateY(-50%) translateX(-50%);
+    }
+  }
+
+//star rating
+.glyphicon-star {
+  color:#EAD2AC;
+}
+.glyphicon-star-empty{
+  color: #9CAFB7;
+}
+
+//for the commented out bootstrap nav
+nav.home{
+  background-color: #4281A4;
+  color: #ffffff;
+  a {
+    color: #ffffff;
+  }
+}

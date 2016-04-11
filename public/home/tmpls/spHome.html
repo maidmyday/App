@@ -1,0 +1,123 @@
+<!-- bootstraping navbar -->
+
+<nav class="navbar">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <!-- <a class="navbar-brand" href="#/">Maid My Day</a> -->
+      <h4 class="navbar-brand">Maid My Day</h4>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li><p class="navbar-text">Signed in as NAME</p></li>
+      <li><button class="btn btn-default navbar-btn" ng-click="goOnline()">GO ONLINE</button></li>
+      <li><button class="btn btn-default navbar-btn">Logout</button></li>
+    </ul>
+  </div>
+</nav>
+
+
+<!-- user image: still needs JS to fit any img size to div -->
+
+<div class="container">
+  <div class="row userImgRow">
+    <div class="userImgHomeParent col-md-12 col-sm-12">
+      <div class="userImgHome">
+        <img src="./images/bill01.jpg" alt="userImg" class="userImgHome">
+        </script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- uib rating from site: SAVING THIS FOR LATER-->
+
+<!-- <div>
+    <uib-rating ng-model="rate" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
+    <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
+
+    <pre style="margin:15px 0;">Rate: <b>{{rate}}</b> - Readonly is: <i>{{isReadonly}}</i> - Hovering over: <b>{{overStar || "none"}}</b></pre>
+
+    <button type="button" class="btn btn-sm btn-danger" ng-click="rate = 0" ng-disabled="isReadonly">Clear</button>
+    <button type="button" class="btn btn-sm btn-default" ng-click="isReadonly = ! isReadonly">Toggle Readonly</button>
+</div> -->
+
+<!-- angular bootstrap accordion content -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
+
+        <uib-accordion>
+
+         <uib-accordion-group panel-class="panel-default">
+           <uib-accordion-heading>
+             <h3>Profile</h3>
+           </uib-accordion-heading>
+           <div class="profile-panels">
+             <div class="panel-heading">
+               <h4>Settings</h4>
+               <button class="pull-right btn btn-default" ng-click="editThis()">Edit</button>
+             </div>
+             <div class="panel-body">
+               <p>First Name: </p>
+               <p>Last Name: </p>
+               <p>Phone Number: </p>
+               <p>Email: </p>
+             </div>
+             <div class="panel-heading">
+               <h4>About Me</h4>
+               <button class="pull-right btn btn-default">Edit</button>
+             </div>
+             <div class="panel-body">
+               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+             </div>
+             <div class="panel-heading">
+               <h4>Specialties</h4>
+               <button class="pull-right btn btn-default">Edit</button>
+             </div>
+             <div class="panel-body">
+               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+             </div>
+           </div>
+         </uib-accordion-group>
+
+         <uib-accordion-group panel-class="panel-default">
+           <uib-accordion-heading>
+             <h3>History</h3>
+           </uib-accordion-heading>
+
+           <div class="rAndC">
+             <div class="panel-body">
+
+                 <table class="table rAndC-table">
+                   <tbody class="table-hover">
+
+                     <tr ng-repeat="user in historyData">
+                       <td>
+                         <div class="userImgSm">
+                           <img src={{user.img}} alt="" class="userIcon">
+                         </div>
+                       </td>
+                       <td>
+                         <p>{{user.first}} {{user.last}}</p>
+                       </td>
+                       <td>
+                         <button class="btn btn-default"><uib-rating ng-model="user.rating" max="{{user.rating}}" read-only="true" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating></button>
+                       </td>
+                       <td>
+                         <p>{{user.date}}</p>
+                       </td>
+                     </tr>
+
+                   </tbody>
+                 </table>
+
+             </div>
+           </div>
+         </uib-accordion-group>
+
+        </uib-accordion>
+
+
+    </div>
+  </div>
+</div>

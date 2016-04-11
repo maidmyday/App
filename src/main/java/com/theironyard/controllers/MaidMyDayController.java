@@ -5,10 +5,7 @@ import com.theironyard.services.*;
 import com.theironyard.utils.PasswordStorage;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -46,11 +43,15 @@ public class MaidMyDayController {
     @PostConstruct
     public void init() throws SQLException {
         dbui = Server.createWebServer().start();
-        Client client = new Client("Kevin", "Bacon", "1234", "kbacon@sizzling.com", "843-123-4567");
-        clients.add(client);
-        Provider provider = new Provider("Caroline", "Vail", "1234", "carolineevail@gmail.com", "334-669-5482");
-        providers.add(provider);
 
+        if (clientRepository.count() == 0) {
+            Client client = new Client("Kevin", "Bacon", "1234", "kbacon@sizzling.com", "843-123-4567");
+            clientRepository.save(client);
+        }
+        if (providerRepository.count() == 0) {
+            Provider provider = new Provider("Caroline", "Vail", "1234", "carolineevail@gmail.com", "334-669-5482");
+            providerRepository.save(provider);
+        }
     }
 
     @PreDestroy
@@ -69,17 +70,12 @@ public class MaidMyDayController {
         return clientRepository.save(client);
     }
 
-    @RequestMapping(path = "/client", method = RequestMethod.GET)
-    public Client loginClient(HttpSession session, @RequestBody HashMap data) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
+    @RequestMapping(path = "/client/{id}", method = RequestMethod.GET)
+    public Client loginClient(HttpSession session, @PathVariable ("id") int id) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
 
-        Client client = clientRepository.findByEmail("email");
+        Client client = clientRepository.findOne(id);
 
-        if (client != null && PasswordStorage.verifyPassword((String) data.get("password"), client.getPassword())) {
-            session.setAttribute("email", client.getEmail());
-            return client;
-        } else {
-            return null;
-        }
+        return client;
     }
 
     @RequestMapping(path = "/client", method = RequestMethod.PUT)
@@ -120,21 +116,13 @@ public class MaidMyDayController {
 
 
 
+    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
+    public Provider loginProvider(HttpSession session, @PathVariable ("id") int id) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
 
+        Provider provider = providerRepository.findOne(id);
 
+        return provider;
 
-
-    @RequestMapping(path = "/provider/{id}/session", method = RequestMethod.GET)
-    public Provider loginProvider(HttpSession session, @RequestBody HashMap data) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
-
-        Provider provider = providerRepository.findByEmail("email");
-
-        if (provider != null && PasswordStorage.verifyPassword((String) data.get("password"), provider.getPassword())) {
-            session.setAttribute("email", provider.getEmail());
-            return provider;
-        } else {
-            return null;
-        }
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.POST)
@@ -158,15 +146,16 @@ public class MaidMyDayController {
         return providers;
     }
 
-    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
-    public Provider clientViewProviderProfile() {
-        return null;
-    }
+//    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
+//    public Provider clientViewProviderProfile() {
+//        return null;
+//    }
 
-    @RequestMapping(path = "/provider/profile", method = RequestMethod.GET)
-    public Provider providerProfile() {
-        return null;
-    }
+//    @RequestMapping(path = "/provider/profile", method = RequestMethod.GET)
+//    public Provider providerProfile(HttpSession session) {
+//        Provider provider =
+//        return provider;
+//    }
 
     @RequestMapping(path = "/provider", method = RequestMethod.PUT)
     public Provider editProfile(@RequestBody Provider provider, HttpSession session) throws Exception {

@@ -96,4 +96,11 @@ public class Provider {
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

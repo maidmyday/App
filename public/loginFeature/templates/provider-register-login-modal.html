@@ -1,0 +1,46 @@
+
+<!-- LOGIN SECTION -->
+
+<div ng-if="showModalSection == 'login'" class="modal-body">
+  <div class="modal-header">
+      <h3 class="modal-title">Client Login</h3>
+  </div>
+
+    <form action="">
+      <input type="text" placeholder="email">
+      <input type="password" placeholder="password">
+    </form>
+<div class="modal-footer">
+  <button class="btn btn-primary" type="button" ng-click="signInSp()">Login</button>
+  <button class="btn register" type="button" btn-toggle="" ng-click="showRegisterSection()">Register</button>
+</div>
+</div>
+
+
+
+
+
+<!-- REGISTER SECTION -->
+
+
+<!-- REGISTER SECTION -->
+<div ng-if="showModalSection == 'register'" class="modal-body">
+  <div class="modal-header">
+      <h3 class="modal-title">Create Account</h3>
+  </div>
+
+    <form ng-submit="registerSpPath(provider)">
+      <input type="text" placeholder="first name" ng-model="provider.firstName">
+      <input type="text" placeholder="last name" ng-model="provider.lastName">
+      <input type="text" placeholder="email" ng-model="provider.email">
+      <input type="number" placeholder="phone number" ng-model="provider.phoneNumber">
+      <input type="password" placeholder="password" ng-model="provider.password">
+      <input type="password" placeholder="confirm password" ng-model="provider.PASSWORD_CONFIRMATION">
+      <button class="btn register" type="submit" btn-toggle="">Register</button>
+    </form>
+<div class="modal-footer">
+  <button class="btn btn-primary" type="button" ng-click="showLoginSection()">Back</button>
+
+</div>
+
+</div>
