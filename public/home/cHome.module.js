@@ -8,7 +8,7 @@ angular
   .config(function($routeProvider){
     $routeProvider
     .when('/clienthome',{
-      templateUrl: 'clientHome/tmpls/clientHome.html',
+      templateUrl: 'home/tmpls/clientHome.html',
       controller: 'ClientController as CliCtrl'
     })
   })
