@@ -3,17 +3,7 @@ angular
 .controller('ModalInstanceController', function ($rootScope,$scope, $uibModalInstance, LoginService, $location) {
 
 
-  $scope.showModalSection = 'login';
-  // $scope.isMatch = true;
-
-//   $scope.add = function() {
-//   if ($scope.emailReg != $scope.emailReg2) {
-//     $scope.IsMatch=true;
-//     return false;
-//   }
-//   $scope.IsMatch=false;
-// }
-
+$scope.showModalSection = 'login';
 
   $scope.showRegisterSection = function () {
     $scope.showModalSection = 'register';
@@ -68,13 +58,5 @@ angular
 
   }
 
-  // if($routeParams.id) {
-  //         ShoppingService.showItem($routeParams.id)
-  //           .then(function(data) {
-  //             console.log("INFO", data);
-  //             $scope.item = data.data.results[0];
-  //             window.glob = $scope.item;
-  //           })
-  //       };
 
 });

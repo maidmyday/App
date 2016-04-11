@@ -1,6 +1,10 @@
 //header
+h4.mmd{
+
+}
 h4.navbar-brand{
-  padding: 0 10px;;
+  padding: 0 10px;
+  font-size: 30px;
 }
 div.panel{
   div.textContent{
@@ -16,9 +20,6 @@ div.panel{
       font-weight: 700;
     }
   }
-}
-.panel{
-  color: blue;
 }
 //user image
 div.userImgRow{
@@ -72,6 +73,11 @@ div.profile-panels{
   h4{
     display: inline-block;
   }
+}
+
+div.paragraph{
+  max-height: 500px;
+  overflow: auto;
 }
 
 div.rAndC{

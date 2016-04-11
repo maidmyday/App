@@ -10,7 +10,6 @@ angular
 
     .when('/clienthome/:id',{
       templateUrl: 'home/tmpls/clientHome.html',
-
       controller: 'ClientController as CliCtrl'
     })
   })

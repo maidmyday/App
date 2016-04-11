@@ -4,11 +4,17 @@
   border-color: white;
   width: 0%; }
 
+<<<<<<< HEAD
 input.ng-invalid {
   border-color: red; }
 
 h4.navbar-brand {
   padding: 0 10px; }
+=======
+h4.navbar-brand {
+  padding: 0 10px;
+  font-size: 30px; }
+>>>>>>> e2ae370a85e00fca6fa3966090f5395f4f6f3008
 
 div.panel div.textContent {
   display: inline-block;
@@ -20,9 +26,6 @@ div.panel div.textContent {
   div.panel div.textContent p.headerUser {
     display: inline-block;
     font-weight: 700; }
-
-.panel {
-  color: blue; }
 
 div.userImgRow {
   margin-top: 10px;
@@ -64,6 +67,10 @@ uib-accordion-heading {
 
 div.profile-panels h4 {
   display: inline-block; }
+
+div.paragraph {
+  max-height: 500px;
+  overflow: auto; }
 
 div.rAndC {
   max-height: 500px;
