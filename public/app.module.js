@@ -21,7 +21,6 @@ angular
   .config(function($routeProvider) {
     $routeProvider
       .when('/',{
-
         templateUrl: './loginFeature/templates/login.html',
         controller: 'LoginModalController'
 

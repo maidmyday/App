@@ -36,9 +36,9 @@
     <input type="text" class="form-control" placeholder="email" ng-model="provider.email">
     <input type="number" class="form-control" placeholder="phone number" ng-model="provider.phoneNumber">
 
-    <input placeholder="password" class="form-control" ng-model="provider.password" type="password" name="passwordName" data-ng-class="{'ng-invalid':myForm.confirmPassword.$error.match}" />
-    <input placeholder="confrim password" class="form-control" ng-model="provider.passwordConfirm" type="password" data-match="provider.password" name="myConfirmField" />
-        <div ng-show="myForm.myConfirmField.$error.match"></div>
+    <input placeholder="password" class="form-control" ng-model="provider.password" type="password" name="passwordName" ng-class="{'ng-invalid': myForm.myConfirmField.$error.match }" />
+    <input placeholder="confirm password" class="form-control" ng-model="provider.passwordConfirm" type="password" data-match="provider.password" name="myConfirmField" />
+    <div ng-show="myForm.myConfirmField.$error.match">Not Match?</div>
 
 
     <button class="btn register" type="submit">Register</button>
