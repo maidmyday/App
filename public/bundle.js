@@ -33,7 +33,7 @@ angular
       })
   })
 
-},{"./goOnline":5,"./home":8,"./loginFeature":15,"angular":23,"angular-route":19,"angular-ui-bootstrap":21}],2:[function(require,module,exports){
+},{"./goOnline":5,"./home":9,"./loginFeature":16,"angular":24,"angular-route":20,"angular-ui-bootstrap":22}],2:[function(require,module,exports){
 angular
   .module('goOnline')
   .controller('GoController', GoController);
@@ -63,7 +63,7 @@ angular
     })
   })
 
-},{"angular":23,"angular-route":19,"angular-ui-bootstrap":21}],4:[function(require,module,exports){
+},{"angular":24,"angular-route":20,"angular-ui-bootstrap":22}],4:[function(require,module,exports){
 
 },{}],5:[function(require,module,exports){
 require('./goOnline.module');
@@ -76,22 +76,34 @@ angular
   .module('cHome')
   .controller('ClientController', ClientController);
 
-  ClientController.$inject = ['$scope','$rootScope','$location',/*'ClientService'*/];
+  ClientController.$inject = ['$scope','$rootScope','$location','$uibModal','$log','ClientService'];
 
-  function ClientController($scope,$rootScope,$location/*ClientService*/) {
+  function ClientController($scope,$rootScope,$location,$uibModal,$log,ClientService) {
     var vm = this;
 
-    //the rating stars
-    $scope.rate = 0;
-    $scope.max = 5;
-    $scope.isReadonly = false;
+    ClientService.getClient().then(function(data){
+      console.log('client data',data);
+      vm.provider = data;
+      console.log('vm client',vm.provider);
+    })
 
-    $scope.hoveringOver = function(value) {
-      $scope.overStar = value;
-      $scope.percent = 100 * (value / $scope.max);
+    //edit profile content
+    vm.editInfo = false;
+    vm.editBtn = function(){
+      vm.editInfo = !vm.editInfo;
+    }
+
+    //the rating stars
+    vm.rate = 0;
+    vm.max = 5;
+    vm.isReadonly = false;
+
+    vm.hoveringOver = function(value) {
+      vm.overStar = value;
+      vm.percent = 100 * (value / vm.max);
     };
 
-    $scope.ratingStates = [
+    vm.ratingStates = [
       {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
       {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
       {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
@@ -99,20 +111,42 @@ angular
       {stateOff: 'glyphicon-off'}
     ];
 
-
     //temporary accordion data injecting the page
-    $scope.accordionData = [
-      {
-        title: 'this is clavin',
-        content: 'this is a great content'
-      },
-      {
-        title: 'this is alex',
-        content: 'this is the great content'
-      }
-    ]
 
-   $scope.historyData = [
+    vm.historyData = ClientService.historyData;
+
+  }
+
+},{}],7:[function(require,module,exports){
+var angular = require('angular');
+var angularRoute = require('angular-route');
+
+
+
+angular
+  .module('cHome',['ngRoute'])
+  .config(function($routeProvider){
+    $routeProvider
+
+    .when('/clienthome/:id',{
+      templateUrl: 'home/tmpls/clientHome.html',
+      controller: 'ClientController as CliCtrl'
+    })
+  })
+
+},{"angular":24,"angular-route":20}],8:[function(require,module,exports){
+angular
+  .module('cHome')
+  .service('ClientService',function($http, $q, $cacheFactory) {
+
+    var clienturl = '/client';
+    var spurl = '/provider';
+
+    function getClient(id) {
+      return $http.get(clienturl + '/' + id)
+    }
+
+   var historyData = [
      {
        img: './images/bill04.jpg',
        first: 'Zachary',
@@ -131,32 +165,18 @@ angular
        img: './images/bill03.jpg',
        first: 'Spencer',
        last: 'Reid',
-       rating: '0',
+       rating: '1',
        date: 'date/time'
      }
    ]
 
-  }
-
-},{}],7:[function(require,module,exports){
-var angular = require('angular');
-var angularRoute = require('angular-route');
-
-
-
-angular
-  .module('cHome',['ngRoute'])
-  .config(function($routeProvider){
-    $routeProvider
-
-    .when('/clienthome/:id',{
-      templateUrl: 'home/tmpls/clientHome.html',
-
-      controller: 'ClientController as CliCtrl'
-    })
+    return {
+      getClient: getClient,
+      historyData: historyData
+    }
   })
 
-},{"angular":23,"angular-route":19}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 require('./spHome.module');
 require('./spHome.controller');
 require('./spHome.service');
@@ -164,30 +184,59 @@ require('./spHome.directive');
 
 require('./cHome.module');
 require('./cHome.controller');
-// require('./cHome.service');
-// require('./cHome.Directive');
+require('./cHome.service');
+// require('./cHome.directive');
 
-},{"./cHome.controller":6,"./cHome.module":7,"./spHome.controller":9,"./spHome.directive":10,"./spHome.module":11,"./spHome.service":12}],9:[function(require,module,exports){
+},{"./cHome.controller":6,"./cHome.module":7,"./cHome.service":8,"./spHome.controller":10,"./spHome.directive":11,"./spHome.module":12,"./spHome.service":13}],10:[function(require,module,exports){
 angular
   .module('spHome')
-  .controller('SpController',SpController/*,'RatingStars',RatingStars*/);
+  .controller('SpController',SpController);
 
-  SpController.$inject = ['$scope','$rootScope','$location', '$uibModal', '$log','SpService'];
+  SpController.$inject = ['$scope','$rootScope','$location','$uibModal','$log','SpService'];
 
   function SpController($scope,$rootScope,$location,$uibModal,$log,SpService) {
     var vm = this;
 
-    //the rating stars
-    $scope.rate = 0;
-    $scope.max = 5;
-    $scope.isReadonly = false;
+    SpService.getProvider().then(function(data){
+      console.log('provider data',data);
+      vm.provider = data;
+      console.log('vm provider',vm.provider);
+    })
 
-    $scope.hoveringOver = function(value) {
-      $scope.overStar = value;
-      $scope.percent = 100 * (value / $scope.max);
+    //go online: change a boolean and show change in dom, switch button?
+    $scope.goOnline = function(){
+
+    }
+
+    //edit profile content
+    vm.editInfo = false;
+    vm.editBtn1 = function(){
+      vm.editInfo = !vm.editInfo;
+    }
+
+    //edit about content
+    vm.editAbout = false;
+    vm.editBtn2 = function(){
+      vm.editAbout = !vm.editAbout;
+    }
+
+    //edit specialties content
+    vm.editSpecial = false;
+    vm.editBtn3 = function(){
+      vm.editSpecial = !vm.editSpecial;
+    }
+
+    //the rating stars
+    vm.rate = 0;
+    vm.max = 5;
+    vm.isReadonly = false;
+
+    vm.hoveringOver = function(value) {
+      vm.overStar = value;
+      vm.percent = 100 * (value / vm.max);
     };
 
-    $scope.ratingStates = [
+    vm.ratingStates = [
       {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
       {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
       {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
@@ -197,90 +246,11 @@ angular
 
     // temporary accordion data to inject the page moved to service
 
-     $scope.accordionData = [
-       {
-         title: 'this is calvin',
-         content: 'this is a great content'
-       },
-       {
-         title: 'this is alex',
-         content: 'this is the great content'
-       }
-     ]
-
-     $scope.historyData = [
-       {
-         img: './images/bill04.jpg',
-         first: 'Zachary',
-         last: 'Binx',
-         rating: '3',
-         date: 'date/time'
-       },
-       {
-         img: './images/bill02.jpg',
-         first: 'Will',
-         last: 'Graham',
-         rating: '5',
-         date: 'date/time'
-       },
-       {
-         img: './images/bill03.jpg',
-         first: 'Spencer',
-         last: 'Reid',
-         rating: '2',
-         date: 'date/time'
-       }
-     ]
+    vm.historyData = SpService.historyData;
 
   }
 
-  //
-  // RatingStars.$inject = ['$scope','$rootScope','$location', '$uibModal', '$log','SpService'];
-  //
-  // function RatingStars($scope,$rootScope,$location,$uibModal,$log,SpService){
-  //   $scope.rate = rating;
-  //   $scope.max = 5;
-  //   $scope.isReadonly = true;
-  //
-  //   $scope.hoveringOver = function(value) {
-  //     $scope.overStar = value;
-  //     $scope.percent = 100 * (value / $scope.max);
-  //   }
-  //
-  //   $scope.ratingStates = [
-  //     {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
-  //     {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-  //     {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
-  //     {stateOn: 'glyphicon-heart'},
-  //     {stateOff: 'glyphicon-off'}
-  //   ]
-  //
-  //   $scope.historyData = [
-  //     {
-  //       img: './images/bill04.jpg',
-  //       first: 'Zachary',
-  //       last: 'Binx',
-  //       rating: '3',
-  //       date: 'date/time'
-  //     },
-  //     {
-  //       img: './images/bill02.jpg',
-  //       first: 'Will',
-  //       last: 'Graham',
-  //       rating: '5',
-  //       date: 'date/time'
-  //     },
-  //     {
-  //       img: './images/bill03.jpg',
-  //       first: 'Spencer',
-  //       last: 'Reid',
-  //       rating: '2',
-  //       date: 'date/time'
-  //     }
-  //   ]
-  // }
-
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 angular
   .module('spHome')
   .directive('spHomeDir', function () {
@@ -301,7 +271,7 @@ angular
 
   // <sp-home-dir mydata="angularObject"></sp-home-dir>
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
@@ -315,90 +285,56 @@ angular
     ])
   .config(function($routeProvider){
     $routeProvider
-
-    .when('/sphome/:id',{
+    .when('/sphome',{
       templateUrl: 'home/tmpls/spHome.html',
       controller: 'SpController as SpCtrl'
     })
   })
 
-
-
-
-// all the material sidenav controllers
-
-
-  // .controller('AppCtrl', function ($scope, $timeout, $mdSidenav, $log) {
-  //   $scope.toggleLeft = buildDelayedToggler('left');
-  //   $scope.toggleRight = buildToggler('right');
-  //   $scope.isOpenRight = function(){
-  //     return $mdSidenav('right').isOpen();
-  //   };
-  //   /**
-  //    * Supplies a function that will continue to operate until the
-  //    * time is up.
-  //    */
-  //   function debounce(func, wait, context) {
-  //     var timer;
-  //     return function debounced() {
-  //       var context = $scope,
-  //           args = Array.prototype.slice.call(arguments);
-  //       $timeout.cancel(timer);
-  //       timer = $timeout(function() {
-  //         timer = undefined;
-  //         func.apply(context, args);
-  //       }, wait || 10);
-  //     };
-  //   }
-  //   /**
-  //    * Build handler to open/close a SideNav; when animation finishes
-  //    * report completion in console
-  //    */
-  //   function buildDelayedToggler(navID) {
-  //     return debounce(function() {
-  //       $mdSidenav(navID)
-  //         .toggle()
-  //         .then(function () {
-  //           $log.debug("toggle " + navID + " is done");
-  //         });
-  //     }, 200);
-  //   }
-  //   function buildToggler(navID) {
-  //     return function() {
-  //       $mdSidenav(navID)
-  //         .toggle()
-  //         .then(function () {
-  //           $log.debug("toggle " + navID + " is done");
-  //         });
-  //     }
-  //   }
-  // })
-  //
-  // .controller('LeftCtrl', function ($scope, $timeout, $mdSidenav, $log) {
-  //   $scope.close = function () {
-  //     $mdSidenav('left').close()
-  //       .then(function () {
-  //         $log.debug("close LEFT is done");
-  //       });
-  //   };
-  // })
-  // .controller('RightCtrl', function ($scope, $timeout, $mdSidenav, $log) {
-  //   $scope.close = function () {
-  //     $mdSidenav('right').close()
-  //       .then(function () {
-  //         $log.debug("close RIGHT is done");
-  //       });
-  //   };
-  // });
-
-},{"angular":23,"angular-route":19,"angular-ui-bootstrap":21}],12:[function(require,module,exports){
+},{"angular":24,"angular-route":20,"angular-ui-bootstrap":22}],13:[function(require,module,exports){
 angular
   .module('spHome')
   .service('SpService',function($http, $q, $cacheFactory) {
-    
+
+    var clienturl = '/client';
+    var spurl = '/provider';
+
+    function getProvider(id) {
+      return $http.get(spurl + '/' + id)
+    }
+
+    var historyData = [
+      {
+        img: './images/bill04.jpg',
+        first: 'Zachary',
+        last: 'Binx',
+        rating: '3',
+        date: 'date/time'
+      },
+      {
+        img: './images/bill02.jpg',
+        first: 'Will',
+        last: 'Graham',
+        rating: '5',
+        date: 'date/time'
+      },
+      {
+        img: './images/bill03.jpg',
+        first: 'Spencer',
+        last: 'Reid',
+        rating: '2',
+        date: 'date/time'
+      }
+    ]
+
+    return {
+      getProvider: getProvider,
+      historyData: historyData
+    }
+
   })
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 angular
 .module('login')
 .controller('ModalInstanceController', function ($scope, $uibModalInstance, LoginService, $location) {
@@ -466,7 +402,7 @@ angular
 // }
 });
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 angular
 .module('login')
 .controller('LoginModalController', function ($scope, $uibModal, $log, $location) {
@@ -508,19 +444,19 @@ angular
 
 })
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 require('./login.module.js')
 require('./login.service.js')
 require('./controllers/login-modal.controller.js');
 require('./controllers/login-modal-instance.controller.js');
 
-},{"./controllers/login-modal-instance.controller.js":13,"./controllers/login-modal.controller.js":14,"./login.module.js":16,"./login.service.js":17}],16:[function(require,module,exports){
+},{"./controllers/login-modal-instance.controller.js":14,"./controllers/login-modal.controller.js":15,"./login.module.js":17,"./login.service.js":18}],17:[function(require,module,exports){
 angular
   .module('login',[
     'ngRoute',
   ]);
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 angular
   .module('login')
   .service('LoginService',function($http) {
@@ -565,7 +501,7 @@ angular
     };
   })
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -1589,11 +1525,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":18}],20:[function(require,module,exports){
+},{"./angular-route":19}],21:[function(require,module,exports){
 /*
  * angular-ui-bootstrap
  * http://angular-ui.github.io/bootstrap/
@@ -8922,12 +8858,12 @@ angular.module('ui.bootstrap.datepickerPopup').run(function() {!angular.$$csp().
 angular.module('ui.bootstrap.tooltip').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTooltipCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-tooltip-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-bottom > .tooltip-arrow,[uib-popover-popup].popover.top-left > .arrow,[uib-popover-popup].popover.top-right > .arrow,[uib-popover-popup].popover.bottom-left > .arrow,[uib-popover-popup].popover.bottom-right > .arrow,[uib-popover-popup].popover.left-top > .arrow,[uib-popover-popup].popover.left-bottom > .arrow,[uib-popover-popup].popover.right-top > .arrow,[uib-popover-popup].popover.right-bottom > .arrow,[uib-popover-html-popup].popover.top-left > .arrow,[uib-popover-html-popup].popover.top-right > .arrow,[uib-popover-html-popup].popover.bottom-left > .arrow,[uib-popover-html-popup].popover.bottom-right > .arrow,[uib-popover-html-popup].popover.left-top > .arrow,[uib-popover-html-popup].popover.left-bottom > .arrow,[uib-popover-html-popup].popover.right-top > .arrow,[uib-popover-html-popup].popover.right-bottom > .arrow,[uib-popover-template-popup].popover.top-left > .arrow,[uib-popover-template-popup].popover.top-right > .arrow,[uib-popover-template-popup].popover.bottom-left > .arrow,[uib-popover-template-popup].popover.bottom-right > .arrow,[uib-popover-template-popup].popover.left-top > .arrow,[uib-popover-template-popup].popover.left-bottom > .arrow,[uib-popover-template-popup].popover.right-top > .arrow,[uib-popover-template-popup].popover.right-bottom > .arrow{top:auto;bottom:auto;left:auto;right:auto;margin:0;}[uib-popover-popup].popover,[uib-popover-html-popup].popover,[uib-popover-template-popup].popover{display:block !important;}</style>'); angular.$$uibTooltipCss = true; });
 angular.module('ui.bootstrap.timepicker').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTimepickerCss && angular.element(document).find('head').prepend('<style type="text/css">.uib-time input{width:50px;}</style>'); angular.$$uibTimepickerCss = true; });
 angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTypeaheadCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-typeahead-popup].dropdown-menu{display:block;}</style>'); angular.$$uibTypeaheadCss = true; });
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 require('./dist/ui-bootstrap-tpls');
 
 module.exports = 'ui.bootstrap';
 
-},{"./dist/ui-bootstrap-tpls":20}],22:[function(require,module,exports){
+},{"./dist/ui-bootstrap-tpls":21}],23:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -39642,8 +39578,8 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":22}]},{},[1]);
+},{"./angular":23}]},{},[1]);
