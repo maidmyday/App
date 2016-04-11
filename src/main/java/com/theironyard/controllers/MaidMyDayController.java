@@ -104,7 +104,7 @@ public class MaidMyDayController {
     public List<Rating> viewClientRatings(HttpSession session) {
         String clientEmail = (String) session.getAttribute("email");
         Client client = clientRepository.findByEmail(clientEmail);
-        List<Rating> localRatings = ratingRepository.findbyClient(client);
+        List<Rating> localRatings = ratingRepository.findByClient(client);
         return localRatings;
     }
 
@@ -189,7 +189,7 @@ public class MaidMyDayController {
     public List<Rating> viewProviderRatings(HttpSession session) {
         String providerEmail = (String) session.getAttribute("email");
         Provider provider = providerRepository.findByEmail(providerEmail);
-        List<Rating> localRatings = ratingRepository.findbyProvider(provider);
+        List<Rating> localRatings = ratingRepository.findByProvider(provider);
         return localRatings;
     }
 
