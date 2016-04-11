@@ -11,6 +11,7 @@ angular
     ])
   .config(function($routeProvider){
     $routeProvider
+<<<<<<< HEAD
     .when('/sphome',{
       templateUrl: 'home/tmpls/spHome.html',
       controller: 'SpController'
