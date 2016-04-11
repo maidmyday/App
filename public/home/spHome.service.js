@@ -2,6 +2,13 @@ angular
   .module('spHome')
   .service('SpService',function($http, $q, $cacheFactory) {
 
+    var clienturl = '/client';
+    var spurl = '/provider';
+
+    function getProvider(id) {
+      return $http.get(spurl + '/' + id)
+    }
+
     var historyData = [
       {
         img: './images/bill04.jpg',
@@ -27,6 +34,7 @@ angular
     ]
 
     return {
+      getProvider: getProvider,
       historyData: historyData
     }
 

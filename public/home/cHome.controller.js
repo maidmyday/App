@@ -7,23 +7,29 @@ angular
   function ClientController($scope,$rootScope,$location,$uibModal,$log,ClientService) {
     var vm = this;
 
+    ClientService.getClient().then(function(data){
+      console.log('client data',data);
+      vm.provider = data;
+      console.log('vm client',vm.provider);
+    })
+
     //edit profile content
-    $scope.editInfo = false;
-    $scope.editBtn = function(){
-      $scope.editInfo = !$scope.editInfo;
+    vm.editInfo = false;
+    vm.editBtn = function(){
+      vm.editInfo = !vm.editInfo;
     }
 
     //the rating stars
-    $scope.rate = 0;
-    $scope.max = 5;
-    $scope.isReadonly = false;
+    vm.rate = 0;
+    vm.max = 5;
+    vm.isReadonly = false;
 
-    $scope.hoveringOver = function(value) {
-      $scope.overStar = value;
-      $scope.percent = 100 * (value / $scope.max);
+    vm.hoveringOver = function(value) {
+      vm.overStar = value;
+      vm.percent = 100 * (value / vm.max);
     };
 
-    $scope.ratingStates = [
+    vm.ratingStates = [
       {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
       {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
       {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
@@ -33,6 +39,6 @@ angular
 
     //temporary accordion data injecting the page
 
-    $scope.historyData = ClientService.historyData;
+    vm.historyData = ClientService.historyData;
 
   }

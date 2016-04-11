@@ -1,6 +1,14 @@
 angular
   .module('cHome')
   .service('ClientService',function($http, $q, $cacheFactory) {
+
+    var clienturl = '/client';
+    var spurl = '/provider';
+
+    function getClient(id) {
+      return $http.get(clienturl + '/' + id)
+    }
+
    var historyData = [
      {
        img: './images/bill04.jpg',
@@ -26,6 +34,7 @@ angular
    ]
 
     return {
+      getClient: getClient,
       historyData: historyData
     }
   })

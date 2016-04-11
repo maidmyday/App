@@ -13,13 +13,8 @@ angular
     'ui.bootstrap',
     'cHome',
     'spHome',
-<<<<<<< HEAD
-    'goOnline',
-    'login.module'
-=======
     'login',
     'goOnline'
->>>>>>> 77b705908cf27905ff07dd04296639c15a47868f
   ])
 
   .config(function($routeProvider) {
@@ -38,11 +33,7 @@ angular
       })
   })
 
-<<<<<<< HEAD
-},{"./goOnline":5,"./home":9,"./loginFeature":14,"angular":24,"angular-route":20,"angular-ui-bootstrap":22}],2:[function(require,module,exports){
-=======
-},{"./goOnline":5,"./home":8,"./loginFeature":15,"angular":23,"angular-route":19,"angular-ui-bootstrap":21}],2:[function(require,module,exports){
->>>>>>> 77b705908cf27905ff07dd04296639c15a47868f
+},{"./goOnline":5,"./home":9,"./loginFeature":16,"angular":24,"angular-route":20,"angular-ui-bootstrap":22}],2:[function(require,module,exports){
 angular
   .module('goOnline')
   .controller('GoController', GoController);
@@ -72,11 +63,7 @@ angular
     })
   })
 
-<<<<<<< HEAD
 },{"angular":24,"angular-route":20,"angular-ui-bootstrap":22}],4:[function(require,module,exports){
-=======
-},{"angular":23,"angular-route":19,"angular-ui-bootstrap":21}],4:[function(require,module,exports){
->>>>>>> 77b705908cf27905ff07dd04296639c15a47868f
 
 },{}],5:[function(require,module,exports){
 require('./goOnline.module');
@@ -89,36 +76,34 @@ angular
   .module('cHome')
   .controller('ClientController', ClientController);
 
-<<<<<<< HEAD
   ClientController.$inject = ['$scope','$rootScope','$location','$uibModal','$log','ClientService'];
 
   function ClientController($scope,$rootScope,$location,$uibModal,$log,ClientService) {
     var vm = this;
 
+    ClientService.getClient().then(function(data){
+      console.log('client data',data);
+      vm.provider = data;
+      console.log('vm client',vm.provider);
+    })
+
     //edit profile content
-    $scope.editInfo = false;
-    $scope.editBtn = function(){
-      $scope.editInfo = !$scope.editInfo;
+    vm.editInfo = false;
+    vm.editBtn = function(){
+      vm.editInfo = !vm.editInfo;
     }
 
-=======
-  ClientController.$inject = ['$scope','$rootScope','$location',/*'ClientService'*/];
-
-  function ClientController($scope,$rootScope,$location/*ClientService*/) {
-    var vm = this;
-
->>>>>>> 77b705908cf27905ff07dd04296639c15a47868f
     //the rating stars
-    $scope.rate = 0;
-    $scope.max = 5;
-    $scope.isReadonly = false;
+    vm.rate = 0;
+    vm.max = 5;
+    vm.isReadonly = false;
 
-    $scope.hoveringOver = function(value) {
-      $scope.overStar = value;
-      $scope.percent = 100 * (value / $scope.max);
+    vm.hoveringOver = function(value) {
+      vm.overStar = value;
+      vm.percent = 100 * (value / vm.max);
     };
 
-    $scope.ratingStates = [
+    vm.ratingStates = [
       {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
       {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
       {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
@@ -126,10 +111,9 @@ angular
       {stateOff: 'glyphicon-off'}
     ];
 
-<<<<<<< HEAD
     //temporary accordion data injecting the page
 
-    $scope.historyData = ClientService.historyData;
+    vm.historyData = ClientService.historyData;
 
   }
 
@@ -143,7 +127,8 @@ angular
   .module('cHome',['ngRoute'])
   .config(function($routeProvider){
     $routeProvider
-    .when('/clienthome',{
+
+    .when('/clienthome/:id',{
       templateUrl: 'home/tmpls/clientHome.html',
       controller: 'ClientController as CliCtrl'
     })
@@ -153,23 +138,15 @@ angular
 angular
   .module('cHome')
   .service('ClientService',function($http, $q, $cacheFactory) {
+
+    var clienturl = '/client';
+    var spurl = '/provider';
+
+    function getClient(id) {
+      return $http.get(clienturl + '/' + id)
+    }
+
    var historyData = [
-=======
-
-    //temporary accordion data injecting the page
-    $scope.accordionData = [
-      {
-        title: 'this is clavin',
-        content: 'this is a great content'
-      },
-      {
-        title: 'this is alex',
-        content: 'this is the great content'
-      }
-    ]
-
-   $scope.historyData = [
->>>>>>> 77b705908cf27905ff07dd04296639c15a47868f
      {
        img: './images/bill04.jpg',
        first: 'Zachary',
@@ -188,45 +165,18 @@ angular
        img: './images/bill03.jpg',
        first: 'Spencer',
        last: 'Reid',
-<<<<<<< HEAD
        rating: '1',
-=======
-       rating: '0',
->>>>>>> 77b705908cf27905ff07dd04296639c15a47868f
        date: 'date/time'
      }
    ]
 
-<<<<<<< HEAD
     return {
+      getClient: getClient,
       historyData: historyData
     }
   })
 
 },{}],9:[function(require,module,exports){
-=======
-  }
-
-},{}],7:[function(require,module,exports){
-var angular = require('angular');
-var angularRoute = require('angular-route');
-
-
-
-angular
-  .module('cHome',['ngRoute'])
-  .config(function($routeProvider){
-    $routeProvider
-
-    .when('/clienthome/:id',{
-      templateUrl: 'home/tmpls/clientHome.html',
-
-      controller: 'ClientController as CliCtrl'
-    })
-  })
-
-},{"angular":23,"angular-route":19}],8:[function(require,module,exports){
->>>>>>> 77b705908cf27905ff07dd04296639c15a47868f
 require('./spHome.module');
 require('./spHome.controller');
 require('./spHome.service');
@@ -234,7 +184,6 @@ require('./spHome.directive');
 
 require('./cHome.module');
 require('./cHome.controller');
-<<<<<<< HEAD
 require('./cHome.service');
 // require('./cHome.directive');
 
@@ -246,56 +195,48 @@ angular
   SpController.$inject = ['$scope','$rootScope','$location','$uibModal','$log','SpService'];
 
   function SpController($scope,$rootScope,$location,$uibModal,$log,SpService) {
-    // var vm = this;
+    var vm = this;
+
+    SpService.getProvider().then(function(data){
+      console.log('provider data',data);
+      vm.provider = data;
+      console.log('vm provider',vm.provider);
+    })
 
     //go online: change a boolean and show change in dom, switch button?
     $scope.goOnline = function(){
-      
+
     }
 
     //edit profile content
-    $scope.editInfo = false;
-    $scope.editBtn1 = function(){
-      $scope.editInfo = !$scope.editInfo;
+    vm.editInfo = false;
+    vm.editBtn1 = function(){
+      vm.editInfo = !vm.editInfo;
     }
 
     //edit about content
-    $scope.editAbout = false;
-    $scope.editBtn2 = function(){
-      $scope.editAbout = !$scope.editAbout;
+    vm.editAbout = false;
+    vm.editBtn2 = function(){
+      vm.editAbout = !vm.editAbout;
     }
 
     //edit specialties content
-    $scope.editSpecial = false;
-    $scope.editBtn3 = function(){
-      $scope.editSpecial = !$scope.editSpecial;
+    vm.editSpecial = false;
+    vm.editBtn3 = function(){
+      vm.editSpecial = !vm.editSpecial;
     }
-=======
-// require('./cHome.service');
-// require('./cHome.Directive');
-
-},{"./cHome.controller":6,"./cHome.module":7,"./spHome.controller":9,"./spHome.directive":10,"./spHome.module":11,"./spHome.service":12}],9:[function(require,module,exports){
-angular
-  .module('spHome')
-  .controller('SpController',SpController/*,'RatingStars',RatingStars*/);
-
-  SpController.$inject = ['$scope','$rootScope','$location', '$uibModal', '$log','SpService'];
-
-  function SpController($scope,$rootScope,$location,$uibModal,$log,SpService) {
-    var vm = this;
->>>>>>> 77b705908cf27905ff07dd04296639c15a47868f
 
     //the rating stars
-    $scope.rate = 0;
-    $scope.max = 5;
-    $scope.isReadonly = false;
+    vm.rate = 0;
+    vm.max = 5;
+    vm.isReadonly = false;
 
-    $scope.hoveringOver = function(value) {
-      $scope.overStar = value;
-      $scope.percent = 100 * (value / $scope.max);
+    vm.hoveringOver = function(value) {
+      vm.overStar = value;
+      vm.percent = 100 * (value / vm.max);
     };
 
-    $scope.ratingStates = [
+    vm.ratingStates = [
       {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
       {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
       {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
@@ -305,99 +246,11 @@ angular
 
     // temporary accordion data to inject the page moved to service
 
-<<<<<<< HEAD
-    $scope.accordionData = SpService.accordionData;
-    $scope.historyData = SpService.historyData;
+    vm.historyData = SpService.historyData;
 
   }
 
 },{}],11:[function(require,module,exports){
-=======
-     $scope.accordionData = [
-       {
-         title: 'this is calvin',
-         content: 'this is a great content'
-       },
-       {
-         title: 'this is alex',
-         content: 'this is the great content'
-       }
-     ]
-
-     $scope.historyData = [
-       {
-         img: './images/bill04.jpg',
-         first: 'Zachary',
-         last: 'Binx',
-         rating: '3',
-         date: 'date/time'
-       },
-       {
-         img: './images/bill02.jpg',
-         first: 'Will',
-         last: 'Graham',
-         rating: '5',
-         date: 'date/time'
-       },
-       {
-         img: './images/bill03.jpg',
-         first: 'Spencer',
-         last: 'Reid',
-         rating: '2',
-         date: 'date/time'
-       }
-     ]
-
-  }
-
-  //
-  // RatingStars.$inject = ['$scope','$rootScope','$location', '$uibModal', '$log','SpService'];
-  //
-  // function RatingStars($scope,$rootScope,$location,$uibModal,$log,SpService){
-  //   $scope.rate = rating;
-  //   $scope.max = 5;
-  //   $scope.isReadonly = true;
-  //
-  //   $scope.hoveringOver = function(value) {
-  //     $scope.overStar = value;
-  //     $scope.percent = 100 * (value / $scope.max);
-  //   }
-  //
-  //   $scope.ratingStates = [
-  //     {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
-  //     {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-  //     {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
-  //     {stateOn: 'glyphicon-heart'},
-  //     {stateOff: 'glyphicon-off'}
-  //   ]
-  //
-  //   $scope.historyData = [
-  //     {
-  //       img: './images/bill04.jpg',
-  //       first: 'Zachary',
-  //       last: 'Binx',
-  //       rating: '3',
-  //       date: 'date/time'
-  //     },
-  //     {
-  //       img: './images/bill02.jpg',
-  //       first: 'Will',
-  //       last: 'Graham',
-  //       rating: '5',
-  //       date: 'date/time'
-  //     },
-  //     {
-  //       img: './images/bill03.jpg',
-  //       first: 'Spencer',
-  //       last: 'Reid',
-  //       rating: '2',
-  //       date: 'date/time'
-  //     }
-  //   ]
-  // }
-
-},{}],10:[function(require,module,exports){
->>>>>>> 77b705908cf27905ff07dd04296639c15a47868f
 angular
   .module('spHome')
   .directive('spHomeDir', function () {
@@ -418,11 +271,7 @@ angular
 
   // <sp-home-dir mydata="angularObject"></sp-home-dir>
 
-<<<<<<< HEAD
 },{}],12:[function(require,module,exports){
-=======
-},{}],11:[function(require,module,exports){
->>>>>>> 77b705908cf27905ff07dd04296639c15a47868f
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
@@ -436,93 +285,23 @@ angular
     ])
   .config(function($routeProvider){
     $routeProvider
-<<<<<<< HEAD
     .when('/sphome',{
       templateUrl: 'home/tmpls/spHome.html',
-      controller: 'SpController'
-=======
-
-    .when('/sphome/:id',{
-      templateUrl: 'home/tmpls/spHome.html',
       controller: 'SpController as SpCtrl'
->>>>>>> 77b705908cf27905ff07dd04296639c15a47868f
     })
   })
 
-
-
-
-// all the material sidenav controllers
-
-
-  // .controller('AppCtrl', function ($scope, $timeout, $mdSidenav, $log) {
-  //   $scope.toggleLeft = buildDelayedToggler('left');
-  //   $scope.toggleRight = buildToggler('right');
-  //   $scope.isOpenRight = function(){
-  //     return $mdSidenav('right').isOpen();
-  //   };
-  //   /**
-  //    * Supplies a function that will continue to operate until the
-  //    * time is up.
-  //    */
-  //   function debounce(func, wait, context) {
-  //     var timer;
-  //     return function debounced() {
-  //       var context = $scope,
-  //           args = Array.prototype.slice.call(arguments);
-  //       $timeout.cancel(timer);
-  //       timer = $timeout(function() {
-  //         timer = undefined;
-  //         func.apply(context, args);
-  //       }, wait || 10);
-  //     };
-  //   }
-  //   /**
-  //    * Build handler to open/close a SideNav; when animation finishes
-  //    * report completion in console
-  //    */
-  //   function buildDelayedToggler(navID) {
-  //     return debounce(function() {
-  //       $mdSidenav(navID)
-  //         .toggle()
-  //         .then(function () {
-  //           $log.debug("toggle " + navID + " is done");
-  //         });
-  //     }, 200);
-  //   }
-  //   function buildToggler(navID) {
-  //     return function() {
-  //       $mdSidenav(navID)
-  //         .toggle()
-  //         .then(function () {
-  //           $log.debug("toggle " + navID + " is done");
-  //         });
-  //     }
-  //   }
-  // })
-  //
-  // .controller('LeftCtrl', function ($scope, $timeout, $mdSidenav, $log) {
-  //   $scope.close = function () {
-  //     $mdSidenav('left').close()
-  //       .then(function () {
-  //         $log.debug("close LEFT is done");
-  //       });
-  //   };
-  // })
-  // .controller('RightCtrl', function ($scope, $timeout, $mdSidenav, $log) {
-  //   $scope.close = function () {
-  //     $mdSidenav('right').close()
-  //       .then(function () {
-  //         $log.debug("close RIGHT is done");
-  //       });
-  //   };
-  // });
-
-<<<<<<< HEAD
 },{"angular":24,"angular-route":20,"angular-ui-bootstrap":22}],13:[function(require,module,exports){
 angular
   .module('spHome')
   .service('SpService',function($http, $q, $cacheFactory) {
+
+    var clienturl = '/client';
+    var spurl = '/provider';
+
+    function getProvider(id) {
+      return $http.get(spurl + '/' + id)
+    }
 
     var historyData = [
       {
@@ -549,81 +328,13 @@ angular
     ]
 
     return {
+      getProvider: getProvider,
       historyData: historyData
     }
 
   })
 
 },{}],14:[function(require,module,exports){
-require('./login.module.js')
-require('./login.service.js')
-require('./signinmodal.controller.js');
-require('./signinmodalinstance.controller.js');
-
-},{"./login.module.js":15,"./login.service.js":16,"./signinmodal.controller.js":17,"./signinmodalinstance.controller.js":18}],15:[function(require,module,exports){
-angular
-  .module('login.module',[
-    'ngRoute'
-  ]);
-
-},{}],16:[function(require,module,exports){
-angular
-  .module('login.module')
-  .service('LoginService',function($http) {
-    // var url = "https://tiny-tiny.herokuapp.com/collections/shoppingcart";
-    var clienturl = '/client';
-    var spurl = '/provider';
-
-    function getClient(id) {
-      return $http.get(clienturl + '/' + id)
-    }
-    function getAllClients() {
-      return $http.get(clienturl)
-    }
-    function postClient(post) {
-      console.log("USER BEING SAVED", post);
-      return $http.post(clienturl,post);
-    }
-
-    function getSp(id) {
-      return $http.get(spurl + '/' + id)
-    }
-
-    function getAllSp() {
-      return $http.get(spurl)
-    }
-
-    function postSp(post) {
-      return $http.post(spurl,post);
-    }
-
-
-
-    return {
-      getClient: getClient,
-      getAllClients: getAllClients,
-      postClient: postClient,
-      getSp: getSp,
-      getAllSp: getAllSp,
-      postSp: postSp
-    };
-  })
-
-},{}],17:[function(require,module,exports){
-angular
-.module('login.module')
-.controller('LoginModalController', function ($scope, $uibModal, $log, $location) {
-  $scope.animationsEnabled = true;
-
-=======
-},{"angular":23,"angular-route":19,"angular-ui-bootstrap":21}],12:[function(require,module,exports){
-angular
-  .module('spHome')
-  .service('SpService',function($http, $q, $cacheFactory) {
-    
-  })
-
-},{}],13:[function(require,module,exports){
 angular
 .module('login')
 .controller('ModalInstanceController', function ($scope, $uibModalInstance, LoginService, $location) {
@@ -691,7 +402,7 @@ angular
 // }
 });
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 angular
 .module('login')
 .controller('LoginModalController', function ($scope, $uibModal, $log, $location) {
@@ -699,7 +410,6 @@ angular
 
 
 // THIS OPENS PROVIDER MODAL
->>>>>>> 77b705908cf27905ff07dd04296639c15a47868f
   $scope.openSpLoginModal = function (size) {
 
     var modalInstance = $uibModal.open({
@@ -715,11 +425,8 @@ angular
     });
   };
 
-<<<<<<< HEAD
-=======
 
 // THIS OPEN CLIENT MODAL
->>>>>>> 77b705908cf27905ff07dd04296639c15a47868f
   $scope.openClientLoginModal = function (size) {
 
     var modalInstance = $uibModal.open({
@@ -735,111 +442,21 @@ angular
     });
   };
 
-<<<<<<< HEAD
-  $scope.registerClient = function () {
-
-    var modalInstance = $uibModal.open({
-      animation: $scope.animationsEnabled,
-      templateUrl: './loginFeature/templates/Clientregistermodal.html',
-      controller: 'ModalInstanceController',
-      size: size,
-      resolve: {
-        items: function () {
-          return $scope.items;
-        }
-      }
-    });
-  };
-
-
-
 })
 
-},{}],18:[function(require,module,exports){
-angular
-.module('login.module')
-.controller('ModalInstanceController', function ($scope, $uibModalInstance, LoginService) {
-
-  $scope.ok = function () {
-    $uibModalInstance.close($scope.selected.item);
-  };
-
-  $scope.cancel = function () {
-    $uibModalInstance.dismiss('cancel');
-  };
-
-  $scope.showModalSection = 'login';
-
-
-  $scope.registerClient = function () {
-    $scope.showModalSection = 'register';
-  }
-
-  $scope.loginClient = function () {
-    $scope.showModalSection = 'login';
-
-
-  };
-  $scope.signInClient = function () {
-    $uibModalInstance.dismiss();
-    // THIS PATH WILL NEED AN ID LIKE /clienthome/id
-    $location.path('/clienthome');
-  };
-
-  $scope.registerClientPath = function (user) {
-    console.log(user);
-    LoginService.postClient(user)
-    .success(function(data) {
-      console.log("SAVED", data)
-      $uibModalInstance.dismiss();
-      // THIS PATH WILL NEED AN ID LIKE /clienthome/id
-      // $location.path('/clienthome');
-    })
-    .error(function(err) {
-      console.log("OH SHIT", err)
-    })
-
-  }
-
-
-  $scope.registerSp = function () {
-    $scope.showModalSection = 'register';
-  }
-
-  $scope.loginSp = function () {
-    $scope.showModalSection = 'login';
-
-  };
-  $scope.signInSp = function () {
-    $uibModalInstance.dismiss();
-    // THIS PATH WILL NEED AN ID LIKE /clienthome/id
-    $location.path('/sphome');
-  };
-
-  $scope.registerSpPath = function () {
-    $uibModalInstance.dismiss();
-    // THIS PATH WILL NEED AN ID LIKE /clienthome/id
-    $location.path('/sphome');
-  }
-});
-
-},{}],19:[function(require,module,exports){
-=======
-})
-
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 require('./login.module.js')
 require('./login.service.js')
 require('./controllers/login-modal.controller.js');
 require('./controllers/login-modal-instance.controller.js');
 
-},{"./controllers/login-modal-instance.controller.js":13,"./controllers/login-modal.controller.js":14,"./login.module.js":16,"./login.service.js":17}],16:[function(require,module,exports){
+},{"./controllers/login-modal-instance.controller.js":14,"./controllers/login-modal.controller.js":15,"./login.module.js":17,"./login.service.js":18}],17:[function(require,module,exports){
 angular
   .module('login',[
     'ngRoute',
   ]);
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 angular
   .module('login')
   .service('LoginService',function($http) {
@@ -884,8 +501,7 @@ angular
     };
   })
 
-},{}],18:[function(require,module,exports){
->>>>>>> 77b705908cf27905ff07dd04296639c15a47868f
+},{}],19:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -1909,19 +1525,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-<<<<<<< HEAD
 },{}],20:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
 },{"./angular-route":19}],21:[function(require,module,exports){
-=======
-},{}],19:[function(require,module,exports){
-require('./angular-route');
-module.exports = 'ngRoute';
-
-},{"./angular-route":18}],20:[function(require,module,exports){
->>>>>>> 77b705908cf27905ff07dd04296639c15a47868f
 /*
  * angular-ui-bootstrap
  * http://angular-ui.github.io/bootstrap/
@@ -9250,20 +8858,12 @@ angular.module('ui.bootstrap.datepickerPopup').run(function() {!angular.$$csp().
 angular.module('ui.bootstrap.tooltip').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTooltipCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-tooltip-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-bottom > .tooltip-arrow,[uib-popover-popup].popover.top-left > .arrow,[uib-popover-popup].popover.top-right > .arrow,[uib-popover-popup].popover.bottom-left > .arrow,[uib-popover-popup].popover.bottom-right > .arrow,[uib-popover-popup].popover.left-top > .arrow,[uib-popover-popup].popover.left-bottom > .arrow,[uib-popover-popup].popover.right-top > .arrow,[uib-popover-popup].popover.right-bottom > .arrow,[uib-popover-html-popup].popover.top-left > .arrow,[uib-popover-html-popup].popover.top-right > .arrow,[uib-popover-html-popup].popover.bottom-left > .arrow,[uib-popover-html-popup].popover.bottom-right > .arrow,[uib-popover-html-popup].popover.left-top > .arrow,[uib-popover-html-popup].popover.left-bottom > .arrow,[uib-popover-html-popup].popover.right-top > .arrow,[uib-popover-html-popup].popover.right-bottom > .arrow,[uib-popover-template-popup].popover.top-left > .arrow,[uib-popover-template-popup].popover.top-right > .arrow,[uib-popover-template-popup].popover.bottom-left > .arrow,[uib-popover-template-popup].popover.bottom-right > .arrow,[uib-popover-template-popup].popover.left-top > .arrow,[uib-popover-template-popup].popover.left-bottom > .arrow,[uib-popover-template-popup].popover.right-top > .arrow,[uib-popover-template-popup].popover.right-bottom > .arrow{top:auto;bottom:auto;left:auto;right:auto;margin:0;}[uib-popover-popup].popover,[uib-popover-html-popup].popover,[uib-popover-template-popup].popover{display:block !important;}</style>'); angular.$$uibTooltipCss = true; });
 angular.module('ui.bootstrap.timepicker').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTimepickerCss && angular.element(document).find('head').prepend('<style type="text/css">.uib-time input{width:50px;}</style>'); angular.$$uibTimepickerCss = true; });
 angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTypeaheadCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-typeahead-popup].dropdown-menu{display:block;}</style>'); angular.$$uibTypeaheadCss = true; });
-<<<<<<< HEAD
 },{}],22:[function(require,module,exports){
-=======
-},{}],21:[function(require,module,exports){
->>>>>>> 77b705908cf27905ff07dd04296639c15a47868f
 require('./dist/ui-bootstrap-tpls');
 
 module.exports = 'ui.bootstrap';
 
-<<<<<<< HEAD
 },{"./dist/ui-bootstrap-tpls":21}],23:[function(require,module,exports){
-=======
-},{"./dist/ui-bootstrap-tpls":20}],22:[function(require,module,exports){
->>>>>>> 77b705908cf27905ff07dd04296639c15a47868f
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -39978,16 +39578,8 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-<<<<<<< HEAD
 },{}],24:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
 },{"./angular":23}]},{},[1]);
-=======
-},{}],23:[function(require,module,exports){
-require('./angular');
-module.exports = angular;
-
-},{"./angular":22}]},{},[1]);
->>>>>>> 77b705908cf27905ff07dd04296639c15a47868f

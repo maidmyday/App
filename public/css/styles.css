@@ -60,6 +60,10 @@ uib-accordion-heading {
 div.profile-panels h4 {
   display: inline-block; }
 
+div.paragraph {
+  max-height: 500px;
+  overflow: auto; }
+
 div.rAndC {
   max-height: 500px;
   overflow: auto; }
