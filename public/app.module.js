@@ -1,10 +1,10 @@
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
-require('./clientHome');
-require('./spHome');
+<<<<<<< HEAD
+require('./home');
+require('./goOnline');
 require('./loginFeature');
-
 
 
 angular
@@ -13,8 +13,10 @@ angular
     'ui.bootstrap',
     'cHome',
     'spHome',
+    'goOnline',
     'login.module'
   ])
+
   .config(function($routeProvider) {
     $routeProvider
       .when('/',{
@@ -30,4 +32,3 @@ angular
          redirectTo: '/404'
       })
   })
-  

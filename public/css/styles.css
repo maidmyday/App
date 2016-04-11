@@ -43,14 +43,23 @@ div.userImgHome {
   width: 300px;
   height: 300px; }
   div.userImgHome img.userImgHome {
-    height: 100%;
-    width: 100%;
+    height: auto;
+    width: 140%;
     display: block;
     margin: 0 auto;
     position: absolute;
     left: 50%;
     top: 50%;
     -webkit-transform: translateY(-50%) translateX(-50%); }
+
+div.panel > .panel-heading {
+  background-color: #9CAFB7;
+  border-radius: 0; }
+  div.panel > .panel-heading h3 {
+    text-align: center;
+    color: #FFFFFF; }
+    div.panel > .panel-heading h3 a {
+      text-decoration: none; }
 
 uib-accordion-heading {
   background-color: #EAD2AC; }
@@ -59,7 +68,7 @@ div.profile-panels h4 {
   display: inline-block; }
 
 div.rAndC {
-  max-height: 300px;
+  max-height: 500px;
   overflow: auto; }
 
 table.rAndC-table td p {
@@ -74,14 +83,22 @@ div.userImgSm {
   overflow: hidden;
   border-radius: 100%;
   width: 100px;
-  height: 100px; }
+  height: 100px;
+  position: relative; }
   div.userImgSm img.userIcon {
-    height: 100%;
-    display: block; }
+    width: 170%;
+    height: auto;
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translateY(-50%) translateX(-50%); }
 
-div.btmRoom {
-  width: 100%;
-  height: 50px; }
+.glyphicon-star {
+  color: #EAD2AC; }
+
+.glyphicon-star-empty {
+  color: #9CAFB7; }
 
 nav.home {
   background-color: #4281A4;
