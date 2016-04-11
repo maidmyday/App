@@ -12,7 +12,7 @@ angular
   .config(function($routeProvider){
     $routeProvider
     .when('/sphome',{
-      templateUrl: 'spHome/tmpls/spHome.html',
+      templateUrl: 'Home/tmpls/spHome.html',
       controller: 'SpController as SpCtrl'
     })
   })

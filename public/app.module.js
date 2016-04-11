@@ -1,8 +1,7 @@
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
-require('./clientHome');
-require('./spHome');
+require('./home');
 require('./goOnline')
 
 

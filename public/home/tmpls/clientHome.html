@@ -72,10 +72,10 @@
                          </div>
                        </td>
                        <td>
-                         <button class="btn btn-default">{{user.first}} {{user.last}}</button>
+                         <p>{{user.first}} {{user.last}}</p>
                        </td>
                        <td>
-                         <p>{{user.rating}}</p>
+                         <button class="btn btn-default"><uib-rating ng-model="user.rating" max="{{user.rating}}" read-only="true" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating></button>
                        </td>
                        <td>
                          <p>{{user.date}}</p>
@@ -88,10 +88,6 @@
              </div>
            </div>
          </uib-accordion-group>
-
-         <uib-accordion-group ng-repeat="accordion in accordionData" heading="{{accordion.title}}" is-disabled="status.isFirstDisabled">
-          {{accordion.content}}
-        </uib-accordion-group>
 
         </uib-accordion>
 
