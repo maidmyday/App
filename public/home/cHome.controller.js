@@ -7,13 +7,12 @@ angular
   function ClientController($scope,$rootScope,$location,$uibModal,$log,ClientService) {
     var vm = this;
 
-
-
-
-    ClientService.getClient().then(function(data){
-      console.log('client data',data);
-      vm.provider = data;
-      console.log('vm client',vm.provider);
+    ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id).then(function(data){
+      console.log('client data from chome controller',data);
+      console.log('testing theclient from chome controller',window.localStorage.getItem('theclient'));
+      // vm.client = data;
+      vm.clientData =  JSON.parse(window.localStorage.getItem('theclient'));
+      console.log('vm client from chome controller',vm.clientData);
     })
 
     //edit profile content

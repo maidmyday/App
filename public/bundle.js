@@ -83,13 +83,12 @@ angular
   function ClientController($scope,$rootScope,$location,$uibModal,$log,ClientService) {
     var vm = this;
 
-
-
-
-    ClientService.getClient().then(function(data){
-      console.log('client data',data);
-      vm.provider = data;
-      console.log('vm client',vm.provider);
+    ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id).then(function(data){
+      console.log('client data from chome controller',data);
+      console.log('testing theclient from chome controller',window.localStorage.getItem('theclient'));
+      // vm.client = data;
+      vm.clientData =  JSON.parse(window.localStorage.getItem('theclient'));
+      console.log('vm client from chome controller',vm.clientData);
     })
 
     //edit profile content
@@ -201,17 +200,17 @@ angular
 
   function SpController($scope,$rootScope,$location,$uibModal,$log,SpService) {
     var vm = this;
-    $rootScope.userId;
 
-    SpService.getProvider().then(function(data){
-      console.log('provider data',data);
-      vm.provider = data;
-      console.log('vm provider',vm.provider);
-      $rootScope.userId = id;
+    SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id).then(function(data){
+      console.log('provider data from sphome controller',data);
+      console.log('testing theprovider from sphome controller',window.localStorage.getItem('theprovider'));
+      // vm.providerData = data;
+      vm.providerData =  JSON.parse(window.localStorage.getItem('theprovider'));
+      console.log('vm provider from sphome controller',vm.providerData);
     })
 
     SpService.getAllProviders().then(function(data){
-      console.log('providers data',data);
+      console.log('providers data from sphome controller',data);
     })
 
     //go online: change a boolean and show change in dom, switch button?
@@ -370,18 +369,17 @@ $scope.showModalSection = 'login';
 
   $scope.signInClient = function () {
     $uibModalInstance.dismiss();
-    // THIS PATH WILL NEED AN ID LIKE /clienthome/id
     $location.path('/clienthome');
   };
 
   $scope.registerClientPath = function (client) {
-    console.log("CLIENT", client);
+    console.log("CLIENT from login controller", client);
     LoginService.postClient(client)
     .success(function(data) {
-      $rootScope.client = data
-      console.log("SUCESS", data)
+      // $rootScope.client = data
+      console.log("SUCCESS from login controller", data)
+      window.localStorage.setItem('theclient', window.JSON.stringify(data));
       $uibModalInstance.dismiss();
-      // THIS PATH WILL NEED AN ID LIKE /clienthome/id
       $location.path('/clienthome/' + data.id);
     })
     .error(function(err) {
@@ -392,7 +390,6 @@ $scope.showModalSection = 'login';
 
   $scope.signInSp = function () {
     $uibModalInstance.dismiss();
-    // THIS PATH WILL NEED AN ID LIKE /clienthome/id
     $location.path('/sphome/');
   };
 
@@ -400,10 +397,10 @@ $scope.showModalSection = 'login';
     console.log("PROVIDER", provider);
     LoginService.postSp(provider)
     .success(function(data) {
-      $rootScope.provider = data
-      console.log("SUCCESS", data)
+      // $rootScope.theprovider = data;
+      window.localStorage.setItem('theprovider', window.JSON.stringify(data));
+      console.log("SUCCESS from login controller", data)
       $uibModalInstance.dismiss();
-      // THIS PATH WILL NEED AN ID LIKE /sphome/id
       $location.path('/sphome/' + data.id);
 
     })
@@ -487,7 +484,7 @@ angular
       return $http.get(clienturl)
     }
     function postClient(post) {
-      console.log("CLIENT BEING SAVED", post);
+      console.log("CLIENT BEING SAVED from login service", post);
       delete post.passwordConfirm;
       return $http.post(clienturl,post);
     }
@@ -501,7 +498,7 @@ angular
     }
 
     function postSp(post) {
-      console.log("PROVIDER BEING SAVED", post);
+      console.log("PROVIDER BEING SAVED from login service", post);
       delete post.passwordConfirm;
       return $http.post(spurl,post);
     }
