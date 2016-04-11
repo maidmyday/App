@@ -1,10 +1,13 @@
 //package com.theironyard;
 //
+//import com.fasterxml.jackson.core.JsonProcessingException;
 //import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.fasterxml.jackson.databind.deser.std.StringArrayDeserializer;
 //import com.theironyard.entities.Client;
 //import com.theironyard.entities.Provider;
 //import com.theironyard.services.*;
 //import com.theironyard.utils.PasswordStorage;
+//import org.hibernate.validator.cfg.defs.AssertTrueDef;
 //import org.junit.Assert;
 //import org.junit.Before;
 //import org.junit.FixMethodOrder;
@@ -19,6 +22,8 @@
 //import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 //import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 //import org.springframework.web.context.WebApplicationContext;
+//
+//import java.util.HashMap;
 //
 //@RunWith(SpringJUnit4ClassRunner.class)
 //@SpringApplicationConfiguration(classes = MaidMyDayApplication.class)
@@ -82,5 +87,42 @@
 //                        .contentType("application/json")
 //        );
 //        Assert.assertTrue(providerRepository.count() == 1);
+//    }
+//
+//    @Test
+//    public void testC() throws Exception {
+//        Provider p = providerRepository.findByEmail("2asdf");
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        String json = mapper.writeValueAsString(p);
+//
+//        mockMvc.perform(
+//                MockMvcRequestBuilders.get("/provider/profile")
+//                        .content(json)
+//                        .contentType("application/json")
+//        );
+//        Assert.assertTrue(p == providerRepository.findOne(1));
+//    }
+//
+//    // deleting client account
+//    @Test
+//    public void testZ() throws Exception {
+//        Client c = clientRepository.findOne(1);
+//
+//        HashMap map = new HashMap();
+//        map.put("id", 3);
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        String json = mapper.writeValueAsString(map);
+//
+//
+//        mockMvc.perform(
+//                MockMvcRequestBuilders.delete("/mime/3")
+//                        .content(json)
+//                        .contentType("application/json")
+//                        .sessionAttr("userName", "mimeman3")
+//        );
+//
+//        Assert.assertTrue(clientRepository.findOne(1) == null);
 //    }
 //}
