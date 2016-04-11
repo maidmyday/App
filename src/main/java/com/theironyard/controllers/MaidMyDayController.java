@@ -130,6 +130,9 @@ public class MaidMyDayController {
     }
 
 
+
+
+
     // returns a single provider
     @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
     public Provider loginProvider(HttpSession session, @PathVariable ("id") int id) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
@@ -145,7 +148,6 @@ public class MaidMyDayController {
     public List<Provider> allProviders(HttpSession session) {
 
         return (List<Provider>) providerRepository.findAll();
-
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.POST)
@@ -191,8 +193,8 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider/task", method = RequestMethod.PUT)
-    public Provider providerSelectTasks() {
-        return null;
+    public void providerSelectTasks(@RequestBody Provider provider) {
+        providerRepository.save(provider);
     }
 
     @RequestMapping(path = "/request", method = RequestMethod.POST)
