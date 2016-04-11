@@ -64,11 +64,11 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/clientLogin", method = RequestMethod.POST)
-    public Client login(HttpSession session, String password, String email) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
+    public Client login(HttpSession session, @RequestBody Client client) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
 
-        Client client = clientRepository.findByEmail(email);
+        Client newClient = clientRepository.findByEmail(client.getEmail());
 
-        if (client != null && PasswordStorage.verifyPassword(password , client.getPassword())) {
+        if (client != null && PasswordStorage.verifyPassword(newClient.getPassword() , client.getPassword())) {
             session.setAttribute("userName", client.getEmail());
             return client;
         } else {
@@ -76,18 +76,18 @@ public class MaidMyDayController {
         }
     }
 
-//    @RequestMapping(path = "/providerLogin", method = RequestMethod.POST)
-//    public Provider login(HttpSession session, @RequestBody Provider provider) {
-//
-//        provider = providerRepository.findByEmail("email");
-//
-//        if (provider != null && PasswordStorage.verifyPassword(,provider.getPassword())) {
-//            session.setAttribute("userName", provider.getEmail());
-//            return provider;
-//        } else {
-//            return null;
-//        }
-//    }
+    @RequestMapping(path = "/providerLogin", method = RequestMethod.POST)
+    public Provider login(HttpSession session, @RequestBody Provider provider) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
+
+        Provider newProvider = providerRepository.findByEmail(provider.getEmail());
+
+        if (provider != null && PasswordStorage.verifyPassword(newProvider.getPassword() , provider.getPassword())) {
+            session.setAttribute("userName", provider.getEmail());
+            return provider;
+        } else {
+            return null;
+        }
+    }
 
 
     @RequestMapping(path = "/client", method = RequestMethod.POST)
@@ -100,7 +100,7 @@ public class MaidMyDayController {
 
     // returns a single client
     @RequestMapping(path = "/client/{id}", method = RequestMethod.GET)
-    public Client loginClient(HttpSession session, @PathVariable ("id") int id) {
+    public Client getOneClient(HttpSession session, @PathVariable ("id") int id) {
 
         Client client = clientRepository.findOne(id);
 
@@ -175,7 +175,9 @@ public class MaidMyDayController {
 
         provider.setPassword(PasswordStorage.createHash(provider.getPassword()));
 
-        return providerRepository.save(provider);
+        providerRepository.save(provider);
+
+        return provider;
     }
 
 //    @RequestMapping(path = "/provider", method = RequestMethod.GET)

@@ -69,7 +69,7 @@ public class MaidMyDayApplicationTests {
                         .content(json)
                         .contentType("application/json")
         );
-        Assert.assertTrue(clientRepository.count() == 1);
+        Assert.assertTrue(clientRepository.count() == 3);
 	}
 
     // creating a provider account
@@ -86,7 +86,7 @@ public class MaidMyDayApplicationTests {
                         .content(json)
                         .contentType("application/json")
         );
-        Assert.assertTrue(providerRepository.count() == 1);
+        Assert.assertTrue(providerRepository.count() == 3);
     }
 
 //    @Test
