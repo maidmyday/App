@@ -110,17 +110,12 @@ public class MaidMyDayController {
 
 
 
-    @RequestMapping(path = "/provider/session", method = RequestMethod.GET)
-    public Provider loginProvider(HttpSession session, @RequestBody HashMap data) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
+    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
+    public Provider loginProvider(HttpSession session, @PathVariable ("id") int id) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
 
-        Provider provider = providerRepository.findByEmail("email");
+        Provider provider = providerRepository.findOne(id);
 
-        if (provider != null && PasswordStorage.verifyPassword((String) data.get("password"), provider.getPassword())) {
-            session.setAttribute("email", provider.getEmail());
-            return provider;
-        } else {
-            return null;
-        }
+        return provider;
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.POST)
