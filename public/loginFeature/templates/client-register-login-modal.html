@@ -25,18 +25,27 @@
       <h3 class="modal-title">Create Account</h3>
   </div>
 
-    <form ng-submit="registerClientPath(client)">
-      <input type="text" placeholder="first name" ng-model="client.firstName">
-      <input type="text" placeholder="last name" ng-model="client.lastName">
-      <input type="text" placeholder="email" ng-model="client.email">
-      <input type="number" placeholder="phone number" ng-model="client.phoneNumber">
-      <input type="password" placeholder="password" ng-model="client.password">
-      <input type="password" placeholder="confirm password" ng-model="client.PASSWORD_CONFIRMATION">
-      <button class="btn register" type="submit" btn-toggle="">Register</button>
+    <form name="myForm" class="has-feedback" ng-submit="registerClientPath(client)">
+      <input type="text" class="form-control" placeholder="first name" ng-model="client.firstName">
+      <input type="text" class="form-control" placeholder="last name" ng-model="client.lastName">
+      <input type="text" class="form-control" placeholder="email" ng-model="client.email">
+      <input type="number" class="form-control" placeholder="phone number" ng-model="client.phoneNumber">
+
+      <input placeholder="password" class="form-control" ng-model="client.password" type="password" name="passwordName" data-ng-class="{'ng-invalid':myForm.confirmPassword.$error.match}" />
+      <input placeholder="confrim password" class="form-control" ng-model="client.passwordConfirm" type="password" data-match="client.password" name="myConfirmField" />
+          <div ng-show="myForm.myConfirmField.$error.match"></div>
+
+
+      <button class="btn register" type="submit">Register</button>
     </form>
+
+
 <div class="modal-footer">
   <button class="btn btn-primary" type="button" ng-click="showLoginSection()">Back</button>
 
 </div>
+
+
+
 
 </div>
