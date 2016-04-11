@@ -1,34 +1,53 @@
 angular
-.module('maidApp')
-.controller('LoginModalController', function ($scope, $uibModal, $log) {
+.module('login.module')
+.controller('LoginModalController', function ($scope, $uibModal, $log, $location) {
+  $scope.animationsEnabled = true;
 
-$scope.items = ['item1', 'item2', 'item3'];
+  $scope.openSpLoginModal = function (size) {
 
-$scope.animationsEnabled = true;
-
-$scope.open = function (size) {
-
-  var modalInstance = $uibModal.open({
-    animation: $scope.animationsEnabled,
-    templateUrl: 'modal.html',
-    controller: 'ModalInstanceController',
-    size: size,
-    resolve: {
-      items: function () {
-        return $scope.items;
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: './loginFeature/templates/provider-register-login-modal.html',
+      controller: 'ModalInstanceController',
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
       }
-    }
-  });
+    });
+  };
 
-  modalInstance.result.then(function (selectedItem) {
-    $scope.selected = selectedItem;
-  }, function () {
-    $log.info('Modal dismissed at: ' + new Date());
-  });
-};
+  $scope.openClientLoginModal = function (size) {
 
-$scope.toggleAnimation = function () {
-  $scope.animationsEnabled = !$scope.animationsEnabled;
-};
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: './loginFeature/templates/client-register-login-modal.html',
+      controller: 'ModalInstanceController',
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+  };
+
+  $scope.registerClient = function () {
+
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: './loginFeature/templates/Clientregistermodal.html',
+      controller: 'ModalInstanceController',
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+  };
+
+
 
 })
