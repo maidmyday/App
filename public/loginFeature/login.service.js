@@ -1,7 +1,6 @@
 angular
-  .module('login.module')
+  .module('login')
   .service('LoginService',function($http) {
-    // var url = "https://tiny-tiny.herokuapp.com/collections/shoppingcart";
     var clienturl = '/client';
     var spurl = '/provider';
 
@@ -12,7 +11,8 @@ angular
       return $http.get(clienturl)
     }
     function postClient(post) {
-      console.log("USER BEING SAVED", post);
+      console.log("CLIENT BEING SAVED", post);
+      delete post.PASSWORD_CONFIRMATION;
       return $http.post(clienturl,post);
     }
 
@@ -25,6 +25,8 @@ angular
     }
 
     function postSp(post) {
+      console.log("PROVIDER BEING SAVED", post);
+      delete post.PASSWORD_CONFIRMATION;
       return $http.post(spurl,post);
     }
 

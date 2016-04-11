@@ -11,8 +11,9 @@ angular
     ])
   .config(function($routeProvider){
     $routeProvider
-    .when('/sphome',{
-      templateUrl: 'Home/tmpls/spHome.html',
+
+    .when('/sphome/:id',{
+      templateUrl: 'home/tmpls/spHome.html',
       controller: 'SpController as SpCtrl'
     })
   })

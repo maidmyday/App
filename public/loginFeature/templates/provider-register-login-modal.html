@@ -1,5 +1,5 @@
 
-
+<!-- LOGIN SECTION -->
 
 <div ng-if="showModalSection == 'login'" class="modal-body">
   <div class="modal-header">
@@ -12,66 +12,35 @@
     </form>
 <div class="modal-footer">
   <button class="btn btn-primary" type="button" ng-click="signInSp()">Login</button>
-  <button class="btn register" type="button" btn-toggle="" ng-click="registerSp()">Register</button>
+  <button class="btn register" type="button" btn-toggle="" ng-click="showRegisterSection()">Register</button>
 </div>
 </div>
 
 
+
+
+
+<!-- REGISTER SECTION -->
+
+
+<!-- REGISTER SECTION -->
 <div ng-if="showModalSection == 'register'" class="modal-body">
-<div class="col-xs-6 col-md-6"><button ng-click="loginSp()" id="back" class="btn btn-success btn-block btn-lg"><span class="glyphicon glyphicon-chevron-left"></span></button></div>
-
-  <div class="row">
-      <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-        <!-- <div class="col-xs-6 col-md-6"><button ng-click="loginSp()" class="btn btn-success btn-block btn-lg"><span class="glyphicon glyphicon-chevron-left"></span></button></div> -->
-  		<form role="form">
-        <h2>Please Sign Up</h2>
-  			<hr class="line">
-  			<div class="row">
-
-  					<div class="form-group">
-              <input type="text" class="form-control input-lg" placeholder="first name">
-  					</div>
-
-
-  					<div class="form-group">
-  						<input type="text" class="form-control input-lg" placeholder="last name">
-  					</div>
-
-          <div class="form-group">
-    				<input type="email" class="form-control input-lg" placeholder="email">
-    			</div>
-
-          <div class="form-group">
-            <input type="number" class="form-control input-lg" placeholder="phone number">
-          </div>
-
-          <div class="form-group">
-    				<input type="password" class="form-control input-lg" placeholder="password">
-    			</div>
-
-          <div class="form-group">
-    				<input type="password" class="form-control input-lg" placeholder="confirm password">
-    			</div>
-  			</div>
-
-
-
-
-
-  			<hr class="line">
-  			<div class="row">
-  				<div class="col-xs-6 col-md-6"><button type="submit" ng-click="registerSpPath()" value="Register" class="btn btn-primary btn-block btn-lg" tabindex="7">Sign In</button></div>
-  				<!-- <div class="col-xs-6 col-md-6"><button ng-click="loginSp()" class="btn btn-success btn-block btn-lg"><span class="glyphicon glyphicon-chevron-left"></span></button></div> -->
-  			</div>
-  		</form>
-  	</div>
+  <div class="modal-header">
+      <h3 class="modal-title">Create Account</h3>
   </div>
 
+    <form ng-submit="registerSpPath(provider)">
+      <input type="text" placeholder="first name" ng-model="provider.firstName">
+      <input type="text" placeholder="last name" ng-model="provider.lastName">
+      <input type="text" placeholder="email" ng-model="provider.email">
+      <input type="number" placeholder="phone number" ng-model="provider.phoneNumber">
+      <input type="password" placeholder="password" ng-model="provider.password">
+      <input type="password" placeholder="confirm password" ng-model="provider.PASSWORD_CONFIRMATION">
+      <button class="btn register" type="submit" btn-toggle="">Register</button>
+    </form>
+<div class="modal-footer">
+  <button class="btn btn-primary" type="button" ng-click="showLoginSection()">Back</button>
 
-
-
-
-
-
+</div>
 
 </div>

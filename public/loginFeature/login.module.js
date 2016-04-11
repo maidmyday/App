@@ -1,4 +1,4 @@
 angular
-  .module('login.module',[
-    'ngRoute'
+  .module('login',[
+    'ngRoute',
   ]);

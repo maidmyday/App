@@ -12,8 +12,8 @@ angular
     'ui.bootstrap',
     'cHome',
     'spHome',
-    'goOnline',
-    'login.module'
+    'login',
+    'goOnline'
   ])
 
   .config(function($routeProvider) {
