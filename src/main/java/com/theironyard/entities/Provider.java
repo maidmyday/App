@@ -26,7 +26,8 @@ public class Provider {
     @Column(nullable = false)
     private String phoneNumber;
 
-
+    @OneToMany
+    private List<Task> tasks;
 
     public Provider(String firstName, String lastName, String password, String email, String phoneNumber) {
         this.firstName = firstName;
@@ -34,6 +35,15 @@ public class Provider {
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
+    }
+
+    public Provider(String firstName, String lastName, String password, String email, String phoneNumber, List<Task> tasks) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.tasks = tasks;
     }
 
     public Provider() {
@@ -79,4 +89,11 @@ public class Provider {
         this.phoneNumber = phoneNumber;
     }
 
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
 }
