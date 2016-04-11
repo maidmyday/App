@@ -36,6 +36,8 @@ public class MaidMyDayController {
 
     Server dbui = null;
 
+    ArrayList<Client> clients = new ArrayList<>();
+    ArrayList<Provider> providers = new ArrayList<>();
 
 
     @PostConstruct
@@ -122,6 +124,10 @@ public class MaidMyDayController {
         clientRepository.delete(client);
     }
 
+    @RequestMapping(path = "/logout", method = RequestMethod.POST)
+    public void logout(HttpSession session) {
+        session.invalidate();
+    }
 
 
     // returns a single provider
@@ -151,8 +157,16 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.GET)
-    public Provider findProvider() {
-        return null;
+    public List<Provider> findMatchingProviders(@RequestBody List<Task> clientRequestedTasks) {
+        List<Provider> providers = (List<Provider>) providerRepository.findAll();
+        for (Provider provider : providers) {
+            for (Task task : clientRequestedTasks) {
+                if (!provider.getTasks().containsAll(clientRequestedTasks)) {
+                    providers.remove(provider);
+                }
+            }
+        }
+        return providers;
     }
 
 //    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
@@ -214,6 +228,9 @@ public class MaidMyDayController {
 
 
 
+
+
+
     @RequestMapping(path = "/notification", method = RequestMethod.POST)
     public Notification createNotification() {
         return null;
@@ -231,6 +248,9 @@ public class MaidMyDayController {
 
 
 
+
+
+
     @RequestMapping(path = "/task", method = RequestMethod.GET)
     public Task populateTasks() {
         return null;
@@ -238,8 +258,12 @@ public class MaidMyDayController {
 
 
 
+
+
+
     @RequestMapping(path = "/rating", method = RequestMethod.POST)
-    public Rating createRating() {
+    public Rating createRating(HttpSession session) {
+
         return null;
     }
 }
