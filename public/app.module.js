@@ -1,10 +1,9 @@
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
-require('./clientHome');
-require('./spHome');
+require('./home');
+require('./goOnline');
 require('./loginFeature');
-
 
 
 angular
@@ -13,8 +12,10 @@ angular
     'ui.bootstrap',
     'cHome',
     'spHome',
-    'login'
+    'login',
+    'goOnline'
   ])
+
   .config(function($routeProvider) {
     $routeProvider
       .when('/',{

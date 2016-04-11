@@ -55,4 +55,12 @@ angular
     })
 
   }
+
+//   $scope.match = function() {
+//   if ($scope.emailReg != $scope.emailReg2) {
+//     $scope.IsMatch=true;
+//     return false;
+//   }
+//   $scope.IsMatch=false;
+// }
 });

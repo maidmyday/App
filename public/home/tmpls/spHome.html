@@ -8,7 +8,7 @@
     </div>
     <ul class="nav navbar-nav navbar-right">
       <li><p class="navbar-text">Signed in as NAME</p></li>
-      <li><button class="btn btn-default navbar-btn">GO ONLINE</button></li>
+      <li><button class="btn btn-default navbar-btn" ng-click="goOnline()">GO ONLINE</button></li>
       <li><button class="btn btn-default navbar-btn">Logout</button></li>
     </ul>
   </div>
@@ -28,6 +28,18 @@
   </div>
 </div>
 
+<!-- uib rating from site: SAVING THIS FOR LATER-->
+
+<!-- <div>
+    <uib-rating ng-model="rate" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
+    <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
+
+    <pre style="margin:15px 0;">Rate: <b>{{rate}}</b> - Readonly is: <i>{{isReadonly}}</i> - Hovering over: <b>{{overStar || "none"}}</b></pre>
+
+    <button type="button" class="btn btn-sm btn-danger" ng-click="rate = 0" ng-disabled="isReadonly">Clear</button>
+    <button type="button" class="btn btn-sm btn-default" ng-click="isReadonly = ! isReadonly">Toggle Readonly</button>
+</div> -->
+
 <!-- angular bootstrap accordion content -->
 
 <div class="container">
@@ -43,11 +55,12 @@
            <div class="profile-panels">
              <div class="panel-heading">
                <h4>Settings</h4>
-               <button class="pull-right btn btn-default">Edit</button>
+               <button class="pull-right btn btn-default" ng-click="editThis()">Edit</button>
              </div>
              <div class="panel-body">
                <p>First Name: </p>
                <p>Last Name: </p>
+               <p>Phone Number: </p>
                <p>Email: </p>
              </div>
              <div class="panel-heading">
@@ -85,10 +98,10 @@
                          </div>
                        </td>
                        <td>
-                         <button class="btn btn-default">{{user.first}} {{user.last}}</button>
+                         <p>{{user.first}} {{user.last}}</p>
                        </td>
                        <td>
-                         <p>{{user.rating}}</p>
+                         <button class="btn btn-default"><uib-rating ng-model="user.rating" max="{{user.rating}}" read-only="true" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating></button>
                        </td>
                        <td>
                          <p>{{user.date}}</p>
@@ -102,94 +115,9 @@
            </div>
          </uib-accordion-group>
 
-         <uib-accordion-group ng-repeat="accordion in accordionData" heading="{{accordion.title}}" is-disabled="status.isFirstDisabled">
-          {{accordion.content}}
-        </uib-accordion-group>
-
         </uib-accordion>
 
 
     </div>
   </div>
 </div>
-
-
-<!-- me trying to make the menu collapsable -->
-
-<!-- <div class="collapse" id="exCollapsingNavbar">
-  <div class="bg-inverse p-a-1">
-    <h4>Collapsed content</h4>
-    <span class="text-muted">Toggleable via the navbar brand.</span>
-  </div>
-</div>
-
-<nav class="home navbar navbar-static-top navbar-light bg-faded">
-  <ul class="nav navbar-nav">
-    <li class="nav-item">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
-        &#9776;
-      </button>
-    </li>
-    <li class="nav-item active">
-      <a class="nav-link" href="#/sphome">Maid My Day <span class="sr-only">(current)</span></a>
-    </li>
-    <li>
-      Signed in as *USER*
-    </li>
-  </ul>
-</nav> -->
-
-<!-- <nav class="navbar navbar-light bg-faded">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
-    &#9776;
-  </button>
-</nav> -->
-
-
-
-
-
-<!-- All the material sidenav stuff -->
-
-<!-- <link rel="stylesheet" href="/node_modules/angular-material/angular-material.css">
-<script src="/node_modules/angular/angular.js"></script>
-<script src="/node_modules/angular-aria/angular-aria.js"></script>
-<script src="/node_modules/angular-animate/angular-animate.js"></script>
-<script src="/node_modules/angular-material/angular-material.js"></script> -->
-
-<!-- <div ng-controller="AppCtrl" layout="column" style="height:500px;" ng-cloak>
-  <section layout="row" flex>
-    <md-content flex layout-padding>
-      <div layout="column" layout-fill layout-align="top left">
-        <div layout="row" flex layout-align="right">
-            <md-button ng-click="toggleRight()"
-              ng-hide="isOpenRight()"
-              class="md-primary">
-              Toggle right
-            </md-button>
-          </div>
-        <div layout="row" flex>
-          <h1>you made it to the service provider home!</h1>
-        </div>
-      </div>
-      <div flex></div>
-    </md-content>
-    <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
-      <md-toolbar class="md-theme-light">
-        <h1 class="md-toolbar-tools">Sidenav Right</h1>
-      </md-toolbar>
-      <md-content ng-controller="RightCtrl" layout-padding>
-        <form>
-          <md-input-container>
-            <label for="testInput">Test input</label>
-            <input type="text" id="testInput"
-                   ng-model="data" md-autofocus>
-          </md-input-container>
-        </form>
-        <md-button ng-click="close()" class="md-primary">
-          Close Sidenav Right
-        </md-button>
-      </md-content>
-    </md-sidenav>
-  </section>
-</div> -->
