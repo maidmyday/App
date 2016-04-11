@@ -1,6 +1,7 @@
 package com.theironyard.entities;//Created by KevinBozic on 4/6/16.
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table (name = "clients")
@@ -25,8 +26,10 @@ public class Client {
     @Column(nullable = false)
     private String phoneNumber;
 
+
     public Client() {
     }
+
 
     public Client(String firstName, String lastName, String password, String email, String phoneNumber) {
         this.firstName = firstName;
@@ -75,4 +78,5 @@ public class Client {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
 }
