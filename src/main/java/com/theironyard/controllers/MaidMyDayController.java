@@ -197,16 +197,6 @@ public class MaidMyDayController {
         providerRepository.save(provider);
     }
 
-    @RequestMapping(path = "/request", method = RequestMethod.POST)
-    public Request createRequest() {
-        return null;
-    }
-
-    @RequestMapping(path = "/request/{id}", method = RequestMethod.DELETE)
-    public Request deleteRequest() {
-        return null;
-    }
-
     @RequestMapping(path = "/provider/request", method = RequestMethod.GET)
     public List<Request> providerServiceHistory(HttpSession session) {
         String providerEmail = (String) session.getAttribute("email");
@@ -228,6 +218,17 @@ public class MaidMyDayController {
         providerRepository.delete(provider);
     }
 
+
+
+
+    @RequestMapping(path = "/request", method = RequestMethod.POST)
+    public void createRequest() {
+    }
+
+    @RequestMapping(path = "/request/{id}", method = RequestMethod.DELETE)
+    public Request deleteRequest() {
+        return null;
+    }
 
 
 
