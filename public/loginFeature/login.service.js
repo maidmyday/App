@@ -11,7 +11,7 @@ angular
       return $http.get(clienturl)
     }
     function postClient(post) {
-      console.log("CLIENT BEING SAVED", post);
+      console.log("CLIENT BEING SAVED from login service", post);
       delete post.passwordConfirm;
       return $http.post(clienturl,post);
     }
@@ -25,7 +25,7 @@ angular
     }
 
     function postSp(post) {
-      console.log("PROVIDER BEING SAVED", post);
+      console.log("PROVIDER BEING SAVED from login service", post);
       delete post.passwordConfirm;
       return $http.post(spurl,post);
     }
