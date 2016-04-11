@@ -1,20 +1,25 @@
+.main-container {
+  background-image: url("https://images.unsplash.com/photo-1422479763403-3aa672b25e0e?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=2734d2e20c48290d634e466abc7932b4");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  min-height: 900px;
+  width: 100%; }
+
 #back {
   background-color: white;
   color: blue;
   border-color: white;
   width: 0%; }
 
-<<<<<<< HEAD
 input.ng-invalid {
   border-color: red; }
 
-h4.navbar-brand {
-  padding: 0 10px; }
-=======
+.overallModal {
+  background-color: #fe938c; }
+
 h4.navbar-brand {
   padding: 0 10px;
   font-size: 30px; }
->>>>>>> e2ae370a85e00fca6fa3966090f5395f4f6f3008
 
 div.panel div.textContent {
   display: inline-block;
