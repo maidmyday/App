@@ -4,6 +4,13 @@ angular
 
     var clienturl = '/client';
     var spurl = '/provider';
+    var allClients = '/clients';
+    var allProviders = '/providers';
+    var logouturl = '/logout';
+
+    function logoutNow(id){
+      return $http.post(logouturl);
+    }
 
     function getClient(id) {
       return $http.get(clienturl + '/' + id)
@@ -34,6 +41,7 @@ angular
    ]
 
     return {
+      logoutNow: logoutNow,
       getClient: getClient,
       historyData: historyData
     }
