@@ -7,4 +7,4 @@ Requirements Doc: https://docs.google.com/document/d/1PJnLM3KLU9n7o72yTVASYAm9TM
 Workflow Doc: https://drive.google.com/file/d/0BxZEapDguHKkc2VQakJRWHRXT2c/view?usp=sharing
 
 
-localhost8020  jdbch2:./main  sa
+localhost8020  jdb:ch2:./main  sa

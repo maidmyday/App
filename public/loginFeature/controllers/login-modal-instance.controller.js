@@ -1,10 +1,9 @@
 angular
 .module('login')
-.controller('ModalInstanceController', function ($scope, $uibModalInstance, LoginService, $location) {
+.controller('ModalInstanceController', function ($rootScope,$scope, $uibModalInstance, LoginService, $location) {
 
 
-  $scope.showModalSection = 'login';
-
+$scope.showModalSection = 'login';
 
   $scope.showRegisterSection = function () {
     $scope.showModalSection = 'register';
@@ -16,17 +15,17 @@ angular
 
   $scope.signInClient = function () {
     $uibModalInstance.dismiss();
-    // THIS PATH WILL NEED AN ID LIKE /clienthome/id
     $location.path('/clienthome');
   };
 
   $scope.registerClientPath = function (client) {
-    console.log("CLIENT", client);
+    console.log("CLIENT from login controller", client);
     LoginService.postClient(client)
     .success(function(data) {
-      console.log("SUCESS", data)
+      // $rootScope.client = data
+      console.log("SUCCESS from login controller", data)
+      window.localStorage.setItem('theclient', window.JSON.stringify(data));
       $uibModalInstance.dismiss();
-      // THIS PATH WILL NEED AN ID LIKE /clienthome/id
       $location.path('/clienthome/' + data.id);
     })
     .error(function(err) {
@@ -37,7 +36,6 @@ angular
 
   $scope.signInSp = function () {
     $uibModalInstance.dismiss();
-    // THIS PATH WILL NEED AN ID LIKE /clienthome/id
     $location.path('/sphome/');
   };
 
@@ -45,10 +43,12 @@ angular
     console.log("PROVIDER", provider);
     LoginService.postSp(provider)
     .success(function(data) {
-      console.log("SUCCESS", data)
+      // $rootScope.theprovider = data;
+      window.localStorage.setItem('theprovider', window.JSON.stringify(data));
+      console.log("SUCCESS from login controller", data)
       $uibModalInstance.dismiss();
-      // THIS PATH WILL NEED AN ID LIKE /sphome/id
       $location.path('/sphome/' + data.id);
+
     })
     .error(function(err) {
       console.log("ERROR", err)
@@ -56,11 +56,5 @@ angular
 
   }
 
-//   $scope.match = function() {
-//   if ($scope.emailReg != $scope.emailReg2) {
-//     $scope.IsMatch=true;
-//     return false;
-//   }
-//   $scope.IsMatch=false;
-// }
+
 });

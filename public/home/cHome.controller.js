@@ -2,22 +2,36 @@ angular
   .module('cHome')
   .controller('ClientController', ClientController);
 
-  ClientController.$inject = ['$scope','$rootScope','$location',/*'ClientService'*/];
+  ClientController.$inject = ['$scope','$rootScope','$location','$uibModal','$log','ClientService'];
 
-  function ClientController($scope,$rootScope,$location/*ClientService*/) {
+  function ClientController($scope,$rootScope,$location,$uibModal,$log,ClientService) {
     var vm = this;
 
-    //the rating stars
-    $scope.rate = 0;
-    $scope.max = 5;
-    $scope.isReadonly = false;
+    ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id).then(function(data){
+      console.log('client data from chome controller',data);
+      console.log('testing theclient from chome controller',window.localStorage.getItem('theclient'));
+      // vm.client = data;
+      vm.clientData =  JSON.parse(window.localStorage.getItem('theclient'));
+      console.log('vm client from chome controller',vm.clientData);
+    })
 
-    $scope.hoveringOver = function(value) {
-      $scope.overStar = value;
-      $scope.percent = 100 * (value / $scope.max);
+    //edit profile content
+    vm.editInfo = false;
+    vm.editBtn = function(){
+      vm.editInfo = !vm.editInfo;
+    }
+
+    //the rating stars
+    vm.rate = 0;
+    vm.max = 5;
+    vm.isReadonly = false;
+
+    vm.hoveringOver = function(value) {
+      vm.overStar = value;
+      vm.percent = 100 * (value / vm.max);
     };
 
-    $scope.ratingStates = [
+    vm.ratingStates = [
       {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
       {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
       {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
@@ -25,41 +39,8 @@ angular
       {stateOff: 'glyphicon-off'}
     ];
 
-
     //temporary accordion data injecting the page
-    $scope.accordionData = [
-      {
-        title: 'this is clavin',
-        content: 'this is a great content'
-      },
-      {
-        title: 'this is alex',
-        content: 'this is the great content'
-      }
-    ]
 
-   $scope.historyData = [
-     {
-       img: './images/bill04.jpg',
-       first: 'Zachary',
-       last: 'Binx',
-       rating: '5',
-       date: 'date/time'
-     },
-     {
-       img: './images/bill02.jpg',
-       first: 'Will',
-       last: 'Graham',
-       rating: '2',
-       date: 'date/time'
-     },
-     {
-       img: './images/bill03.jpg',
-       first: 'Spencer',
-       last: 'Reid',
-       rating: '0',
-       date: 'date/time'
-     }
-   ]
+    vm.historyData = ClientService.historyData;
 
   }
