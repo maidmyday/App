@@ -36,10 +36,6 @@ public class MaidMyDayController {
 
     Server dbui = null;
 
-    ArrayList<Client> clients = new ArrayList<>();
-    ArrayList<Provider> providers = new ArrayList<>();
-
-
     @PostConstruct
     public void init() throws SQLException {
         dbui = Server.createWebServer().start();
@@ -53,12 +49,12 @@ public class MaidMyDayController {
             clientRepository.save(client2);
         }
         if (providerRepository.count() == 0) {
-            Provider provider = new Provider("Caroline", "Vail", "1234", "carolineevail@gmail.com", "334-669-5482");
-            providerRepository.save(provider);
+            Provider provider1 = new Provider("Caroline", "Vail", "1234", "carolineevail@gmail.com", "334-669-5482");
+            providerRepository.save(provider1);
         }
         if (providerRepository.count() == 1) {
-            Provider provider = new Provider("Zach", "Owens", "1234", "carolineevail@gmail.com", "334-669-5482");
-            providerRepository.save(provider);
+            Provider provider2 = new Provider("Zach", "Owens", "1234", "carolineevail@gmail.com", "334-669-5482");
+            providerRepository.save(provider2);
         }
     }
 
@@ -67,7 +63,31 @@ public class MaidMyDayController {
         dbui.stop();
     }
 
+    @RequestMapping(path = "/clientLogin", method = RequestMethod.POST)
+    public Client login(HttpSession session, @RequestBody Client client) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
 
+        Client newClient = clientRepository.findByEmail(client.getEmail());
+
+        if (client != null && PasswordStorage.verifyPassword(newClient.getPassword() , client.getPassword())) {
+            session.setAttribute("userName", client.getEmail());
+            return client;
+        } else {
+            return null;
+        }
+    }
+
+    @RequestMapping(path = "/providerLogin", method = RequestMethod.POST)
+    public Provider login(HttpSession session, @RequestBody Provider provider) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
+
+        Provider newProvider = providerRepository.findByEmail(provider.getEmail());
+
+        if (provider != null && PasswordStorage.verifyPassword(newProvider.getPassword() , provider.getPassword())) {
+            session.setAttribute("userName", provider.getEmail());
+            return provider;
+        } else {
+            return null;
+        }
+    }
 
 
     @RequestMapping(path = "/client", method = RequestMethod.POST)
@@ -80,7 +100,7 @@ public class MaidMyDayController {
 
     // returns a single client
     @RequestMapping(path = "/client/{id}", method = RequestMethod.GET)
-    public Client loginClient(HttpSession session, @PathVariable ("id") int id) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
+    public Client getOneClient(HttpSession session, @PathVariable ("id") int id) {
 
         Client client = clientRepository.findOne(id);
 
@@ -135,7 +155,7 @@ public class MaidMyDayController {
 
     // returns a single provider
     @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
-    public Provider loginProvider(HttpSession session, @PathVariable ("id") int id) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
+    public Provider loginProvider(HttpSession session, @PathVariable ("id") int id) {
 
         Provider provider = providerRepository.findOne(id);
 
@@ -155,21 +175,23 @@ public class MaidMyDayController {
 
         provider.setPassword(PasswordStorage.createHash(provider.getPassword()));
 
-        return providerRepository.save(provider);
+        providerRepository.save(provider);
+
+        return provider;
     }
 
-    @RequestMapping(path = "/provider", method = RequestMethod.GET)
-    public List<Provider> findMatchingProviders(@RequestBody List<Task> clientRequestedTasks) {
-        List<Provider> providers = (List<Provider>) providerRepository.findAll();
-        for (Provider provider : providers) {
-            for (Task task : clientRequestedTasks) {
-                if (!provider.getTasks().containsAll(clientRequestedTasks)) {
-                    providers.remove(provider);
-                }
-            }
-        }
-        return providers;
-    }
+//    @RequestMapping(path = "/provider", method = RequestMethod.GET)
+//    public List<Provider> findMatchingProviders(@RequestBody List<Task> clientRequestedTasks) {
+//        List<Provider> providers = (List<Provider>) providerRepository.findAll();
+//        for (Provider provider : providers) {
+//            for (Task task : clientRequestedTasks) {
+//                if (!provider.getTasks().containsAll(clientRequestedTasks)) {
+//                    providers.remove(provider);
+//                }
+//            }
+//        }
+//        return providers;
+//    }
 
 //    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
 //    public Provider clientViewProviderProfile() {
