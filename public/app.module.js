@@ -3,7 +3,7 @@ var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
 require('./clientHome');
 require('./spHome');
-
+require('./goOnline')
 
 
 angular
@@ -11,8 +11,8 @@ angular
     'ngRoute',
     'ui.bootstrap',
     'cHome',
-    'spHome'
-
+    'spHome',
+    'goOnline'
     ])
   .config(function($routeProvider) {
     $routeProvider

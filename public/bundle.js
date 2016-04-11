@@ -4,7 +4,7 @@ var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
 require('./clientHome');
 require('./spHome');
-
+require('./goOnline')
 
 
 angular
@@ -12,8 +12,8 @@ angular
     'ngRoute',
     'ui.bootstrap',
     'cHome',
-    'spHome'
-
+    'spHome',
+    'goOnline'
     ])
   .config(function($routeProvider) {
     $routeProvider
@@ -131,7 +131,7 @@ angular
   }
   });
 
-},{"./clientHome":4,"./spHome":11,"angular":10,"angular-route":6,"angular-ui-bootstrap":8}],2:[function(require,module,exports){
+},{"./clientHome":4,"./goOnline":8,"./spHome":15,"angular":14,"angular-route":10,"angular-ui-bootstrap":12}],2:[function(require,module,exports){
 angular
   .module('cHome')
   .controller('ClientController', ClientController);
@@ -139,7 +139,8 @@ angular
   ClientController.$inject = ['$scope','$rootScope','$location',/*'ClientService'*/];
 
   function ClientController($scope,$rootScope,$location/*ClientService*/) {
-
+    var vm = this;
+    //temporary accordion data injecting the page
     $scope.accordionData = [
       {
         title: 'this is clavin',
@@ -174,7 +175,7 @@ angular
        date: 'date/time'
      }
    ]
-   
+
   }
 
 },{}],3:[function(require,module,exports){
@@ -193,13 +194,51 @@ angular
     })
   })
 
-},{"angular":10,"angular-route":6}],4:[function(require,module,exports){
+},{"angular":14,"angular-route":10}],4:[function(require,module,exports){
 require('./cHome.module');
 require('./cHome.controller');
 // require('./cHome.service');
 // require('./cHome.Directive');
 
 },{"./cHome.controller":2,"./cHome.module":3}],5:[function(require,module,exports){
+angular
+  .module('goOnline')
+  .controller('GoController', GoController);
+
+  GoController.$inject = ['$scope','$rootScope','$location', '$uibModal', '$log'/*,'GoService'*/];
+
+  function GoController($scope,$rootScope,$location,$uibModal,$log/*,GoService*/){
+    var vm = this;
+  }
+
+},{}],6:[function(require,module,exports){
+var angular = require('angular');
+var angularRoute = require('angular-route');
+var uiBoot = require('angular-ui-bootstrap');
+
+angular
+  .module('goOnline',[
+    'ngRoute',
+    'ui.bootstrap'
+  /*,'ngMaterial'*/
+    ])
+  .config(function($routeProvider){
+    $routeProvider
+    .when('/goonline',{
+      templateUrl: 'goOnline/tmpls/goOnline.html',
+      controller: 'GoController as GoCtrl'
+    })
+  })
+
+},{"angular":14,"angular-route":10,"angular-ui-bootstrap":12}],7:[function(require,module,exports){
+
+},{}],8:[function(require,module,exports){
+require('./goOnline.module');
+require('./goOnline.controller');
+require('./goOnline.service');
+// require('./goOnline.directive');
+
+},{"./goOnline.controller":5,"./goOnline.module":6,"./goOnline.service":7}],9:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -1223,11 +1262,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],6:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":5}],7:[function(require,module,exports){
+},{"./angular-route":9}],11:[function(require,module,exports){
 /*
  * angular-ui-bootstrap
  * http://angular-ui.github.io/bootstrap/
@@ -8556,12 +8595,12 @@ angular.module('ui.bootstrap.datepickerPopup').run(function() {!angular.$$csp().
 angular.module('ui.bootstrap.tooltip').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTooltipCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-tooltip-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-bottom > .tooltip-arrow,[uib-popover-popup].popover.top-left > .arrow,[uib-popover-popup].popover.top-right > .arrow,[uib-popover-popup].popover.bottom-left > .arrow,[uib-popover-popup].popover.bottom-right > .arrow,[uib-popover-popup].popover.left-top > .arrow,[uib-popover-popup].popover.left-bottom > .arrow,[uib-popover-popup].popover.right-top > .arrow,[uib-popover-popup].popover.right-bottom > .arrow,[uib-popover-html-popup].popover.top-left > .arrow,[uib-popover-html-popup].popover.top-right > .arrow,[uib-popover-html-popup].popover.bottom-left > .arrow,[uib-popover-html-popup].popover.bottom-right > .arrow,[uib-popover-html-popup].popover.left-top > .arrow,[uib-popover-html-popup].popover.left-bottom > .arrow,[uib-popover-html-popup].popover.right-top > .arrow,[uib-popover-html-popup].popover.right-bottom > .arrow,[uib-popover-template-popup].popover.top-left > .arrow,[uib-popover-template-popup].popover.top-right > .arrow,[uib-popover-template-popup].popover.bottom-left > .arrow,[uib-popover-template-popup].popover.bottom-right > .arrow,[uib-popover-template-popup].popover.left-top > .arrow,[uib-popover-template-popup].popover.left-bottom > .arrow,[uib-popover-template-popup].popover.right-top > .arrow,[uib-popover-template-popup].popover.right-bottom > .arrow{top:auto;bottom:auto;left:auto;right:auto;margin:0;}[uib-popover-popup].popover,[uib-popover-html-popup].popover,[uib-popover-template-popup].popover{display:block !important;}</style>'); angular.$$uibTooltipCss = true; });
 angular.module('ui.bootstrap.timepicker').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTimepickerCss && angular.element(document).find('head').prepend('<style type="text/css">.uib-time input{width:50px;}</style>'); angular.$$uibTimepickerCss = true; });
 angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTypeaheadCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-typeahead-popup].dropdown-menu{display:block;}</style>'); angular.$$uibTypeaheadCss = true; });
-},{}],8:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 require('./dist/ui-bootstrap-tpls');
 
 module.exports = 'ui.bootstrap';
 
-},{"./dist/ui-bootstrap-tpls":7}],9:[function(require,module,exports){
+},{"./dist/ui-bootstrap-tpls":11}],13:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -39276,27 +39315,49 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],10:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":9}],11:[function(require,module,exports){
+},{"./angular":13}],15:[function(require,module,exports){
 require('./spHome.module');
 require('./spHome.controller');
-// require('./spHome.service');
+require('./spHome.service');
 // require('./spHome.directive');
 
-},{"./spHome.controller":12,"./spHome.module":13}],12:[function(require,module,exports){
+},{"./spHome.controller":16,"./spHome.module":17,"./spHome.service":18}],16:[function(require,module,exports){
 angular
   .module('spHome')
-  .controller('SpController', SpController);
+  .controller('SpController',SpController/*,'RatingStars',RatingStars*/);
 
-  SpController.$inject = ['$scope','$rootScope','$location'/*'SpService'*/];
+  SpController.$inject = ['$scope','$rootScope','$location', '$uibModal', '$log','SpService'];
 
-  function SpController($scope,$rootScope,$location/*SpService*/) {
+  function SpController($scope,$rootScope,$location,$uibModal,$log,SpService) {
+    var vm = this;
+
+    //the rating stars
+    $scope.rate = 0;
+    $scope.max = 5;
+    $scope.isReadonly = false;
+
+    $scope.hoveringOver = function(value) {
+      $scope.overStar = value;
+      $scope.percent = 100 * (value / $scope.max);
+    };
+
+    $scope.ratingStates = [
+      {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
+      {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
+      {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
+      {stateOn: 'glyphicon-heart'},
+      {stateOff: 'glyphicon-off'}
+    ];
+
+    // temporary accordion data to inject the page moved to service
+
      $scope.accordionData = [
        {
-         title: 'this is clavin',
+         title: 'this is calvin',
          content: 'this is a great content'
        },
        {
@@ -39305,39 +39366,90 @@ angular
        }
      ]
 
-    $scope.historyData = [
-      {
-        img: './images/bill04.jpg',
-        first: 'Zachary',
-        last: 'Binx',
-        rating: '5 stars',
-        date: 'date/time'
-      },
-      {
-        img: './images/bill02.jpg',
-        first: 'Will',
-        last: 'Graham',
-        rating: '2 stars',
-        date: 'date/time'
-      },
-      {
-        img: './images/bill03.jpg',
-        first: 'Spencer',
-        last: 'Reid',
-        rating: '0 stars',
-        date: 'date/time'
-      }
-    ]
+     $scope.historyData = [
+       {
+         img: './images/bill04.jpg',
+         first: 'Zachary',
+         last: 'Binx',
+         rating: '3',
+         date: 'date/time'
+       },
+       {
+         img: './images/bill02.jpg',
+         first: 'Will',
+         last: 'Graham',
+         rating: '5',
+         date: 'date/time'
+       },
+       {
+         img: './images/bill03.jpg',
+         first: 'Spencer',
+         last: 'Reid',
+         rating: '2',
+         date: 'date/time'
+       }
+     ]
+
   }
 
-},{}],13:[function(require,module,exports){
+  //
+  // RatingStars.$inject = ['$scope','$rootScope','$location', '$uibModal', '$log','SpService'];
+  //
+  // function RatingStars($scope,$rootScope,$location,$uibModal,$log,SpService){
+  //   $scope.rate = rating;
+  //   $scope.max = 5;
+  //   $scope.isReadonly = true;
+  //
+  //   $scope.hoveringOver = function(value) {
+  //     $scope.overStar = value;
+  //     $scope.percent = 100 * (value / $scope.max);
+  //   }
+  //
+  //   $scope.ratingStates = [
+  //     {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
+  //     {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
+  //     {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
+  //     {stateOn: 'glyphicon-heart'},
+  //     {stateOff: 'glyphicon-off'}
+  //   ]
+  //
+  //   $scope.historyData = [
+  //     {
+  //       img: './images/bill04.jpg',
+  //       first: 'Zachary',
+  //       last: 'Binx',
+  //       rating: '3',
+  //       date: 'date/time'
+  //     },
+  //     {
+  //       img: './images/bill02.jpg',
+  //       first: 'Will',
+  //       last: 'Graham',
+  //       rating: '5',
+  //       date: 'date/time'
+  //     },
+  //     {
+  //       img: './images/bill03.jpg',
+  //       first: 'Spencer',
+  //       last: 'Reid',
+  //       rating: '2',
+  //       date: 'date/time'
+  //     }
+  //   ]
+  // }
+
+},{}],17:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
 // var material = require('angular-material');
 
 angular
-  .module('spHome',['ngRoute','ui.bootstrap'/*,'ngMaterial'*/])
+  .module('spHome',[
+    'ngRoute',
+    'ui.bootstrap'
+  /*,'ngMaterial'*/
+    ])
   .config(function($routeProvider){
     $routeProvider
     .when('/sphome',{
@@ -39415,4 +39527,57 @@ angular
   //   };
   // });
 
-},{"angular":10,"angular-route":6,"angular-ui-bootstrap":8}]},{},[1]);
+},{"angular":14,"angular-route":10,"angular-ui-bootstrap":12}],18:[function(require,module,exports){
+angular
+  .module('spHome')
+  .service('SpService',function($http, $q, $cacheFactory) {
+    var accordionData = [
+      {
+        title: 'this is clavin',
+        content: 'this is a great content'
+      },
+      {
+        title: 'this is alex',
+        content: 'this is the great content'
+      }
+    ];
+
+    var historyData = [
+      {
+        img: './images/bill04.jpg',
+        first: 'Zachary',
+        last: 'Binx',
+        rating: '5 stars',
+        date: 'date/time'
+      },
+      {
+        img: './images/bill02.jpg',
+        first: 'Will',
+        last: 'Graham',
+        rating: '2 stars',
+        date: 'date/time'
+      },
+      {
+        img: './images/bill03.jpg',
+        first: 'Spencer',
+        last: 'Reid',
+        rating: '0 stars',
+        date: 'date/time'
+      }
+    ];
+
+    function getAccData(){
+      return accordionData;
+    };
+
+    function getHistoryData(){
+      return historyData;
+    };
+
+    return {
+      getAccData: getAccData,
+      getHistoryData: getHistoryData
+    }
+  })
+
+},{}]},{},[1]);

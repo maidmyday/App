@@ -38,6 +38,11 @@ div.userImgHome {
     top: 50%;
     -webkit-transform: translateY(-50%) translateX(-50%); }
 
+div.panel > .panel-heading {
+  background-color: #FFFFFF; }
+  div.panel > .panel-heading h3 {
+    text-align: center; }
+
 uib-accordion-heading {
   background-color: #EAD2AC; }
 
@@ -65,9 +70,11 @@ div.userImgSm {
     height: 100%;
     display: block; }
 
-div.btmRoom {
-  width: 100%;
-  height: 50px; }
+.glyphicon-star {
+  color: #EAD2AC; }
+
+.glyphicon-star-empty {
+  color: #9CAFB7; }
 
 nav.home {
   background-color: #4281A4;

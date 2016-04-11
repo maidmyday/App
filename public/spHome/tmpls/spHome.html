@@ -8,7 +8,7 @@
     </div>
     <ul class="nav navbar-nav navbar-right">
       <li><p class="navbar-text">Signed in as NAME</p></li>
-      <li><button class="btn btn-default navbar-btn">GO ONLINE</button></li>
+      <li><button class="btn btn-default navbar-btn" ng-click="goOnline()">GO ONLINE</button></li>
       <li><button class="btn btn-default navbar-btn">Logout</button></li>
     </ul>
   </div>
@@ -26,6 +26,18 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- uib rating from site: need to work on scope problem-->
+
+<div>
+    <uib-rating ng-model="rate" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
+    <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
+
+    <pre style="margin:15px 0;">Rate: <b>{{rate}}</b> - Readonly is: <i>{{isReadonly}}</i> - Hovering over: <b>{{overStar || "none"}}</b></pre>
+
+    <button type="button" class="btn btn-sm btn-danger" ng-click="rate = 0" ng-disabled="isReadonly">Clear</button>
+    <button type="button" class="btn btn-sm btn-default" ng-click="isReadonly = ! isReadonly">Toggle Readonly</button>
 </div>
 
 <!-- angular bootstrap accordion content -->
@@ -48,6 +60,7 @@
              <div class="panel-body">
                <p>First Name: </p>
                <p>Last Name: </p>
+               <p>Phone Number: </p>
                <p>Email: </p>
              </div>
              <div class="panel-heading">
@@ -88,7 +101,9 @@
                          <button class="btn btn-default">{{user.first}} {{user.last}}</button>
                        </td>
                        <td>
-                         <p>{{user.rating}}</p>
+                         <!-- <div ng-controller="RatingStars"> -->
+                           <p><uib-rating ng-model="user.rating" max="{{user.rating}}" read-only="true" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating></p>
+                         <!-- </div> -->
                        </td>
                        <td>
                          <p>{{user.date}}</p>

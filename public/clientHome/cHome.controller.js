@@ -5,7 +5,8 @@ angular
   ClientController.$inject = ['$scope','$rootScope','$location',/*'ClientService'*/];
 
   function ClientController($scope,$rootScope,$location/*ClientService*/) {
-
+    var vm = this;
+    //temporary accordion data injecting the page
     $scope.accordionData = [
       {
         title: 'this is clavin',
@@ -40,5 +41,5 @@ angular
        date: 'date/time'
      }
    ]
-   
+
   }
