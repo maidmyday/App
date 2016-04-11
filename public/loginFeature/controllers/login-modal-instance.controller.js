@@ -15,18 +15,17 @@ $scope.showModalSection = 'login';
 
   $scope.signInClient = function () {
     $uibModalInstance.dismiss();
-    // THIS PATH WILL NEED AN ID LIKE /clienthome/id
     $location.path('/clienthome');
   };
 
   $scope.registerClientPath = function (client) {
-    console.log("CLIENT", client);
+    console.log("CLIENT from login controller", client);
     LoginService.postClient(client)
     .success(function(data) {
-      $rootScope.client = data
-      console.log("SUCESS", data)
+      // $rootScope.client = data
+      console.log("SUCCESS from login controller", data)
+      window.localStorage.setItem('theclient', window.JSON.stringify(data));
       $uibModalInstance.dismiss();
-      // THIS PATH WILL NEED AN ID LIKE /clienthome/id
       $location.path('/clienthome/' + data.id);
     })
     .error(function(err) {
@@ -37,7 +36,6 @@ $scope.showModalSection = 'login';
 
   $scope.signInSp = function () {
     $uibModalInstance.dismiss();
-    // THIS PATH WILL NEED AN ID LIKE /clienthome/id
     $location.path('/sphome/');
   };
 
@@ -45,10 +43,10 @@ $scope.showModalSection = 'login';
     console.log("PROVIDER", provider);
     LoginService.postSp(provider)
     .success(function(data) {
-      $rootScope.provider = data
-      console.log("SUCCESS", data)
+      // $rootScope.theprovider = data;
+      window.localStorage.setItem('theprovider', window.JSON.stringify(data));
+      console.log("SUCCESS from login controller", data)
       $uibModalInstance.dismiss();
-      // THIS PATH WILL NEED AN ID LIKE /sphome/id
       $location.path('/sphome/' + data.id);
 
     })

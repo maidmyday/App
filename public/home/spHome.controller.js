@@ -6,17 +6,17 @@ angular
 
   function SpController($scope,$rootScope,$location,$uibModal,$log,SpService) {
     var vm = this;
-    $rootScope.userId;
 
-    SpService.getProvider(id).then(function(data){
-      console.log('provider data',data);
-      vm.provider = data;
-      console.log('vm provider',vm.provider);
-      $rootScope.userId = id;
+    SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id).then(function(data){
+      console.log('provider data from sphome controller',data);
+      console.log('testing theprovider from sphome controller',window.localStorage.getItem('theprovider'));
+      // vm.providerData = data;
+      vm.providerData =  JSON.parse(window.localStorage.getItem('theprovider'));
+      console.log('vm provider from sphome controller',vm.providerData);
     })
 
     SpService.getAllProviders().then(function(data){
-      console.log('providers data',data);
+      console.log('providers data from sphome controller',data);
     })
 
     //go online: change a boolean and show change in dom, switch button?
