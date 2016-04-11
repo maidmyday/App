@@ -31,55 +31,7 @@ angular
          redirectTo: '/404'
       })
   })
-  // .controller('ModalInstanceController', function ($scope, $uibModalInstance, $location,LoginService) {
-  //
-  //
-  // $scope.showModalSection = 'login';
-  //
-  //
-  // $scope.registerClient = function () {
-  //   $scope.showModalSection = 'register';
-  // }
-  //
-  // $scope.loginClient = function () {
-  //   $scope.showModalSection = 'login';
-  //
-  //
-  // };
-  // $scope.signInClient = function () {
-  //   $uibModalInstance.dismiss();
-  //   // THIS PATH WILL NEED AN ID LIKE /clienthome/id
-  //   $location.path('/clienthome');
-  // };
-  //
-  // $scope.registerClientPath = function (user) {
-  //   LoginService.postClient(user)
-  //   $uibModalInstance.dismiss();
-  //   // THIS PATH WILL NEED AN ID LIKE /clienthome/id
-  //   $location.path('/clienthome');
-  // }
-  //
-  //
-  // $scope.registerSp = function () {
-  //   $scope.showModalSection = 'register';
-  // }
-  //
-  // $scope.loginSp = function () {
-  //   $scope.showModalSection = 'login';
-  //
-  // };
-  // $scope.signInSp = function () {
-  //   $uibModalInstance.dismiss();
-  //   // THIS PATH WILL NEED AN ID LIKE /clienthome/id
-  //   $location.path('/sphome');
-  // };
-  //
-  // $scope.registerSpPath = function () {
-  //   $uibModalInstance.dismiss();
-  //   // THIS PATH WILL NEED AN ID LIKE /clienthome/id
-  //   $location.path('/sphome');
-  // }
-  // });
+  
 
 },{"./clientHome":4,"./loginFeature":5,"./spHome":16,"angular":15,"angular-route":11,"angular-ui-bootstrap":13}],2:[function(require,module,exports){
 angular
@@ -90,6 +42,41 @@ angular
 
   function ClientController($scope,$rootScope,$location/*ClientService*/) {
 
+    $scope.accordionData = [
+      {
+        title: 'this is clavin',
+        content: 'this is a great content'
+      },
+      {
+        title: 'this is alex',
+        content: 'this is the great content'
+      }
+    ]
+
+   $scope.historyData = [
+     {
+       img: './images/bill04.jpg',
+       first: 'Zachary',
+       last: 'Binx',
+       rating: '5 stars',
+       date: 'date/time'
+     },
+     {
+       img: './images/bill02.jpg',
+       first: 'Will',
+       last: 'Graham',
+       rating: '2 stars',
+       date: 'date/time'
+     },
+     {
+       img: './images/bill03.jpg',
+       first: 'Spencer',
+       last: 'Reid',
+       rating: '0 stars',
+       date: 'date/time'
+     }
+   ]
+   
   }
 
 },{}],3:[function(require,module,exports){
@@ -179,7 +166,7 @@ angular
 
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
-      templateUrl: './loginFeature/templates/Spmodal.html',
+      templateUrl: './loginFeature/templates/provider-register-login-modal.html',
       controller: 'ModalInstanceController',
       size: size,
       resolve: {
@@ -194,7 +181,7 @@ angular
 
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
-      templateUrl: './loginFeature/templates/Clientmodal.html',
+      templateUrl: './loginFeature/templates/client-register-login-modal.html',
       controller: 'ModalInstanceController',
       size: size,
       resolve: {
@@ -39389,14 +39376,38 @@ angular
   function SpController($scope,$rootScope,$location/*SpService*/) {
      $scope.accordionData = [
        {
-         title: "this is clavin",
-         content: "this is a great content"
+         title: 'this is clavin',
+         content: 'this is a great content'
        },
        {
-         title: "this is alex",
-         content: "this is the great content"
+         title: 'this is alex',
+         content: 'this is the great content'
        }
      ]
+
+    $scope.historyData = [
+      {
+        img: './images/bill04.jpg',
+        first: 'Zachary',
+        last: 'Binx',
+        rating: '5 stars',
+        date: 'date/time'
+      },
+      {
+        img: './images/bill02.jpg',
+        first: 'Will',
+        last: 'Graham',
+        rating: '2 stars',
+        date: 'date/time'
+      },
+      {
+        img: './images/bill03.jpg',
+        first: 'Spencer',
+        last: 'Reid',
+        rating: '0 stars',
+        date: 'date/time'
+      }
+    ]
   }
 
 },{}],18:[function(require,module,exports){

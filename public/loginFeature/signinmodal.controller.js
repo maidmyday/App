@@ -7,7 +7,7 @@ angular
 
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
-      templateUrl: './loginFeature/templates/Spmodal.html',
+      templateUrl: './loginFeature/templates/provider-register-login-modal.html',
       controller: 'ModalInstanceController',
       size: size,
       resolve: {
@@ -22,7 +22,7 @@ angular
 
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
-      templateUrl: './loginFeature/templates/Clientmodal.html',
+      templateUrl: './loginFeature/templates/client-register-login-modal.html',
       controller: 'ModalInstanceController',
       size: size,
       resolve: {

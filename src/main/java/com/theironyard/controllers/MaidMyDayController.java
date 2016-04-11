@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Caroline on 4/5/16.
@@ -82,18 +83,34 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/client", method = RequestMethod.PUT)
-    public Client editClient() {
-        return null;
+    public Client editClient(@RequestBody Client client, HttpSession session) throws Exception {
+
+        if (client.getEmail().equals(session.getAttribute("email"))) {
+            return clientRepository.save(client);
+        } else {
+            throw new Exception("You're not allowed to edit others' profiles.");
+        }
     }
 
     @RequestMapping(path = "/client/request", method = RequestMethod.GET)
-    public Client clientServiceHistory() {
-        return null;
+    public List<Request> clientServiceHistory(HttpSession session) {
+        String clientEmail = (String) session.getAttribute("email");
+        Client client = clientRepository.findByEmail(clientEmail);
+        List<Request> localRequests = requestRepository.findByClient(client);
+        return localRequests;
     }
 
     @RequestMapping(path = "/client/rating", method = RequestMethod.GET)
-    public Client viewClientRatings() {
-        return null;
+    public List<Rating> viewClientRatings(HttpSession session) {
+        String clientEmail = (String) session.getAttribute("email");
+        Client client = clientRepository.findByEmail(clientEmail);
+        List<Rating> localRatings = ratingRepository.findByClient(client);
+        return localRatings;
+    }
+
+    @RequestMapping(path = "/client", method = RequestMethod.DELETE)
+    public void deleteClient(@RequestBody Client client) {
+        clientRepository.delete(client);
     }
 
 
@@ -136,8 +153,13 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.PUT)
-    public Provider updateProviderProfile() {
-        return null;
+    public Provider editProfile(@RequestBody Provider provider, HttpSession session) throws Exception {
+
+        if (provider.getEmail().equals(session.getAttribute("email"))) {
+            return providerRepository.save(provider);
+        } else {
+            throw new Exception("You're not allowed to edit others' profiles.");
+        }
     }
 
     @RequestMapping(path = "/provider/task", method = RequestMethod.PUT)
@@ -156,13 +178,24 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider/request", method = RequestMethod.GET)
-    public Client providerServiceHistory() {
-        return null;
+    public List<Request> providerServiceHistory(HttpSession session) {
+        String providerEmail = (String) session.getAttribute("email");
+        Provider provider = providerRepository.findByEmail(providerEmail);
+        List<Request> localRequests = requestRepository.findByProvider(provider);
+        return localRequests;
     }
 
     @RequestMapping(path = "/provider/rating", method = RequestMethod.GET)
-    public Client viewProviderRatings() {
-        return null;
+    public List<Rating> viewProviderRatings(HttpSession session) {
+        String providerEmail = (String) session.getAttribute("email");
+        Provider provider = providerRepository.findByEmail(providerEmail);
+        List<Rating> localRatings = ratingRepository.findByProvider(provider);
+        return localRatings;
+    }
+
+    @RequestMapping(path = "/provider", method = RequestMethod.DELETE)
+    public void deleteProvider(@RequestBody Provider provider) {
+        providerRepository.delete(provider);
     }
 
 
