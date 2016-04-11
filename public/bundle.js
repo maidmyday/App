@@ -199,7 +199,7 @@ angular
     var vm = this;
     $rootScope.userId;
 
-    SpService.getProvider(id).then(function(data){
+    SpService.getProvider().then(function(data){
       console.log('provider data',data);
       vm.provider = data;
       console.log('vm provider',vm.provider);
@@ -292,7 +292,7 @@ angular
     ])
   .config(function($routeProvider){
     $routeProvider
-    .when('/sphome',{
+    .when('/sphome/:id',{
       templateUrl: 'home/tmpls/spHome.html',
       controller: 'SpController as SpCtrl'
     })
