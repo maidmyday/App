@@ -4,9 +4,15 @@ angular
 
     var clienturl = '/client';
     var spurl = '/provider';
+    var allClients = '/clients';
+    var allProviders = '/providers';
 
     function getProvider(id) {
-      return $http.get(spurl + '/' + id)
+      return $http.get(spurl + '/' + id);
+    }
+
+    function getAllProviders(){
+      return $http.get(allProviders);
     }
 
     var historyData = [
@@ -34,6 +40,7 @@ angular
     ]
 
     return {
+      getAllProviders: getAllProviders,
       getProvider: getProvider,
       historyData: historyData
     }

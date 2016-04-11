@@ -6,6 +6,7 @@ angular
 
   function ClientController($scope,$rootScope,$location,$uibModal,$log,ClientService) {
     var vm = this;
+    $rootscope.id;
 
     ClientService.getClient().then(function(data){
       console.log('client data',data);
