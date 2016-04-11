@@ -80,6 +80,7 @@ angular
 
   function ClientController($scope,$rootScope,$location,$uibModal,$log,ClientService) {
     var vm = this;
+    $rootscope.id;
 
     ClientService.getClient().then(function(data){
       console.log('client data',data);
@@ -196,11 +197,17 @@ angular
 
   function SpController($scope,$rootScope,$location,$uibModal,$log,SpService) {
     var vm = this;
+    $rootScope.userId;
 
-    SpService.getProvider().then(function(data){
+    SpService.getProvider(id).then(function(data){
       console.log('provider data',data);
       vm.provider = data;
       console.log('vm provider',vm.provider);
+      $rootScope.userId = id;
+    })
+
+    SpService.getAllProviders().then(function(data){
+      console.log('providers data',data);
     })
 
     //go online: change a boolean and show change in dom, switch button?
@@ -298,9 +305,15 @@ angular
 
     var clienturl = '/client';
     var spurl = '/provider';
+    var allClients = '/clients';
+    var allProviders = '/providers';
 
     function getProvider(id) {
-      return $http.get(spurl + '/' + id)
+      return $http.get(spurl + '/' + id);
+    }
+
+    function getAllProviders(){
+      return $http.get(allProviders);
     }
 
     var historyData = [
@@ -328,6 +341,7 @@ angular
     ]
 
     return {
+      getAllProviders: getAllProviders,
       getProvider: getProvider,
       historyData: historyData
     }
