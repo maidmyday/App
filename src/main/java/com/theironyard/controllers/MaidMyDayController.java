@@ -43,11 +43,19 @@ public class MaidMyDayController {
         dbui = Server.createWebServer().start();
 
         if (clientRepository.count() == 0) {
-            Client client = new Client("Kevin", "Bacon", "1234", "kbacon@sizzling.com", "843-123-4567");
-            clientRepository.save(client);
+            Client client1 = new Client("Kevin", "Bacon", "1234", "kbacon@sizzling.com", "843-123-4567");
+            clientRepository.save(client1);
+        }
+        if (clientRepository.count() == 1) {
+            Client client2 = new Client("Clint", "Bozic", "1234", "kbacon@sizzling.com", "843-123-4567");
+            clientRepository.save(client2);
         }
         if (providerRepository.count() == 0) {
             Provider provider = new Provider("Caroline", "Vail", "1234", "carolineevail@gmail.com", "334-669-5482");
+            providerRepository.save(provider);
+        }
+        if (providerRepository.count() == 1) {
+            Provider provider = new Provider("Zach", "Owens", "1234", "carolineevail@gmail.com", "334-669-5482");
             providerRepository.save(provider);
         }
     }
@@ -68,12 +76,19 @@ public class MaidMyDayController {
         return clientRepository.save(client);
     }
 
+    // returns a single client
     @RequestMapping(path = "/client/{id}", method = RequestMethod.GET)
     public Client loginClient(HttpSession session, @PathVariable ("id") int id) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
 
         Client client = clientRepository.findOne(id);
 
         return client;
+    }
+
+    // returns all clients
+    @RequestMapping(path = "/clients", method = RequestMethod.GET)
+    public List<Client> allClients(HttpSession session) {
+        return (List<Client>) clientRepository.findAll();
     }
 
     @RequestMapping(path = "/client", method = RequestMethod.PUT)
@@ -109,13 +124,21 @@ public class MaidMyDayController {
 
 
 
-
+    // returns a single provider
     @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
     public Provider loginProvider(HttpSession session, @PathVariable ("id") int id) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
 
         Provider provider = providerRepository.findOne(id);
 
         return provider;
+
+    }
+
+    // returns all providers
+    @RequestMapping(path = "/providers", method = RequestMethod.GET)
+    public List<Provider> allProviders(HttpSession session) {
+
+        return (List<Provider>) providerRepository.findAll();
 
     }
 
