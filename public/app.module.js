@@ -1,6 +1,7 @@
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
+var angularMatch = require('angular-validation-match');
 require('./home');
 require('./goOnline');
 require('./loginFeature');
@@ -9,6 +10,7 @@ require('./loginFeature');
 angular
   .module('maidApp',[
     'ngRoute',
+    'validation.match',
     'ui.bootstrap',
     'cHome',
     'spHome',
