@@ -12,7 +12,7 @@
     </form>
 <div class="modal-footer">
   <button class="btn btn-primary" type="button" ng-click="signInClient()">Login</button>
-  <button class="btn register" type="button" btn-toggle="" ng-click="registerClient()">Register</button>
+  <button class="btn register" type="button" btn-toggle="" ng-click="showRegisterSection()">Register</button>
 </div>
 </div>
 
@@ -25,17 +25,17 @@
       <h3 class="modal-title">Create Account</h3>
   </div>
 
-    <form ng-submit="registerClientPath(user)">
-      <input type="text" placeholder="first name" ng-model="user.FIRST_NAME">
-      <input type="text" placeholder="last name" ng-model="user.LAST_NAME">
-      <input type="text" placeholder="email" ng-model="user.EMAIL">
-      <input type="number" placeholder="phone number" ng-model="user.PHONE_NUMBER">
-      <input type="password" placeholder="password" ng-model="user.PASSWORD">
-      <input type="password" placeholder="confirm password" ng-model="user.PASSWORD_CONFIRMATION">
+    <form ng-submit="registerClientPath(client)">
+      <input type="text" placeholder="first name" ng-model="client.firstName">
+      <input type="text" placeholder="last name" ng-model="client.lastName">
+      <input type="text" placeholder="email" ng-model="client.email">
+      <input type="number" placeholder="phone number" ng-model="client.phoneNumber">
+      <input type="password" placeholder="password" ng-model="client.password">
+      <input type="password" placeholder="confirm password" ng-model="client.PASSWORD_CONFIRMATION">
       <button class="btn register" type="submit" btn-toggle="">Register</button>
     </form>
 <div class="modal-footer">
-  <button class="btn btn-primary" type="button" ng-click="loginClient()">Login</button>
+  <button class="btn btn-primary" type="button" ng-click="showLoginSection()">Back</button>
 
 </div>
 

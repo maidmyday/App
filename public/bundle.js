@@ -14,7 +14,7 @@ angular
     'ui.bootstrap',
     'cHome',
     'spHome',
-    'login.module'
+    'login'
   ])
   .config(function($routeProvider) {
     $routeProvider
@@ -31,9 +31,8 @@ angular
          redirectTo: '/404'
       })
   })
-  
 
-},{"./clientHome":4,"./loginFeature":5,"./spHome":16,"angular":15,"angular-route":11,"angular-ui-bootstrap":13}],2:[function(require,module,exports){
+},{"./clientHome":4,"./loginFeature":7,"./spHome":16,"angular":15,"angular-route":11,"angular-ui-bootstrap":13}],2:[function(require,module,exports){
 angular
   .module('cHome')
   .controller('ClientController', ClientController);
@@ -89,7 +88,7 @@ angular
   .module('cHome',['ngRoute'])
   .config(function($routeProvider){
     $routeProvider
-    .when('/clienthome',{
+    .when('/clienthome/:id',{
       templateUrl: 'clientHome/tmpls/clientHome.html',
       controller: 'ClientController as CliCtrl'
     })
@@ -102,66 +101,73 @@ require('./cHome.controller');
 // require('./cHome.Directive');
 
 },{"./cHome.controller":2,"./cHome.module":3}],5:[function(require,module,exports){
-require('./login.module.js')
-require('./login.service.js')
-require('./signinmodal.controller.js');
-require('./signinmodalinstance.controller.js');
-
-},{"./login.module.js":6,"./login.service.js":7,"./signinmodal.controller.js":8,"./signinmodalinstance.controller.js":9}],6:[function(require,module,exports){
 angular
-  .module('login.module',[
-    'ngRoute'
-  ]);
+.module('login')
+.controller('ModalInstanceController', function ($scope, $uibModalInstance, LoginService, $location) {
 
-},{}],7:[function(require,module,exports){
+
+  $scope.showModalSection = 'login';
+
+
+  $scope.showRegisterSection = function () {
+    $scope.showModalSection = 'register';
+  }
+
+  $scope.showLoginSection = function () {
+    $scope.showModalSection = 'login';
+  };
+
+  $scope.signInClient = function () {
+    $uibModalInstance.dismiss();
+    // THIS PATH WILL NEED AN ID LIKE /clienthome/id
+    $location.path('/clienthome');
+  };
+
+  $scope.registerClientPath = function (client) {
+    console.log("CLIENT", client);
+    LoginService.postClient(client)
+    .success(function(data) {
+      console.log("SUCESS", data)
+      $uibModalInstance.dismiss();
+      // THIS PATH WILL NEED AN ID LIKE /clienthome/id
+      $location.path('/clienthome/' + data.id);
+    })
+    .error(function(err) {
+      console.log("ERROR", err)
+    })
+
+  }
+
+  $scope.signInSp = function () {
+    $uibModalInstance.dismiss();
+    // THIS PATH WILL NEED AN ID LIKE /clienthome/id
+    $location.path('/sphome/');
+  };
+
+  $scope.registerSpPath = function (provider) {
+    console.log("PROVIDER", provider);
+    LoginService.postSp(provider)
+    .success(function(data) {
+      console.log("SUCCESS", data)
+      $uibModalInstance.dismiss();
+      // THIS PATH WILL NEED AN ID LIKE /sphome/id
+      $location.path('/sphome/' + data.id);
+    })
+    .error(function(err) {
+      console.log("ERROR", err)
+    })
+
+  }
+});
+
+},{}],6:[function(require,module,exports){
 angular
-  .module('login.module')
-  .service('LoginService',function($http) {
-    // var url = "https://tiny-tiny.herokuapp.com/collections/shoppingcart";
-    var clienturl = '/client';
-    var spurl = '/provider';
-
-    function getClient(id) {
-      return $http.get(clienturl + '/' + id)
-    }
-    function getAllClients() {
-      return $http.get(clienturl)
-    }
-    function postClient(post) {
-      console.log("USER BEING SAVED", post);
-      return $http.post(clienturl,post);
-    }
-
-    function getSp(id) {
-      return $http.get(spurl + '/' + id)
-    }
-
-    function getAllSp() {
-      return $http.get(spurl)
-    }
-
-    function postSp(post) {
-      return $http.post(spurl,post);
-    }
-
-
-
-    return {
-      getClient: getClient,
-      getAllClients: getAllClients,
-      postClient: postClient,
-      getSp: getSp,
-      getAllSp: getAllSp,
-      postSp: postSp
-    };
-  })
-
-},{}],8:[function(require,module,exports){
-angular
-.module('login.module')
+.module('login')
 .controller('LoginModalController', function ($scope, $uibModal, $log, $location) {
   $scope.animationsEnabled = true;
 
+
+// THIS OPENS PROVIDER MODAL
   $scope.openSpLoginModal = function (size) {
 
     var modalInstance = $uibModal.open({
@@ -177,6 +183,8 @@ angular
     });
   };
 
+
+// THIS OPEN CLIENT MODAL
   $scope.openClientLoginModal = function (size) {
 
     var modalInstance = $uibModal.open({
@@ -192,92 +200,64 @@ angular
     });
   };
 
-  $scope.registerClient = function () {
-
-    var modalInstance = $uibModal.open({
-      animation: $scope.animationsEnabled,
-      templateUrl: './loginFeature/templates/Clientregistermodal.html',
-      controller: 'ModalInstanceController',
-      size: size,
-      resolve: {
-        items: function () {
-          return $scope.items;
-        }
-      }
-    });
-  };
-
-
-
 })
+
+},{}],7:[function(require,module,exports){
+require('./login.module.js')
+require('./login.service.js')
+require('./controllers/login-modal.controller.js');
+require('./controllers/login-modal-instance.controller.js');
+
+},{"./controllers/login-modal-instance.controller.js":5,"./controllers/login-modal.controller.js":6,"./login.module.js":8,"./login.service.js":9}],8:[function(require,module,exports){
+angular
+  .module('login',[
+    'ngRoute',
+  ]);
 
 },{}],9:[function(require,module,exports){
 angular
-.module('login.module')
-.controller('ModalInstanceController', function ($scope, $uibModalInstance, LoginService) {
+  .module('login')
+  .service('LoginService',function($http) {
+    var clienturl = '/client';
+    var spurl = '/provider';
 
-  $scope.ok = function () {
-    $uibModalInstance.close($scope.selected.item);
-  };
+    function getClient(id) {
+      return $http.get(clienturl + '/' + id)
+    }
+    function getAllClients() {
+      return $http.get(clienturl)
+    }
+    function postClient(post) {
+      console.log("CLIENT BEING SAVED", post);
+      delete post.PASSWORD_CONFIRMATION;
+      return $http.post(clienturl,post);
+    }
 
-  $scope.cancel = function () {
-    $uibModalInstance.dismiss('cancel');
-  };
+    function getSp(id) {
+      return $http.get(spurl + '/' + id)
+    }
 
-  $scope.showModalSection = 'login';
+    function getAllSp() {
+      return $http.get(spurl)
+    }
 
-
-  $scope.registerClient = function () {
-    $scope.showModalSection = 'register';
-  }
-
-  $scope.loginClient = function () {
-    $scope.showModalSection = 'login';
-
-
-  };
-  $scope.signInClient = function () {
-    $uibModalInstance.dismiss();
-    // THIS PATH WILL NEED AN ID LIKE /clienthome/id
-    $location.path('/clienthome');
-  };
-
-  $scope.registerClientPath = function (user) {
-    console.log(user);
-    LoginService.postClient(user)
-    .success(function(data) {
-      console.log("SAVED", data)
-      $uibModalInstance.dismiss();
-      // THIS PATH WILL NEED AN ID LIKE /clienthome/id
-      // $location.path('/clienthome');
-    })
-    .error(function(err) {
-      console.log("OH SHIT", err)
-    })
-
-  }
+    function postSp(post) {
+      console.log("PROVIDER BEING SAVED", post);
+      delete post.PASSWORD_CONFIRMATION;
+      return $http.post(spurl,post);
+    }
 
 
-  $scope.registerSp = function () {
-    $scope.showModalSection = 'register';
-  }
 
-  $scope.loginSp = function () {
-    $scope.showModalSection = 'login';
-
-  };
-  $scope.signInSp = function () {
-    $uibModalInstance.dismiss();
-    // THIS PATH WILL NEED AN ID LIKE /clienthome/id
-    $location.path('/sphome');
-  };
-
-  $scope.registerSpPath = function () {
-    $uibModalInstance.dismiss();
-    // THIS PATH WILL NEED AN ID LIKE /clienthome/id
-    $location.path('/sphome');
-  }
-});
+    return {
+      getClient: getClient,
+      getAllClients: getAllClients,
+      postClient: postClient,
+      getSp: getSp,
+      getAllSp: getAllSp,
+      postSp: postSp
+    };
+  })
 
 },{}],10:[function(require,module,exports){
 /**
@@ -39420,7 +39400,7 @@ angular
   .module('spHome',['ngRoute','ui.bootstrap'/*,'ngMaterial'*/])
   .config(function($routeProvider){
     $routeProvider
-    .when('/sphome',{
+    .when('/sphome/:id',{
       templateUrl: 'spHome/tmpls/spHome.html',
       controller: 'SpController as SpCtrl'
     })

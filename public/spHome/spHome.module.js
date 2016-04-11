@@ -7,7 +7,7 @@ angular
   .module('spHome',['ngRoute','ui.bootstrap'/*,'ngMaterial'*/])
   .config(function($routeProvider){
     $routeProvider
-    .when('/sphome',{
+    .when('/sphome/:id',{
       templateUrl: 'spHome/tmpls/spHome.html',
       controller: 'SpController as SpCtrl'
     })

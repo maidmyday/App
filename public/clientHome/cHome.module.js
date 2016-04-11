@@ -7,7 +7,7 @@ angular
   .module('cHome',['ngRoute'])
   .config(function($routeProvider){
     $routeProvider
-    .when('/clienthome',{
+    .when('/clienthome/:id',{
       templateUrl: 'clientHome/tmpls/clientHome.html',
       controller: 'ClientController as CliCtrl'
     })

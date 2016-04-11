@@ -13,7 +13,7 @@ angular
     'ui.bootstrap',
     'cHome',
     'spHome',
-    'login.module'
+    'login'
   ])
   .config(function($routeProvider) {
     $routeProvider
@@ -30,4 +30,3 @@ angular
          redirectTo: '/404'
       })
   })
-  

@@ -1,8 +1,10 @@
 angular
-.module('login.module')
+.module('login')
 .controller('LoginModalController', function ($scope, $uibModal, $log, $location) {
   $scope.animationsEnabled = true;
 
+
+// THIS OPENS PROVIDER MODAL
   $scope.openSpLoginModal = function (size) {
 
     var modalInstance = $uibModal.open({
@@ -18,6 +20,8 @@ angular
     });
   };
 
+
+// THIS OPEN CLIENT MODAL
   $scope.openClientLoginModal = function (size) {
 
     var modalInstance = $uibModal.open({
@@ -32,22 +36,5 @@ angular
       }
     });
   };
-
-  $scope.registerClient = function () {
-
-    var modalInstance = $uibModal.open({
-      animation: $scope.animationsEnabled,
-      templateUrl: './loginFeature/templates/Clientregistermodal.html',
-      controller: 'ModalInstanceController',
-      size: size,
-      resolve: {
-        items: function () {
-          return $scope.items;
-        }
-      }
-    });
-  };
-
-
 
 })
