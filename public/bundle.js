@@ -3,7 +3,8 @@ var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
 var angularMatch = require('angular-validation-match');
-require('./home');
+require('./chome');
+require('./sphome');
 require('./goOnline');
 require('./loginFeature');
 
@@ -34,45 +35,7 @@ angular
       })
   })
 
-},{"./goOnline":5,"./home":9,"./loginFeature":16,"angular":26,"angular-route":20,"angular-ui-bootstrap":22,"angular-validation-match":24}],2:[function(require,module,exports){
-angular
-  .module('goOnline')
-  .controller('GoController', GoController);
-
-  GoController.$inject = ['$scope','$rootScope','$location', '$uibModal', '$log'/*,'GoService'*/];
-
-  function GoController($scope,$rootScope,$location,$uibModal,$log/*,GoService*/){
-    var vm = this;
-  }
-
-},{}],3:[function(require,module,exports){
-var angular = require('angular');
-var angularRoute = require('angular-route');
-var uiBoot = require('angular-ui-bootstrap');
-
-angular
-  .module('goOnline',[
-    'ngRoute',
-    'ui.bootstrap'
-  /*,'ngMaterial'*/
-    ])
-  .config(function($routeProvider){
-    $routeProvider
-    .when('/goonline',{
-      templateUrl: 'goOnline/tmpls/goOnline.html',
-      controller: 'GoController as GoCtrl'
-    })
-  })
-
-},{"angular":26,"angular-route":20,"angular-ui-bootstrap":22}],4:[function(require,module,exports){
-
-},{}],5:[function(require,module,exports){
-require('./goOnline.module');
-require('./goOnline.controller');
-require('./goOnline.service');
-// require('./goOnline.directive');
-
-},{"./goOnline.controller":2,"./goOnline.module":3,"./goOnline.service":4}],6:[function(require,module,exports){
+},{"./chome":6,"./goOnline":10,"./loginFeature":13,"./sphome":24,"angular":23,"angular-route":17,"angular-ui-bootstrap":19,"angular-validation-match":21}],2:[function(require,module,exports){
 angular
   .module('cHome')
   .controller('ClientController', ClientController);
@@ -82,6 +45,17 @@ angular
   function ClientController($scope,$rootScope,$location,$uibModal,$log,ClientService) {
     var vm = this;
 
+    //logout button
+    vm.logout = function(){
+      console.log('data inside logout function',window.localStorage);
+      ClientService.logoutNow(window.JSON.parse(window.localStorage.getItem('theclient')).id).then(function(){
+        window.localStorage.clear();
+        console.log('hopefully empty: ',window.localStorage);
+        $location.path('/');
+      })
+    }
+
+    //getting data from the login and register
     ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id).then(function(data){
       console.log('client data from chome controller',data);
       console.log('testing theclient from chome controller',window.localStorage.getItem('theclient'));
@@ -120,7 +94,26 @@ angular
 
   }
 
-},{}],7:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
+angular
+  .module('cHome')
+  .directive('cliHomeDir', function () {
+    return {
+      restrict: 'E',
+      templateUrl: 'chome/tmpls/profileTmpl.html',
+      scope: {
+        thedata: '='
+      },
+      link: function (scope, elem, attrs, transclude) {
+       // dom stuff here
+       elem.on('click', function (e) {
+         elem.css('background-color', 'red');
+       })
+      }
+    }
+  });
+
+},{}],4:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
 
@@ -132,18 +125,25 @@ angular
     $routeProvider
 
     .when('/clienthome/:id',{
-      templateUrl: 'home/tmpls/clientHome.html',
+      templateUrl: 'chome/tmpls/clientHome.html',
       controller: 'ClientController as CliCtrl'
     })
   })
 
-},{"angular":26,"angular-route":20}],8:[function(require,module,exports){
+},{"angular":23,"angular-route":17}],5:[function(require,module,exports){
 angular
   .module('cHome')
   .service('ClientService',function($http, $q, $cacheFactory) {
 
     var clienturl = '/client';
     var spurl = '/provider';
+    var allClients = '/clients';
+    var allProviders = '/providers';
+    var logouturl = '/logout';
+
+    function logoutNow(id){
+      return $http.post(logouturl);
+    }
 
     function getClient(id) {
       return $http.get(clienturl + '/' + id)
@@ -174,183 +174,57 @@ angular
    ]
 
     return {
+      logoutNow: logoutNow,
       getClient: getClient,
       historyData: historyData
     }
   })
 
-},{}],9:[function(require,module,exports){
-require('./spHome.module');
-require('./spHome.controller');
-require('./spHome.service');
-require('./spHome.directive');
-
+},{}],6:[function(require,module,exports){
 require('./cHome.module');
 require('./cHome.controller');
 require('./cHome.service');
-// require('./cHome.directive');
+require('./cHome.directive');
 
-},{"./cHome.controller":6,"./cHome.module":7,"./cHome.service":8,"./spHome.controller":10,"./spHome.directive":11,"./spHome.module":12,"./spHome.service":13}],10:[function(require,module,exports){
+},{"./cHome.controller":2,"./cHome.directive":3,"./cHome.module":4,"./cHome.service":5}],7:[function(require,module,exports){
 angular
-  .module('spHome')
-  .controller('SpController',SpController);
+  .module('goOnline')
+  .controller('GoController', GoController);
 
-  SpController.$inject = ['$scope','$rootScope','$location','$uibModal','$log','SpService'];
+  GoController.$inject = ['$scope','$rootScope','$location', '$uibModal', '$log'/*,'GoService'*/];
 
-  function SpController($scope,$rootScope,$location,$uibModal,$log,SpService) {
+  function GoController($scope,$rootScope,$location,$uibModal,$log/*,GoService*/){
     var vm = this;
-
-    SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id).then(function(data){
-      console.log('provider data from sphome controller',data);
-      console.log('testing theprovider from sphome controller',window.localStorage.getItem('theprovider'));
-      // vm.providerData = data;
-      vm.providerData =  JSON.parse(window.localStorage.getItem('theprovider'));
-      console.log('vm provider from sphome controller',vm.providerData);
-    })
-
-    SpService.getAllProviders().then(function(data){
-      console.log('providers data from sphome controller',data);
-    })
-
-    //go online: change a boolean and show change in dom, switch button?
-    $scope.goOnline = function(){
-
-    }
-
-    //edit profile content
-    vm.editInfo = false;
-    vm.editBtn1 = function(){
-      vm.editInfo = !vm.editInfo;
-    }
-
-    //edit about content
-    vm.editAbout = false;
-    vm.editBtn2 = function(){
-      vm.editAbout = !vm.editAbout;
-    }
-
-    //edit specialties content
-    vm.editSpecial = false;
-    vm.editBtn3 = function(){
-      vm.editSpecial = !vm.editSpecial;
-    }
-
-    //the rating stars
-    vm.rate = 0;
-    vm.max = 5;
-    vm.isReadonly = false;
-
-    vm.hoveringOver = function(value) {
-      vm.overStar = value;
-      vm.percent = 100 * (value / vm.max);
-    };
-
-    vm.ratingStates = [
-      {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
-      {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-      {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
-      {stateOn: 'glyphicon-heart'},
-      {stateOff: 'glyphicon-off'}
-    ];
-
-    // temporary accordion data to inject the page moved to service
-
-    vm.historyData = SpService.historyData;
-
   }
 
-},{}],11:[function(require,module,exports){
-angular
-  .module('spHome')
-  .directive('spHomeDir', function () {
-    return {
-      restrict: 'E',
-      templateUrl: 'templateurl here',
-      scope: {
-        mydata: '='
-      },
-      link: function (scope, elem, attrs) {
-       // dom stuff here
-       elem.on('click', function (e) {
-         elem.css('background-color', 'red');
-       })
-      }
-    }
-  });
-
-  // <sp-home-dir mydata="angularObject"></sp-home-dir>
-
-},{}],12:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
-// var material = require('angular-material');
 
 angular
-  .module('spHome',[
+  .module('goOnline',[
     'ngRoute',
     'ui.bootstrap'
   /*,'ngMaterial'*/
     ])
   .config(function($routeProvider){
     $routeProvider
-    .when('/sphome/:id',{
-      templateUrl: 'home/tmpls/spHome.html',
-      controller: 'SpController as SpCtrl'
+    .when('/goonline',{
+      templateUrl: 'goOnline/tmpls/goOnline.html',
+      controller: 'GoController as GoCtrl'
     })
   })
 
-},{"angular":26,"angular-route":20,"angular-ui-bootstrap":22}],13:[function(require,module,exports){
-angular
-  .module('spHome')
-  .service('SpService',function($http, $q, $cacheFactory) {
+},{"angular":23,"angular-route":17,"angular-ui-bootstrap":19}],9:[function(require,module,exports){
 
-    var clienturl = '/client';
-    var spurl = '/provider';
-    var allClients = '/clients';
-    var allProviders = '/providers';
+},{}],10:[function(require,module,exports){
+require('./goOnline.module');
+require('./goOnline.controller');
+require('./goOnline.service');
+// require('./goOnline.directive');
 
-    function getProvider(id) {
-      return $http.get(spurl + '/' + id);
-    }
-
-    function getAllProviders(){
-      return $http.get(allProviders);
-    }
-
-    var historyData = [
-      {
-        img: './images/bill04.jpg',
-        first: 'Zachary',
-        last: 'Binx',
-        rating: '3',
-        date: 'date/time'
-      },
-      {
-        img: './images/bill02.jpg',
-        first: 'Will',
-        last: 'Graham',
-        rating: '5',
-        date: 'date/time'
-      },
-      {
-        img: './images/bill03.jpg',
-        first: 'Spencer',
-        last: 'Reid',
-        rating: '2',
-        date: 'date/time'
-      }
-    ]
-
-    return {
-      getAllProviders: getAllProviders,
-      getProvider: getProvider,
-      historyData: historyData
-    }
-
-  })
-
-},{}],14:[function(require,module,exports){
+},{"./goOnline.controller":7,"./goOnline.module":8,"./goOnline.service":9}],11:[function(require,module,exports){
 angular
 .module('login')
 .controller('ModalInstanceController', function ($rootScope,$scope, $uibModalInstance, LoginService, $location) {
@@ -412,7 +286,7 @@ $scope.showModalSection = 'login';
 
 });
 
-},{}],15:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 angular
 .module('login')
 .controller('LoginModalController', function ($scope, $uibModal, $log, $location) {
@@ -454,13 +328,13 @@ angular
 
 })
 
-},{}],16:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 require('./login.module.js')
 require('./login.service.js')
 require('./controllers/login-modal.controller.js');
 require('./controllers/login-modal-instance.controller.js');
 
-},{"./controllers/login-modal-instance.controller.js":14,"./controllers/login-modal.controller.js":15,"./login.module.js":17,"./login.service.js":18}],17:[function(require,module,exports){
+},{"./controllers/login-modal-instance.controller.js":11,"./controllers/login-modal.controller.js":12,"./login.module.js":14,"./login.service.js":15}],14:[function(require,module,exports){
 require('angular-validation-match');
 
 angular
@@ -469,7 +343,7 @@ angular
     'validation.match'
   ]);
 
-},{"angular-validation-match":24}],18:[function(require,module,exports){
+},{"angular-validation-match":21}],15:[function(require,module,exports){
 angular
   .module('login')
   .service('LoginService',function($http) {
@@ -514,7 +388,7 @@ angular
     };
   })
 
-},{}],19:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -1538,11 +1412,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],20:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":19}],21:[function(require,module,exports){
+},{"./angular-route":16}],18:[function(require,module,exports){
 /*
  * angular-ui-bootstrap
  * http://angular-ui.github.io/bootstrap/
@@ -8871,12 +8745,12 @@ angular.module('ui.bootstrap.datepickerPopup').run(function() {!angular.$$csp().
 angular.module('ui.bootstrap.tooltip').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTooltipCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-tooltip-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-bottom > .tooltip-arrow,[uib-popover-popup].popover.top-left > .arrow,[uib-popover-popup].popover.top-right > .arrow,[uib-popover-popup].popover.bottom-left > .arrow,[uib-popover-popup].popover.bottom-right > .arrow,[uib-popover-popup].popover.left-top > .arrow,[uib-popover-popup].popover.left-bottom > .arrow,[uib-popover-popup].popover.right-top > .arrow,[uib-popover-popup].popover.right-bottom > .arrow,[uib-popover-html-popup].popover.top-left > .arrow,[uib-popover-html-popup].popover.top-right > .arrow,[uib-popover-html-popup].popover.bottom-left > .arrow,[uib-popover-html-popup].popover.bottom-right > .arrow,[uib-popover-html-popup].popover.left-top > .arrow,[uib-popover-html-popup].popover.left-bottom > .arrow,[uib-popover-html-popup].popover.right-top > .arrow,[uib-popover-html-popup].popover.right-bottom > .arrow,[uib-popover-template-popup].popover.top-left > .arrow,[uib-popover-template-popup].popover.top-right > .arrow,[uib-popover-template-popup].popover.bottom-left > .arrow,[uib-popover-template-popup].popover.bottom-right > .arrow,[uib-popover-template-popup].popover.left-top > .arrow,[uib-popover-template-popup].popover.left-bottom > .arrow,[uib-popover-template-popup].popover.right-top > .arrow,[uib-popover-template-popup].popover.right-bottom > .arrow{top:auto;bottom:auto;left:auto;right:auto;margin:0;}[uib-popover-popup].popover,[uib-popover-html-popup].popover,[uib-popover-template-popup].popover{display:block !important;}</style>'); angular.$$uibTooltipCss = true; });
 angular.module('ui.bootstrap.timepicker').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTimepickerCss && angular.element(document).find('head').prepend('<style type="text/css">.uib-time input{width:50px;}</style>'); angular.$$uibTimepickerCss = true; });
 angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTypeaheadCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-typeahead-popup].dropdown-menu{display:block;}</style>'); angular.$$uibTypeaheadCss = true; });
-},{}],22:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 require('./dist/ui-bootstrap-tpls');
 
 module.exports = 'ui.bootstrap';
 
-},{"./dist/ui-bootstrap-tpls":21}],23:[function(require,module,exports){
+},{"./dist/ui-bootstrap-tpls":18}],20:[function(require,module,exports){
 /*!
  * angular-validation-match
  * Checks if one input matches another
@@ -8935,11 +8809,11 @@ function match ($parse) {
 }
 match.$inject = ["$parse"];
 })(window, window.angular);
-},{}],24:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 require('./dist/angular-validation-match');
 module.exports = 'validation.match';
 
-},{"./dist/angular-validation-match":23}],25:[function(require,module,exports){
+},{"./dist/angular-validation-match":20}],22:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -39654,8 +39528,193 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],26:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":25}]},{},[1]);
+},{"./angular":22}],24:[function(require,module,exports){
+require('./spHome.module');
+require('./spHome.controller');
+require('./spHome.service');
+require('./spHome.directive');
+
+},{"./spHome.controller":25,"./spHome.directive":26,"./spHome.module":27,"./spHome.service":28}],25:[function(require,module,exports){
+angular
+  .module('spHome')
+  .controller('SpController',SpController);
+
+  SpController.$inject = ['$scope','$rootScope','$location','$uibModal','$log','SpService'];
+
+  function SpController($scope,$rootScope,$location,$uibModal,$log,SpService) {
+    var vm = this;
+
+    //logout button
+    vm.logout = function(){
+      console.log('data inside logout function',window.localStorage);
+      SpService.logoutNow(window.JSON.parse(window.localStorage.getItem('theprovider')).id).then(function(){
+        window.localStorage.clear();
+        console.log('hopefully empty: ',window.localStorage);
+        $location.path('/');
+      })
+    }
+
+    //getting data from the login and register
+    SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id).then(function(data){
+      console.log('provider data from sphome controller',data);
+      console.log('testing theprovider from sphome controller',window.localStorage.getItem('theprovider'));
+      // vm.providerData = data;
+      vm.providerData =  JSON.parse(window.localStorage.getItem('theprovider'));
+      console.log('vm provider from sphome controller',vm.providerData);
+    })
+
+    SpService.getAllProviders().then(function(data){
+      console.log('providers data from sphome controller',data);
+    })
+
+    //go online: change a boolean and show change in dom, switch button?
+    vm.goOnline = function(){
+
+    }
+
+    //edit profile content
+    vm.editInfo = false;
+    vm.editBtn1 = function(){
+      vm.editInfo = !vm.editInfo;
+    }
+
+    //edit about content
+    vm.editAbout = false;
+    vm.editBtn2 = function(){
+      vm.editAbout = !vm.editAbout;
+    }
+
+    //edit specialties content
+    vm.editSpecial = false;
+    vm.editBtn3 = function(){
+      vm.editSpecial = !vm.editSpecial;
+    }
+
+    //the rating stars
+    vm.rate = 0;
+    vm.max = 5;
+    vm.isReadonly = false;
+
+    vm.hoveringOver = function(value) {
+      vm.overStar = value;
+      vm.percent = 100 * (value / vm.max);
+    };
+
+    vm.ratingStates = [
+      {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
+      {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
+      {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
+      {stateOn: 'glyphicon-heart'},
+      {stateOff: 'glyphicon-off'}
+    ];
+
+    // temporary accordion data to inject the page moved to service
+
+    vm.historyData = SpService.historyData;
+
+  }
+
+},{}],26:[function(require,module,exports){
+angular
+  .module('spHome')
+  .directive('spHomeDir', function () {
+    return {
+      restrict: 'E',
+      templateUrl: 'sphome/tmpls/profileTmpl.html',
+      scope: {
+        theclientdata: '='
+      },
+      link: function (scope, elem, attrs) {
+       // dom stuff here
+       elem.on('click', function (e) {
+         elem.css('background-color', 'red');
+       })
+      }
+    }
+  });
+
+  // <sp-home-dir mydata="angularObject"></sp-home-dir>
+
+},{}],27:[function(require,module,exports){
+var angular = require('angular');
+var angularRoute = require('angular-route');
+var uiBoot = require('angular-ui-bootstrap');
+// var material = require('angular-material');
+
+angular
+  .module('spHome',[
+    'ngRoute',
+    'ui.bootstrap'
+  /*,'ngMaterial'*/
+    ])
+  .config(function($routeProvider){
+    $routeProvider
+    .when('/sphome/:id',{
+      templateUrl: 'sphome/tmpls/spHome.html',
+      controller: 'SpController as SpCtrl'
+    })
+  })
+
+},{"angular":23,"angular-route":17,"angular-ui-bootstrap":19}],28:[function(require,module,exports){
+angular
+  .module('spHome')
+  .service('SpService',function($http, $q, $cacheFactory) {
+
+    var clienturl = '/client';
+    var spurl = '/provider';
+    var allClients = '/clients';
+    var allProviders = '/providers';
+    var logouturl = '/logout';
+
+    function logoutNow(id){
+      return $http.post(logouturl);
+    }
+
+    //logging in and registering
+    function getProvider(id) {
+      return $http.get(spurl + '/' + id);
+    }
+
+    function getAllProviders(){
+      return $http.get(allProviders);
+    }
+
+    //temp data for history
+    var historyData = [
+      {
+        img: './images/bill04.jpg',
+        first: 'Zachary',
+        last: 'Binx',
+        rating: '3',
+        date: 'date/time'
+      },
+      {
+        img: './images/bill02.jpg',
+        first: 'Will',
+        last: 'Graham',
+        rating: '5',
+        date: 'date/time'
+      },
+      {
+        img: './images/bill03.jpg',
+        first: 'Spencer',
+        last: 'Reid',
+        rating: '2',
+        date: 'date/time'
+      }
+    ]
+
+    return {
+      logoutNow: logoutNow,
+      getAllProviders: getAllProviders,
+      getProvider: getProvider,
+      historyData: historyData
+    }
+
+  })
+
+},{}]},{},[1]);
