@@ -4,6 +4,7 @@ var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
 require('./clientHome');
 require('./spHome');
+require('./loginFeature');
 
 
 
@@ -12,9 +13,9 @@ angular
     'ngRoute',
     'ui.bootstrap',
     'cHome',
-    'spHome'
-
-    ])
+    'spHome',
+    'login.module'
+  ])
   .config(function($routeProvider) {
     $routeProvider
       .when('/',{
@@ -30,8 +31,148 @@ angular
          redirectTo: '/404'
       })
   })
+  // .controller('ModalInstanceController', function ($scope, $uibModalInstance, $location,LoginService) {
+  //
+  //
+  // $scope.showModalSection = 'login';
+  //
+  //
+  // $scope.registerClient = function () {
+  //   $scope.showModalSection = 'register';
+  // }
+  //
+  // $scope.loginClient = function () {
+  //   $scope.showModalSection = 'login';
+  //
+  //
+  // };
+  // $scope.signInClient = function () {
+  //   $uibModalInstance.dismiss();
+  //   // THIS PATH WILL NEED AN ID LIKE /clienthome/id
+  //   $location.path('/clienthome');
+  // };
+  //
+  // $scope.registerClientPath = function (user) {
+  //   LoginService.postClient(user)
+  //   $uibModalInstance.dismiss();
+  //   // THIS PATH WILL NEED AN ID LIKE /clienthome/id
+  //   $location.path('/clienthome');
+  // }
+  //
+  //
+  // $scope.registerSp = function () {
+  //   $scope.showModalSection = 'register';
+  // }
+  //
+  // $scope.loginSp = function () {
+  //   $scope.showModalSection = 'login';
+  //
+  // };
+  // $scope.signInSp = function () {
+  //   $uibModalInstance.dismiss();
+  //   // THIS PATH WILL NEED AN ID LIKE /clienthome/id
+  //   $location.path('/sphome');
+  // };
+  //
+  // $scope.registerSpPath = function () {
+  //   $uibModalInstance.dismiss();
+  //   // THIS PATH WILL NEED AN ID LIKE /clienthome/id
+  //   $location.path('/sphome');
+  // }
+  // });
 
-  .controller('LoginModalController', function ($scope, $uibModal, $log, $location) {
+},{"./clientHome":4,"./loginFeature":5,"./spHome":16,"angular":15,"angular-route":11,"angular-ui-bootstrap":13}],2:[function(require,module,exports){
+angular
+  .module('cHome')
+  .controller('ClientController', ClientController);
+
+  ClientController.$inject = ['$scope','$rootScope','$location',/*'ClientService'*/];
+
+  function ClientController($scope,$rootScope,$location/*ClientService*/) {
+
+  }
+
+},{}],3:[function(require,module,exports){
+var angular = require('angular');
+var angularRoute = require('angular-route');
+
+
+
+angular
+  .module('cHome',['ngRoute'])
+  .config(function($routeProvider){
+    $routeProvider
+    .when('/clienthome',{
+      templateUrl: 'clientHome/tmpls/clientHome.html',
+      controller: 'ClientController as CliCtrl'
+    })
+  })
+
+},{"angular":15,"angular-route":11}],4:[function(require,module,exports){
+require('./cHome.module');
+require('./cHome.controller');
+// require('./cHome.service');
+// require('./cHome.Directive');
+
+},{"./cHome.controller":2,"./cHome.module":3}],5:[function(require,module,exports){
+require('./login.module.js')
+require('./login.service.js')
+require('./signinmodal.controller.js');
+require('./signinmodalinstance.controller.js');
+
+},{"./login.module.js":6,"./login.service.js":7,"./signinmodal.controller.js":8,"./signinmodalinstance.controller.js":9}],6:[function(require,module,exports){
+angular
+  .module('login.module',[
+    'ngRoute'
+  ]);
+
+},{}],7:[function(require,module,exports){
+angular
+  .module('login.module')
+  .service('LoginService',function($http) {
+    // var url = "https://tiny-tiny.herokuapp.com/collections/shoppingcart";
+    var clienturl = '/client';
+    var spurl = '/provider';
+
+    function getClient(id) {
+      return $http.get(clienturl + '/' + id)
+    }
+    function getAllClients() {
+      return $http.get(clienturl)
+    }
+    function postClient(post) {
+      console.log("USER BEING SAVED", post);
+      return $http.post(clienturl,post);
+    }
+
+    function getSp(id) {
+      return $http.get(spurl + '/' + id)
+    }
+
+    function getAllSp() {
+      return $http.get(spurl)
+    }
+
+    function postSp(post) {
+      return $http.post(spurl,post);
+    }
+
+
+
+    return {
+      getClient: getClient,
+      getAllClients: getAllClients,
+      postClient: postClient,
+      getSp: getSp,
+      getAllSp: getAllSp,
+      postSp: postSp
+    };
+  })
+
+},{}],8:[function(require,module,exports){
+angular
+.module('login.module')
+.controller('LoginModalController', function ($scope, $uibModal, $log, $location) {
   $scope.animationsEnabled = true;
 
   $scope.openSpLoginModal = function (size) {
@@ -81,9 +222,20 @@ angular
 
 
 
-  })
-  .controller('ModalInstanceController', function ($scope, $uibModalInstance, $location) {
+})
 
+},{}],9:[function(require,module,exports){
+angular
+.module('login.module')
+.controller('ModalInstanceController', function ($scope, $uibModalInstance, LoginService) {
+
+  $scope.ok = function () {
+    $uibModalInstance.close($scope.selected.item);
+  };
+
+  $scope.cancel = function () {
+    $uibModalInstance.dismiss('cancel');
+  };
 
   $scope.showModalSection = 'login';
 
@@ -103,10 +255,19 @@ angular
     $location.path('/clienthome');
   };
 
-  $scope.registerClientPath = function () {
-    $uibModalInstance.dismiss();
-    // THIS PATH WILL NEED AN ID LIKE /clienthome/id
-    $location.path('/clienthome');
+  $scope.registerClientPath = function (user) {
+    console.log(user);
+    LoginService.postClient(user)
+    .success(function(data) {
+      console.log("SAVED", data)
+      $uibModalInstance.dismiss();
+      // THIS PATH WILL NEED AN ID LIKE /clienthome/id
+      // $location.path('/clienthome');
+    })
+    .error(function(err) {
+      console.log("OH SHIT", err)
+    })
+
   }
 
 
@@ -129,42 +290,9 @@ angular
     // THIS PATH WILL NEED AN ID LIKE /clienthome/id
     $location.path('/sphome');
   }
-  });
+});
 
-},{"./clientHome":4,"./spHome":11,"angular":10,"angular-route":6,"angular-ui-bootstrap":8}],2:[function(require,module,exports){
-angular
-  .module('cHome')
-  .controller('ClientController', ClientController);
-
-  ClientController.$inject = ['$scope','$rootScope','$location',/*'ClientService'*/];
-
-  function ClientController($scope,$rootScope,$location/*ClientService*/) {
-
-  }
-
-},{}],3:[function(require,module,exports){
-var angular = require('angular');
-var angularRoute = require('angular-route');
-
-
-
-angular
-  .module('cHome',['ngRoute'])
-  .config(function($routeProvider){
-    $routeProvider
-    .when('/clienthome',{
-      templateUrl: 'clientHome/tmpls/clientHome.html',
-      controller: 'ClientController as CliCtrl'
-    })
-  })
-
-},{"angular":10,"angular-route":6}],4:[function(require,module,exports){
-require('./cHome.module');
-require('./cHome.controller');
-// require('./cHome.service');
-// require('./cHome.Directive');
-
-},{"./cHome.controller":2,"./cHome.module":3}],5:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -1188,11 +1316,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],6:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":5}],7:[function(require,module,exports){
+},{"./angular-route":10}],12:[function(require,module,exports){
 /*
  * angular-ui-bootstrap
  * http://angular-ui.github.io/bootstrap/
@@ -8521,12 +8649,12 @@ angular.module('ui.bootstrap.datepickerPopup').run(function() {!angular.$$csp().
 angular.module('ui.bootstrap.tooltip').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTooltipCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-tooltip-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-bottom > .tooltip-arrow,[uib-popover-popup].popover.top-left > .arrow,[uib-popover-popup].popover.top-right > .arrow,[uib-popover-popup].popover.bottom-left > .arrow,[uib-popover-popup].popover.bottom-right > .arrow,[uib-popover-popup].popover.left-top > .arrow,[uib-popover-popup].popover.left-bottom > .arrow,[uib-popover-popup].popover.right-top > .arrow,[uib-popover-popup].popover.right-bottom > .arrow,[uib-popover-html-popup].popover.top-left > .arrow,[uib-popover-html-popup].popover.top-right > .arrow,[uib-popover-html-popup].popover.bottom-left > .arrow,[uib-popover-html-popup].popover.bottom-right > .arrow,[uib-popover-html-popup].popover.left-top > .arrow,[uib-popover-html-popup].popover.left-bottom > .arrow,[uib-popover-html-popup].popover.right-top > .arrow,[uib-popover-html-popup].popover.right-bottom > .arrow,[uib-popover-template-popup].popover.top-left > .arrow,[uib-popover-template-popup].popover.top-right > .arrow,[uib-popover-template-popup].popover.bottom-left > .arrow,[uib-popover-template-popup].popover.bottom-right > .arrow,[uib-popover-template-popup].popover.left-top > .arrow,[uib-popover-template-popup].popover.left-bottom > .arrow,[uib-popover-template-popup].popover.right-top > .arrow,[uib-popover-template-popup].popover.right-bottom > .arrow{top:auto;bottom:auto;left:auto;right:auto;margin:0;}[uib-popover-popup].popover,[uib-popover-html-popup].popover,[uib-popover-template-popup].popover{display:block !important;}</style>'); angular.$$uibTooltipCss = true; });
 angular.module('ui.bootstrap.timepicker').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTimepickerCss && angular.element(document).find('head').prepend('<style type="text/css">.uib-time input{width:50px;}</style>'); angular.$$uibTimepickerCss = true; });
 angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTypeaheadCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-typeahead-popup].dropdown-menu{display:block;}</style>'); angular.$$uibTypeaheadCss = true; });
-},{}],8:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 require('./dist/ui-bootstrap-tpls');
 
 module.exports = 'ui.bootstrap';
 
-},{"./dist/ui-bootstrap-tpls":7}],9:[function(require,module,exports){
+},{"./dist/ui-bootstrap-tpls":12}],14:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -39241,17 +39369,17 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],10:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":9}],11:[function(require,module,exports){
+},{"./angular":14}],16:[function(require,module,exports){
 require('./spHome.module');
 require('./spHome.controller');
 // require('./spHome.service');
 // require('./spHome.directive');
 
-},{"./spHome.controller":12,"./spHome.module":13}],12:[function(require,module,exports){
+},{"./spHome.controller":17,"./spHome.module":18}],17:[function(require,module,exports){
 angular
   .module('spHome')
   .controller('SpController', SpController);
@@ -39259,10 +39387,19 @@ angular
   SpController.$inject = ['$scope','$rootScope','$location'/*'SpService'*/];
 
   function SpController($scope,$rootScope,$location/*SpService*/) {
-
+     $scope.accordionData = [
+       {
+         title: "this is clavin",
+         content: "this is a great content"
+       },
+       {
+         title: "this is alex",
+         content: "this is the great content"
+       }
+     ]
   }
 
-},{}],13:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
@@ -39347,4 +39484,4 @@ angular
   //   };
   // });
 
-},{"angular":10,"angular-route":6,"angular-ui-bootstrap":8}]},{},[1]);
+},{"angular":15,"angular-route":11,"angular-ui-bootstrap":13}]},{},[1]);

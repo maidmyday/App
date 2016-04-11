@@ -1,3 +1,9 @@
+#back {
+  background-color: white;
+  color: blue;
+  border-color: white;
+  width: 0%; }
+
 div.panel h1 {
   display: inline-block; }
 
@@ -12,8 +18,12 @@ div.panel div.textContent {
     display: inline-block;
     font-weight: 700; }
 
+.panel {
+  color: blue; }
+
 div.userImgRow {
-  margin-top: 10px; }
+  margin-top: 10px;
+  margin-bottom: 10px; }
 
 div.userImgHomeParent {
   text-align: center; }
@@ -29,12 +39,16 @@ div.userImgHome {
   height: 300px; }
   div.userImgHome img.userImgHome {
     height: 100%;
+    width: 100%;
     display: block;
     margin: 0 auto;
     position: absolute;
     left: 50%;
     top: 50%;
     -webkit-transform: translateY(-50%) translateX(-50%); }
+
+div.profile-panels h3 {
+  display: inline-block; }
 
 nav.home {
   background-color: #4281A4;
