@@ -116,6 +116,7 @@ public class MaidMyDayController {
         Provider provider = providerRepository.findOne(id);
 
         return provider;
+
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.POST)
@@ -131,10 +132,10 @@ public class MaidMyDayController {
         return null;
     }
 
-    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
-    public Provider clientViewProviderProfile() {
-        return null;
-    }
+//    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
+//    public Provider clientViewProviderProfile() {
+//        return null;
+//    }
 
 //    @RequestMapping(path = "/provider/profile", method = RequestMethod.GET)
 //    public Provider providerProfile(HttpSession session) {
