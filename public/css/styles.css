@@ -1,16 +1,12 @@
-<<<<<<< HEAD
 #back {
   background-color: white;
   color: blue;
   border-color: white;
   width: 0%; }
 
-div.panel h1 {
-  display: inline-block; }
-=======
 h4.navbar-brand {
-  padding: 0 10px; }
->>>>>>> fe1610892705ba19e79c998f4dea69bf9f49cb9a
+  padding: 0 10px;
+  font-size: 30px; }
 
 div.panel div.textContent {
   display: inline-block;
@@ -22,9 +18,6 @@ div.panel div.textContent {
   div.panel div.textContent p.headerUser {
     display: inline-block;
     font-weight: 700; }
-
-.panel {
-  color: blue; }
 
 div.userImgRow {
   margin-top: 10px;
@@ -66,6 +59,10 @@ uib-accordion-heading {
 
 div.profile-panels h4 {
   display: inline-block; }
+
+div.paragraph {
+  max-height: 500px;
+  overflow: auto; }
 
 div.rAndC {
   max-height: 500px;
