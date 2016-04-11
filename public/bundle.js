@@ -2,6 +2,7 @@
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
+var angularMatch = require('angular-validation-match');
 require('./home');
 require('./goOnline');
 require('./loginFeature');
@@ -10,6 +11,7 @@ require('./loginFeature');
 angular
   .module('maidApp',[
     'ngRoute',
+    'validation.match',
     'ui.bootstrap',
     'cHome',
     'spHome',
@@ -33,7 +35,7 @@ angular
       })
   })
 
-},{"./goOnline":5,"./home":8,"./loginFeature":15,"angular":23,"angular-route":19,"angular-ui-bootstrap":21}],2:[function(require,module,exports){
+},{"./goOnline":5,"./home":8,"./loginFeature":15,"angular":25,"angular-route":19,"angular-ui-bootstrap":21,"angular-validation-match":23}],2:[function(require,module,exports){
 angular
   .module('goOnline')
   .controller('GoController', GoController);
@@ -63,7 +65,7 @@ angular
     })
   })
 
-},{"angular":23,"angular-route":19,"angular-ui-bootstrap":21}],4:[function(require,module,exports){
+},{"angular":25,"angular-route":19,"angular-ui-bootstrap":21}],4:[function(require,module,exports){
 
 },{}],5:[function(require,module,exports){
 require('./goOnline.module');
@@ -80,7 +82,7 @@ angular
 
   function ClientController($scope,$rootScope,$location/*ClientService*/) {
     var vm = this;
-
+    console.log("AM I REAL?",$rootScope.user)
     //the rating stars
     $scope.rate = 0;
     $scope.max = 5;
@@ -156,7 +158,7 @@ angular
     })
   })
 
-},{"angular":23,"angular-route":19}],8:[function(require,module,exports){
+},{"angular":25,"angular-route":19}],8:[function(require,module,exports){
 require('./spHome.module');
 require('./spHome.controller');
 require('./spHome.service');
@@ -391,7 +393,7 @@ angular
   //   };
   // });
 
-},{"angular":23,"angular-route":19,"angular-ui-bootstrap":21}],12:[function(require,module,exports){
+},{"angular":25,"angular-route":19,"angular-ui-bootstrap":21}],12:[function(require,module,exports){
 angular
   .module('spHome')
   .service('SpService',function($http, $q, $cacheFactory) {
@@ -401,10 +403,19 @@ angular
 },{}],13:[function(require,module,exports){
 angular
 .module('login')
-.controller('ModalInstanceController', function ($scope, $uibModalInstance, LoginService, $location) {
+.controller('ModalInstanceController', function ($rootScope,$scope, $uibModalInstance, LoginService, $location) {
 
 
   $scope.showModalSection = 'login';
+  // $scope.isMatch = true;
+
+//   $scope.add = function() {
+//   if ($scope.emailReg != $scope.emailReg2) {
+//     $scope.IsMatch=true;
+//     return false;
+//   }
+//   $scope.IsMatch=false;
+// }
 
 
   $scope.showRegisterSection = function () {
@@ -425,6 +436,7 @@ angular
     console.log("CLIENT", client);
     LoginService.postClient(client)
     .success(function(data) {
+      $rootScope.client = data
       console.log("SUCESS", data)
       $uibModalInstance.dismiss();
       // THIS PATH WILL NEED AN ID LIKE /clienthome/id
@@ -446,10 +458,12 @@ angular
     console.log("PROVIDER", provider);
     LoginService.postSp(provider)
     .success(function(data) {
+      $rootScope.provider = data
       console.log("SUCCESS", data)
       $uibModalInstance.dismiss();
       // THIS PATH WILL NEED AN ID LIKE /sphome/id
       $location.path('/sphome/' + data.id);
+
     })
     .error(function(err) {
       console.log("ERROR", err)
@@ -457,13 +471,15 @@ angular
 
   }
 
-//   $scope.match = function() {
-//   if ($scope.emailReg != $scope.emailReg2) {
-//     $scope.IsMatch=true;
-//     return false;
-//   }
-//   $scope.IsMatch=false;
-// }
+  // if($routeParams.id) {
+  //         ShoppingService.showItem($routeParams.id)
+  //           .then(function(data) {
+  //             console.log("INFO", data);
+  //             $scope.item = data.data.results[0];
+  //             window.glob = $scope.item;
+  //           })
+  //       };
+
 });
 
 },{}],14:[function(require,module,exports){
@@ -515,12 +531,15 @@ require('./controllers/login-modal.controller.js');
 require('./controllers/login-modal-instance.controller.js');
 
 },{"./controllers/login-modal-instance.controller.js":13,"./controllers/login-modal.controller.js":14,"./login.module.js":16,"./login.service.js":17}],16:[function(require,module,exports){
+require('angular-validation-match');
+
 angular
   .module('login',[
     'ngRoute',
+    'validation.match'
   ]);
 
-},{}],17:[function(require,module,exports){
+},{"angular-validation-match":23}],17:[function(require,module,exports){
 angular
   .module('login')
   .service('LoginService',function($http) {
@@ -535,7 +554,7 @@ angular
     }
     function postClient(post) {
       console.log("CLIENT BEING SAVED", post);
-      delete post.PASSWORD_CONFIRMATION;
+      delete post.passwordConfirm;
       return $http.post(clienturl,post);
     }
 
@@ -549,7 +568,7 @@ angular
 
     function postSp(post) {
       console.log("PROVIDER BEING SAVED", post);
-      delete post.PASSWORD_CONFIRMATION;
+      delete post.passwordConfirm;
       return $http.post(spurl,post);
     }
 
@@ -8928,6 +8947,69 @@ require('./dist/ui-bootstrap-tpls');
 module.exports = 'ui.bootstrap';
 
 },{"./dist/ui-bootstrap-tpls":20}],22:[function(require,module,exports){
+/*!
+ * angular-validation-match
+ * Checks if one input matches another
+ * @version v1.7.0
+ * @link https://github.com/TheSharpieOne/angular-validation-match
+ * @license MIT License, http://www.opensource.org/licenses/MIT
+ */
+(function(window, angular, undefined){'use strict';
+
+angular.module('validation.match', []);
+
+angular.module('validation.match').directive('match', match);
+
+function match ($parse) {
+    return {
+        require: '?ngModel',
+        restrict: 'A',
+        link: function(scope, elem, attrs, ctrl) {
+            if(!ctrl) {
+                return;
+            }
+
+            var matchGetter = $parse(attrs.match);
+            var caselessGetter = $parse(attrs.matchCaseless);
+            var noMatchGetter = $parse(attrs.notMatch);
+
+            scope.$watch(getMatchValue, function(){
+                ctrl.$$parseAndValidate();
+            });
+
+            ctrl.$validators.match = function(){
+              var match = getMatchValue();
+              var notMatch = noMatchGetter(scope);
+              var value;
+
+              if(caselessGetter(scope)){
+                value = angular.lowercase(ctrl.$viewValue) === angular.lowercase(match);
+              }else{
+                value = ctrl.$viewValue === match;
+              }
+              /*jslint bitwise: true */
+              value ^= notMatch;
+              /*jslint bitwise: false */
+              return !!value;
+            };
+
+            function getMatchValue(){
+                var match = matchGetter(scope);
+                if(angular.isObject(match) && match.hasOwnProperty('$viewValue')){
+                    match = match.$viewValue;
+                }
+                return match;
+            }
+        }
+    };
+}
+match.$inject = ["$parse"];
+})(window, window.angular);
+},{}],23:[function(require,module,exports){
+require('./dist/angular-validation-match');
+module.exports = 'validation.match';
+
+},{"./dist/angular-validation-match":22}],24:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -39642,8 +39724,8 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],23:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":22}]},{},[1]);
+},{"./angular":24}]},{},[1]);

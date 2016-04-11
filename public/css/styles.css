@@ -1,16 +1,14 @@
-<<<<<<< HEAD
 #back {
   background-color: white;
   color: blue;
   border-color: white;
   width: 0%; }
 
-div.panel h1 {
-  display: inline-block; }
-=======
+input.ng-invalid {
+  border-color: red; }
+
 h4.navbar-brand {
   padding: 0 10px; }
->>>>>>> fe1610892705ba19e79c998f4dea69bf9f49cb9a
 
 div.panel div.textContent {
   display: inline-block;

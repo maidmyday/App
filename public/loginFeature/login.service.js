@@ -12,7 +12,7 @@ angular
     }
     function postClient(post) {
       console.log("CLIENT BEING SAVED", post);
-      delete post.PASSWORD_CONFIRMATION;
+      delete post.passwordConfirm;
       return $http.post(clienturl,post);
     }
 
@@ -26,7 +26,7 @@ angular
 
     function postSp(post) {
       console.log("PROVIDER BEING SAVED", post);
-      delete post.PASSWORD_CONFIRMATION;
+      delete post.passwordConfirm;
       return $http.post(spurl,post);
     }
 

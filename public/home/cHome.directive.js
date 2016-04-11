@@ -1,3 +1,12 @@
+// require('../controllers/readercontroller');
+
 // angular
 //   .module('cHome')
-//   .directive('cliHomeDir', ClientService);
+//   .directive('ClientDirective', function(){
+//     return {
+//       templateUrl: '../../jeopardyApp/templates/jeopardy-reader.html',
+//       restrict: 'E',
+//       scope: {
+//         question: '=',},
+//       controller:"ReaderController"}
+//   })

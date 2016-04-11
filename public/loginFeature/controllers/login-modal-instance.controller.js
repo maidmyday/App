@@ -1,9 +1,18 @@
 angular
 .module('login')
-.controller('ModalInstanceController', function ($scope, $uibModalInstance, LoginService, $location) {
+.controller('ModalInstanceController', function ($rootScope,$scope, $uibModalInstance, LoginService, $location) {
 
 
   $scope.showModalSection = 'login';
+  // $scope.isMatch = true;
+
+//   $scope.add = function() {
+//   if ($scope.emailReg != $scope.emailReg2) {
+//     $scope.IsMatch=true;
+//     return false;
+//   }
+//   $scope.IsMatch=false;
+// }
 
 
   $scope.showRegisterSection = function () {
@@ -24,6 +33,7 @@ angular
     console.log("CLIENT", client);
     LoginService.postClient(client)
     .success(function(data) {
+      $rootScope.client = data
       console.log("SUCESS", data)
       $uibModalInstance.dismiss();
       // THIS PATH WILL NEED AN ID LIKE /clienthome/id
@@ -45,10 +55,12 @@ angular
     console.log("PROVIDER", provider);
     LoginService.postSp(provider)
     .success(function(data) {
+      $rootScope.provider = data
       console.log("SUCCESS", data)
       $uibModalInstance.dismiss();
       // THIS PATH WILL NEED AN ID LIKE /sphome/id
       $location.path('/sphome/' + data.id);
+
     })
     .error(function(err) {
       console.log("ERROR", err)
@@ -56,11 +68,13 @@ angular
 
   }
 
-//   $scope.match = function() {
-//   if ($scope.emailReg != $scope.emailReg2) {
-//     $scope.IsMatch=true;
-//     return false;
-//   }
-//   $scope.IsMatch=false;
-// }
+  // if($routeParams.id) {
+  //         ShoppingService.showItem($routeParams.id)
+  //           .then(function(data) {
+  //             console.log("INFO", data);
+  //             $scope.item = data.data.results[0];
+  //             window.glob = $scope.item;
+  //           })
+  //       };
+
 });

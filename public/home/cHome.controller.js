@@ -6,7 +6,7 @@ angular
 
   function ClientController($scope,$rootScope,$location/*ClientService*/) {
     var vm = this;
-
+    console.log("AM I REAL?",$rootScope.user)
     //the rating stars
     $scope.rate = 0;
     $scope.max = 5;
