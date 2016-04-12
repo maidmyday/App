@@ -19,7 +19,7 @@
   color: #767B91;
   background-color: transparent;
   border-color: #f0ad4e;
-  height: 30px;
+  height: 57px;
   border-color: transparent;
   font-size: 25px; }
   .btn.btn-transparent:hover {
@@ -43,6 +43,11 @@ div.modal-content {
 
 input.form-control {
   margin-bottom: 2%; }
+
+#create {
+  position: absolute;
+  left: 479px;
+  top: 141px; }
 
 #backBtn {
   font-family: 'Sue Ellen Francisco', cursive;
@@ -69,6 +74,11 @@ input.form-control {
   #signin:hover {
     background-color: #767B91;
     color: #FFFFFF; }
+
+textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
+  border-color: rgba(199, 204, 219, 0.8);
+  box-shadow: 0 1px 1px rgba(199, 204, 219, 0.075) inset, 0 0 8px rgba(199, 204, 219, 0.6);
+  outline: 0 none; }
 
 h4.navbar-brand {
   padding: 0 10px;
