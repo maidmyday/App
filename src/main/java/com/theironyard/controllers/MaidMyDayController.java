@@ -70,7 +70,7 @@ public class MaidMyDayController {
         Client newClient = clientRepository.findByEmail(client.getEmail());
 
         if (client != null && PasswordStorage.verifyPassword(newClient.getPassword() , client.getPassword())) {
-            session.setAttribute("userName", client.getEmail());
+            session.setAttribute("email", client.getEmail());
             return client;
         } else {
             return null;
@@ -86,9 +86,7 @@ public class MaidMyDayController {
     // returns a single client
     @RequestMapping(path = "/client/{id}", method = RequestMethod.GET)
     public Client getOneClient(HttpSession session, @PathVariable ("id") int id) {
-
         Client client = clientRepository.findOne(id);
-
         return client;
     }
 
@@ -100,7 +98,6 @@ public class MaidMyDayController {
 
     @RequestMapping(path = "/client", method = RequestMethod.PUT)
     public Client editClient(@RequestBody Client client, HttpSession session) throws Exception {
-
         if (client.getEmail().equals(session.getAttribute("email"))) {
             return clientRepository.save(client);
         } else {
