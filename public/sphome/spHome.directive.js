@@ -3,9 +3,9 @@ angular
   .directive('spHomeDir', function () {
     return {
       restrict: 'E',
-      templateUrl: 'templateurl here',
+      templateUrl: 'sphome/tmpls/profileTmpl.html',
       scope: {
-        mydata: '='
+        theProviderData: '='
       },
       link: function (scope, elem, attrs) {
        // dom stuff here

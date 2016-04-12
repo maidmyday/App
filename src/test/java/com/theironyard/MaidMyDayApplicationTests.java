@@ -33,7 +33,7 @@ public class MaidMyDayApplicationTests {
     @Autowired
     ProviderRepository providerRepository;
     @Autowired
-    ClientRatingRepository clientRatingRepository;
+    ClientRatingRepository ratingRepository;
     @Autowired
     RequestRepository requestRepository;
     @Autowired

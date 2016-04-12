@@ -7,6 +7,17 @@ angular
   function ClientController($scope,$rootScope,$location,$uibModal,$log,ClientService) {
     var vm = this;
 
+    //logout button
+    vm.logout = function(){
+      console.log('data inside logout function',window.localStorage);
+      ClientService.logoutNow(window.JSON.parse(window.localStorage.getItem('theclient')).id).then(function(){
+        window.localStorage.clear();
+        console.log('hopefully empty: ',window.localStorage);
+        $location.path('/');
+      })
+    }
+
+    //getting data from the login and register
     ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id).then(function(data){
       console.log('client data from chome controller',data);
       console.log('testing theclient from chome controller',window.localStorage.getItem('theclient'));

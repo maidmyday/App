@@ -9,7 +9,7 @@ angular
     $routeProvider
 
     .when('/clienthome/:id',{
-      templateUrl: 'home/tmpls/clientHome.html',
+      templateUrl: 'chome/tmpls/clientHome.html',
       controller: 'ClientController as CliCtrl'
     })
   })

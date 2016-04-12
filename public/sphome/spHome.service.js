@@ -3,10 +3,20 @@ angular
   .service('SpService',function($http, $q, $cacheFactory) {
 
     var clienturl = '/client';
-    var spurl = '/provider';
     var allClients = '/clients';
+    var spurl = '/provider';
     var allProviders = '/providers';
+    var logouturl = '/logout';
 
+    function logoutNow(){
+      return $http.post(logouturl);
+    }
+
+    function deleteSpAccount(){
+      return $http.delete(deleteProvider);
+    }
+
+    //registering a provider
     function getProvider(id) {
       return $http.get(spurl + '/' + id);
     }
@@ -15,6 +25,7 @@ angular
       return $http.get(allProviders);
     }
 
+    //temp data for history
     var historyData = [
       {
         img: './images/bill04.jpg',
@@ -40,9 +51,11 @@ angular
     ]
 
     return {
+      logoutNow: logoutNow,
       getAllProviders: getAllProviders,
       getProvider: getProvider,
-      historyData: historyData
+      historyData: historyData,
+      deleteSpAccount: deleteSpAccount
     }
 
   })

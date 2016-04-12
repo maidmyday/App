@@ -1,7 +1,10 @@
-package com.theironyard.entities;//Created by KevinBozic on 4/12/16.
+package com.theironyard.entities;
 
 import javax.persistence.*;
 
+/**
+ * Created by Caroline on 4/12/16.
+ */
 @Entity
 @Table(name = "providerRatings")
 public class ProviderRating {
@@ -48,7 +51,9 @@ public class ProviderRating {
         return provider;
     }
 
-    public void setProvider(Client client) {
+    public void setProvider(Provider provider) {
         this.provider = provider;
     }
 }
+
+
