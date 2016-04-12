@@ -64,8 +64,12 @@ public class MaidMyDayController {
         dbui.stop();
     }
 
-    @RequestMapping(path = "/clientLogin", method = RequestMethod.GET)
-    public Client login(HttpSession session, @RequestBody Client client) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
+
+
+
+
+    @RequestMapping(path = "/clientLogin", method = RequestMethod.POST)
+    public Client login(HttpSession session, @RequestBody Client client) throws Exception {
 
         Client newClient = clientRepository.findByEmail(client.getEmail());
 
@@ -73,7 +77,7 @@ public class MaidMyDayController {
             session.setAttribute("email", client.getEmail());
             return client;
         } else {
-            return null;
+            throw new Exception("Login failed.");
         }
     }
 
@@ -91,7 +95,7 @@ public class MaidMyDayController {
     }
 
     // returns all clients
-    @RequestMapping(path = "/client", method = RequestMethod.GET)
+    @RequestMapping(path = "/clients", method = RequestMethod.GET)
     public List<Client> allClients(HttpSession session) {
         return (List<Client>) clientRepository.findAll();
     }
@@ -138,16 +142,16 @@ public class MaidMyDayController {
 
 
 
-    @RequestMapping(path = "/providerLogin", method = RequestMethod.GET)
-    public Provider login(HttpSession session, @RequestBody Provider provider) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
+    @RequestMapping(path = "/providerLogin", method = RequestMethod.POST)
+    public Provider login(HttpSession session, @RequestBody Provider provider) throws Exception {
 
         Provider newProvider = providerRepository.findByEmail(provider.getEmail());
 
         if (provider != null && PasswordStorage.verifyPassword(newProvider.getPassword() , provider.getPassword())) {
-            session.setAttribute("userName", provider.getEmail());
+            session.setAttribute("email", provider.getEmail());
             return provider;
         } else {
-            return null;
+            throw new Exception("Login failed.");
         }
     }
 
@@ -232,7 +236,6 @@ public class MaidMyDayController {
 
 
 
-
     @RequestMapping(path = "/request/provider/{id}", method = RequestMethod.POST)
     public void createRequest(@RequestBody Request request, HttpSession session, @PathVariable ("id") int id) {
         String clientEmail = (String) session.getAttribute("email");
@@ -271,17 +274,6 @@ public class MaidMyDayController {
 
 
 
-
-    @RequestMapping(path = "/task", method = RequestMethod.GET)
-    public Task populateTasks() {
-        return null;
-    }
-
-
-
-
-
-
     @RequestMapping(path = "/rating/provider/{id}", method = RequestMethod.POST)
     public void createProviderRating(HttpSession session, @PathVariable ("id") int id, @RequestBody ProviderRating rating) {
         String clientEmail = (String) session.getAttribute("email");
@@ -296,5 +288,13 @@ public class MaidMyDayController {
         Provider provider = providerRepository.findByEmail(providerEmail);
         Client client = clientRepository.findOne(id);
         clientRatingRepository.save(rating);
+    }
+
+
+
+
+    @RequestMapping(path = "/task", method = RequestMethod.GET)
+    public Task populateTasks() {
+        return null;
     }
 }
