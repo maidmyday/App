@@ -73,7 +73,7 @@ public class MaidMyDayController {
 
         Client newClient = clientRepository.findByEmail(client.getEmail());
 
-        if (client != null && PasswordStorage.verifyPassword(newClient.getPassword() , client.getPassword())) {
+        if (client != null && PasswordStorage.verifyPassword(client.getPassword() , newClient.getPassword())) {
             session.setAttribute("email", client.getEmail());
             return newClient;
         } else {
