@@ -82,9 +82,10 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/client", method = RequestMethod.POST)
-    public void createClient(@RequestBody Client client) throws PasswordStorage.CannotPerformOperationException {
+    public Client createClient(@RequestBody Client client) throws PasswordStorage.CannotPerformOperationException {
         client.setPassword(PasswordStorage.createHash(client.getPassword()));
         clientRepository.save(client);
+        return client;
     }
 
     // returns a single client
@@ -93,6 +94,7 @@ public class MaidMyDayController {
         Client client = clientRepository.findOne(id);
         return client;
     }
+
 
     // returns all clients
     @RequestMapping(path = "/clients", method = RequestMethod.GET)
@@ -169,9 +171,10 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.POST)
-    public void createProvider(@RequestBody Provider provider) throws PasswordStorage.CannotPerformOperationException {
+    public Provider createProvider(@RequestBody Provider provider) throws PasswordStorage.CannotPerformOperationException {
         provider.setPassword(PasswordStorage.createHash(provider.getPassword()));
         providerRepository.save(provider);
+        return provider;
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.GET)
