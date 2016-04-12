@@ -69,7 +69,7 @@ public class MaidMyDayController {
 
 
     @RequestMapping(path = "/clientLogin", method = RequestMethod.POST)
-    public Client login(HttpSession session, @RequestBody Client client) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
+    public Client login(HttpSession session, @RequestBody Client client) throws Exception {
 
         Client newClient = clientRepository.findByEmail(client.getEmail());
 
@@ -77,7 +77,7 @@ public class MaidMyDayController {
             session.setAttribute("email", client.getEmail());
             return client;
         } else {
-            return null;
+            throw new Exception("Login failed.");
         }
     }
 
@@ -143,7 +143,7 @@ public class MaidMyDayController {
 
 
     @RequestMapping(path = "/providerLogin", method = RequestMethod.POST)
-    public Provider login(HttpSession session, @RequestBody Provider provider) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
+    public Provider login(HttpSession session, @RequestBody Provider provider) throws Exception {
 
         Provider newProvider = providerRepository.findByEmail(provider.getEmail());
 
@@ -151,7 +151,7 @@ public class MaidMyDayController {
             session.setAttribute("email", provider.getEmail());
             return provider;
         } else {
-            return null;
+            throw new Exception("Login failed.");
         }
     }
 
