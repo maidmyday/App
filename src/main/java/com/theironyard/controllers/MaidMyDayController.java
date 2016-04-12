@@ -11,8 +11,6 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -28,7 +26,7 @@ public class MaidMyDayController {
     @Autowired
     ProviderRepository providerRepository;
     @Autowired
-    RatingRepository ratingRepository;
+    ClientRatingRepository clientRatingRepository;
     @Autowired
     RequestRepository requestRepository;
     @Autowired
@@ -69,7 +67,7 @@ public class MaidMyDayController {
         Client newClient = clientRepository.findByEmail(client.getEmail());
 
         if (client != null && PasswordStorage.verifyPassword(newClient.getPassword() , client.getPassword())) {
-            session.setAttribute("userName", client.getEmail());
+//            session.setAttribute("email", client.getEmail());
             return client;
         } else {
             return null;
@@ -82,7 +80,7 @@ public class MaidMyDayController {
         Provider newProvider = providerRepository.findByEmail(provider.getEmail());
 
         if (provider != null && PasswordStorage.verifyPassword(newProvider.getPassword() , provider.getPassword())) {
-            session.setAttribute("userName", provider.getEmail());
+//            session.setAttribute("email", provider.getEmail());
             return provider;
         } else {
             return null;
@@ -132,10 +130,10 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/client/rating", method = RequestMethod.GET)
-    public List<Rating> viewClientRatings(HttpSession session) {
+    public List<ClientRating> viewClientRatings(HttpSession session) {
         String clientEmail = (String) session.getAttribute("email");
         Client client = clientRepository.findByEmail(clientEmail);
-        List<Rating> localRatings = ratingRepository.findByClient(client);
+        List<ClientRating> localRatings = clientRatingRepository.findByClient(client);
         return localRatings;
     }
 
@@ -180,18 +178,18 @@ public class MaidMyDayController {
         return provider;
     }
 
-//    @RequestMapping(path = "/provider", method = RequestMethod.GET)
-//    public List<Provider> findMatchingProviders(@RequestBody List<Task> clientRequestedTasks) {
-//        List<Provider> providers = (List<Provider>) providerRepository.findAll();
-//        for (Provider provider : providers) {
-//            for (Task task : clientRequestedTasks) {
-//                if (!provider.getTasks().containsAll(clientRequestedTasks)) {
-//                    providers.remove(provider);
-//                }
-//            }
-//        }
-//        return providers;
-//    }
+    @RequestMapping(path = "/provider", method = RequestMethod.GET)
+    public List<Provider> findMatchingProviders(@RequestBody List<Task> clientRequestedTasks) {
+        List<Provider> providers = (List<Provider>) providerRepository.findAll();
+        for (Provider provider : providers) {
+            for (Task task : clientRequestedTasks) {
+                if (!provider.getTasks().containsAll(clientRequestedTasks)) {
+                    providers.remove(provider);
+                }
+            }
+        }
+        return providers;
+    }
 
 //    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
 //    public Provider clientViewProviderProfile() {
@@ -228,10 +226,10 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider/rating", method = RequestMethod.GET)
-    public List<Rating> viewProviderRatings(HttpSession session) {
+    public List<ClientRating> viewProviderRatings(HttpSession session) {
         String providerEmail = (String) session.getAttribute("email");
         Provider provider = providerRepository.findByEmail(providerEmail);
-        List<Rating> localRatings = ratingRepository.findByProvider(provider);
+        List<ClientRating> localRatings = clientRatingRepository.findByProvider(provider);
         return localRatings;
     }
 
@@ -287,7 +285,7 @@ public class MaidMyDayController {
 
 
     @RequestMapping(path = "/rating", method = RequestMethod.POST)
-    public Rating createRating(HttpSession session) {
+    public ClientRating createRating(HttpSession session) {
 
         return null;
     }

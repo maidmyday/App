@@ -3,8 +3,8 @@ package com.theironyard.entities;//Created by KevinBozic on 4/6/16.
 import javax.persistence.*;
 
 @Entity
-@Table (name = "ratings")
-public class Rating {
+@Table (name = "clientRatings")
+public class ClientRating {
 
     @Id
     @GeneratedValue
@@ -19,17 +19,13 @@ public class Rating {
     @ManyToOne
     private Client client;
 
-    @ManyToOne
-    private Provider provider;
-
-    public Rating() {
+    public ClientRating() {
     }
 
-    public Rating(double rating, String ratingComment, Client client, Provider provider) {
+    public ClientRating(double rating, String ratingComment, Client client) {
         this.rating = rating;
         this.ratingComment = ratingComment;
         this.client = client;
-        this.provider = provider;
     }
 
     public double getRating() {
@@ -54,14 +50,6 @@ public class Rating {
 
     public void setClient(Client client) {
         this.client = client;
-    }
-
-    public Provider getProvider() {
-        return provider;
-    }
-
-    public void setProvider(Provider provider) {
-        this.provider = provider;
     }
 }
 

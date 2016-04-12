@@ -1,13 +1,10 @@
 package com.theironyard;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.deser.std.StringArrayDeserializer;
 import com.theironyard.entities.Client;
 import com.theironyard.entities.Provider;
 import com.theironyard.services.*;
 import com.theironyard.utils.PasswordStorage;
-import org.hibernate.validator.cfg.defs.AssertTrueDef;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -23,8 +20,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.HashMap;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = MaidMyDayApplication.class)
 @WebAppConfiguration
@@ -38,7 +33,7 @@ public class MaidMyDayApplicationTests {
     @Autowired
     ProviderRepository providerRepository;
     @Autowired
-    RatingRepository ratingRepository;
+    ClientRatingRepository clientRatingRepository;
     @Autowired
     RequestRepository requestRepository;
     @Autowired
