@@ -22,6 +22,7 @@ $scope.showModalSection = 'login';
     .success(function(data) {
       console.log("SUCCESS", data)
       window.localStorage.setItem('theclient', window.JSON.stringify(data));
+      console.log("localstorage data", localStorage);
       $uibModalInstance.dismiss();
       $location.path('/clienthome/' + data.id);
     })
@@ -75,8 +76,4 @@ $scope.showModalSection = 'login';
       $scope.errorMsg = err
     })
   };
-
-
-
-
 });

@@ -7,7 +7,6 @@ angular
   function SpController($scope,$rootScope,$location,$uibModal,$log,SpService) {
     var vm = this;
 
-//window.JSON.parse(window.localStorage.getItem('theprovider')).id
     //logout button
     vm.logout = function(){
       console.log('data inside logout function',window.localStorage);
@@ -24,10 +23,6 @@ angular
       console.log('testing theprovider from sphome controller',window.localStorage.getItem('theprovider'));
       vm.providerData =  JSON.parse(window.localStorage.getItem('theprovider'));
       console.log('vm provider from sphome controller',vm.providerData);
-    })
-
-    SpService.getAllProviders().then(function(data){
-      console.log('providers data from sphome controller',data);
     })
 
     //go online: change a boolean and show change in dom, switch button?
@@ -55,7 +50,12 @@ angular
 
     //delete provider account
     vm.deleteSp = function(){
-      SpService.deleteSpAccount()
+      console.log('data inside delete function',window.localStorage);
+      SpService.deleteSpAccount(window.JSON.parse(window.localStorage.getItem('theprovider')).id).then(function(){
+        window.localStorage.clear();
+        console.log('hopefully empty: ',window.localStorage);
+        $location.path('/');
+      })
     }
 
     //the rating stars
@@ -77,7 +77,6 @@ angular
     ];
 
     // temporary accordion data to inject the page moved to service
-
     vm.historyData = SpService.historyData;
 
   }

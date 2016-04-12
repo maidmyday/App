@@ -158,6 +158,10 @@ uib-accordion-heading {
 div.profile-panels h4 {
   display: inline-block; }
 
+div.profile-panels div.profile-btns {
+  display: flex;
+  justify-content: space-between; }
+
 div.profileContent {
   min-height: 180px; }
 

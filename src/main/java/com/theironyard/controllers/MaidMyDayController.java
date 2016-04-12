@@ -127,10 +127,9 @@ public class MaidMyDayController {
         return localRatings;
     }
 
-    @RequestMapping(path = "/client", method = RequestMethod.DELETE)
-    public void deleteClient(HttpSession session) {
-        String clientEmail = (String) session.getAttribute("email");
-        Client client = clientRepository.findByEmail(clientEmail);
+    @RequestMapping(path = "/client{id}", method = RequestMethod.DELETE)
+    public void deleteClient(HttpSession session, @PathVariable ("id") int id) {
+        Client client = clientRepository.findOne(id);
         clientRepository.delete(client);
     }
 
@@ -138,6 +137,7 @@ public class MaidMyDayController {
     public void logout(HttpSession session) {
         session.invalidate();
     }
+
 
 
 
@@ -228,10 +228,9 @@ public class MaidMyDayController {
         return localRatings;
     }
 
-    @RequestMapping(path = "/provider", method = RequestMethod.DELETE)
-    public void deleteProvider(HttpSession session) {
-        String providerEmail = (String) session.getAttribute("email");
-        Provider provider = providerRepository.findByEmail(providerEmail);
+    @RequestMapping(path = "/provider/{id}", method = RequestMethod.DELETE)
+    public void deleteProvider(HttpSession session, @PathVariable ("id") int id) {
+        Provider provider = providerRepository.findOne(id);
         providerRepository.delete(provider);
     }
 
