@@ -252,6 +252,7 @@ $scope.showModalSection = 'login';
       // $rootScope.client = data
       console.log("SUCCESS from login controller", data)
       window.localStorage.setItem('theclient', window.JSON.stringify(data));
+      console.log("localstorage data", localStorage);
       $uibModalInstance.dismiss();
       $location.path('/clienthome/' + data.id);
     })
@@ -272,7 +273,8 @@ $scope.showModalSection = 'login';
     .success(function(data) {
       // $rootScope.theprovider = data;
       window.localStorage.setItem('theprovider', window.JSON.stringify(data));
-      console.log("SUCCESS from login controller", data)
+      console.log("SUCCESS from login controller", data);
+      console.log("localstorage ",localStorage);
       $uibModalInstance.dismiss();
       $location.path('/sphome/' + data.id);
 
@@ -39613,9 +39615,9 @@ angular
       console.log('vm provider from sphome controller',vm.providerData);
     })
 
-    SpService.getAllProviders().then(function(data){
-      console.log('providers data from sphome controller',data);
-    })
+    // SpService.getAllProviders().then(function(data){
+    //   console.log('providers data from sphome controller',data);
+    // })
 
     //go online: change a boolean and show change in dom, switch button?
     vm.goOnline = function(){

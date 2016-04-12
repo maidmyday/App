@@ -26,9 +26,9 @@ angular
       console.log('vm provider from sphome controller',vm.providerData);
     })
 
-    SpService.getAllProviders().then(function(data){
-      console.log('providers data from sphome controller',data);
-    })
+    // SpService.getAllProviders().then(function(data){
+    //   console.log('providers data from sphome controller',data);
+    // })
 
     //go online: change a boolean and show change in dom, switch button?
     vm.goOnline = function(){

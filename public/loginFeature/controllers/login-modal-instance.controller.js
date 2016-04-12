@@ -25,6 +25,7 @@ $scope.showModalSection = 'login';
       // $rootScope.client = data
       console.log("SUCCESS from login controller", data)
       window.localStorage.setItem('theclient', window.JSON.stringify(data));
+      console.log("localstorage data", localStorage);
       $uibModalInstance.dismiss();
       $location.path('/clienthome/' + data.id);
     })
@@ -45,7 +46,8 @@ $scope.showModalSection = 'login';
     .success(function(data) {
       // $rootScope.theprovider = data;
       window.localStorage.setItem('theprovider', window.JSON.stringify(data));
-      console.log("SUCCESS from login controller", data)
+      console.log("SUCCESS from login controller", data);
+      console.log("localstorage ",localStorage);
       $uibModalInstance.dismiss();
       $location.path('/sphome/' + data.id);
 
