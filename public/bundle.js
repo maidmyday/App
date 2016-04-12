@@ -39629,9 +39629,16 @@ angular
       console.log('vm provider from sphome controller',vm.providerData);
     })
 
-    //go online: change a boolean and show change in dom, switch button?
+    //go online: change a boolean and show change in dom
+    vm.inactive = true;
     vm.goOnline = function(){
+      vm.active = true;
+    }
 
+    //go offline: change a boolean and show change in dom
+    vm.goOffline = function(){
+      vm.active = false;
+      vm.inactive = true;
     }
 
     //edit profile content
