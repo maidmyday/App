@@ -70,6 +70,16 @@ angular
       vm.editInfo = !vm.editInfo;
     }
 
+    //delete client account
+    vm.deleteC = function(){
+      console.log('data inside delete function',window.localStorage);
+      ClientService.deleteClient().then(function(){
+        window.localStorage.clear();
+        console.log('hopefully empty: ',window.localStorage);
+        $location.path('/');
+      })
+    }
+
     //the rating stars
     vm.rate = 0;
     vm.max = 5;
@@ -136,10 +146,12 @@ angular
   .service('ClientService',function($http, $q, $cacheFactory) {
 
     var clienturl = '/client';
-    var spurl = '/provider';
     var allClients = '/clients';
-    var allProviders = '/providers';
     var logouturl = '/logout';
+
+    function deleteClient(){
+      return $http.delete(clienturl);
+    }
 
     function logoutNow(id){
       return $http.post(logouturl);
@@ -174,6 +186,7 @@ angular
    ]
 
     return {
+      deleteClient: deleteClient,
       logoutNow: logoutNow,
       getClient: getClient,
       historyData: historyData
@@ -39722,8 +39735,6 @@ angular
   .module('spHome')
   .service('SpService',function($http, $q, $cacheFactory) {
 
-    var clienturl = '/client';
-    var allClients = '/clients';
     var spurl = '/provider';
     var allProviders = '/providers';
     var logouturl = '/logout';
