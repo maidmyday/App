@@ -278,12 +278,7 @@ $scope.showModalSection = 'login';
     LoginService.postSp(provider)
     .success(function(data) {
       window.localStorage.setItem('theprovider', window.JSON.stringify(data));
-<<<<<<< HEAD
       console.log("SUCCESS", data)
-=======
-      console.log("SUCCESS from login controller", data);
-      console.log("localstorage ",localStorage);
->>>>>>> 3a86b047c1bb4fe6316f7a219d133c08dbd3fd85
       $uibModalInstance.dismiss();
       $location.path('/sphome/' + data.id);
     })
@@ -323,10 +318,6 @@ $scope.showModalSection = 'login';
       $scope.errorMsg = err
     })
   };
-
-
-
-
 });
 
 },{}],13:[function(require,module,exports){
