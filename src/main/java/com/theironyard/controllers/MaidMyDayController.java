@@ -75,7 +75,7 @@ public class MaidMyDayController {
 
         if (client != null && PasswordStorage.verifyPassword(newClient.getPassword() , client.getPassword())) {
             session.setAttribute("email", client.getEmail());
-            return client;
+            return newClient;
         } else {
             throw new Exception("Login failed.");
         }
