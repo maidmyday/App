@@ -74,7 +74,7 @@ $scope.showModalSection = 'login';
   };
 
   $scope.loginClientPath = function (client) {
-    console.log("CLIENT", client);
+    console.log("CLIENT LOGIN", client);
     LoginService.clientLogin(client)
     .success(function(data) {
       // $rootScope.theprovider = data;

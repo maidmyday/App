@@ -301,7 +301,7 @@ $scope.showModalSection = 'login';
   };
 
   $scope.loginClientPath = function (client) {
-    console.log("CLIENT", client);
+    console.log("CLIENT LOGIN", client);
     LoginService.clientLogin(client)
     .success(function(data) {
       // $rootScope.theprovider = data;
@@ -390,9 +390,9 @@ angular
     function getClient(id) {
       return $http.get(clienturl + '/' + id)
     }
-    function clientLogin(user) {
+    function clientLogin(post) {
       console.log("CLIENT Logging in from login service");
-      return $http.post(clientloginurl, user);
+      return $http.post(clientloginurl, post);
     }
     function getAllClients() {
       return $http.get(clientsurl)
