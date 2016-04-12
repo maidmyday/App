@@ -9,5 +9,4 @@ import java.util.List;
 
 public interface ClientRatingRepository extends CrudRepository<ClientRating, Integer> {
     List<ClientRating> findByClient (Client client);
-    List<ClientRating> findByProvider (Provider provider);
 }
