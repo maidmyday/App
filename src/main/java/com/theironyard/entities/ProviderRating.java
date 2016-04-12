@@ -1,10 +1,13 @@
-package com.theironyard.entities;//Created by KevinBozic on 4/6/16.
+package com.theironyard.entities;
 
 import javax.persistence.*;
 
+/**
+ * Created by Caroline on 4/12/16.
+ */
 @Entity
-@Table (name = "ratings")
-public class Rating {
+@Table(name = "providerRatings")
+public class ProviderRating {
 
     @Id
     @GeneratedValue
@@ -17,18 +20,14 @@ public class Rating {
     private String ratingComment;
 
     @ManyToOne
-    private Client client;
-
-    @ManyToOne
     private Provider provider;
 
-    public Rating() {
+    public ProviderRating() {
     }
 
-    public Rating(double rating, String ratingComment, Client client, Provider provider) {
+    public ProviderRating(double rating, String ratingComment, Provider provider) {
         this.rating = rating;
         this.ratingComment = ratingComment;
-        this.client = client;
         this.provider = provider;
     }
 
@@ -48,14 +47,6 @@ public class Rating {
         this.ratingComment = ratingComment;
     }
 
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
     public Provider getProvider() {
         return provider;
     }
@@ -64,4 +55,5 @@ public class Rating {
         this.provider = provider;
     }
 }
+
 
