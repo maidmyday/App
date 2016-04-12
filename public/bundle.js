@@ -281,7 +281,41 @@ $scope.showModalSection = 'login';
       console.log("ERROR", err)
     })
 
-  }
+  };
+
+  $scope.loginSpPath = function (provider) {
+    console.log("PROVIDER", provider);
+    LoginService.postSp(provider)
+    .success(function(data) {
+      // $rootScope.theprovider = data;
+      window.localStorage.setItem('theprovider', window.JSON.stringify(data));
+      console.log("SUCCESS from login controller", data)
+      $uibModalInstance.dismiss();
+      $location.path('/sphome/' + data.id);
+
+    })
+    .error(function(err) {
+      console.log("ERROR", err)
+    })
+
+  };
+
+  $scope.loginClientPath = function (client) {
+    console.log("CLIENT LOGIN", client);
+    LoginService.clientLogin(client)
+    .success(function(data) {
+      // $rootScope.theprovider = data;
+      window.localStorage.setItem('theprovider', window.JSON.stringify(data));
+      console.log("SUCCESS from login controller", data)
+      $uibModalInstance.dismiss();
+      $location.path('/clienthome/' + data.id);
+
+    })
+    .error(function(err) {
+      console.log("ERROR", err)
+    })
+
+  };
 
 
 });
@@ -348,19 +382,20 @@ angular
   .module('login')
   .service('LoginService',function($http) {
     var clienturl = '/client';
+    var clientsurl = '/client';
+    var spsurl = '/providers';
     var spurl = '/provider';
-    var loginProviderUrl = '/providerLogin';
-    var loginClientUrl = '/clientLogin';
-
-    function loginClient() {
-      return $http.get(loginClientUrl);
-    }
+    var clientloginurl ='/clientLogin';
 
     function getClient(id) {
       return $http.get(clienturl + '/' + id)
     }
+    function clientLogin(post) {
+      console.log("CLIENT Logging in from login service");
+      return $http.post(clientloginurl, post);
+    }
     function getAllClients() {
-      return $http.get(clienturl)
+      return $http.get(clientsurl)
     }
     function postClient(post) {
       console.log("CLIENT BEING SAVED from login service", post);
@@ -377,7 +412,7 @@ angular
     }
 
     function getAllSp() {
-      return $http.get(spurl)
+      return $http.get(spsurl)
     }
 
     function postSp(post) {
@@ -391,6 +426,7 @@ angular
     return {
       getClient: getClient,
       getAllClients: getAllClients,
+      clientLogin: clientLogin,
       postClient: postClient,
       getSp: getSp,
       getAllSp: getAllSp,

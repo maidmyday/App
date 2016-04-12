@@ -94,6 +94,7 @@ public class MaidMyDayController {
         return client;
     }
 
+
     // returns all clients
     @RequestMapping(path = "/clients", method = RequestMethod.GET)
     public List<Client> allClients(HttpSession session) {
