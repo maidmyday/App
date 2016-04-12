@@ -6,7 +6,13 @@ angular
     var spurl = '/provider';
     var allClients = '/clients';
     var allProviders = '/providers';
+    var logouturl = '/logout';
 
+    function logoutNow(id){
+      return $http.post(logouturl);
+    }
+
+    //logging in and registering
     function getProvider(id) {
       return $http.get(spurl + '/' + id);
     }
@@ -15,6 +21,7 @@ angular
       return $http.get(allProviders);
     }
 
+    //temp data for history
     var historyData = [
       {
         img: './images/bill04.jpg',
@@ -40,6 +47,7 @@ angular
     ]
 
     return {
+      logoutNow: logoutNow,
       getAllProviders: getAllProviders,
       getProvider: getProvider,
       historyData: historyData

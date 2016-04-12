@@ -2,7 +2,8 @@ var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
 var angularMatch = require('angular-validation-match');
-require('./home');
+require('./chome');
+require('./sphome');
 require('./goOnline');
 require('./loginFeature');
 

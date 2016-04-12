@@ -7,6 +7,17 @@ angular
   function SpController($scope,$rootScope,$location,$uibModal,$log,SpService) {
     var vm = this;
 
+    //logout button
+    vm.logout = function(){
+      console.log('data inside logout function',window.localStorage);
+      SpService.logoutNow(window.JSON.parse(window.localStorage.getItem('theprovider')).id).then(function(){
+        window.localStorage.clear();
+        console.log('hopefully empty: ',window.localStorage);
+        $location.path('/');
+      })
+    }
+
+    //getting data from the login and register
     SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id).then(function(data){
       console.log('provider data from sphome controller',data);
       console.log('testing theprovider from sphome controller',window.localStorage.getItem('theprovider'));
@@ -20,7 +31,7 @@ angular
     })
 
     //go online: change a boolean and show change in dom, switch button?
-    $scope.goOnline = function(){
+    vm.goOnline = function(){
 
     }
 

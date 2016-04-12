@@ -126,6 +126,9 @@ uib-accordion-heading {
 div.profile-panels h4 {
   display: inline-block; }
 
+div.profileContent {
+  min-height: 180px; }
+
 div.paragraph {
   max-height: 500px;
   overflow: auto; }
