@@ -1,12 +1,13 @@
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
+// require('angular-ui-switch');
 
 angular
   .module('goOnline',[
     'ngRoute',
-    'ui.bootstrap'
-  /*,'ngMaterial'*/
+    'ui.bootstrap',
+    // 'uiSwitch'
     ])
   .config(function($routeProvider){
     $routeProvider

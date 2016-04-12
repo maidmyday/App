@@ -209,6 +209,18 @@ angular
   function GoController($scope,$rootScope,$location,$uibModal,$log/*,GoService*/){
     var vm = this;
   }
+  // function standardSwitch($scope) {
+  // $scope.switch = 'off';
+  // }
+  //
+  // function alternateSwitch($scope) {
+  // $scope.switchAlternate = 'off';
+  // }
+  //
+  //
+  // $scope.enabled = true;
+  //   $scope.onOff = true;
+  //   $scope.yesNo = true;
 
 },{}],8:[function(require,module,exports){
 
@@ -216,12 +228,13 @@ angular
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
+// require('angular-ui-switch');
 
 angular
   .module('goOnline',[
     'ngRoute',
-    'ui.bootstrap'
-  /*,'ngMaterial'*/
+    'ui.bootstrap',
+    // 'uiSwitch'
     ])
   .config(function($routeProvider){
     $routeProvider
@@ -246,6 +259,7 @@ angular
 
 // SWITCHES THE SECTIONS OF THE MODAL
 
+
 $scope.showModalSection = 'login';
 
   $scope.showRegisterSection = function () {
@@ -258,6 +272,8 @@ $scope.showModalSection = 'login';
 
 
 // SIGNS IN CLIENT AND PROVIDER FROM REGISTER BUTTON
+
+
 
   $scope.registerClientPath = function (client) {
     LoginService.postClient(client)
@@ -291,6 +307,9 @@ $scope.showModalSection = 'login';
 
 // SIGNS IN CLIENT AND PROVIDER FROM LOGIN BUTTON
 
+
+
+
   $scope.loginSpPath = function (provider) {
     LoginService.providerLogin(provider)
     .success(function(data) {
@@ -318,6 +337,8 @@ $scope.showModalSection = 'login';
       $scope.errorMsg = err
     })
   };
+
+
 });
 
 },{}],13:[function(require,module,exports){
@@ -375,6 +396,7 @@ angular
   .module('login',[
     'ngRoute',
     'validation.match'
+
   ]);
 
 },{"angular-validation-match":22}],16:[function(require,module,exports){
@@ -39593,9 +39615,16 @@ angular
       console.log('vm provider from sphome controller',vm.providerData);
     })
 
-    //go online: change a boolean and show change in dom, switch button?
+    //go online: change a boolean and show change in dom
+    vm.inactive = true;
     vm.goOnline = function(){
+      vm.active = true;
+    }
 
+    //go offline: change a boolean and show change in dom
+    vm.goOffline = function(){
+      vm.active = false;
+      vm.inactive = true;
     }
 
     //edit profile content

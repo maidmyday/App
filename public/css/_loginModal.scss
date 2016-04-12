@@ -1,102 +1,86 @@
-#back{
-  background-color: white;
-  color: blue;
-  border-color: white;
-  width: 0%;
-}
+// WHEN PASSWORDS DONT MATCH
 input.ng-invalid {
-    border-color: red;
+  border-color: red;
 }
 
-div.modal-content{
+div.modal-content {
   border-color: #C7CCDB;
-border-width: 10px;
-font-family: 'Sue Ellen Francisco', cursive;
+  border-width: 10px;
+  font-family: 'Sue Ellen Francisco',cursive;
 }
 
-input.form-control{
+input.form-control {
   margin-bottom: 2%;
 }
 
-#create{
+#create {
   position: absolute;
-    left: 479px;
-    top: 141px;
-    color: #767B91;
-    background-color: white;
-    border-color: #767B91;
-    border-width: 3px;
-    &:hover{
-      background-color: #767B91;
-
-      color: #FFFFFF;
-
-    }
-
-}
-
-
-
-#backBtn{
-  font-family: 'Sue Ellen Francisco', cursive;
+  left: 479px;
+  top: 141px;
   color: #767B91;
-    /* background-color: #337ab7; */
-    border-color: #767B91;
-    background-color: white;
-    border-width: 3px;
-    .glyphicon-chevron-left{
-      color: #767B91;
-    }
-    &:hover{
-      background-color: #767B91;
-      .glyphicon-chevron-left{
-      color: #FFFFFF;
-      }
-    }
-}
-
-#signin{
-  font-family: 'Sue Ellen Francisco', cursive;
-  position: absolute;
-left: 497px;
-color: #767B91;
-background-color: white;
-border-color: #767B91;
-border-width: 3px;
-&:hover{
-  background-color: #767B91;
-
-  color: #FFFFFF;
-
-}
-}
-
-#login{
-  color: #767B91;
-  background-color: white;
+  background-color: #fff;
   border-color: #767B91;
   border-width: 3px;
-  &:hover{
-    background-color: #767B91;
-
-    color: #FFFFFF;
-
-  }
+  &: hover{;
+  background-color: #767B91;
+  color: #FFF;
+}
 }
 
-.red{
+#backBtn {
+  font-family: 'Sue Ellen Francisco',cursive;
+  color: #767B91;
+  border-color: #767B91;
+  background-color: #fff;
+  border-width: 3px;
+  .glyphicon-chevron-leftcolor: #767B91;
+}
+
+&:hover {
+  background-color: #767B91;
+  .glyphicon-chevron-leftcolor: #FFF;
+}
+}
+
+
+}
+
+#signin {
+  font-family: 'Sue Ellen Francisco',cursive;
+  position: absolute;
+  left: 497px;
+  color: #767B91;
+  background-color: #fff;
+  border-color: #767B91;
+  border-width: 3px;
+  &: hover{;
+  background-color: #767B91;
+  color: #FFF;
+}
+}
+
+#login {
+  color: #767B91;
+  background-color: #fff;
+  border-color: #767B91;
+  border-width: 3px;
+  &: hover{;
+  background-color: #767B91;
+  color: #FFF;
+}
+}
+
+.red {
   color: red;
 }
 
-.btn{
+.btn {
   outline: none !important;
 }
 
-
-
 // FROM STACKOVERFLOW CHANGING SHADOW ON INPUT
-textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
-  border-color: rgba(199, 204, 219, 0.8);
-    box-shadow: 0 1px 1px rgba(199, 204, 219, 0.075) inset, 0 0 8px rgba(199, 204, 219, 0.6);
-    outline: 0 none;
+textarea:focus,input:focus,input[type]:focus,.uneditable-input:focus {
+  border-color: rgba(199,204,219,0.8);
+  box-shadow: 0 1px 1px rgba(199,204,219,0.075) inset,0 0 8px rgba(199,204,219,0.6);
+  outline: 0 none;
 }

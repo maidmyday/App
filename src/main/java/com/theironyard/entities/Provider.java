@@ -26,6 +26,15 @@ public class Provider {
     @Column(nullable = false)
     private String phoneNumber;
 
+    @Column(nullable = false)
+    private boolean isOnline;
+
+    @Column
+    private String about;
+
+    @Column
+    private String specialties;
+
     @OneToMany
     private List<Task> tasks;
 
@@ -37,12 +46,15 @@ public class Provider {
         this.phoneNumber = phoneNumber;
     }
 
-    public Provider(String firstName, String lastName, String password, String email, String phoneNumber, List<Task> tasks) {
+    public Provider(String firstName, String lastName, String password, String email, String phoneNumber, boolean isOnline, String about, String specialties, List<Task> tasks) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.isOnline = isOnline;
+        this.about = about;
+        this.specialties = specialties;
         this.tasks = tasks;
     }
 
@@ -102,5 +114,29 @@ public class Provider {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
+    public String getSpecialties() {
+        return specialties;
+    }
+
+    public void setSpecialties(String specialties) {
+        this.specialties = specialties;
+    }
+
+    public boolean getIsOnline() {
+        return isOnline;
+    }
+
+    public void setIsOnline(boolean online) {
+        isOnline = online;
     }
 }
