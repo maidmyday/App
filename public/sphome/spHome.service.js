@@ -10,8 +10,8 @@ angular
       return $http.post(logouturl);
     }
 
-    function deleteSpAccount(email){
-      return $http.delete(spurl, email);
+    function deleteSpAccount(id){
+      return $http.delete(spurl + '/' + id);
     }
 
     //registering a provider
