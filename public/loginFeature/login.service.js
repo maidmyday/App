@@ -3,6 +3,12 @@ angular
   .service('LoginService',function($http) {
     var clienturl = '/client';
     var spurl = '/provider';
+    var loginProviderUrl = '/providerLogin';
+    var loginClientUrl = '/clientLogin';
+
+    function loginClient() {
+      return $http.get(loginClientUrl);
+    }
 
     function getClient(id) {
       return $http.get(clienturl + '/' + id)
@@ -14,6 +20,10 @@ angular
       console.log("CLIENT BEING SAVED from login service", post);
       delete post.passwordConfirm;
       return $http.post(clienturl,post);
+    }
+
+    function loginSp() {
+      return $http.get(loginProviderUrl);
     }
 
     function getSp(id) {

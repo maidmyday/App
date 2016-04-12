@@ -102,7 +102,7 @@ angular
       restrict: 'E',
       templateUrl: 'chome/tmpls/profileTmpl.html',
       scope: {
-        thedata: '='
+        theClientData: '='
       },
       link: function (scope, elem, attrs, transclude) {
        // dom stuff here
@@ -349,6 +349,12 @@ angular
   .service('LoginService',function($http) {
     var clienturl = '/client';
     var spurl = '/provider';
+    var loginProviderUrl = '/providerLogin';
+    var loginClientUrl = '/clientLogin';
+
+    function loginClient() {
+      return $http.get(loginClientUrl);
+    }
 
     function getClient(id) {
       return $http.get(clienturl + '/' + id)
@@ -360,6 +366,10 @@ angular
       console.log("CLIENT BEING SAVED from login service", post);
       delete post.passwordConfirm;
       return $http.post(clienturl,post);
+    }
+
+    function loginSp() {
+      return $http.get(loginProviderUrl);
     }
 
     function getSp(id) {
@@ -39548,10 +39558,11 @@ angular
   function SpController($scope,$rootScope,$location,$uibModal,$log,SpService) {
     var vm = this;
 
+//window.JSON.parse(window.localStorage.getItem('theprovider')).id
     //logout button
     vm.logout = function(){
       console.log('data inside logout function',window.localStorage);
-      SpService.logoutNow(window.JSON.parse(window.localStorage.getItem('theprovider')).id).then(function(){
+      SpService.logoutNow().then(function(){
         window.localStorage.clear();
         console.log('hopefully empty: ',window.localStorage);
         $location.path('/');
@@ -39562,7 +39573,6 @@ angular
     SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id).then(function(data){
       console.log('provider data from sphome controller',data);
       console.log('testing theprovider from sphome controller',window.localStorage.getItem('theprovider'));
-      // vm.providerData = data;
       vm.providerData =  JSON.parse(window.localStorage.getItem('theprovider'));
       console.log('vm provider from sphome controller',vm.providerData);
     })
@@ -39592,6 +39602,11 @@ angular
     vm.editSpecial = false;
     vm.editBtn3 = function(){
       vm.editSpecial = !vm.editSpecial;
+    }
+
+    //delete provider account
+    vm.deleteSp = function(){
+      SpService.deleteSpAccount()
     }
 
     //the rating stars
@@ -39626,7 +39641,7 @@ angular
       restrict: 'E',
       templateUrl: 'sphome/tmpls/profileTmpl.html',
       scope: {
-        theclientdata: '='
+        theProviderData: '='
       },
       link: function (scope, elem, attrs) {
        // dom stuff here
@@ -39665,16 +39680,20 @@ angular
   .service('SpService',function($http, $q, $cacheFactory) {
 
     var clienturl = '/client';
-    var spurl = '/provider';
     var allClients = '/clients';
+    var spurl = '/provider';
     var allProviders = '/providers';
     var logouturl = '/logout';
 
-    function logoutNow(id){
+    function logoutNow(){
       return $http.post(logouturl);
     }
 
-    //logging in and registering
+    function deleteSpAccount(){
+      return $http.delete(deleteProvider);
+    }
+
+    //registering a provider
     function getProvider(id) {
       return $http.get(spurl + '/' + id);
     }
@@ -39712,7 +39731,8 @@ angular
       logoutNow: logoutNow,
       getAllProviders: getAllProviders,
       getProvider: getProvider,
-      historyData: historyData
+      historyData: historyData,
+      deleteSpAccount: deleteSpAccount
     }
 
   })
