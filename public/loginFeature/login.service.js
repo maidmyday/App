@@ -10,9 +10,9 @@ angular
     function getClient(id) {
       return $http.get(clienturl + '/' + id)
     }
-    function getClientLogin(user) {
+    function clientLogin(user) {
       console.log("CLIENT Logging in from login service");
-      return $http.get(clientloginurl, user);
+      return $http.post(clientloginurl, user);
     }
     function getAllClients() {
       return $http.get(clientsurl)
@@ -46,7 +46,7 @@ angular
     return {
       getClient: getClient,
       getAllClients: getAllClients,
-      getClientLogin: getClientLogin,
+      clientLogin: clientLogin,
       postClient: postClient,
       getSp: getSp,
       getAllSp: getAllSp,

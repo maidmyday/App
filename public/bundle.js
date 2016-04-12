@@ -302,7 +302,7 @@ $scope.showModalSection = 'login';
 
   $scope.loginClientPath = function (client) {
     console.log("CLIENT", client);
-    LoginService.getClientLogin(client)
+    LoginService.clientLogin(client)
     .success(function(data) {
       // $rootScope.theprovider = data;
       window.localStorage.setItem('theprovider', window.JSON.stringify(data));
@@ -390,9 +390,9 @@ angular
     function getClient(id) {
       return $http.get(clienturl + '/' + id)
     }
-    function getClientLogin(user) {
+    function clientLogin(user) {
       console.log("CLIENT Logging in from login service");
-      return $http.get(clientloginurl, user);
+      return $http.post(clientloginurl, user);
     }
     function getAllClients() {
       return $http.get(clientsurl)
@@ -426,7 +426,7 @@ angular
     return {
       getClient: getClient,
       getAllClients: getAllClients,
-      getClientLogin: getClientLogin,
+      clientLogin: clientLogin,
       postClient: postClient,
       getSp: getSp,
       getAllSp: getAllSp,

@@ -75,7 +75,7 @@ $scope.showModalSection = 'login';
 
   $scope.loginClientPath = function (client) {
     console.log("CLIENT", client);
-    LoginService.getClientLogin(client)
+    LoginService.clientLogin(client)
     .success(function(data) {
       // $rootScope.theprovider = data;
       window.localStorage.setItem('theprovider', window.JSON.stringify(data));
