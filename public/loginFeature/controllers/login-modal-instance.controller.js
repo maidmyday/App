@@ -54,7 +54,41 @@ $scope.showModalSection = 'login';
       console.log("ERROR", err)
     })
 
-  }
+  };
+
+  $scope.loginSpPath = function (provider) {
+    console.log("PROVIDER", provider);
+    LoginService.postSp(provider)
+    .success(function(data) {
+      // $rootScope.theprovider = data;
+      window.localStorage.setItem('theprovider', window.JSON.stringify(data));
+      console.log("SUCCESS from login controller", data)
+      $uibModalInstance.dismiss();
+      $location.path('/sphome/' + data.id);
+
+    })
+    .error(function(err) {
+      console.log("ERROR", err)
+    })
+
+  };
+
+  $scope.loginClientPath = function (client) {
+    console.log("CLIENT", client);
+    LoginService.getClientLogin(client)
+    .success(function(data) {
+      // $rootScope.theprovider = data;
+      window.localStorage.setItem('theprovider', window.JSON.stringify(data));
+      console.log("SUCCESS from login controller", data)
+      $uibModalInstance.dismiss();
+      $location.path('/clienthome/' + data.id);
+
+    })
+    .error(function(err) {
+      console.log("ERROR", err)
+    })
+
+  };
 
 
 });

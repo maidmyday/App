@@ -6,7 +6,7 @@
       <h3 class="modal-title">Sp Login</h3>
 
 
-    <form action="">
+    <form ng-submit="registerSpPath(provider)">
       <div class="form-group has-feedback">
       <input type="text" placeholder="email" class="form-control">
       <i class="glyphicon glyphicon-envelope form-control-feedback"></i>
@@ -15,9 +15,10 @@
       <input type="password" placeholder="password" class="form-control">
       <i class="glyphicon glyphicon-lock form-control-feedback"></i>
     </div>
+    <button class="btn btn-primary" type="button" ng-click="signInSp()">Login</button>
     </form>
 
-  <button class="btn btn-primary" type="button" ng-click="signInSp()">Login</button>
+
   <button class="btn register" type="button" btn-toggle="" ng-click="showRegisterSection()">Register</button>
 
 </div>
