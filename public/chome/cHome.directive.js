@@ -5,7 +5,7 @@ angular
       restrict: 'E',
       templateUrl: 'chome/tmpls/profileTmpl.html',
       scope: {
-        thedata: '='
+        theClientData: '='
       },
       link: function (scope, elem, attrs, transclude) {
        // dom stuff here

@@ -12,8 +12,6 @@ import javax.annotation.PreDestroy;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -29,11 +27,13 @@ public class MaidMyDayController {
     @Autowired
     ProviderRepository providerRepository;
     @Autowired
-    RatingRepository ratingRepository;
+    ClientRatingRepository clientRatingRepository;
     @Autowired
     RequestRepository requestRepository;
     @Autowired
     TaskRepository taskRepository;
+    @Autowired
+    ProviderRatingRepository providerRatingRepository;
 
     Server dbui = null;
 
@@ -64,13 +64,13 @@ public class MaidMyDayController {
         dbui.stop();
     }
 
-    @RequestMapping(path = "/clientLogin", method = RequestMethod.POST)
+    @RequestMapping(path = "/clientLogin", method = RequestMethod.GET)
     public Client login(HttpSession session, @RequestBody Client client) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
 
         Client newClient = clientRepository.findByEmail(client.getEmail());
 
         if (client != null && PasswordStorage.verifyPassword(newClient.getPassword() , client.getPassword())) {
-            session.setAttribute("userName", client.getEmail());
+            session.setAttribute("email", client.getEmail());
             return client;
         } else {
             return null;
@@ -78,31 +78,26 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/client", method = RequestMethod.POST)
-    public Client createClient(@RequestBody Client client) throws PasswordStorage.CannotPerformOperationException {
-
+    public void createClient(@RequestBody Client client) throws PasswordStorage.CannotPerformOperationException {
         client.setPassword(PasswordStorage.createHash(client.getPassword()));
-
-        return clientRepository.save(client);
+        clientRepository.save(client);
     }
 
     // returns a single client
     @RequestMapping(path = "/client/{id}", method = RequestMethod.GET)
     public Client getOneClient(HttpSession session, @PathVariable ("id") int id) {
-
         Client client = clientRepository.findOne(id);
-
         return client;
     }
 
     // returns all clients
-    @RequestMapping(path = "/clients", method = RequestMethod.GET)
+    @RequestMapping(path = "/client", method = RequestMethod.GET)
     public List<Client> allClients(HttpSession session) {
         return (List<Client>) clientRepository.findAll();
     }
 
     @RequestMapping(path = "/client", method = RequestMethod.PUT)
     public Client editClient(@RequestBody Client client, HttpSession session) throws Exception {
-
         if (client.getEmail().equals(session.getAttribute("email"))) {
             return clientRepository.save(client);
         } else {
@@ -119,15 +114,17 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/client/rating", method = RequestMethod.GET)
-    public List<Rating> viewClientRatings(HttpSession session) {
+    public List<ClientRating> viewClientRatings(HttpSession session) {
         String clientEmail = (String) session.getAttribute("email");
         Client client = clientRepository.findByEmail(clientEmail);
-        List<Rating> localRatings = ratingRepository.findByClient(client);
+        List<ClientRating> localRatings = clientRatingRepository.findByClient(client);
         return localRatings;
     }
 
     @RequestMapping(path = "/client", method = RequestMethod.DELETE)
-    public void deleteClient(@RequestBody Client client) {
+    public void deleteClient(HttpSession session) {
+        String clientEmail = (String) session.getAttribute("email");
+        Client client = clientRepository.findByEmail(clientEmail);
         clientRepository.delete(client);
     }
 
@@ -141,7 +138,7 @@ public class MaidMyDayController {
 
 
 
-    @RequestMapping(path = "/providerLogin", method = RequestMethod.POST)
+    @RequestMapping(path = "/providerLogin", method = RequestMethod.GET)
     public Provider login(HttpSession session, @RequestBody Provider provider) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
 
         Provider newProvider = providerRepository.findByEmail(provider.getEmail());
@@ -156,28 +153,21 @@ public class MaidMyDayController {
 
     // returns a single provider
     @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
-    public Provider loginProvider(HttpSession session, @PathVariable ("id") int id) {
-
+    public Provider viewingProviderProfile(HttpSession session, @PathVariable ("id") int id) {
         Provider provider = providerRepository.findOne(id);
-
         return provider;
     }
 
     // returns all providers
     @RequestMapping(path = "/providers", method = RequestMethod.GET)
     public List<Provider> allProviders(HttpSession session) {
-
         return (List<Provider>) providerRepository.findAll();
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.POST)
-    public Provider createProvider(@RequestBody Provider provider) throws PasswordStorage.CannotPerformOperationException {
-
+    public void createProvider(@RequestBody Provider provider) throws PasswordStorage.CannotPerformOperationException {
         provider.setPassword(PasswordStorage.createHash(provider.getPassword()));
-
         providerRepository.save(provider);
-
-        return provider;
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.GET)
@@ -193,16 +183,12 @@ public class MaidMyDayController {
         return providers;
     }
 
-//    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
-//    public Provider clientViewProviderProfile() {
-//        return null;
-//    }
-
-//    @RequestMapping(path = "/provider/profile", method = RequestMethod.GET)
-//    public Provider providerProfile(HttpSession session) {
-//        Provider provider =
-//        return provider;
-//    }
+    @RequestMapping(path = "/provider/profile", method = RequestMethod.GET)
+    public Provider providerProfile(HttpSession session) {
+        String providerEmail = (String) session.getAttribute("email");
+        Provider provider = providerRepository.findByEmail(providerEmail);
+        return provider;
+    }
 
     @RequestMapping(path = "/provider", method = RequestMethod.PUT)
     public Provider editProfile(@RequestBody Provider provider, HttpSession session) throws Exception {
@@ -228,15 +214,17 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider/rating", method = RequestMethod.GET)
-    public List<Rating> viewProviderRatings(HttpSession session) {
+    public List<ProviderRating> viewProviderRatings(HttpSession session) {
         String providerEmail = (String) session.getAttribute("email");
         Provider provider = providerRepository.findByEmail(providerEmail);
-        List<Rating> localRatings = ratingRepository.findByProvider(provider);
+        List<ProviderRating> localRatings = providerRatingRepository.findByProvider(provider);
         return localRatings;
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.DELETE)
-    public void deleteProvider(@RequestBody Provider provider) {
+    public void deleteProvider(HttpSession session) {
+        String providerEmail = (String) session.getAttribute("email");
+        Provider provider = providerRepository.findByEmail(providerEmail);
         providerRepository.delete(provider);
     }
 
@@ -266,8 +254,7 @@ public class MaidMyDayController {
 
 
     @RequestMapping(path = "/notification", method = RequestMethod.POST)
-    public Notification createNotification() {
-        return null;
+    public void createNotification() {
     }
 
     @RequestMapping(path = "/notification", method = RequestMethod.GET)
@@ -295,8 +282,19 @@ public class MaidMyDayController {
 
 
 
-    @RequestMapping(path = "/rating", method = RequestMethod.POST)
-    public void createRating(HttpSession session) {
+    @RequestMapping(path = "/rating/provider/{id}", method = RequestMethod.POST)
+    public void createProviderRating(HttpSession session, @PathVariable ("id") int id, @RequestBody ProviderRating rating) {
+        String clientEmail = (String) session.getAttribute("email");
+        Client client = clientRepository.findByEmail(clientEmail);
+        Provider provider = providerRepository.findOne(id);
+        providerRatingRepository.save(rating);
+    }
 
+    @RequestMapping(path = "/rating/client/{id}", method = RequestMethod.POST)
+    public void createClientRating(HttpSession session, @PathVariable ("id") int id, @RequestBody ClientRating rating) {
+        String providerEmail = (String) session.getAttribute("email");
+        Provider provider = providerRepository.findByEmail(providerEmail);
+        Client client = clientRepository.findOne(id);
+        clientRatingRepository.save(rating);
     }
 }

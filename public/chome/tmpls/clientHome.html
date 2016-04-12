@@ -55,14 +55,7 @@
                  <p>Phone Number: </p>
                  <p>Email: </p>
                </div>
-               <!-- <cli-home-dir theclientdata=CliCtrl.clientData></cli-home-dir> -->
-               <div class="panel-body col-md-6 col-sm-6">
-                 <p class="photo">INSERT URL</p>
-                 <p class="first">{{CliCtrl.clientData.firstName}}</p>
-                 <p class="last">{{CliCtrl.clientData.lastName}}</p>
-                 <p class="number">{{CliCtrl.clientData.phoneNumber}}</p>
-                 <p class="email">{{CliCtrl.clientData.email}}</p>
-               </div>
+               <cli-home-dir the-client-data=CliCtrl.clientData></cli-home-dir>
              </div>
              <div class="panel-body" ng-show="CliCtrl.editInfo">
                <form role="form">
