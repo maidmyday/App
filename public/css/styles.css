@@ -47,7 +47,14 @@ input.form-control {
 #create {
   position: absolute;
   left: 479px;
-  top: 141px; }
+  top: 141px;
+  color: #767B91;
+  background-color: white;
+  border-color: #767B91;
+  border-width: 3px; }
+  #create:hover {
+    background-color: #767B91;
+    color: #FFFFFF; }
 
 #backBtn {
   font-family: 'Sue Ellen Francisco', cursive;
@@ -72,6 +79,15 @@ input.form-control {
   border-color: #767B91;
   border-width: 3px; }
   #signin:hover {
+    background-color: #767B91;
+    color: #FFFFFF; }
+
+#login {
+  color: #767B91;
+  background-color: white;
+  border-color: #767B91;
+  border-width: 3px; }
+  #login:hover {
     background-color: #767B91;
     color: #FFFFFF; }
 

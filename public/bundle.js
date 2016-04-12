@@ -304,7 +304,7 @@ $scope.showModalSection = 'login';
     console.log("CLIENT LOGIN", client);
     LoginService.clientLogin(client)
     .success(function(data) {
-      $rootScope.theprovider = data;
+      // $rootScope.theprovider = data;
       window.localStorage.setItem('theprovider', window.JSON.stringify(data));
       console.log("SUCCESS from login controller", data)
       $uibModalInstance.dismiss();
