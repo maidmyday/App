@@ -8,7 +8,48 @@ input.ng-invalid {
     border-color: red;
 }
 
-.overallModal{
-  background-color: #fe938c;
-  // font-family: 'Sofia', cursive;
+div.modal-content{
+  border-color: #C7CCDB;
+border-width: 10px;
+font-family: 'Sue Ellen Francisco', cursive;
+}
+
+input.form-control{
+  margin-bottom: 2%;
+}
+
+
+
+#backBtn{
+  font-family: 'Sue Ellen Francisco', cursive;
+  color: #767B91;
+    /* background-color: #337ab7; */
+    border-color: #e6b89c;
+    background-color: white;
+    border-width: 3px;
+    .glyphicon-chevron-left{
+      color: #e6b89c;
+    }
+    &:hover{
+      background-color: #e6b89c;
+      .glyphicon-chevron-left{
+      color: #FFFFFF;
+      }
+    }
+}
+
+#signin{
+  font-family: 'Sue Ellen Francisco', cursive;
+  position: absolute;
+left: 497px;
+color: #767B91;
+background-color: white;
+border-color: #767B91;
+border-width: 3px;
+&:hover{
+  background-color: #767B91;
+
+  color: #FFFFFF;
+
+}
 }
