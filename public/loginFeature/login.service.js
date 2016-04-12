@@ -14,7 +14,7 @@ angular
     }
 
     function providerLogin(post) {
-      return $http.post(clientLoginUrl, post);
+      return $http.post(spLoginUrl, post);
     }
 
     function postClient(post) {

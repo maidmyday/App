@@ -58,6 +58,7 @@ $scope.showModalSection = 'login';
     })
     .error(function(err) {
       console.log("ERROR", err)
+      $scope.errorMsg = err
     })
   };
 
@@ -71,6 +72,7 @@ $scope.showModalSection = 'login';
     })
     .error(function(err) {
       console.log("ERROR", err)
+      $scope.errorMsg = err
     })
   };
 

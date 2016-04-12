@@ -285,6 +285,7 @@ $scope.showModalSection = 'login';
     })
     .error(function(err) {
       console.log("ERROR", err)
+      $scope.errorMsg = err
     })
   };
 
@@ -298,6 +299,7 @@ $scope.showModalSection = 'login';
     })
     .error(function(err) {
       console.log("ERROR", err)
+      $scope.errorMsg = err
     })
   };
 
@@ -380,7 +382,7 @@ angular
     }
 
     function providerLogin(post) {
-      return $http.post(clientLoginUrl, post);
+      return $http.post(spLoginUrl, post);
     }
 
     function postClient(post) {

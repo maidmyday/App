@@ -41,14 +41,14 @@ input.form-control{
   font-family: 'Sue Ellen Francisco', cursive;
   color: #767B91;
     /* background-color: #337ab7; */
-    border-color: #e6b89c;
+    border-color: #767B91;
     background-color: white;
     border-width: 3px;
     .glyphicon-chevron-left{
-      color: #e6b89c;
+      color: #767B91;
     }
     &:hover{
-      background-color: #e6b89c;
+      background-color: #767B91;
       .glyphicon-chevron-left{
       color: #FFFFFF;
       }
@@ -82,6 +82,14 @@ border-width: 3px;
     color: #FFFFFF;
 
   }
+}
+
+.red{
+  color: red;
+}
+
+.btn{
+  outline: none !important;
 }
 
 

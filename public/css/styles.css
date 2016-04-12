@@ -60,13 +60,13 @@ input.form-control {
   font-family: 'Sue Ellen Francisco', cursive;
   color: #767B91;
   /* background-color: #337ab7; */
-  border-color: #e6b89c;
+  border-color: #767B91;
   background-color: white;
   border-width: 3px; }
   #backBtn .glyphicon-chevron-left {
-    color: #e6b89c; }
+    color: #767B91; }
   #backBtn:hover {
-    background-color: #e6b89c; }
+    background-color: #767B91; }
     #backBtn:hover .glyphicon-chevron-left {
       color: #FFFFFF; }
 
@@ -90,6 +90,12 @@ input.form-control {
   #login:hover {
     background-color: #767B91;
     color: #FFFFFF; }
+
+.red {
+  color: red; }
+
+.btn {
+  outline: none !important; }
 
 textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
   border-color: rgba(199, 204, 219, 0.8);
