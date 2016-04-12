@@ -32,6 +32,16 @@ angular
       vm.editInfo = !vm.editInfo;
     }
 
+    //delete client account
+    vm.deleteC = function(){
+      console.log('data inside delete function',window.localStorage);
+      ClientService.deleteClient().then(function(){
+        window.localStorage.clear();
+        console.log('hopefully empty: ',window.localStorage);
+        $location.path('/');
+      })
+    }
+
     //the rating stars
     vm.rate = 0;
     vm.max = 5;

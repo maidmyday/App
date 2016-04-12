@@ -26,14 +26,15 @@ public class Provider {
     @Column(nullable = false)
     private String phoneNumber;
 
+    @Column(nullable = false)
+    private boolean isOnline;
+
     @Column
     private String about;
 
     @Column
     private String specialties;
 
-    @Column(nullable = false)
-    private boolean isOnline;
     @OneToMany
     private List<Task> tasks;
 
@@ -45,15 +46,15 @@ public class Provider {
         this.phoneNumber = phoneNumber;
     }
 
-    public Provider(String firstName, String lastName, String password, String email, String phoneNumber, String about, String specialties, boolean isOnline, List<Task> tasks) {
+    public Provider(String firstName, String lastName, String password, String email, String phoneNumber, boolean isOnline, String about, String specialties, List<Task> tasks) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.isOnline = isOnline;
         this.about = about;
         this.specialties = specialties;
-        this.isOnline = isOnline;
         this.tasks = tasks;
     }
 

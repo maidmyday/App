@@ -2,8 +2,6 @@ angular
   .module('spHome')
   .service('SpService',function($http, $q, $cacheFactory) {
 
-    var clienturl = '/client';
-    var allClients = '/clients';
     var spurl = '/provider';
     var allProviders = '/providers';
     var logouturl = '/logout';
@@ -12,8 +10,8 @@ angular
       return $http.post(logouturl);
     }
 
-    function deleteSpAccount(){
-      return $http.delete(deleteProvider);
+    function deleteSpAccount(id){
+      return $http.delete(spurl + '/' + id);
     }
 
     //registering a provider
