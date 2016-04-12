@@ -265,7 +265,6 @@ public class MaidMyDayController {
 
 
 
-
     @RequestMapping(path = "/notification", method = RequestMethod.POST)
     public Notification createNotification() {
         return null;
