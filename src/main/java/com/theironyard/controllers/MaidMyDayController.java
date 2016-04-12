@@ -144,6 +144,7 @@ public class MaidMyDayController {
 
 
 
+
     @RequestMapping(path = "/providerLogin", method = RequestMethod.POST)
     public Provider login(HttpSession session, @RequestBody Provider provider) throws Exception {
 
@@ -228,10 +229,9 @@ public class MaidMyDayController {
         return localRatings;
     }
 
-    @RequestMapping(path = "/provider", method = RequestMethod.DELETE)
-    public void deleteProvider(HttpSession session) {
-        String providerEmail = (String) session.getAttribute("email");
-        Provider provider = providerRepository.findByEmail(providerEmail);
+    @RequestMapping(path = "/provider/{id}", method = RequestMethod.DELETE)
+    public void deleteProvider(HttpSession session, @PathVariable ("id") int id) {
+        Provider provider = providerRepository.findOne(id);
         providerRepository.delete(provider);
     }
 
