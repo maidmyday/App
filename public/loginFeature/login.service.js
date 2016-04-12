@@ -1,51 +1,36 @@
 angular
   .module('login')
   .service('LoginService',function($http) {
-    var clienturl = '/client';
-    var clientsurl = '/clients';
-    var spsurl = '/providers';
-    var spurl = '/provider';
-    var clientloginurl ='/clientLogin';
+    var clientUrl = '/client';
+    var clientsUrl = '/clients';
+    var spUrl = '/provider';
+    var spsUrl = '/providers';
+    var clientLoginUrl ='/clientLogin';
+    var spLoginUrl ='/providerLogin';
 
-    function getClient(id) {
-      return $http.get(clienturl + '/' + id)
-    }
+
     function clientLogin(post) {
-      console.log("CLIENT Logging in from login service");
-      return $http.post(clientloginurl, post);
+      return $http.post(clientLoginUrl, post);
     }
-    function getAllClients() {
-      return $http.get(clientsurl)
+
+    function providerLogin(post) {
+      return $http.post(clientLoginUrl, post);
     }
+
     function postClient(post) {
-      console.log("CLIENT BEING SAVED from login service", post);
       delete post.passwordConfirm;
-      return $http.post(clienturl,post);
-    }
-
-    function getSp(id) {
-      return $http.get(spurl + '/' + id)
-    }
-
-    function getAllSp() {
-      return $http.get(spsurl)
+      return $http.post(clientUrl,post);
     }
 
     function postSp(post) {
-      console.log("PROVIDER BEING SAVED from login service", post);
       delete post.passwordConfirm;
-      return $http.post(spurl,post);
+      return $http.post(spUrl,post);
     }
 
-
-
     return {
-      getClient: getClient,
-      getAllClients: getAllClients,
       clientLogin: clientLogin,
       postClient: postClient,
-      getSp: getSp,
-      getAllSp: getAllSp,
-      postSp: postSp
+      postSp: postSp,
+      providerLogin: providerLogin
     };
   })

@@ -229,28 +229,25 @@ angular
 .module('login')
 .controller('ModalInstanceController', function ($rootScope,$scope, $uibModalInstance, LoginService, $location) {
 
+// SWITCHES THE SECTIONS OF THE MODAL
 
 $scope.showModalSection = 'login';
 
   $scope.showRegisterSection = function () {
-    $scope.showModalSection = 'register';
-  }
+      $scope.showModalSection = 'register';
+  };
 
   $scope.showLoginSection = function () {
     $scope.showModalSection = 'login';
   };
 
-  $scope.signInClient = function () {
-    $uibModalInstance.dismiss();
-    $location.path('/clienthome');
-  };
+
+// SIGNS IN CLIENT AND PROVIDER FROM REGISTER BUTTON
 
   $scope.registerClientPath = function (client) {
-    console.log("CLIENT from login controller", client);
     LoginService.postClient(client)
     .success(function(data) {
-      // $rootScope.client = data
-      console.log("SUCCESS from login controller", data)
+      console.log("SUCCESS", data)
       window.localStorage.setItem('theclient', window.JSON.stringify(data));
       $uibModalInstance.dismiss();
       $location.path('/clienthome/' + data.id);
@@ -258,64 +255,53 @@ $scope.showModalSection = 'login';
     .error(function(err) {
       console.log("ERROR", err)
     })
-
-  }
-
-  $scope.signInSp = function () {
-    $uibModalInstance.dismiss();
-    $location.path('/sphome/');
   };
+
 
   $scope.registerSpPath = function (provider) {
-    console.log("PROVIDER", provider);
     LoginService.postSp(provider)
     .success(function(data) {
-      // $rootScope.theprovider = data;
       window.localStorage.setItem('theprovider', window.JSON.stringify(data));
-      console.log("SUCCESS from login controller", data)
+      console.log("SUCCESS", data)
       $uibModalInstance.dismiss();
       $location.path('/sphome/' + data.id);
-
     })
     .error(function(err) {
       console.log("ERROR", err)
     })
-
   };
 
+
+
+// SIGNS IN CLIENT AND PROVIDER FROM LOGIN BUTTON
+
   $scope.loginSpPath = function (provider) {
-    console.log("PROVIDER", provider);
-    LoginService.postSp(provider)
+    LoginService.providerLogin(provider)
     .success(function(data) {
-      // $rootScope.theprovider = data;
       window.localStorage.setItem('theprovider', window.JSON.stringify(data));
-      console.log("SUCCESS from login controller", data)
+      console.log("SUCCESS", data)
       $uibModalInstance.dismiss();
       $location.path('/sphome/' + data.id);
-
     })
     .error(function(err) {
       console.log("ERROR", err)
     })
-
   };
 
   $scope.loginClientPath = function (client) {
-    console.log("CLIENT LOGIN", client);
     LoginService.clientLogin(client)
     .success(function(data) {
-      // $rootScope.theprovider = data;
-      window.localStorage.setItem('theprovider', window.JSON.stringify(data));
-      console.log("SUCCESS from login controller", data)
+      window.localStorage.setItem('theclient', window.JSON.stringify(data));
+      console.log("SUCCESS", data)
       $uibModalInstance.dismiss();
       $location.path('/clienthome/' + data.id);
-
     })
     .error(function(err) {
       console.log("ERROR", err)
     })
-
   };
+
+
 
 
 });
@@ -344,7 +330,7 @@ angular
   };
 
 
-// THIS OPEN CLIENT MODAL
+// THIS OPENS CLIENT MODAL
   $scope.openClientLoginModal = function (size) {
 
     var modalInstance = $uibModal.open({
@@ -381,52 +367,37 @@ angular
 angular
   .module('login')
   .service('LoginService',function($http) {
-    var clienturl = '/client';
-    var clientsurl = '/clients';
-    var spsurl = '/providers';
-    var spurl = '/provider';
-    var clientloginurl ='/clientLogin';
+    var clientUrl = '/client';
+    var clientsUrl = '/clients';
+    var spUrl = '/provider';
+    var spsUrl = '/providers';
+    var clientLoginUrl ='/clientLogin';
+    var spLoginUrl ='/providerLogin';
 
-    function getClient(id) {
-      return $http.get(clienturl + '/' + id)
-    }
+
     function clientLogin(post) {
-      console.log("CLIENT Logging in from login service");
-      return $http.post(clientloginurl, post);
+      return $http.post(clientLoginUrl, post);
     }
-    function getAllClients() {
-      return $http.get(clientsurl)
+
+    function providerLogin(post) {
+      return $http.post(clientLoginUrl, post);
     }
+
     function postClient(post) {
-      console.log("CLIENT BEING SAVED from login service", post);
       delete post.passwordConfirm;
-      return $http.post(clienturl,post);
-    }
-
-    function getSp(id) {
-      return $http.get(spurl + '/' + id)
-    }
-
-    function getAllSp() {
-      return $http.get(spsurl)
+      return $http.post(clientUrl,post);
     }
 
     function postSp(post) {
-      console.log("PROVIDER BEING SAVED from login service", post);
       delete post.passwordConfirm;
-      return $http.post(spurl,post);
+      return $http.post(spUrl,post);
     }
 
-
-
     return {
-      getClient: getClient,
-      getAllClients: getAllClients,
       clientLogin: clientLogin,
       postClient: postClient,
-      getSp: getSp,
-      getAllSp: getAllSp,
-      postSp: postSp
+      postSp: postSp,
+      providerLogin: providerLogin
     };
   })
 
