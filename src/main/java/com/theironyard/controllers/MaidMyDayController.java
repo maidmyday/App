@@ -149,9 +149,9 @@ public class MaidMyDayController {
 
         Provider newProvider = providerRepository.findByEmail(provider.getEmail());
 
-        if (provider != null && PasswordStorage.verifyPassword(newProvider.getPassword() , provider.getPassword())) {
+        if (provider != null && PasswordStorage.verifyPassword(provider.getPassword() , newProvider.getPassword())) {
             session.setAttribute("email", provider.getEmail());
-            return provider;
+            return newProvider;
         } else {
             throw new Exception("Login failed.");
         }
