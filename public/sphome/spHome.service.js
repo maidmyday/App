@@ -3,16 +3,20 @@ angular
   .service('SpService',function($http, $q, $cacheFactory) {
 
     var clienturl = '/client';
-    var spurl = '/provider';
     var allClients = '/clients';
+    var spurl = '/provider';
     var allProviders = '/providers';
     var logouturl = '/logout';
 
-    function logoutNow(id){
+    function logoutNow(){
       return $http.post(logouturl);
     }
 
-    //logging in and registering
+    function deleteSpAccount(){
+      return $http.delete(deleteProvider);
+    }
+
+    //registering a provider
     function getProvider(id) {
       return $http.get(spurl + '/' + id);
     }
@@ -50,7 +54,8 @@ angular
       logoutNow: logoutNow,
       getAllProviders: getAllProviders,
       getProvider: getProvider,
-      historyData: historyData
+      historyData: historyData,
+      deleteSpAccount: deleteSpAccount
     }
 
   })
