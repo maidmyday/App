@@ -234,6 +234,15 @@ public class MaidMyDayController {
         providerRepository.delete(provider);
     }
 
+    @RequestMapping(path = "/provider/{id}/isOnline", method = RequestMethod.PUT)
+    public Provider toggleIsOnline(@PathVariable ("id") int id) {
+        Provider provider = providerRepository.findOne(id);
+        provider.setIsOnline(!provider.getIsOnline());
+        providerRepository.save(provider);
+        return provider;
+    }
+
+
 
 
 
