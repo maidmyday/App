@@ -228,6 +228,7 @@ public class MaidMyDayController {
         return localRatings;
     }
 
+
     @RequestMapping(path = "/provider/{id}", method = RequestMethod.DELETE)
     public void deleteProvider(HttpSession session, @PathVariable ("id") int id) {
         Provider provider = providerRepository.findOne(id);
