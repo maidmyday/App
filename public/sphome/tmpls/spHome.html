@@ -7,7 +7,18 @@
     </div>
     <ul class="nav navbar-nav navbar-right">
       <li><p class="navbar-text">Signed in as {{SpCtrl.providerData.firstName}}</p></li>
-      <li><button class="btn btn-default navbar-btn" ng-click="SpCtrl.goOnline()">GO ONLINE</button></li>
+      <li>
+        <!-- thank you BAMUI http://codepen.io/oggyindahouse/pen/Bamui -->
+        <div class="switch">
+          <input type="radio" class="switch-input" name="view" value="week" id="week" checked>
+          <label for="week" class="switch-label switch-label-off">ON</label>
+          <input type="radio" class="switch-input" name="view" value="month" id="month">
+          <label for="month" class="switch-label switch-label-on">OFF</label>
+          <span class="switch-selection"></span>
+        </div>
+      </li>
+      <li ng-show="SpCtrl.inactive"><button class="btn btn-default navbar-btn" ng-click="SpCtrl.goOnline()">GO ONLINE</button></li>
+      <li ng-show="SpCtrl.active"><button class="btn btn-default navbar-btn" ng-click="SpCtrl.goOffline()">GO OFFLINE</button></li>
       <li><button class="btn btn-default navbar-btn" ng-click="SpCtrl.logout()">Logout</button></li>
     </ul>
   </div>
