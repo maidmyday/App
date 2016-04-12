@@ -13,7 +13,7 @@ angular
     }
 
     function deleteSpAccount(){
-      return $http.delete(deleteProvider);
+      return $http.delete(spurl);
     }
 
     //registering a provider

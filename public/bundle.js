@@ -39606,7 +39606,12 @@ angular
 
     //delete provider account
     vm.deleteSp = function(){
-      SpService.deleteSpAccount()
+      console.log('data inside delete function',window.localStorage);
+      SpService.deleteSpAccount().then(function(){
+        window.localStorage.clear();
+        console.log('hopefully empty: ',window.localStorage);
+        $location.path('/');
+      })
     }
 
     //the rating stars
@@ -39690,7 +39695,7 @@ angular
     }
 
     function deleteSpAccount(){
-      return $http.delete(deleteProvider);
+      return $http.delete(spurl);
     }
 
     //registering a provider

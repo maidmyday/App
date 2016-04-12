@@ -55,7 +55,12 @@ angular
 
     //delete provider account
     vm.deleteSp = function(){
-      SpService.deleteSpAccount()
+      console.log('data inside delete function',window.localStorage);
+      SpService.deleteSpAccount().then(function(){
+        window.localStorage.clear();
+        console.log('hopefully empty: ',window.localStorage);
+        $location.path('/');
+      })
     }
 
     //the rating stars
