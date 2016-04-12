@@ -1,9 +1,15 @@
-.main-container {
-  background-image: url("https://images.unsplash.com/photo-1422479763403-3aa672b25e0e?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=2734d2e20c48290d634e466abc7932b4");
+.backgroundImg {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url("https://images.unsplash.com/photo-1422479763403-3aa672b25e0e?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=2734d2e20c48290d634e466abc7932b4");
   background-repeat: no-repeat;
   background-size: 100%;
   min-height: 900px;
-  width: 100%; }
+  width: 100%;
+  background-position-y: 400%; }
+
+img {
+  position: absolute;
+  top: 29%;
+  left: 23%; }
 
 #back {
   background-color: white;
@@ -14,8 +20,39 @@
 input.ng-invalid {
   border-color: red; }
 
-.overallModal {
-  background-color: #fe938c; }
+div.modal-content {
+  border-color: #C7CCDB;
+  border-width: 10px;
+  font-family: 'Sue Ellen Francisco', cursive; }
+
+input.form-control {
+  margin-bottom: 2%; }
+
+#backBtn {
+  font-family: 'Sue Ellen Francisco', cursive;
+  color: #767B91;
+  /* background-color: #337ab7; */
+  border-color: #e6b89c;
+  background-color: white;
+  border-width: 3px; }
+  #backBtn .glyphicon-chevron-left {
+    color: #e6b89c; }
+  #backBtn:hover {
+    background-color: #e6b89c; }
+    #backBtn:hover .glyphicon-chevron-left {
+      color: #FFFFFF; }
+
+#signin {
+  font-family: 'Sue Ellen Francisco', cursive;
+  position: absolute;
+  left: 497px;
+  color: #767B91;
+  background-color: white;
+  border-color: #767B91;
+  border-width: 3px; }
+  #signin:hover {
+    background-color: #767B91;
+    color: #FFFFFF; }
 
 h4.navbar-brand {
   padding: 0 10px;

@@ -2,18 +2,24 @@
 <!-- LOGIN SECTION -->
 
 <div ng-if="showModalSection == 'login'" class="modal-body">
-  <div class="modal-header">
+
       <h3 class="modal-title">Sp Login</h3>
-  </div>
+
 
     <form action="">
-      <input type="text" placeholder="email">
-      <input type="password" placeholder="password">
+      <div class="form-group has-feedback">
+      <input type="text" placeholder="email" class="form-control">
+      <i class="glyphicon glyphicon-envelope form-control-feedback"></i>
+    </div>
+    <div class="form-group has-feedback">
+      <input type="password" placeholder="password" class="form-control">
+      <i class="glyphicon glyphicon-lock form-control-feedback"></i>
+    </div>
     </form>
-<div class="modal-footer">
+
   <button class="btn btn-primary" type="button" ng-click="signInSp()">Login</button>
   <button class="btn register" type="button" btn-toggle="" ng-click="showRegisterSection()">Register</button>
-</div>
+
 </div>
 
 
@@ -27,9 +33,9 @@
 
 
 <div ng-if="showModalSection == 'register'" class="modal-body">
-  <div class="modal-header">
+
       <h3 class="modal-title">Create Account</h3>
-  </div>
+
   <form name="myForm" class="has-feedback" ng-submit="registerSpPath(provider)">
     <input type="text" class="form-control" placeholder="first name" ng-model="provider.firstName">
     <input type="text" class="form-control" placeholder="last name" ng-model="provider.lastName">
@@ -41,14 +47,14 @@
     <div ng-show="myForm.myConfirmField.$error.match">Not Match?</div>
 
 
-    <button class="btn register" type="submit">Register</button>
+    <button class="btn register" id="signin" type="submit">Sign In</button>
   </form>
 
 
-<div class="modal-footer">
-  <button class="btn btn-primary" type="button" ng-click="showLoginSection()">Back</button>
 
-</div>
+  <button class="btn btn-primary" id="backBtn" type="button" ng-click="showLoginSection()"> <span class="glyphicon glyphicon-chevron-left"></span> </button>
+
+
 
 </div>
 </div>
