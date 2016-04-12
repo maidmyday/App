@@ -304,7 +304,7 @@ $scope.showModalSection = 'login';
     console.log("CLIENT LOGIN", client);
     LoginService.clientLogin(client)
     .success(function(data) {
-      // $rootScope.theprovider = data;
+      $rootScope.theprovider = data;
       window.localStorage.setItem('theprovider', window.JSON.stringify(data));
       console.log("SUCCESS from login controller", data)
       $uibModalInstance.dismiss();
@@ -382,7 +382,7 @@ angular
   .module('login')
   .service('LoginService',function($http) {
     var clienturl = '/client';
-    var clientsurl = '/client';
+    var clientsurl = '/clients';
     var spsurl = '/providers';
     var spurl = '/provider';
     var clientloginurl ='/clientLogin';
@@ -401,10 +401,6 @@ angular
       console.log("CLIENT BEING SAVED from login service", post);
       delete post.passwordConfirm;
       return $http.post(clienturl,post);
-    }
-
-    function loginSp() {
-      return $http.get(loginProviderUrl);
     }
 
     function getSp(id) {
