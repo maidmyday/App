@@ -228,11 +228,20 @@ public class MaidMyDayController {
         return localRatings;
     }
 
-    @RequestMapping(path = "/provider", method = RequestMethod.DELETE)
-    public void deleteProvider(HttpSession session) {
+    @RequestMapping(path = "/provider/{id}", method = RequestMethod.DELETE)
+    public void deleteProvider(HttpSession session, @PathVariable ("id") int id) {
         String providerEmail = (String) session.getAttribute("email");
         Provider provider = providerRepository.findByEmail(providerEmail);
         providerRepository.delete(provider);
+    }
+
+    @RequestMapping(path = "/provider/{id}/isOnline")
+    public Provider isOnline(boolean isOnline, @PathVariable ("id") int id) {
+        Provider provider = providerRepository.findOne(id);
+        provider.setIsOnline(!provider.getIsOnline());
+        providerRepository.save(provider);
+
+        return provider;
     }
 
 
