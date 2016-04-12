@@ -127,10 +127,9 @@ public class MaidMyDayController {
         return localRatings;
     }
 
-    @RequestMapping(path = "/client", method = RequestMethod.DELETE)
-    public void deleteClient(HttpSession session) {
-        String clientEmail = (String) session.getAttribute("email");
-        Client client = clientRepository.findByEmail(clientEmail);
+    @RequestMapping(path = "/client{id}", method = RequestMethod.DELETE)
+    public void deleteClient(HttpSession session, @PathVariable ("id") int id) {
+        Client client = clientRepository.findOne(id);
         clientRepository.delete(client);
     }
 
