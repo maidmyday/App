@@ -7,7 +7,6 @@ angular
   function SpController($scope,$rootScope,$location,$uibModal,$log,SpService) {
     var vm = this;
 
-//window.JSON.parse(window.localStorage.getItem('theprovider')).id
     //logout button
     vm.logout = function(){
       console.log('data inside logout function',window.localStorage);
@@ -78,7 +77,6 @@ angular
     ];
 
     // temporary accordion data to inject the page moved to service
-
     vm.historyData = SpService.historyData;
 
   }
