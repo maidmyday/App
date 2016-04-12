@@ -21,7 +21,7 @@ angular
   };
 
 
-// THIS OPEN CLIENT MODAL
+// THIS OPENS CLIENT MODAL
   $scope.openClientLoginModal = function (size) {
 
     var modalInstance = $uibModal.open({
