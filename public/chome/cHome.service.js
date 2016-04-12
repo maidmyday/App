@@ -3,10 +3,12 @@ angular
   .service('ClientService',function($http, $q, $cacheFactory) {
 
     var clienturl = '/client';
-    var spurl = '/provider';
     var allClients = '/clients';
-    var allProviders = '/providers';
     var logouturl = '/logout';
+
+    function deleteClient(){
+      return $http.delete(clienturl);
+    }
 
     function logoutNow(id){
       return $http.post(logouturl);
@@ -41,6 +43,7 @@ angular
    ]
 
     return {
+      deleteClient: deleteClient,
       logoutNow: logoutNow,
       getClient: getClient,
       historyData: historyData

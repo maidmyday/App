@@ -26,10 +26,6 @@ angular
       console.log('vm provider from sphome controller',vm.providerData);
     })
 
-    SpService.getAllProviders().then(function(data){
-      console.log('providers data from sphome controller',data);
-    })
-
     //go online: change a boolean and show change in dom, switch button?
     vm.goOnline = function(){
 
@@ -55,7 +51,12 @@ angular
 
     //delete provider account
     vm.deleteSp = function(){
-      SpService.deleteSpAccount()
+      console.log('data inside delete function',window.localStorage);
+      SpService.deleteSpAccount().then(function(){
+        window.localStorage.clear();
+        console.log('hopefully empty: ',window.localStorage);
+        $location.path('/');
+      })
     }
 
     //the rating stars

@@ -70,6 +70,16 @@ angular
       vm.editInfo = !vm.editInfo;
     }
 
+    //delete client account
+    vm.deleteC = function(){
+      console.log('data inside delete function',window.localStorage);
+      ClientService.deleteClient().then(function(){
+        window.localStorage.clear();
+        console.log('hopefully empty: ',window.localStorage);
+        $location.path('/');
+      })
+    }
+
     //the rating stars
     vm.rate = 0;
     vm.max = 5;
@@ -136,10 +146,12 @@ angular
   .service('ClientService',function($http, $q, $cacheFactory) {
 
     var clienturl = '/client';
-    var spurl = '/provider';
     var allClients = '/clients';
-    var allProviders = '/providers';
     var logouturl = '/logout';
+
+    function deleteClient(){
+      return $http.delete(clienturl);
+    }
 
     function logoutNow(id){
       return $http.post(logouturl);
@@ -174,6 +186,7 @@ angular
    ]
 
     return {
+      deleteClient: deleteClient,
       logoutNow: logoutNow,
       getClient: getClient,
       historyData: historyData
@@ -252,6 +265,7 @@ $scope.showModalSection = 'login';
       // $rootScope.client = data
       console.log("SUCCESS from login controller", data)
       window.localStorage.setItem('theclient', window.JSON.stringify(data));
+      console.log("localstorage data", localStorage);
       $uibModalInstance.dismiss();
       $location.path('/clienthome/' + data.id);
     })
@@ -272,7 +286,8 @@ $scope.showModalSection = 'login';
     .success(function(data) {
       // $rootScope.theprovider = data;
       window.localStorage.setItem('theprovider', window.JSON.stringify(data));
-      console.log("SUCCESS from login controller", data)
+      console.log("SUCCESS from login controller", data);
+      console.log("localstorage ",localStorage);
       $uibModalInstance.dismiss();
       $location.path('/sphome/' + data.id);
 
@@ -39613,9 +39628,9 @@ angular
       console.log('vm provider from sphome controller',vm.providerData);
     })
 
-    SpService.getAllProviders().then(function(data){
-      console.log('providers data from sphome controller',data);
-    })
+    // SpService.getAllProviders().then(function(data){
+    //   console.log('providers data from sphome controller',data);
+    // })
 
     //go online: change a boolean and show change in dom, switch button?
     vm.goOnline = function(){
@@ -39642,7 +39657,12 @@ angular
 
     //delete provider account
     vm.deleteSp = function(){
-      SpService.deleteSpAccount()
+      console.log('data inside delete function',window.localStorage);
+      SpService.deleteSpAccount().then(function(){
+        window.localStorage.clear();
+        console.log('hopefully empty: ',window.localStorage);
+        $location.path('/');
+      })
     }
 
     //the rating stars
@@ -39715,8 +39735,6 @@ angular
   .module('spHome')
   .service('SpService',function($http, $q, $cacheFactory) {
 
-    var clienturl = '/client';
-    var allClients = '/clients';
     var spurl = '/provider';
     var allProviders = '/providers';
     var logouturl = '/logout';
@@ -39726,7 +39744,7 @@ angular
     }
 
     function deleteSpAccount(){
-      return $http.delete(deleteProvider);
+      return $http.delete(spurl);
     }
 
     //registering a provider
