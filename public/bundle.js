@@ -177,7 +177,7 @@ angular
     }
 
     function editClient(id, user) {
-      return $http.put(clienturl + '/' + id, user);
+      return $http.put(clienturl, user);
     }
 
    var historyData = [
