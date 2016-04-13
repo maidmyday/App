@@ -49,12 +49,26 @@ angular
 
     //add a photo maybe
     vm.uploadFile = function(){
-        var file = vm.myFile;
+        var photo = vm.myFile;
         console.log('photo file is ' );
-        console.dir(file);
+        console.dir(photo);
         var uploadUrl = "/fileUpload";
-        ClientService.uploadFileToUrl(file, uploadUrl);
+        ClientService.uploadFileToUrl(photo, uploadUrl);
     };
+
+    //photo forms ng show
+    vm.savePhotoUrl = true;
+    vm.uploadPhotoFile = false;
+
+    vm.showUploadForm = function(){
+      vm.savePhotoUrl = !vm.savePhotoUrl;
+      vm.uploadPhotoFile = !vm.uploadPhotoFile;
+    }
+
+    vm.showSaveForm = function(){
+      vm.savePhotoUrl = !vm.savePhotoUrl;
+      vm.uploadPhotoFile = !vm.uploadPhotoFile;
+    }
 
     //edit profile content
     vm.editInfo = false;

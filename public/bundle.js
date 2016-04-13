@@ -87,12 +87,26 @@ angular
 
     //add a photo maybe
     vm.uploadFile = function(){
-        var file = vm.myFile;
+        var photo = vm.myFile;
         console.log('photo file is ' );
-        console.dir(file);
+        console.dir(photo);
         var uploadUrl = "/fileUpload";
-        ClientService.uploadFileToUrl(file, uploadUrl);
+        ClientService.uploadFileToUrl(photo, uploadUrl);
     };
+
+    //photo forms ng show
+    vm.savePhotoUrl = true;
+    vm.uploadPhotoFile = false;
+
+    vm.showUploadForm = function(){
+      vm.savePhotoUrl = !vm.savePhotoUrl;
+      vm.uploadPhotoFile = !vm.uploadPhotoFile;
+    }
+
+    vm.showSaveForm = function(){
+      vm.savePhotoUrl = !vm.savePhotoUrl;
+      vm.uploadPhotoFile = !vm.uploadPhotoFile;
+    }
 
     //edit profile content
     vm.editInfo = false;
@@ -194,7 +208,7 @@ angular
     var clienturl = '/client';
     var allClients = '/clients';
     var logouturl = '/logout';
-    // var uploadUrl = '/fileUpload';
+    var uploadUrl = '/fileUpload';
 
     function deleteClient(){
       return $http.delete(clienturl);
@@ -212,9 +226,9 @@ angular
       return $http.put(clienturl, user);
     }
 
-    this.uploadFileToUrl = function(file, uploadUrl){
+    function uploadFileToUrl(file, uploadUrl){
         var fd = new FormData();
-        fd.append('file', file);
+        fd.append('photo', file);
         $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
@@ -252,6 +266,7 @@ angular
    ]
 
     return {
+      uploadFileToUrl: uploadFileToUrl,
       editClient: editClient,
       deleteClient: deleteClient,
       logoutNow: logoutNow,
