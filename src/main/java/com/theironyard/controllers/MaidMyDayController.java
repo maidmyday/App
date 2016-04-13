@@ -349,7 +349,7 @@ public class MaidMyDayController {
     /**
      * Upload single file using Spring Controller
      */
-    @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
+    @RequestMapping(path = "/fileUpload", method = RequestMethod.POST)
     public void upload(MultipartFile photo, HttpSession session) throws Exception {
 
         Client client = clientRepository.findByEmail((String) session.getAttribute("email"));
