@@ -6,6 +6,23 @@ angular
 
   function ClientController($scope,$rootScope,$location,$uibModal,$log,ClientService) {
     var vm = this;
+    vm.animationsEnabled = true;
+
+    // THIS OPENS JOB POST FORM MODAL
+      vm.openJobModal = function (size) {
+
+        var modalInstance = $uibModal.open({
+          animation: vm.animationsEnabled,
+          templateUrl: 'chome/tmpls/jobMainModal.html',
+          controller: 'JobInstanceCtrl',
+          size: size,
+          resolve: {
+            items: function () {
+              return vm.items;
+            }
+          }
+        });
+      };
 
     //logout button
     vm.logout = function(){
@@ -15,11 +32,6 @@ angular
         console.log('hopefully empty: ',window.localStorage);
         $location.path('/');
       })
-    }
-
-    //post job button
-    vm.postJob = function(){
-      $location.path('/jobpost')
     }
 
     //getting data from the login and register
