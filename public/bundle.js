@@ -91,7 +91,7 @@ angular
     vm.saveEdit = function(user){
       vm.master = angular.copy(user);
       console.log('should be new profile info obj',vm.master);
-      ClientService.editClient(window.JSON.parse(window.localStorage.getItem('theclient')).id, user).then(function(data){
+      ClientService.editClient().then(function(data){
         vm.edittedData =  JSON.parse(window.localStorage.getItem('theclient'));
         console.log('client after edit',vm.edittedData);
       });
@@ -188,11 +188,7 @@ angular
       return $http.get(clienturl + '/' + id)
     }
 
-<<<<<<< HEAD
     function editClient(user) {
-=======
-    function editClient(id, user) {
->>>>>>> 4e884e6331ca9ed3a494053fe416e033964bb54b
       return $http.put(clienturl, user);
     }
 
@@ -8894,15 +8890,9 @@ function match ($parse) {
 }
 match.$inject = ["$parse"];
 })(window, window.angular);
-<<<<<<< HEAD
 },{}],24:[function(require,module,exports){
 require('./dist/angular-validation-match');
 module.exports = 'validation.match';
-=======
-},{}],22:[function(require,module,exports){
-require('./dist/angular-validation-match');
-module.exports = 'validation.match';
->>>>>>> 4e884e6331ca9ed3a494053fe416e033964bb54b
 
 },{"./dist/angular-validation-match":23}],25:[function(require,module,exports){
 /**

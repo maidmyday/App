@@ -53,7 +53,7 @@ angular
     vm.saveEdit = function(user){
       vm.master = angular.copy(user);
       console.log('should be new profile info obj',vm.master);
-      ClientService.editClient(window.JSON.parse(window.localStorage.getItem('theclient')).id, user).then(function(data){
+      ClientService.editClient().then(function(data){
         vm.edittedData =  JSON.parse(window.localStorage.getItem('theclient'));
         console.log('client after edit',vm.edittedData);
       });
