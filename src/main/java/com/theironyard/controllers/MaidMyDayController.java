@@ -42,19 +42,19 @@ public class MaidMyDayController {
         dbui = Server.createWebServer().start();
 
         if (clientRepository.count() == 0) {
-            Client client1 = new Client("Kevin", "Bacon", "1234", "kbacon@sizzling.com", "843-123-4567");
+            Client client1 = new Client("Kevin", "Bacon", "123", "kbacon@sizzling.com", "843-123-4567");
             clientRepository.save(client1);
         }
         if (clientRepository.count() == 1) {
-            Client client2 = new Client("Clint", "Bozic", "1234", "kbacon@sizzling.com", "843-123-4567");
+            Client client2 = new Client("Clint", "Bozic", "456", "kbacon@sizzling.com", "843-123-4567");
             clientRepository.save(client2);
         }
         if (providerRepository.count() == 0) {
-            Provider provider1 = new Provider("Caroline", "Vail", "1234", "carolineevail@gmail.com", "334-669-5482");
+            Provider provider1 = new Provider("Caroline", "Vail", "123", "carolineevail@gmail.com", "334-669-5482");
             providerRepository.save(provider1);
         }
         if (providerRepository.count() == 1) {
-            Provider provider2 = new Provider("Zach", "Owens", "1234", "carolineevail@gmail.com", "334-669-5482");
+            Provider provider2 = new Provider("Zach", "Owens", "456", "carolineevail@gmail.com", "334-669-5482");
             providerRepository.save(provider2);
         }
     }
@@ -102,10 +102,12 @@ public class MaidMyDayController {
         return (List<Client>) clientRepository.findAll();
     }
 
-    @RequestMapping(path = "/client", method = RequestMethod.PUT)
-    public Client editClient(@RequestBody Client client, HttpSession session) throws Exception {
+    @RequestMapping(path = "/client/{id}", method = RequestMethod.PUT)
+    public Client editClient(@RequestBody Client client, HttpSession session, @PathVariable ("id") int id) throws Exception {
+
         if (client.getEmail().equals(session.getAttribute("email"))) {
-            return clientRepository.save(client);
+            clientRepository.save(client);
+            return client;
         } else {
             throw new Exception("You're not allowed to edit others' profiles.");
         }
@@ -197,11 +199,12 @@ public class MaidMyDayController {
         return provider;
     }
 
-    @RequestMapping(path = "/provider", method = RequestMethod.PUT)
-    public Provider editProfile(@RequestBody Provider provider, HttpSession session) throws Exception {
+    @RequestMapping(path = "/provider/{id}", method = RequestMethod.PUT)
+    public Provider editProfile(@RequestBody Provider provider, HttpSession session, @PathVariable ("id") int id) throws Exception {
 
         if (provider.getEmail().equals(session.getAttribute("email"))) {
-            return providerRepository.save(provider);
+            providerRepository.save(provider);
+            return provider;
         } else {
             throw new Exception("You're not allowed to edit others' profiles.");
         }

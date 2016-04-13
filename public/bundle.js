@@ -35,7 +35,7 @@ angular
       })
   })
 
-},{"./chome":6,"./goOnline":11,"./loginFeature":14,"./sphome":25,"angular":24,"angular-route":18,"angular-ui-bootstrap":20,"angular-validation-match":22}],2:[function(require,module,exports){
+},{"./chome":6,"./goOnline":10,"./loginFeature":13,"./sphome":24,"angular":23,"angular-route":17,"angular-ui-bootstrap":19,"angular-validation-match":21}],2:[function(require,module,exports){
 angular
   .module('cHome')
   .controller('ClientController', ClientController);
@@ -71,6 +71,7 @@ angular
       vm.editInfo = !vm.editInfo;
     }
 
+<<<<<<< HEAD
     vm.master = {};
     vm.saveEdit = function(user){
       vm.master = angular.copy(user);
@@ -89,6 +90,8 @@ angular
       })
     }
 
+=======
+>>>>>>> f9a54e486cc0f20ea4be6f7c6ff32e5411273174
     //the rating stars
     vm.rate = 0;
     vm.max = 5;
@@ -148,18 +151,16 @@ angular
     })
   })
 
-},{"angular":24,"angular-route":18}],5:[function(require,module,exports){
+},{"angular":23,"angular-route":17}],5:[function(require,module,exports){
 angular
   .module('cHome')
   .service('ClientService',function($http, $q, $cacheFactory) {
 
     var clienturl = '/client';
+    var spurl = '/provider';
     var allClients = '/clients';
+    var allProviders = '/providers';
     var logouturl = '/logout';
-
-    function deleteClient(){
-      return $http.delete(clienturl);
-    }
 
     function logoutNow(id){
       return $http.post(logouturl);
@@ -198,8 +199,11 @@ angular
    ]
 
     return {
+<<<<<<< HEAD
       editClient: editClient,
       deleteClient: deleteClient,
+=======
+>>>>>>> f9a54e486cc0f20ea4be6f7c6ff32e5411273174
       logoutNow: logoutNow,
       getClient: getClient,
       historyData: historyData
@@ -224,8 +228,6 @@ angular
   }
 
 },{}],8:[function(require,module,exports){
-
-},{}],9:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
@@ -244,96 +246,111 @@ angular
     })
   })
 
-},{"angular":24,"angular-route":18,"angular-ui-bootstrap":20}],10:[function(require,module,exports){
-arguments[4][8][0].apply(exports,arguments)
-},{"dup":8}],11:[function(require,module,exports){
+},{"angular":23,"angular-route":17,"angular-ui-bootstrap":19}],9:[function(require,module,exports){
+
+},{}],10:[function(require,module,exports){
 require('./goOnline.module');
 require('./goOnline.controller');
 require('./goOnline.service');
-require('./goOnline.directive');
+// require('./goOnline.directive');
 
-},{"./goOnline.controller":7,"./goOnline.directive":8,"./goOnline.module":9,"./goOnline.service":10}],12:[function(require,module,exports){
+},{"./goOnline.controller":7,"./goOnline.module":8,"./goOnline.service":9}],11:[function(require,module,exports){
 angular
 .module('login')
 .controller('ModalInstanceController', function ($rootScope,$scope, $uibModalInstance, LoginService, $location) {
 
-// SWITCHES THE SECTIONS OF THE MODAL
 
 $scope.showModalSection = 'login';
 
   $scope.showRegisterSection = function () {
-      $scope.showModalSection = 'register';
-  };
+    $scope.showModalSection = 'register';
+  }
 
   $scope.showLoginSection = function () {
     $scope.showModalSection = 'login';
   };
 
-
-// SIGNS IN CLIENT AND PROVIDER FROM REGISTER BUTTON
+  $scope.signInClient = function () {
+    $uibModalInstance.dismiss();
+    $location.path('/clienthome');
+  };
 
   $scope.registerClientPath = function (client) {
+    console.log("CLIENT from login controller", client);
     LoginService.postClient(client)
     .success(function(data) {
-      console.log("SUCCESS", data)
+      // $rootScope.client = data
+      console.log("SUCCESS from login controller", data)
       window.localStorage.setItem('theclient', window.JSON.stringify(data));
-      console.log("localstorage data", localStorage);
       $uibModalInstance.dismiss();
       $location.path('/clienthome/' + data.id);
     })
     .error(function(err) {
       console.log("ERROR", err)
     })
-  };
 
+  }
+
+  $scope.signInSp = function () {
+    $uibModalInstance.dismiss();
+    $location.path('/sphome/');
+  };
 
   $scope.registerSpPath = function (provider) {
+    console.log("PROVIDER", provider);
     LoginService.postSp(provider)
     .success(function(data) {
+      // $rootScope.theprovider = data;
       window.localStorage.setItem('theprovider', window.JSON.stringify(data));
-      console.log("SUCCESS", data)
+      console.log("SUCCESS from login controller", data)
       $uibModalInstance.dismiss();
       $location.path('/sphome/' + data.id);
+
     })
     .error(function(err) {
       console.log("ERROR", err)
     })
+
   };
 
-
-
-// SIGNS IN CLIENT AND PROVIDER FROM LOGIN BUTTON
-
   $scope.loginSpPath = function (provider) {
-    LoginService.providerLogin(provider)
+    console.log("PROVIDER", provider);
+    LoginService.postSp(provider)
     .success(function(data) {
+      // $rootScope.theprovider = data;
       window.localStorage.setItem('theprovider', window.JSON.stringify(data));
-      console.log("SUCCESS", data)
+      console.log("SUCCESS from login controller", data)
       $uibModalInstance.dismiss();
       $location.path('/sphome/' + data.id);
+
     })
     .error(function(err) {
       console.log("ERROR", err)
-      $scope.errorMsg = err
     })
+
   };
 
   $scope.loginClientPath = function (client) {
+    console.log("CLIENT LOGIN", client);
     LoginService.clientLogin(client)
     .success(function(data) {
-      window.localStorage.setItem('theclient', window.JSON.stringify(data));
-      console.log("SUCCESS", data)
+      // $rootScope.theprovider = data;
+      window.localStorage.setItem('theprovider', window.JSON.stringify(data));
+      console.log("SUCCESS from login controller", data)
       $uibModalInstance.dismiss();
       $location.path('/clienthome/' + data.id);
+
     })
     .error(function(err) {
       console.log("ERROR", err)
-      $scope.errorMsg = err
     })
+
   };
+
+
 });
 
-},{}],13:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 angular
 .module('login')
 .controller('LoginModalController', function ($scope, $uibModal, $log, $location) {
@@ -357,7 +374,7 @@ angular
   };
 
 
-// THIS OPENS CLIENT MODAL
+// THIS OPEN CLIENT MODAL
   $scope.openClientLoginModal = function (size) {
 
     var modalInstance = $uibModal.open({
@@ -375,13 +392,13 @@ angular
 
 })
 
-},{}],14:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 require('./login.module.js')
 require('./login.service.js')
 require('./controllers/login-modal.controller.js');
 require('./controllers/login-modal-instance.controller.js');
 
-},{"./controllers/login-modal-instance.controller.js":12,"./controllers/login-modal.controller.js":13,"./login.module.js":15,"./login.service.js":16}],15:[function(require,module,exports){
+},{"./controllers/login-modal-instance.controller.js":11,"./controllers/login-modal.controller.js":12,"./login.module.js":14,"./login.service.js":15}],14:[function(require,module,exports){
 require('angular-validation-match');
 
 angular
@@ -390,45 +407,64 @@ angular
     'validation.match'
   ]);
 
-},{"angular-validation-match":22}],16:[function(require,module,exports){
+},{"angular-validation-match":21}],15:[function(require,module,exports){
 angular
   .module('login')
   .service('LoginService',function($http) {
-    var clientUrl = '/client';
-    var clientsUrl = '/clients';
-    var spUrl = '/provider';
-    var spsUrl = '/providers';
-    var clientLoginUrl ='/clientLogin';
-    var spLoginUrl ='/providerLogin';
+    var clienturl = '/client';
+    var clientsurl = '/client';
+    var spsurl = '/providers';
+    var spurl = '/provider';
+    var clientloginurl ='/clientLogin';
 
-
+    function getClient(id) {
+      return $http.get(clienturl + '/' + id)
+    }
     function clientLogin(post) {
-      return $http.post(clientLoginUrl, post);
+      console.log("CLIENT Logging in from login service");
+      return $http.post(clientloginurl, post);
     }
-
-    function providerLogin(post) {
-      return $http.post(spLoginUrl, post);
+    function getAllClients() {
+      return $http.get(clientsurl)
     }
-
     function postClient(post) {
+      console.log("CLIENT BEING SAVED from login service", post);
       delete post.passwordConfirm;
-      return $http.post(clientUrl,post);
+      return $http.post(clienturl,post);
+    }
+
+    function loginSp() {
+      return $http.get(loginProviderUrl);
+    }
+
+    function getSp(id) {
+      return $http.get(spurl + '/' + id)
+    }
+
+    function getAllSp() {
+      return $http.get(spsurl)
     }
 
     function postSp(post) {
+      console.log("PROVIDER BEING SAVED from login service", post);
       delete post.passwordConfirm;
-      return $http.post(spUrl,post);
+      return $http.post(spurl,post);
     }
 
+
+
     return {
+      getClient: getClient,
+      getAllClients: getAllClients,
       clientLogin: clientLogin,
       postClient: postClient,
-      postSp: postSp,
-      providerLogin: providerLogin
+      getSp: getSp,
+      getAllSp: getAllSp,
+      postSp: postSp
     };
   })
 
-},{}],17:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -1452,11 +1488,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],18:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":17}],19:[function(require,module,exports){
+},{"./angular-route":16}],18:[function(require,module,exports){
 /*
  * angular-ui-bootstrap
  * http://angular-ui.github.io/bootstrap/
@@ -8785,12 +8821,12 @@ angular.module('ui.bootstrap.datepickerPopup').run(function() {!angular.$$csp().
 angular.module('ui.bootstrap.tooltip').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTooltipCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-tooltip-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-bottom > .tooltip-arrow,[uib-popover-popup].popover.top-left > .arrow,[uib-popover-popup].popover.top-right > .arrow,[uib-popover-popup].popover.bottom-left > .arrow,[uib-popover-popup].popover.bottom-right > .arrow,[uib-popover-popup].popover.left-top > .arrow,[uib-popover-popup].popover.left-bottom > .arrow,[uib-popover-popup].popover.right-top > .arrow,[uib-popover-popup].popover.right-bottom > .arrow,[uib-popover-html-popup].popover.top-left > .arrow,[uib-popover-html-popup].popover.top-right > .arrow,[uib-popover-html-popup].popover.bottom-left > .arrow,[uib-popover-html-popup].popover.bottom-right > .arrow,[uib-popover-html-popup].popover.left-top > .arrow,[uib-popover-html-popup].popover.left-bottom > .arrow,[uib-popover-html-popup].popover.right-top > .arrow,[uib-popover-html-popup].popover.right-bottom > .arrow,[uib-popover-template-popup].popover.top-left > .arrow,[uib-popover-template-popup].popover.top-right > .arrow,[uib-popover-template-popup].popover.bottom-left > .arrow,[uib-popover-template-popup].popover.bottom-right > .arrow,[uib-popover-template-popup].popover.left-top > .arrow,[uib-popover-template-popup].popover.left-bottom > .arrow,[uib-popover-template-popup].popover.right-top > .arrow,[uib-popover-template-popup].popover.right-bottom > .arrow{top:auto;bottom:auto;left:auto;right:auto;margin:0;}[uib-popover-popup].popover,[uib-popover-html-popup].popover,[uib-popover-template-popup].popover{display:block !important;}</style>'); angular.$$uibTooltipCss = true; });
 angular.module('ui.bootstrap.timepicker').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTimepickerCss && angular.element(document).find('head').prepend('<style type="text/css">.uib-time input{width:50px;}</style>'); angular.$$uibTimepickerCss = true; });
 angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTypeaheadCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-typeahead-popup].dropdown-menu{display:block;}</style>'); angular.$$uibTypeaheadCss = true; });
-},{}],20:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 require('./dist/ui-bootstrap-tpls');
 
 module.exports = 'ui.bootstrap';
 
-},{"./dist/ui-bootstrap-tpls":19}],21:[function(require,module,exports){
+},{"./dist/ui-bootstrap-tpls":18}],20:[function(require,module,exports){
 /*!
  * angular-validation-match
  * Checks if one input matches another
@@ -8849,11 +8885,11 @@ function match ($parse) {
 }
 match.$inject = ["$parse"];
 })(window, window.angular);
-},{}],22:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 require('./dist/angular-validation-match');
 module.exports = 'validation.match';
 
-},{"./dist/angular-validation-match":21}],23:[function(require,module,exports){
+},{"./dist/angular-validation-match":20}],22:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -39568,17 +39604,17 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],24:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":23}],25:[function(require,module,exports){
+},{"./angular":22}],24:[function(require,module,exports){
 require('./spHome.module');
 require('./spHome.controller');
 require('./spHome.service');
 require('./spHome.directive');
 
-},{"./spHome.controller":26,"./spHome.directive":27,"./spHome.module":28,"./spHome.service":29}],26:[function(require,module,exports){
+},{"./spHome.controller":25,"./spHome.directive":26,"./spHome.module":27,"./spHome.service":28}],25:[function(require,module,exports){
 angular
   .module('spHome')
   .controller('SpController',SpController);
@@ -39588,6 +39624,7 @@ angular
   function SpController($scope,$rootScope,$location,$uibModal,$log,SpService) {
     var vm = this;
 
+//window.JSON.parse(window.localStorage.getItem('theprovider')).id
     //logout button
     vm.logout = function(){
       console.log('data inside logout function',window.localStorage);
@@ -39606,16 +39643,13 @@ angular
       console.log('vm provider from sphome controller',vm.providerData);
     })
 
-    //go online: change a boolean and show change in dom
-    vm.inactive = true;
-    vm.goOnline = function(){
-      vm.active = true;
-    }
+    SpService.getAllProviders().then(function(data){
+      console.log('providers data from sphome controller',data);
+    })
 
-    //go offline: change a boolean and show change in dom
-    vm.goOffline = function(){
-      vm.active = false;
-      vm.inactive = true;
+    //go online: change a boolean and show change in dom, switch button?
+    vm.goOnline = function(){
+
     }
 
     //edit profile content
@@ -39638,12 +39672,7 @@ angular
 
     //delete provider account
     vm.deleteSp = function(){
-      console.log('data inside delete function',window.localStorage);
-      SpService.deleteSpAccount(window.JSON.parse(window.localStorage.getItem('theprovider')).id).then(function(){
-        window.localStorage.clear();
-        console.log('hopefully empty: ',window.localStorage);
-        $location.path('/');
-      })
+      SpService.deleteSpAccount()
     }
 
     //the rating stars
@@ -39665,11 +39694,12 @@ angular
     ];
 
     // temporary accordion data to inject the page moved to service
+
     vm.historyData = SpService.historyData;
 
   }
 
-},{}],27:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 angular
   .module('spHome')
   .directive('spHomeDir', function () {
@@ -39690,7 +39720,7 @@ angular
 
   // <sp-home-dir mydata="angularObject"></sp-home-dir>
 
-},{}],28:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
@@ -39710,11 +39740,13 @@ angular
     })
   })
 
-},{"angular":24,"angular-route":18,"angular-ui-bootstrap":20}],29:[function(require,module,exports){
+},{"angular":23,"angular-route":17,"angular-ui-bootstrap":19}],28:[function(require,module,exports){
 angular
   .module('spHome')
   .service('SpService',function($http, $q, $cacheFactory) {
 
+    var clienturl = '/client';
+    var allClients = '/clients';
     var spurl = '/provider';
     var allProviders = '/providers';
     var logouturl = '/logout';
@@ -39723,8 +39755,8 @@ angular
       return $http.post(logouturl);
     }
 
-    function deleteSpAccount(id){
-      return $http.delete(spurl + '/' + id);
+    function deleteSpAccount(){
+      return $http.delete(deleteProvider);
     }
 
     //registering a provider
