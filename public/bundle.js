@@ -35,7 +35,7 @@ angular
       })
   })
 
-},{"./chome":6,"./goOnline":13,"./loginFeature":16,"./sphome":27,"angular":26,"angular-route":20,"angular-ui-bootstrap":22,"angular-validation-match":24}],2:[function(require,module,exports){
+},{"./chome":6,"./goOnline":12,"./loginFeature":15,"./sphome":26,"angular":25,"angular-route":19,"angular-ui-bootstrap":21,"angular-validation-match":23}],2:[function(require,module,exports){
 angular
   .module('cHome')
   .controller('ClientController', ClientController);
@@ -44,6 +44,7 @@ angular
 
   function ClientController($scope,$rootScope,$location,$uibModal,$log,ClientService) {
     var vm = this;
+
     vm.animationsEnabled = true;
 
     // THIS OPENS JOB POST FORM MODAL
@@ -52,7 +53,7 @@ angular
         var modalInstance = $uibModal.open({
           animation: vm.animationsEnabled,
           templateUrl: 'chome/tmpls/jobMainModal.html',
-          controller: 'JobInstanceCtrl',
+          controller: 'JobInstanceCtrl as JobCtrl',
           size: size,
           resolve: {
             items: function () {
@@ -172,7 +173,7 @@ angular
     })
   })
 
-},{"angular":26,"angular-route":20}],5:[function(require,module,exports){
+},{"angular":25,"angular-route":19}],5:[function(require,module,exports){
 angular
   .module('cHome')
   .service('ClientService',function($http, $q, $cacheFactory) {
@@ -236,29 +237,27 @@ require('./cHome.controller');
 require('./cHome.service');
 require('./cHome.directive');
 require('./jobInstance.controller');
-require('./jobMain.controller');
 
-},{"./cHome.controller":2,"./cHome.directive":3,"./cHome.module":4,"./cHome.service":5,"./jobInstance.controller":7,"./jobMain.controller":8}],7:[function(require,module,exports){
+},{"./cHome.controller":2,"./cHome.directive":3,"./cHome.module":4,"./cHome.service":5,"./jobInstance.controller":7}],7:[function(require,module,exports){
 angular
 .module('cHome')
-.controller('JobInstanceCtrl', function ($rootScope,$scope, $uibModalInstance, LoginService, $location) {
+.controller('JobInstanceCtrl',JobInstanceCtrl)
 
+  JobInstanceCtrl.$inject = ['$scope','$rootScope','$location','$uibModal','$log','$uibModalInstance'];
 
+  function JobInstanceCtrl($rootScope,$scope,$uibModal,$log,$location,$uibModalInstance){
+    var vm = this;
 
-})
+    vm.ok = function(){
+      $uibModalInstance.close();
+    }
+
+    vm.cancel = function(){
+      $uibModalInstance.dismiss('cancel');
+    }
+  }
 
 },{}],8:[function(require,module,exports){
-angular
-.module('cHome')
-.controller('JobMainController', function ($scope, $uibModal, $log, $location) {
-  $scope.animationsEnabled = true;
-
-
-
-
-})
-
-},{}],9:[function(require,module,exports){
 angular
   .module('goOnline')
   .controller('GoController', GoController);
@@ -269,9 +268,9 @@ angular
     var vm = this;
   }
 
-},{}],10:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 
-},{}],11:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
@@ -290,15 +289,15 @@ angular
     })
   })
 
-},{"angular":26,"angular-route":20,"angular-ui-bootstrap":22}],12:[function(require,module,exports){
-arguments[4][10][0].apply(exports,arguments)
-},{"dup":10}],13:[function(require,module,exports){
+},{"angular":25,"angular-route":19,"angular-ui-bootstrap":21}],11:[function(require,module,exports){
+arguments[4][9][0].apply(exports,arguments)
+},{"dup":9}],12:[function(require,module,exports){
 require('./goOnline.module');
 require('./goOnline.controller');
 require('./goOnline.service');
 require('./goOnline.directive');
 
-},{"./goOnline.controller":9,"./goOnline.directive":10,"./goOnline.module":11,"./goOnline.service":12}],14:[function(require,module,exports){
+},{"./goOnline.controller":8,"./goOnline.directive":9,"./goOnline.module":10,"./goOnline.service":11}],13:[function(require,module,exports){
 angular
 .module('login')
 .controller('ModalInstanceController', function ($rootScope,$scope, $uibModalInstance, LoginService, $location) {
@@ -379,7 +378,7 @@ $scope.showModalSection = 'login';
   };
 });
 
-},{}],15:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 angular
 .module('login')
 .controller('LoginModalController', function ($scope, $uibModal, $log, $location) {
@@ -421,13 +420,13 @@ angular
 
 })
 
-},{}],16:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 require('./login.module.js')
 require('./login.service.js')
 require('./controllers/login-modal.controller.js');
 require('./controllers/login-modal-instance.controller.js');
 
-},{"./controllers/login-modal-instance.controller.js":14,"./controllers/login-modal.controller.js":15,"./login.module.js":17,"./login.service.js":18}],17:[function(require,module,exports){
+},{"./controllers/login-modal-instance.controller.js":13,"./controllers/login-modal.controller.js":14,"./login.module.js":16,"./login.service.js":17}],16:[function(require,module,exports){
 require('angular-validation-match');
 
 angular
@@ -436,7 +435,7 @@ angular
     'validation.match'
   ]);
 
-},{"angular-validation-match":24}],18:[function(require,module,exports){
+},{"angular-validation-match":23}],17:[function(require,module,exports){
 angular
   .module('login')
   .service('LoginService',function($http) {
@@ -474,7 +473,7 @@ angular
     };
   })
 
-},{}],19:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -1498,11 +1497,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],20:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":19}],21:[function(require,module,exports){
+},{"./angular-route":18}],20:[function(require,module,exports){
 /*
  * angular-ui-bootstrap
  * http://angular-ui.github.io/bootstrap/
@@ -8831,12 +8830,12 @@ angular.module('ui.bootstrap.datepickerPopup').run(function() {!angular.$$csp().
 angular.module('ui.bootstrap.tooltip').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTooltipCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-tooltip-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-bottom > .tooltip-arrow,[uib-popover-popup].popover.top-left > .arrow,[uib-popover-popup].popover.top-right > .arrow,[uib-popover-popup].popover.bottom-left > .arrow,[uib-popover-popup].popover.bottom-right > .arrow,[uib-popover-popup].popover.left-top > .arrow,[uib-popover-popup].popover.left-bottom > .arrow,[uib-popover-popup].popover.right-top > .arrow,[uib-popover-popup].popover.right-bottom > .arrow,[uib-popover-html-popup].popover.top-left > .arrow,[uib-popover-html-popup].popover.top-right > .arrow,[uib-popover-html-popup].popover.bottom-left > .arrow,[uib-popover-html-popup].popover.bottom-right > .arrow,[uib-popover-html-popup].popover.left-top > .arrow,[uib-popover-html-popup].popover.left-bottom > .arrow,[uib-popover-html-popup].popover.right-top > .arrow,[uib-popover-html-popup].popover.right-bottom > .arrow,[uib-popover-template-popup].popover.top-left > .arrow,[uib-popover-template-popup].popover.top-right > .arrow,[uib-popover-template-popup].popover.bottom-left > .arrow,[uib-popover-template-popup].popover.bottom-right > .arrow,[uib-popover-template-popup].popover.left-top > .arrow,[uib-popover-template-popup].popover.left-bottom > .arrow,[uib-popover-template-popup].popover.right-top > .arrow,[uib-popover-template-popup].popover.right-bottom > .arrow{top:auto;bottom:auto;left:auto;right:auto;margin:0;}[uib-popover-popup].popover,[uib-popover-html-popup].popover,[uib-popover-template-popup].popover{display:block !important;}</style>'); angular.$$uibTooltipCss = true; });
 angular.module('ui.bootstrap.timepicker').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTimepickerCss && angular.element(document).find('head').prepend('<style type="text/css">.uib-time input{width:50px;}</style>'); angular.$$uibTimepickerCss = true; });
 angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTypeaheadCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-typeahead-popup].dropdown-menu{display:block;}</style>'); angular.$$uibTypeaheadCss = true; });
-},{}],22:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 require('./dist/ui-bootstrap-tpls');
 
 module.exports = 'ui.bootstrap';
 
-},{"./dist/ui-bootstrap-tpls":21}],23:[function(require,module,exports){
+},{"./dist/ui-bootstrap-tpls":20}],22:[function(require,module,exports){
 /*!
  * angular-validation-match
  * Checks if one input matches another
@@ -8895,11 +8894,11 @@ function match ($parse) {
 }
 match.$inject = ["$parse"];
 })(window, window.angular);
-},{}],24:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 require('./dist/angular-validation-match');
 module.exports = 'validation.match';
 
-},{"./dist/angular-validation-match":23}],25:[function(require,module,exports){
+},{"./dist/angular-validation-match":22}],24:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -39614,17 +39613,17 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],26:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":25}],27:[function(require,module,exports){
+},{"./angular":24}],26:[function(require,module,exports){
 require('./spHome.module');
 require('./spHome.controller');
 require('./spHome.service');
 require('./spHome.directive');
 
-},{"./spHome.controller":28,"./spHome.directive":29,"./spHome.module":30,"./spHome.service":31}],28:[function(require,module,exports){
+},{"./spHome.controller":27,"./spHome.directive":28,"./spHome.module":29,"./spHome.service":30}],27:[function(require,module,exports){
 angular
   .module('spHome')
   .controller('SpController',SpController);
@@ -39751,7 +39750,7 @@ angular
 
   }
 
-},{}],29:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 angular
   .module('spHome')
   .directive('spHomeDir', function () {
@@ -39772,7 +39771,7 @@ angular
 
   // <sp-home-dir mydata="angularObject"></sp-home-dir>
 
-},{}],30:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
@@ -39792,7 +39791,7 @@ angular
     })
   })
 
-},{"angular":26,"angular-route":20,"angular-ui-bootstrap":22}],31:[function(require,module,exports){
+},{"angular":25,"angular-route":19,"angular-ui-bootstrap":21}],30:[function(require,module,exports){
 angular
   .module('spHome')
   .service('SpService',function($http, $q, $cacheFactory) {

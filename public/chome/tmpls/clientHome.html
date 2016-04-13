@@ -42,13 +42,13 @@
            <uib-accordion-heading>
              <h3>Profile</h3>
            </uib-accordion-heading>
-           <div class="profile-panels">
+           <div class="profile-panels col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
              <div class="panel-heading">
                <h4>Settings</h4>
                <button class="pull-right btn btn-default" ng-click="CliCtrl.editBtn()">Edit</button>
              </div>
              <div class="profileContent">
-               <div class="panel-body col-md-3 col-md-offset-3 col-sm-3">
+               <div class="panel-body col-md-3 col-md-offset-3 col-sm-3 col-sm-offset-3">
                  <p>Photo: </p>
                  <p>First Name: </p>
                  <p>Last Name: </p>
@@ -83,10 +83,10 @@
            <div class="rAndC">
              <div class="panel-body">
 
-                 <table class="table rAndC-table">
-                   <tbody class="table-hover">
+                 <table class="table-responsive rAndC-table">
+                   <tbody>
 
-                     <tr ng-repeat="user in CliCtrl.historyData">
+                     <tr class="table-hover" ng-repeat="user in CliCtrl.historyData">
                        <td>
                          <div class="userImgSm">
                            <img src={{user.img}} alt="" class="userIcon">

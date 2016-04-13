@@ -6,6 +6,7 @@ angular
 
   function ClientController($scope,$rootScope,$location,$uibModal,$log,ClientService) {
     var vm = this;
+
     vm.animationsEnabled = true;
 
     // THIS OPENS JOB POST FORM MODAL
@@ -14,7 +15,7 @@ angular
         var modalInstance = $uibModal.open({
           animation: vm.animationsEnabled,
           templateUrl: 'chome/tmpls/jobMainModal.html',
-          controller: 'JobInstanceCtrl',
+          controller: 'JobInstanceCtrl as JobCtrl',
           size: size,
           resolve: {
             items: function () {
