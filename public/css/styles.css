@@ -289,3 +289,22 @@ nav.home {
   color: #ffffff; }
   nav.home a {
     color: #ffffff; }
+
+div.jobModal div.modal-header {
+  text-align: center;
+  border: none; }
+
+div.jobModal div.modal-body {
+  border: none; }
+  div.jobModal div.modal-body p {
+    display: inline-block; }
+  div.jobModal div.modal-body table {
+    width: 100%; }
+    div.jobModal div.modal-body table tr {
+      vertical-align: text-top; }
+      div.jobModal div.modal-body table tr p {
+        margin-left: 10px; }
+
+div.jobModal div.modal-footer {
+  border: none;
+  display: block; }

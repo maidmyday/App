@@ -5,6 +5,7 @@ angular
     var clienturl = '/client';
     var allClients = '/clients';
     var logouturl = '/logout';
+    // var uploadUrl = '/fileUpload';
 
     function deleteClient(){
       return $http.delete(clienturl);
@@ -18,8 +19,23 @@ angular
       return $http.get(clienturl + '/' + id)
     }
 
-    function editClient(id, user) {
-      return $http.put(clienturl + '/' + id, user);
+    function editClient(user) {
+      return $http.put(clienturl, user);
+    }
+
+    this.uploadFileToUrl = function(file, uploadUrl){
+        var fd = new FormData();
+        fd.append('file', file);
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        })
+        .success(function(){
+          console.log('Holy Moly it worked!');
+        })
+        .error(function(){
+          console.log('Nah the picture didnt go!');
+        });
     }
 
    var historyData = [
