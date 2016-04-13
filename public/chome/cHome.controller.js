@@ -35,10 +35,10 @@ angular
     }
 
     //getting data from the login and register
-    ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id).then(function(data){
+    ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
+    .then(function(data){
       console.log('client data from chome controller',data);
-      console.log('testing theclient from chome controller',window.localStorage.getItem('theclient'));
-      vm.clientData =  JSON.parse(window.localStorage.getItem('theclient'));
+      vm.clientData =  data.data  ;
       console.log('vm client from chome controller',vm.clientData);
     })
 
@@ -51,10 +51,10 @@ angular
 
     vm.master = {};
     vm.saveEdit = function(user){
-      vm.master = angular.copy(user);
-      console.log('should be new profile info obj',vm.master);
-      ClientService.editClient().then(function(data){
-        vm.edittedData =  JSON.parse(window.localStorage.getItem('theclient'));
+      // vm.master = angular.copy(user);
+      console.log('should be new profile info obj',user);
+      ClientService.editClient(user).then(function(data){
+        vm.edittedData =  data.data;
         console.log('client after edit',vm.edittedData);
       });
       vm.editInfo = !vm.editInfo;

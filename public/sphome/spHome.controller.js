@@ -18,10 +18,10 @@ angular
     }
 
     //getting data from the login and register
-    SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id).then(function(data){
+    SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
+    .then(function(data){
       console.log('provider data from sphome controller',data);
-      console.log('testing theprovider from sphome controller',window.localStorage.getItem('theprovider'));
-      vm.providerData =  JSON.parse(window.localStorage.getItem('theprovider'));
+      vm.providerData =  data.data;
       console.log('vm provider from sphome controller',vm.providerData);
     })
 
@@ -40,6 +40,17 @@ angular
     //edit profile content
     vm.editInfo = false;
     vm.editBtn1 = function(){
+      vm.editInfo = !vm.editInfo;
+    }
+
+    vm.master = {};
+    vm.saveEdit = function(user){
+      // vm.master = angular.copy(user);
+      console.log('should be new profile info obj',user);
+      SpService.editProvider(user).then(function(data){
+        vm.edittedData =  data.data;
+        console.log('provider after edit',vm.edittedData);
+      });
       vm.editInfo = !vm.editInfo;
     }
 
