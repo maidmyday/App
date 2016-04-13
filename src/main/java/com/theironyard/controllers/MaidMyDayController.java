@@ -2,6 +2,7 @@ package com.theironyard.controllers;
 
 import com.theironyard.entities.*;
 import com.theironyard.services.*;
+import com.theironyard.utils.ObjectUpdateUtils;
 import com.theironyard.utils.PasswordStorage;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,15 +103,13 @@ public class MaidMyDayController {
         return (List<Client>) clientRepository.findAll();
     }
 
-    @RequestMapping(path = "/client/{id}", method = RequestMethod.PUT)
-    public Client editClient(@RequestBody Client client, HttpSession session, @PathVariable ("id") int id) throws Exception {
-
-        if (client.getEmail().equals(session.getAttribute("email"))) {
-            clientRepository.save(client);
-            return client;
-        } else {
-            throw new Exception("You're not allowed to edit others' profiles.");
-        }
+    @RequestMapping(path = "/client", method = RequestMethod.PUT)
+    public Client editClient(@RequestBody Client clientUpdates, HttpSession session) throws Exception {
+        String clientEmail = (String) session.getAttribute("email");
+        Client client = clientRepository.findByEmail(clientEmail);
+        Client updatedClient = ObjectUpdateUtils.updateClientObject(client, clientUpdates);
+        clientRepository.save(updatedClient);
+        return client;
     }
 
     @RequestMapping(path = "/client/request", method = RequestMethod.GET)
@@ -199,12 +198,11 @@ public class MaidMyDayController {
         return provider;
     }
 
-    @RequestMapping(path = "/provider/{id}", method = RequestMethod.PUT)
-    public Provider editProfile(@RequestBody Provider provider, HttpSession session, @PathVariable ("id") int id) throws Exception {
+    @RequestMapping(path = "/provider", method = RequestMethod.PUT)
+    public Provider editProfile(@RequestBody Provider provider, HttpSession session) throws Exception {
 
         if (provider.getEmail().equals(session.getAttribute("email"))) {
-            providerRepository.save(provider);
-            return provider;
+            return providerRepository.save(provider);
         } else {
             throw new Exception("You're not allowed to edit others' profiles.");
         }

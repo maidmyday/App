@@ -188,7 +188,11 @@ angular
       return $http.get(clienturl + '/' + id)
     }
 
+<<<<<<< HEAD
     function editClient(user) {
+=======
+    function editClient(id, user) {
+>>>>>>> 4e884e6331ca9ed3a494053fe416e033964bb54b
       return $http.put(clienturl, user);
     }
 
@@ -8890,9 +8894,15 @@ function match ($parse) {
 }
 match.$inject = ["$parse"];
 })(window, window.angular);
+<<<<<<< HEAD
 },{}],24:[function(require,module,exports){
 require('./dist/angular-validation-match');
 module.exports = 'validation.match';
+=======
+},{}],22:[function(require,module,exports){
+require('./dist/angular-validation-match');
+module.exports = 'validation.match';
+>>>>>>> 4e884e6331ca9ed3a494053fe416e033964bb54b
 
 },{"./dist/angular-validation-match":23}],25:[function(require,module,exports){
 /**
