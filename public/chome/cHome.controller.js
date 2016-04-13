@@ -34,13 +34,17 @@ angular
       })
     }
 
-    //getting data from the login and register
-    ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
-    .then(function(data){
-      console.log('client data from chome controller',data);
-      vm.clientData =  data.data  ;
-      console.log('vm client from chome controller',vm.clientData);
-    })
+    //to load the page after changes
+    vm.loadPage = function(){
+      //getting data from the login and register
+      ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
+      .then(function(data){
+        console.log('client data from chome controller',data);
+        vm.clientData =  data.data  ;
+        console.log('vm client from chome controller',vm.clientData);
+      })
+    }
+    vm.loadPage();
 
     //edit profile content
     vm.editInfo = false;
@@ -58,6 +62,7 @@ angular
         console.log('client after edit',vm.edittedData);
       });
       vm.editInfo = !vm.editInfo;
+      vm.loadPage();
     }
 
     //delete client account

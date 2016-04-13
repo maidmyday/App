@@ -72,13 +72,17 @@ angular
       })
     }
 
-    //getting data from the login and register
-    ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
-    .then(function(data){
-      console.log('client data from chome controller',data);
-      vm.clientData =  data.data  ;
-      console.log('vm client from chome controller',vm.clientData);
-    })
+    //to load the page after changes
+    vm.loadPage = function(){
+      //getting data from the login and register
+      ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
+      .then(function(data){
+        console.log('client data from chome controller',data);
+        vm.clientData =  data.data  ;
+        console.log('vm client from chome controller',vm.clientData);
+      })
+    }
+    vm.loadPage();
 
     //edit profile content
     vm.editInfo = false;
@@ -96,6 +100,7 @@ angular
         console.log('client after edit',vm.edittedData);
       });
       vm.editInfo = !vm.editInfo;
+      vm.loadPage();
     }
 
     //delete client account
@@ -39639,13 +39644,17 @@ angular
       })
     }
 
-    //getting data from the login and register
-    SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
-    .then(function(data){
-      console.log('provider data from sphome controller',data);
-      vm.providerData =  data.data;
-      console.log('vm provider from sphome controller',vm.providerData);
-    })
+    //to load the page after changes
+    vm.loadPage = function(){
+      //getting data from the login and register
+      SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
+      .then(function(data){
+        console.log('provider data from sphome controller',data);
+        vm.providerData =  data.data;
+        console.log('vm provider from sphome controller',vm.providerData);
+      })
+    }
+    vm.loadPage();
 
     //go online: change a boolean and show change in dom
     vm.inactive = true;
@@ -39674,6 +39683,7 @@ angular
         console.log('provider after edit',vm.edittedData);
       });
       vm.editInfo = !vm.editInfo;
+      vm.loadPage();
     }
 
     //edit about content
@@ -39682,10 +39692,30 @@ angular
       vm.editAbout = !vm.editAbout;
     }
 
+    vm.saveAbout = function(user){
+      console.log('should be about content obj',user);
+      SpService.editProvider(user).then(function(data){
+        vm.edittedData =  data.data;
+        console.log('provider after edit',vm.edittedData);
+      });
+      vm.editAbout = !vm.editAbout;
+      vm.loadPage();
+    }
+
     //edit specialties content
     vm.editSpecial = false;
     vm.editBtn3 = function(){
       vm.editSpecial = !vm.editSpecial;
+    }
+
+    vm.saveSpecialties = function(user){
+      console.log('should be about content obj',user);
+      SpService.editProvider(user).then(function(data){
+        vm.edittedData =  data.data;
+        console.log('provider after edit',vm.edittedData);
+      });
+      vm.editSpecial = !vm.editSpecial;
+      vm.loadPage();
     }
 
     //delete provider account
