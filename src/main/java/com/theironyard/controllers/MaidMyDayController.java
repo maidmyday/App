@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -50,6 +51,8 @@ public class MaidMyDayController {
     TaskRepository taskRepository;
     @Autowired
     ProviderRatingRepository providerRatingRepository;
+    @Autowired
+    FileUploadRepository fileUploadRepository;
 
     Server dbui = null;
 
@@ -343,46 +346,34 @@ public class MaidMyDayController {
 
 
 
-
-    private static final Logger logger = LoggerFactory
-            .getLogger(MaidMyDayController.class);
-
     /**
      * Upload single file using Spring Controller
      */
-    @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-    public @ResponseBody
-    String uploadFileHandler(@RequestParam("name") String name,
-                             @RequestParam("file") MultipartFile file) {
+    @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
+    public void upload(MultipartFile photo, HttpSession session) throws Exception {
 
-        if (!file.isEmpty()) {
-            try {
-                byte[] bytes = file.getBytes();
+        Client client = clientRepository.findByEmail((String) session.getAttribute("email"));
+        Provider provider = providerRepository.findByEmail((String) session.getAttribute("email"));
 
-                // Creating the directory to store file
-                String rootPath = System.getProperty("catalina.home");
-                File dir = new File(rootPath + File.separator + "tmpFiles");
-                if (!dir.exists())
-                    dir.mkdirs();
-
-                // Create the file on server
-                File serverFile = new File(dir.getAbsolutePath()
-                        + File.separator + name);
-                BufferedOutputStream stream = new BufferedOutputStream(
-                        new FileOutputStream(serverFile));
-                stream.write(bytes);
-                stream.close();
-
-                logger.info("Server File Location="
-                        + serverFile.getAbsolutePath());
-
-                return "You successfully uploaded file=" + name;
-            } catch (Exception e) {
-                return "You failed to upload " + name + " => " + e.getMessage();
-            }
-        } else {
-            return "You failed to upload " + name
-                    + " because the file was empty.";
+        if (!photo.getContentType().startsWith("image")) {
+            throw new Exception("You can only upload images");
         }
+
+        // not sure if this is the correct directory
+        File photoFile = File.createTempFile("image", photo.getOriginalFilename(), new File("public"));
+        FileOutputStream fos = new FileOutputStream(photoFile);
+        fos.write(photo.getBytes());
+
+        FileUpload newPhoto = new FileUpload(photo.getOriginalFilename());
+
+        if (client != null) {
+            newPhoto.setFileName(client.getEmail() + "" + "profile image");
+            newPhoto.setClient(client);
+        } else if (provider != null) {
+            newPhoto.setFileName(provider.getEmail() + "" + "profile image");
+            newPhoto.setProvider(provider);
+        }
+
+        fileUploadRepository.save(newPhoto);
     }
 }

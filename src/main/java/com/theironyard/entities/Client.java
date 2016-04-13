@@ -26,6 +26,10 @@ public class Client {
     @Column(nullable = false)
     private String phoneNumber;
 
+    @OneToOne
+    @JoinColumn(name = "fileUploadId")
+    private FileUpload fileUpload;
+
 
     public Client() {
     }
