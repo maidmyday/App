@@ -2,6 +2,7 @@ package com.theironyard.controllers;
 
 import com.theironyard.entities.*;
 import com.theironyard.services.*;
+import com.theironyard.utils.ObjectUpdateUtils;
 import com.theironyard.utils.PasswordStorage;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,16 +104,12 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/client", method = RequestMethod.PUT)
-    public Client editClient(@RequestBody Client client, HttpSession session) throws Exception {
+    public Client editClient(@RequestBody Client clientUpdates, HttpSession session) throws Exception {
         String clientEmail = (String) session.getAttribute("email");
-        clientRepository.findByEmail(clientEmail);
-        clientRepository.save(client);
+        Client client = clientRepository.findByEmail(clientEmail);
+        Client updatedClient = ObjectUpdateUtils.updateClientObject(client, clientUpdates);
+        clientRepository.save(updatedClient);
         return client;
-//        if (client.getEmail().equals(session.getAttribute("email"))) {
-//            return clientRepository.save(client);
-//        } else {
-//            throw new Exception("You're not allowed to edit others' profiles.");
-//        }
     }
 
     @RequestMapping(path = "/client/request", method = RequestMethod.GET)
