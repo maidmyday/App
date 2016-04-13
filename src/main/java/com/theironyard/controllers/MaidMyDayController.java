@@ -102,15 +102,17 @@ public class MaidMyDayController {
         return (List<Client>) clientRepository.findAll();
     }
 
-    @RequestMapping(path = "/client/{id}", method = RequestMethod.PUT)
-    public Client editClient(@RequestBody Client client, HttpSession session, @PathVariable ("id") int id) throws Exception {
-
-        if (client.getEmail().equals(session.getAttribute("email"))) {
-            clientRepository.save(client);
-            return client;
-        } else {
-            throw new Exception("You're not allowed to edit others' profiles.");
-        }
+    @RequestMapping(path = "/client", method = RequestMethod.PUT)
+    public Client editClient(@RequestBody Client client, HttpSession session) throws Exception {
+        String clientEmail = (String) session.getAttribute("email");
+        clientRepository.findByEmail(clientEmail);
+        clientRepository.save(client);
+        return client;
+//        if (client.getEmail().equals(session.getAttribute("email"))) {
+//            return clientRepository.save(client);
+//        } else {
+//            throw new Exception("You're not allowed to edit others' profiles.");
+//        }
     }
 
     @RequestMapping(path = "/client/request", method = RequestMethod.GET)
@@ -199,12 +201,11 @@ public class MaidMyDayController {
         return provider;
     }
 
-    @RequestMapping(path = "/provider/{id}", method = RequestMethod.PUT)
-    public Provider editProfile(@RequestBody Provider provider, HttpSession session, @PathVariable ("id") int id) throws Exception {
+    @RequestMapping(path = "/provider", method = RequestMethod.PUT)
+    public Provider editProfile(@RequestBody Provider provider, HttpSession session) throws Exception {
 
         if (provider.getEmail().equals(session.getAttribute("email"))) {
-            providerRepository.save(provider);
-            return provider;
+            return providerRepository.save(provider);
         } else {
             throw new Exception("You're not allowed to edit others' profiles.");
         }
