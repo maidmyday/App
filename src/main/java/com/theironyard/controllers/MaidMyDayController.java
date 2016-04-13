@@ -109,7 +109,7 @@ public class MaidMyDayController {
         Client client = clientRepository.findByEmail(clientEmail);
         Client updatedClient = ObjectUpdateUtils.updateClientObject(client, clientUpdates);
         clientRepository.save(updatedClient);
-        return client;
+        return updatedClient;
     }
 
     @RequestMapping(path = "/client/request", method = RequestMethod.GET)
@@ -199,14 +199,14 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.PUT)
-    public Provider editProfile(@RequestBody Provider provider, HttpSession session) throws Exception {
-
-        if (provider.getEmail().equals(session.getAttribute("email"))) {
-            return providerRepository.save(provider);
-        } else {
-            throw new Exception("You're not allowed to edit others' profiles.");
-        }
+    public Provider editProvider(@RequestBody Provider providerUpdates, HttpSession session) throws Exception {
+        String providerEmail = (String) session.getAttribute("email");
+        Provider provider = providerRepository.findByEmail(providerEmail);
+        Provider updatedProvider = ObjectUpdateUtils.updateProviderObject(provider, providerUpdates);
+        providerRepository.save(updatedProvider);
+        return updatedProvider;
     }
+
 
     @RequestMapping(path = "/provider/task", method = RequestMethod.PUT)
     public void providerSelectTasks(@RequestBody Provider provider) {
