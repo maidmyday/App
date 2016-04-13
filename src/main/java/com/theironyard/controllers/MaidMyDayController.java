@@ -2,6 +2,7 @@ package com.theironyard.controllers;
 
 import com.theironyard.entities.*;
 import com.theironyard.services.*;
+import com.theironyard.utils.Constants;
 import com.theironyard.utils.ObjectUpdateUtils;
 import com.theironyard.utils.PasswordStorage;
 import org.h2.tools.Server;
@@ -175,7 +176,6 @@ public class MaidMyDayController {
             throw new Exception("Login failed.");
         }
     }
-
     // returns a single provider
     @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
     public Provider viewingProviderProfile(HttpSession session, @PathVariable ("id") int id) {
@@ -225,7 +225,6 @@ public class MaidMyDayController {
         return updatedProvider;
     }
 
-
     @RequestMapping(path = "/provider/task", method = RequestMethod.PUT)
     public void providerSelectTasks(@RequestBody Provider provider) {
         providerRepository.save(provider);
@@ -246,7 +245,6 @@ public class MaidMyDayController {
         List<ProviderRating> localRatings = providerRatingRepository.findByProvider(provider);
         return localRatings;
     }
-
 
     @RequestMapping(path = "/provider/{id}", method = RequestMethod.DELETE)
     public void deleteProvider(HttpSession session, @PathVariable ("id") int id) {
@@ -278,6 +276,15 @@ public class MaidMyDayController {
         requestRepository.save(request);
     }
 
+    @RequestMapping(path = "/request/{id}/isDone", method = RequestMethod.PUT)
+    public void requestCompleted(@PathVariable ("id") int id) {
+        Request request = requestRepository.findOne(id);
+        request.setIsDone(true);
+        requestRepository.save(request);
+        Notification notification = new Notification(Constants.NOTIFICAITON_TEXT, LocalDateTime.now());
+        notificationRepository.save(notification);
+    }
+
     @RequestMapping(path = "/request/{id}", method = RequestMethod.DELETE)
     public void deleteRequest(@PathVariable ("id") int id) {
         requestRepository.delete(id);
@@ -287,13 +294,13 @@ public class MaidMyDayController {
 
 
 
-    @RequestMapping(path = "/notification", method = RequestMethod.POST)
-    public void createNotification() {
-    }
 
     @RequestMapping(path = "/notification", method = RequestMethod.GET)
-    public Notification viewNotifications() {
-        return null;
+    public List<Notification> viewNotifications(HttpSession session) {
+        String clientEmail = (String) session.getAttribute("email");
+        Client client = clientRepository.findByEmail(clientEmail);
+        List<Notification> clientNotifications = notificationRepository.findByClient(client);
+        return clientNotifications;
     }
 
     @RequestMapping(path = "/notification", method = RequestMethod.DELETE)
