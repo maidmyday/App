@@ -104,11 +104,15 @@ public class MaidMyDayController {
 
     @RequestMapping(path = "/client", method = RequestMethod.PUT)
     public Client editClient(@RequestBody Client client, HttpSession session) throws Exception {
-        if (client.getEmail().equals(session.getAttribute("email"))) {
-            return clientRepository.save(client);
-        } else {
-            throw new Exception("You're not allowed to edit others' profiles.");
-        }
+        String clientEmail = (String) session.getAttribute("email");
+        clientRepository.findByEmail(clientEmail);
+        clientRepository.save(client);
+        return client;
+//        if (client.getEmail().equals(session.getAttribute("email"))) {
+//            return clientRepository.save(client);
+//        } else {
+//            throw new Exception("You're not allowed to edit others' profiles.");
+//        }
     }
 
     @RequestMapping(path = "/client/request", method = RequestMethod.GET)
