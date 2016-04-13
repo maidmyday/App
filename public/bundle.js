@@ -85,6 +85,15 @@ angular
     }
     vm.loadPage();
 
+    //add a photo maybe
+    vm.uploadFile = function(){
+        var file = vm.myFile;
+        console.log('photo file is ' );
+        console.dir(file);
+        var uploadUrl = "/fileUpload";
+        ClientService.uploadFileToUrl(file, uploadUrl);
+    };
+
     //edit profile content
     vm.editInfo = false;
 
@@ -141,21 +150,25 @@ angular
 },{}],3:[function(require,module,exports){
 angular
   .module('cHome')
-  .directive('cliHomeDir', function () {
+  .directive('cliHomeDir', ['$parse',function ($parse) {
     return {
-      restrict: 'E',
+      restrict: 'EA',
       templateUrl: 'chome/tmpls/profileTmpl.html',
       scope: {
         theClientData: '='
       },
-      link: function (scope, elem, attrs, transclude) {
-       // dom stuff here
-       elem.on('click', function (e) {
-         elem.css('background-color', 'red');
-       })
+      link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
       }
     }
-  });
+}]);
 
 },{}],4:[function(require,module,exports){
 var angular = require('angular');
@@ -181,6 +194,7 @@ angular
     var clienturl = '/client';
     var allClients = '/clients';
     var logouturl = '/logout';
+    // var uploadUrl = '/fileUpload';
 
     function deleteClient(){
       return $http.delete(clienturl);
@@ -196,6 +210,21 @@ angular
 
     function editClient(user) {
       return $http.put(clienturl, user);
+    }
+
+    this.uploadFileToUrl = function(file, uploadUrl){
+        var fd = new FormData();
+        fd.append('file', file);
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        })
+        .success(function(){
+          console.log('Holy Moly it worked!');
+        })
+        .error(function(){
+          console.log('Nah the picture didnt go!');
+        });
     }
 
    var historyData = [
