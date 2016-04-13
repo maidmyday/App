@@ -26,6 +26,9 @@ public class Client {
     @Column(nullable = false)
     private String phoneNumber;
 
+    @Column(nullable = false)
+    private String photoUrl;
+
     @OneToOne
     @JoinColumn(name = "fileUploadId")
     private FileUpload fileUpload;
@@ -35,12 +38,13 @@ public class Client {
     }
 
 
-    public Client(String firstName, String lastName, String password, String email, String phoneNumber) {
+    public Client(String firstName, String lastName, String password, String email, String phoneNumber, String photoUrl) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.photoUrl = photoUrl;
     }
 
     public String getFirstName() {
@@ -89,5 +93,13 @@ public class Client {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }

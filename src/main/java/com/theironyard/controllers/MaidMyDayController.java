@@ -61,19 +61,19 @@ public class MaidMyDayController {
         dbui = Server.createWebServer().start();
 
         if (clientRepository.count() == 0) {
-            Client client1 = new Client("Kevin", "Bacon", "123", "kbacon@sizzling.com", "843-123-4567");
+            Client client1 = new Client("Kevin", "Bacon", "123", "kbacon@sizzling.com", "843-123-4567", "");
             clientRepository.save(client1);
         }
         if (clientRepository.count() == 1) {
-            Client client2 = new Client("Clint", "Bozic", "456", "kbacon@sizzling.com", "843-123-4567");
+            Client client2 = new Client("Clint", "Bozic", "456", "kbacon@sizzling.com", "843-123-4567", "");
             clientRepository.save(client2);
         }
         if (providerRepository.count() == 0) {
-            Provider provider1 = new Provider("Caroline", "Vail", "123", "carolineevail@gmail.com", "334-669-5482");
+            Provider provider1 = new Provider("Caroline", "Vail", "123", "carolineevail@gmail.com", "334-669-5482", "");
             providerRepository.save(provider1);
         }
         if (providerRepository.count() == 1) {
-            Provider provider2 = new Provider("Zach", "Owens", "456", "carolineevail@gmail.com", "334-669-5482");
+            Provider provider2 = new Provider("Zach", "Owens", "456", "carolineevail@gmail.com", "334-669-5482", "");
             providerRepository.save(provider2);
         }
     }
@@ -367,10 +367,10 @@ public class MaidMyDayController {
         FileUpload newPhoto = new FileUpload(photo.getOriginalFilename());
 
         if (client != null) {
-            newPhoto.setFileName(client.getEmail() + "" + "profile image");
+            newPhoto.setFileName(client.getEmail() + " " + "profile image");
             newPhoto.setClient(client);
         } else if (provider != null) {
-            newPhoto.setFileName(provider.getEmail() + "" + "profile image");
+            newPhoto.setFileName(provider.getEmail() + " " + "profile image");
             newPhoto.setProvider(provider);
         }
 
