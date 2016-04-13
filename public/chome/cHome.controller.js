@@ -47,6 +47,15 @@ angular
     }
     vm.loadPage();
 
+    //add a photo maybe
+    vm.uploadFile = function(){
+        var file = vm.myFile;
+        console.log('photo file is ' );
+        console.dir(file);
+        var uploadUrl = "/fileUpload";
+        ClientService.uploadFileToUrl(file, uploadUrl);
+    };
+
     //edit profile content
     vm.editInfo = false;
 
