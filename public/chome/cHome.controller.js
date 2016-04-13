@@ -7,6 +7,24 @@ angular
   function ClientController($scope,$rootScope,$location,$uibModal,$log,ClientService) {
     var vm = this;
 
+    vm.animationsEnabled = true;
+
+    // THIS OPENS JOB POST FORM MODAL
+      vm.openJobModal = function (size) {
+
+        var modalInstance = $uibModal.open({
+          animation: vm.animationsEnabled,
+          templateUrl: 'chome/tmpls/jobMainModal.html',
+          controller: 'JobInstanceCtrl as JobCtrl',
+          size: size,
+          resolve: {
+            items: function () {
+              return vm.items;
+            }
+          }
+        });
+      };
+
     //logout button
     vm.logout = function(){
       console.log('data inside logout function',window.localStorage);
@@ -17,18 +35,17 @@ angular
       })
     }
 
-    //post job button
-    vm.postJob = function(){
-      $location.path('/jobpost')
+    //to load the page after changes
+    vm.loadPage = function(){
+      //getting data from the login and register
+      ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
+      .then(function(data){
+        console.log('client data from chome controller',data);
+        vm.clientData =  data.data  ;
+        console.log('vm client from chome controller',vm.clientData);
+      })
     }
-
-    //getting data from the login and register
-    ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id).then(function(data){
-      console.log('client data from chome controller',data);
-      console.log('testing theclient from chome controller',window.localStorage.getItem('theclient'));
-      vm.clientData =  JSON.parse(window.localStorage.getItem('theclient'));
-      console.log('vm client from chome controller',vm.clientData);
-    })
+    vm.loadPage();
 
     //edit profile content
     vm.editInfo = false;
@@ -39,13 +56,14 @@ angular
 
     vm.master = {};
     vm.saveEdit = function(user){
-      vm.master = angular.copy(user);
-      console.log('should be new profile info obj',vm.master);
-      ClientService.editClient(window.JSON.parse(window.localStorage.getItem('theclient')).id, user).then(function(data){
-        vm.edittedData =  JSON.parse(window.localStorage.getItem('theclient'));
+      // vm.master = angular.copy(user);
+      console.log('should be new profile info obj',user);
+      ClientService.editClient(user).then(function(data){
+        vm.edittedData =  data.data;
         console.log('client after edit',vm.edittedData);
       });
       vm.editInfo = !vm.editInfo;
+      vm.loadPage();
     }
 
     //delete client account
