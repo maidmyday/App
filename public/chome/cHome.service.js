@@ -18,6 +18,10 @@ angular
       return $http.get(clienturl + '/' + id)
     }
 
+    function editClient(user) {
+      return $http.put(clienturl, user);
+    }
+
    var historyData = [
      {
        img: './images/bill04.jpg',
@@ -43,6 +47,7 @@ angular
    ]
 
     return {
+      editClient: editClient,
       deleteClient: deleteClient,
       logoutNow: logoutNow,
       getClient: getClient,

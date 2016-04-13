@@ -66,7 +66,16 @@ angular
 
     //edit profile content
     vm.editInfo = false;
+    
     vm.editBtn = function(){
+      vm.editInfo = !vm.editInfo;
+    }
+
+    vm.master = {};
+    vm.saveEdit = function(user){
+      vm.master = angular.copy(user);
+      console.log('should be new profile info',vm.master);
+      ClientService.editClient(user);
       vm.editInfo = !vm.editInfo;
     }
 
@@ -128,7 +137,6 @@ var angular = require('angular');
 var angularRoute = require('angular-route');
 
 
-
 angular
   .module('cHome',['ngRoute'])
   .config(function($routeProvider){
@@ -161,6 +169,10 @@ angular
       return $http.get(clienturl + '/' + id)
     }
 
+    function editClient(user) {
+      return $http.put(clienturl, user);
+    }
+
    var historyData = [
      {
        img: './images/bill04.jpg',
@@ -186,6 +198,7 @@ angular
    ]
 
     return {
+      editClient: editClient,
       deleteClient: deleteClient,
       logoutNow: logoutNow,
       getClient: getClient,
