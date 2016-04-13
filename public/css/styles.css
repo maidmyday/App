@@ -102,11 +102,10 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
   box-shadow: 0 1px 1px rgba(199, 204, 219, 0.075) inset, 0 0 8px rgba(199, 204, 219, 0.6);
   outline: 0 none; }
 
-p.username {
-  font-weight: 800; }
-
 p.navbar-text {
   display: inline-block; }
+  p.navbar-text span {
+    font-weight: 800; }
 
 h4.navbar-brand {
   padding: 0 10px;

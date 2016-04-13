@@ -1,9 +1,9 @@
 //header
-p.username{
-  font-weight: 800;
-}
 p.navbar-text{
   display: inline-block;
+  span{
+    font-weight: 800;
+  }
 }
 h4.navbar-brand{
   padding: 0 10px;

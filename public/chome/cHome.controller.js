@@ -17,18 +17,22 @@ angular
       })
     }
 
+    //post job button
+    vm.postJob = function(){
+      $location.path('/jobpost')
+    }
+
     //getting data from the login and register
     ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id).then(function(data){
       console.log('client data from chome controller',data);
       console.log('testing theclient from chome controller',window.localStorage.getItem('theclient'));
-      // vm.client = data;
       vm.clientData =  JSON.parse(window.localStorage.getItem('theclient'));
       console.log('vm client from chome controller',vm.clientData);
     })
 
     //edit profile content
     vm.editInfo = false;
-    
+
     vm.editBtn = function(){
       vm.editInfo = !vm.editInfo;
     }
@@ -36,8 +40,11 @@ angular
     vm.master = {};
     vm.saveEdit = function(user){
       vm.master = angular.copy(user);
-      console.log('should be new profile info',vm.master);
-      ClientService.editClient(user);
+      console.log('should be new profile info obj',vm.master);
+      ClientService.editClient(window.JSON.parse(window.localStorage.getItem('theclient')).id, user).then(function(data){
+        vm.edittedData =  JSON.parse(window.localStorage.getItem('theclient'));
+        console.log('client after edit',vm.edittedData);
+      });
       vm.editInfo = !vm.editInfo;
     }
 

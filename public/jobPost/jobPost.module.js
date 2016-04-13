@@ -6,8 +6,8 @@ angular
   .config(function($routeProvider){
     $routeProvider
 
-    .when('/jobPost',{
-      templateUrl: 'jobPost/tmpls/joblisting.html',
+    .when('/jobpost',{
+      templateUrl: 'jobPost/tmpls/jobpost.html',
       controller: 'JobPostController as PostCtrl'
     })
   })

@@ -18,8 +18,8 @@ angular
       return $http.get(clienturl + '/' + id)
     }
 
-    function editClient(user) {
-      return $http.put(clienturl, user);
+    function editClient(id, user) {
+      return $http.put(clienturl + '/' + id, user);
     }
 
    var historyData = [
