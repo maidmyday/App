@@ -103,10 +103,16 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/client", method = RequestMethod.POST)
-    public Client createClient(@RequestBody Client client, HttpSession session) throws PasswordStorage.CannotPerformOperationException {
-        client.setPassword(PasswordStorage.createHash(client.getPassword()));
-        session.setAttribute("email", client.getEmail());
-        clientRepository.save(client);
+    public Client createClient(@RequestBody Client client, HttpSession session) throws Exception {
+
+        Client client1 = clientRepository.findByEmail((String) session.getAttribute("email"));
+        if (client1 != null) {
+            throw new Exception("Account already exists");
+        } else {
+            client.setPassword(PasswordStorage.createHash(client.getPassword()));
+            session.setAttribute("email", client.getEmail());
+            clientRepository.save(client);
+        }
         return client;
     }
 
@@ -373,10 +379,9 @@ public class MaidMyDayController {
         }
 
 
-        //File oldOnDisk = new File("public/files/" + old.getFileName());
-
-        // not sure if this is the correct directory
-        File photoFile = File.createTempFile("image", photo.getOriginalFilename(), new File("public/photoUploads"));
+        File dir = new File("public/photoUploads");
+        dir.mkdirs();
+        File photoFile = File.createTempFile("image", photo.getOriginalFilename(), dir);
         FileOutputStream fos = new FileOutputStream(photoFile);
         fos.write(photo.getBytes());
 
@@ -391,5 +396,23 @@ public class MaidMyDayController {
         }
 
         fileUploadRepository.save(newPhoto);
+    }
+
+    @RequestMapping(path = "/photo", method = RequestMethod.GET)
+    public FileUpload getPhoto(@RequestBody FileUpload photo, HttpSession session) throws Exception {
+
+        String email = (String) session.getAttribute("email");
+
+        Client client = clientRepository.findByEmail(email);
+        Provider provider = providerRepository.findByEmail(email);
+
+
+        if (client != null) {
+            return photo;
+        } else if (provider != null) {
+            return photo;
+        } else {
+            throw new Exception("You backenders suck at life!!! We didn't receive a photo!!");
+        }
     }
 }
