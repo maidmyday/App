@@ -50,6 +50,7 @@ crashlytics-build.properties
 
 .DS_Store
 *.db
+public/photoUploads
 
 node_modules/
 bower_components/

@@ -12,15 +12,20 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,7 +68,7 @@ public class MaidMyDayController {
         dbui = Server.createWebServer().start();
 
         if (clientRepository.count() == 0) {
-            Client client1 = new Client("Kevin", "Bacon", "123", "kbacon@sizzling.com", "843-123-4567");
+            Client client1 = new Client("Kevin", "Bacon", "123", "cbacon@sizzling.com", "843-123-4567");
             clientRepository.save(client1);
         }
         if (clientRepository.count() == 1) {
@@ -75,7 +80,7 @@ public class MaidMyDayController {
             providerRepository.save(provider1);
         }
         if (providerRepository.count() == 1) {
-            Provider provider2 = new Provider("Zach", "Owens", "456", "carolineevail@gmail.com", "334-669-5482");
+            Provider provider2 = new Provider("Zach", "Owens", "456", "karolineevail@gmail.com", "334-669-5482");
             providerRepository.save(provider2);
         }
     }
@@ -103,11 +108,19 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/client", method = RequestMethod.POST)
-    public Client createClient(@RequestBody Client client, HttpSession session) throws PasswordStorage.CannotPerformOperationException {
-        client.setPassword(PasswordStorage.createHash(client.getPassword()));
-        session.setAttribute("email", client.getEmail());
-        clientRepository.save(client);
-        return client;
+    public Client createClient(@RequestBody Client client, HttpSession session, HttpServletResponse response) throws Exception {
+
+        Client client1 = clientRepository.findByEmail(client.getEmail());
+        if (client1 != null) {
+            response.sendError(403, "Account with this email already exists");
+        }
+        else {
+            client1 = new Client(client.getFirstName(), client.getLastName(), PasswordStorage.createHash(client.getPassword()),
+                    client.getEmail(), client.getPhoneNumber());
+            session.setAttribute("email", client1.getEmail());
+            clientRepository.save(client1);
+        }
+        return client1;
     }
 
     // returns a single client
@@ -192,23 +205,29 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.POST)
-    public Provider createProvider(@RequestBody Provider provider, HttpSession session) throws PasswordStorage.CannotPerformOperationException {
-        provider.setPassword(PasswordStorage.createHash(provider.getPassword()));
-        session.setAttribute("email", provider.getEmail());
-        providerRepository.save(provider);
-        return provider;
+    public Provider createProvider(@RequestBody Provider provider, HttpSession session, HttpServletResponse response) throws Exception {
+        Provider provider1 = providerRepository.findByEmail(provider.getEmail());
+        if (provider1 != null) {
+            response.sendError(403, "Account with this email already exists");
+        }
+        else {
+            provider1 = new Provider(provider.getFirstName(), provider.getLastName(), PasswordStorage.createHash(provider.getPassword()),
+                    provider.getEmail(), provider.getPhoneNumber());
+            session.setAttribute("email", provider1.getEmail());
+            providerRepository.save(provider1);
+        }
+        return provider1;
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.GET)
-    public List<Provider> findMatchingProviders(@RequestBody List<Task> clientRequestedTasks) {
+    public List<Provider> findMatchingProviders(@RequestBody HashMap clientTasks) {
+        List<Task> clientRequestedTasks = (List<Task>) clientTasks.get("tasks");
         List<Provider> providers = (List<Provider>) providerRepository.findAll();
-        for (Provider provider : providers) {
-            for (Task task : clientRequestedTasks) {
-                if (!provider.getTasks().containsAll(clientRequestedTasks)) {
-                    providers.remove(provider);
-                }
-            }
-        }
+        providers = providers.stream()
+                .filter((provider) -> {
+                    return provider.getTasks().containsAll(clientRequestedTasks);
+                })
+                .collect(Collectors.toCollection(ArrayList<Provider>::new));
         return providers;
     }
 
@@ -226,11 +245,6 @@ public class MaidMyDayController {
         Provider updatedProvider = ObjectUpdateUtils.updateProviderObject(provider, providerUpdates);
         providerRepository.save(updatedProvider);
         return updatedProvider;
-    }
-
-    @RequestMapping(path = "/provider/task", method = RequestMethod.PUT)
-    public void providerSelectTasks(@RequestBody Provider provider) {
-        providerRepository.save(provider);
     }
 
     @RequestMapping(path = "/provider/request", method = RequestMethod.GET)
@@ -256,11 +270,23 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider/{id}/isOnline", method = RequestMethod.PUT)
-    public Provider toggleIsOnline(@PathVariable ("id") int id) {
+    public Provider toggleIsOnline(@PathVariable ("id") int id, @RequestBody HashMap map) {
+        boolean isOnline = (boolean) map.get("isOnline");
+
         Provider provider = providerRepository.findOne(id);
-        provider.setIsOnline(!provider.getIsOnline());
+        provider.setIsOnline(isOnline);
         providerRepository.save(provider);
-        return provider;
+
+        HashMap taskMap = (HashMap) map.get("tasks");
+
+        taskRepository.deleteByProvider(provider);
+        Set<String> tasks = taskMap.keySet();
+        for(String taskName : tasks) {
+            Task task = new Task(taskName, provider, null);
+            taskRepository.save(task);
+        }
+
+        return providerRepository.findOne(id);
     }
 
 
@@ -306,8 +332,8 @@ public class MaidMyDayController {
         return clientNotifications;
     }
 
-    @RequestMapping(path = "/notification", method = RequestMethod.DELETE)
-    public Notification deleteNotification() {
+    @RequestMapping(path = "/notification/{id}", method = RequestMethod.DELETE)
+    public Notification deleteNotification(@PathVariable ("id") int id) {
         return null;
     }
 
@@ -334,10 +360,11 @@ public class MaidMyDayController {
 
 
 
-    @RequestMapping(path = "/task", method = RequestMethod.GET)
-    public Task populateTasks() {
-        return null;
-    }
+//    @RequestMapping(path = "/task", method = RequestMethod.GET)
+//    public List<Task> populateTasks(@RequestBody Task task) {
+//        List<Task> tasks =
+//        return null;
+//    }
 
 
 
@@ -373,10 +400,9 @@ public class MaidMyDayController {
         }
 
 
-        //File oldOnDisk = new File("public/files/" + old.getFileName());
-
-        // not sure if this is the correct directory
-        File photoFile = File.createTempFile("image", photo.getOriginalFilename(), new File("public/photoUploads"));
+        File dir = new File("public/photoUploads");
+        dir.mkdirs();
+        File photoFile = File.createTempFile("image", photo.getOriginalFilename(), dir);
         FileOutputStream fos = new FileOutputStream(photoFile);
         fos.write(photo.getBytes());
 
@@ -391,5 +417,23 @@ public class MaidMyDayController {
         }
 
         fileUploadRepository.save(newPhoto);
+    }
+
+    @RequestMapping(path = "/photo", method = RequestMethod.GET)
+    public FileUpload getPhoto(@RequestBody FileUpload photo, HttpSession session) throws Exception {
+
+        String email = (String) session.getAttribute("email");
+
+        Client client = clientRepository.findByEmail(email);
+        Provider provider = providerRepository.findByEmail(email);
+
+
+        if (client != null) {
+            return photo;
+        } else if (provider != null) {
+            return photo;
+        } else {
+            throw new Exception("You backenders suck at life!!! We didn't receive a photo!!");
+        }
     }
 }
