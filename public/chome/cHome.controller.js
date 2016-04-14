@@ -47,13 +47,13 @@ angular
     }
     vm.loadPage();
 
-    //add a photo maybe
+    //PHOTO UPLOAD
     vm.uploadFile = function(){
-        var photo = vm.myFile;
-        console.log('photo file is ' );
-        console.dir(photo);
+        var file = vm.myFile;
+        console.log('photo file is ',file );
+        console.dir(file);
         var uploadUrl = "/fileUpload";
-        ClientService.uploadFileToUrl(photo, uploadUrl);
+        ClientService.uploadFileToUrl(file, uploadUrl);
     };
 
     //photo forms ng show

@@ -245,11 +245,24 @@ div.jobModal div.modal-body {
     display: inline-block; }
   div.jobModal div.modal-body table {
     width: 100%; }
-    div.jobModal div.modal-body table tr {
-      vertical-align: text-top; }
-      div.jobModal div.modal-body table tr p {
+    div.jobModal div.modal-body table tr.jobChecks {
+      vertical-align: text-top;
+      width: 100%;
+      display: flex;
+      justify-content: space-around; }
+      div.jobModal div.modal-body table tr.jobChecks p {
         margin-left: 10px; }
+    div.jobModal div.modal-body table tr.instruction div.instruction, div.jobModal div.modal-body table tr.instruction div.location, div.jobModal div.modal-body table tr.location div.instruction, div.jobModal div.modal-body table tr.location div.location {
+      display: flex;
+      justify-content: space-around; }
+      div.jobModal div.modal-body table tr.instruction div.instruction input[name='jobLocation'], div.jobModal div.modal-body table tr.instruction div.location input[name='jobLocation'], div.jobModal div.modal-body table tr.location div.instruction input[name='jobLocation'], div.jobModal div.modal-body table tr.location div.location input[name='jobLocation'] {
+        width: 70%; }
+      div.jobModal div.modal-body table tr.instruction div.instruction textarea[name='instruction'], div.jobModal div.modal-body table tr.instruction div.location textarea[name='instruction'], div.jobModal div.modal-body table tr.location div.instruction textarea[name='instruction'], div.jobModal div.modal-body table tr.location div.location textarea[name='instruction'] {
+        width: 70%; }
 
 div.jobModal div.modal-footer {
   border: none;
   display: block; }
+  div.jobModal div.modal-footer div.jobFormBtns {
+    display: flex;
+    justify-content: space-between; }
