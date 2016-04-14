@@ -1,27 +1,27 @@
-.main{
+.main {
   display: flex;
-justify-content: space-around;
-min-height: 600px;
+  justify-content: space-around;
+  min-height: 600px;
 }
-.mainpic{
-align-self: flex-end;
-}
-.backgroundImg{
 
-  // background-image: url('https://images.unsplash.com/photo-1422479763403-3aa672b25e0e?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=2734d2e20c48290d634e466abc7932b4');
-  // background-repeat: no-repeat;
-  // background-size: cover;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
-    url("https://images.unsplash.com/photo-1422479763403-3aa672b25e0e?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=2734d2e20c48290d634e466abc7932b4");
+.mainpic {
+  align-self: flex-end;
+}
+
+.backgroundImg {
+  background-image: linear-gradient(rgba(255,255,255,0.7),rgba(255,255,255,0.7)),url(https://images.unsplash.com/photo-1422479763403-3aa672b25e0e?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=2734d2e20c48290d634e466abc7932b4);
   background-repeat: no-repeat;
   background-size: 100%;
   min-height: 900px;
   width: 100%;
+<<<<<<< HEAD
+=======
   background-position-y: 400%;
+>>>>>>> 22ace69979b2e005de123623421ee42d00e8914f
 }
 
-.btn.btn-transparent{
-  font-family: 'Sue Ellen Francisco', cursive;
+.btn.btn-transparent {
+  font-family: 'Sue Ellen Francisco',cursive;
   color: #767B91;
   background-color: transparent;
   border-color: #f0ad4e;
@@ -29,15 +29,8 @@ align-self: flex-end;
   border-color: transparent;
   font-size: 25px;
   &:hover{
-    background-color: transparent;
-    border-color: transparent;
-    color: #C7CCDB;
-
-  }
+  background-color: transparent;
+  border-color: transparent;
+  color: #C7CCDB;
 }
-
-// img{
-//   position: absolute;
-// top: 29%;
-// left: 23%;
-// }
+}
