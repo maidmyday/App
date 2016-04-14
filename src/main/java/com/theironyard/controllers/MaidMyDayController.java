@@ -16,11 +16,14 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -200,15 +203,14 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.GET)
-    public List<Provider> findMatchingProviders(@RequestBody List<Task> clientRequestedTasks) {
+    public List<Provider> findMatchingProviders(@RequestBody HashMap clientTasks) {
+        List<Task> clientRequestedTasks = (List<Task>) clientTasks.get("tasks");
         List<Provider> providers = (List<Provider>) providerRepository.findAll();
-        for (Provider provider : providers) {
-            for (Task task : clientRequestedTasks) {
-                if (!provider.getTasks().containsAll(clientRequestedTasks)) {
-                    providers.remove(provider);
-                }
-            }
-        }
+        providers = providers.stream()
+                .filter((provider) -> {
+                    return provider.getTasks().containsAll(clientRequestedTasks);
+                })
+                .collect(Collectors.toCollection(ArrayList<Provider>::new));
         return providers;
     }
 
@@ -334,10 +336,11 @@ public class MaidMyDayController {
 
 
 
-    @RequestMapping(path = "/task", method = RequestMethod.GET)
-    public Task populateTasks() {
-        return null;
-    }
+//    @RequestMapping(path = "/task", method = RequestMethod.GET)
+//    public List<Task> populateTasks(@RequestBody Task task) {
+//        List<Task> tasks =
+//        return null;
+//    }
 
 
 
@@ -386,7 +389,8 @@ public class MaidMyDayController {
 
         if (client != null) {
             newPhoto.setClient(client);
-        } else if (provider != null) {
+        }
+        if (provider != null) {
             newPhoto.setProvider(provider);
         }
 
