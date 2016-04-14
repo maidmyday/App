@@ -58,27 +58,16 @@
                <cli-home-dir the-client-data=CliCtrl.clientData></cli-home-dir>
              </div>
              <div class="panel-body" ng-show="CliCtrl.editInfo">
-               <!-- <form role="form" ng-show="CliCtrl.savePhotoUrl" class="photoForm">
-                 <div class="form-group col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
-                   <div class="tempPhoto">
-                     <img src="./images/bill01.jpg" alt="photo preview">
-                   </div>
-                   <input type="text" ng-model="user.photoUrl" class="form-control" placeholder="photo url">
-                 </div>
-                 <div class="uploadBtn col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
-                   <button type="button" class="btn btn-info" ng-click="CliCtrl.showUploadForm()">upload file</button>
-                   <button type="button" class="btn btn-warning" ng-click="CliCtrl.saveUrl(user)">save url</button>
-                 </div>
-               </form> -->
+
+
                <form role="form" class="photoForm">
                  <div class="form-group col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
                    <div class="tempPhoto">
-                     <img src="./images/bill01.jpg" alt="photo preview">
+                     <img src="./images/bill01.jpg" alt="your image">
                    </div>
                    <input type="file" file-model="CliCtrl.myFile" class="form-control">
                  </div>
                  <div class="uploadBtn col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
-                   <!-- <button type="button" class="btn btn-info" ng-click="CliCtrl.showSaveForm()">save url</button> -->
                    <button type="button" class="btn btn-warning" ng-click="CliCtrl.uploadFile()">upload file</button>
                  </div>
                </form>

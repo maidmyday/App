@@ -18,13 +18,19 @@ angular
 
     //registering a client account
     function getClient(id) {
-      return $http.get(clienturl + '/' + id)
+      return $http.get(clienturl + '/' + id);
     }
 
     //editing the client profile
     function editClient(user) {
       return $http.put(clienturl, user);
     }
+
+    //get the photo?
+    function getThatPhoto(){
+      return $http.get(getPhoto);
+    }
+
 
     //uploading a photo to database
     function uploadFileToUrl(file, uploadUrl){
@@ -36,7 +42,6 @@ angular
         })
         .success(function(){
           console.log('Holy Moly it worked!');
-          $http.get(getPhoto);
         })
         .error(function(){
           console.log('Nah the picture didnt go!');
@@ -71,6 +76,7 @@ angular
    ]
 
     return {
+      getThatPhoto: getThatPhoto,
       uploadFileToUrl: uploadFileToUrl,
       editClient: editClient,
       deleteClient: deleteClient,

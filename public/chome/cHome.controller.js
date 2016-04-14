@@ -53,10 +53,8 @@ angular
         console.log('photo file is ',file );
         console.dir(file);
         var uploadUrl = "/fileUpload";
-        ClientService.uploadFileToUrl(file, uploadUrl)
-        .then(function(data){
-          console.log('then after the uploadFile');
-        })
+        ClientService.uploadFileToUrl(file, uploadUrl);
+        ClientService.getThatPhoto();
     };
 
     //edit profile content
