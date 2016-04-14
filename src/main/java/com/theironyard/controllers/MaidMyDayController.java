@@ -347,7 +347,7 @@ public class MaidMyDayController {
     ////// Need to figure out how to ONLY allow jpeg, png, etc... only photos. No mp4, mp3, mov, etc...
     ////// We did this in class
     //////
-    ////// Also need to set a max file size limit
+    ////// Also need to set a max file size limit // I've put this in application.properties
     ////// We've also done this in class, but it might be accomplished on the frontend
     //////
 
@@ -373,11 +373,11 @@ public class MaidMyDayController {
 
         FileUpload newPhoto = new FileUpload(photo.getOriginalFilename());
 
+        newPhoto.setFileName(photoFile.getName());
+
         if (client != null) {
-            newPhoto.setFileName(client.getEmail() + " " + "profile image");
             newPhoto.setClient(client);
         } else if (provider != null) {
-            newPhoto.setFileName(provider.getEmail() + " " + "profile image");
             newPhoto.setProvider(provider);
         }
 
