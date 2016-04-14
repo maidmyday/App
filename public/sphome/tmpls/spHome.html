@@ -6,7 +6,7 @@
       <h4 class="navbar-brand mmd">Maid My Day</h4>
     </div>
     <ul class="nav navbar-nav navbar-right">
-      <li><p class="navbar-text">Signed in as {{SpCtrl.providerData.firstName}}</p></li>
+      <li><p class="navbar-text">Signed in as <span>{{SpCtrl.providerData.firstName}}</span></p></li>
       <li>
 
 
@@ -71,7 +71,7 @@
                <button class="pull-right btn btn-default" ng-click="SpCtrl.editBtn1()">Edit</button>
              </div>
              <div class="profileContent">
-               <div class="panel-body col-md-3 col-md-offset-3 col-sm-3">
+               <div class="panel-body col-md-3 col-md-offset-3 col-sm-3 col-sm-offset-3">
                  <p>Photo: </p>
                  <p>First Name: </p>
                  <p>Last Name: </p>
@@ -83,14 +83,14 @@
              <div class="panel-body" ng-show="SpCtrl.editInfo">
                <form role="form">
                  <div class="form-group col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
-                   <input type="text" class="form-control photoIn" placeholder="photo" value="">
-                   <input type="text" class="form-control firstIn" placeholder="First Name" value={{SpCtrl.providerData.firstName}}>
-                   <input type="text" class="form-control lastIn" placeholder="Last Name" value="{{SpCtrl.providerData.lastName}}">
-                   <input type="text" class="form-control numIn" placeholder="Phone Number" value="{{SpCtrl.providerData.phoneNumber}}">
-                   <input type="text" class="form-control emailIn" placeholder="address@site.com" value="{{SpCtrl.providerData.email}}">
+                   <input type="text" ng-model="user.photo" class="form-control" placeholder="photo" value="">
+                   <input type="text" ng-model="user.firstName" class="form-control" placeholder="{{SpCtrl.providerData.firstName}}">
+                   <input type="text" ng-model="user.lastName" class="form-control" placeholder="{{SpCtrl.providerData.lastName}}">
+                   <input type="text" ng-model="user.phoneNumber" class="form-control" placeholder="{{SpCtrl.providerData.phoneNumber}}">
+                   <input type="text" ng-model="user.email" class="form-control" placeholder="{{SpCtrl.providerData.email}}">
                  </div>
                  <div class="profile-btns col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
-                   <button type="submit" class="btn btn-default" ng-click="SpCtrl.editBtn1()">Save Edit</button>
+                   <button type="submit" class="btn btn-default" ng-click="SpCtrl.saveEdit(user)">Save Edit</button>
                    <button type="button" class="btn btn-default" ng-click="SpCtrl.deleteSp()">Delete Account</button>
                  </div>
                </form>
@@ -100,14 +100,14 @@
                <button class="pull-right btn btn-default" ng-click="SpCtrl.editBtn2()">Edit</button>
              </div>
              <div class="panel-body paragraph">
-               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+               <p>{{SpCtrl.providerData.about}}</p>
              </div>
              <div class="panel-body" ng-show="SpCtrl.editAbout">
                <form role="form">
                  <div class="form-group">
-                   <textarea type="text" rows="5" class="form-control" placeholder="About you . . ." value=""></textarea>
+                   <textarea type="text" rows="5" class="form-control" ng-model="user.about" placeholder="About you . . ." value=""></textarea>
                  </div>
-                 <button type="submit" class="btn btn-default" ng-click="SpCtrl.editBtn2()">Save Edit</button>
+                 <button type="submit" class="btn btn-default" ng-click="SpCtrl.saveAbout(user)">Save Edit</button>
                </form>
              </div>
              <div class="panel-heading">
@@ -115,14 +115,14 @@
                <button class="pull-right btn btn-default" ng-click="SpCtrl.editBtn3()">Edit</button>
              </div>
              <div class="panel-body paragraph">
-               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+               <p>{{SpCtrl.providerData.specialties}}</p>
              </div>
              <div class="panel-body" ng-show="SpCtrl.editSpecial">
                <form role="form">
                  <div class="form-group">
-                   <textarea type="text" rows="5" class="form-control" placeholder="Specialties . . ." value=""></textarea>
+                   <textarea type="text" rows="5" class="form-control" ng-model="user.specialties" placeholder="Specialties . . ." value=""></textarea>
                  </div>
-                 <button type="submit" class="btn btn-default" ng-click="SpCtrl.editBtn3()">Save Edit</button>
+                 <button type="submit" class="btn btn-default" ng-click="SpCtrl.saveSpecialties(user)">Save Edit</button>
                </form>
              </div>
            </div>
@@ -137,9 +137,9 @@
              <div class="panel-body">
 
                  <table class="table rAndC-table">
-                   <tbody class="table-hover">
+                   <tbody>
 
-                     <tr ng-repeat="user in SpCtrl.historyData">
+                     <tr class="table-hover" ng-repeat="user in SpCtrl.historyData">
                        <td>
                          <div class="userImgSm">
                            <img src={{user.img}} alt="" class="userIcon">

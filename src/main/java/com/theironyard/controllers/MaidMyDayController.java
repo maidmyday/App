@@ -2,6 +2,8 @@ package com.theironyard.controllers;
 
 import com.theironyard.entities.*;
 import com.theironyard.services.*;
+import com.theironyard.utils.Constants;
+import com.theironyard.utils.ObjectUpdateUtils;
 import com.theironyard.utils.PasswordStorage;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +12,25 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+
 
 /**
  * Created by Caroline on 4/5/16.
@@ -34,6 +52,8 @@ public class MaidMyDayController {
     TaskRepository taskRepository;
     @Autowired
     ProviderRatingRepository providerRatingRepository;
+    @Autowired
+    FileUploadRepository fileUploadRepository;
 
     Server dbui = null;
 
@@ -42,19 +62,19 @@ public class MaidMyDayController {
         dbui = Server.createWebServer().start();
 
         if (clientRepository.count() == 0) {
-            Client client1 = new Client("Kevin", "Bacon", "1234", "kbacon@sizzling.com", "843-123-4567");
+            Client client1 = new Client("Kevin", "Bacon", "123", "kbacon@sizzling.com", "843-123-4567");
             clientRepository.save(client1);
         }
         if (clientRepository.count() == 1) {
-            Client client2 = new Client("Clint", "Bozic", "1234", "kbacon@sizzling.com", "843-123-4567");
+            Client client2 = new Client("Clint", "Bozic", "456", "kbacon@sizzling.com", "843-123-4567");
             clientRepository.save(client2);
         }
         if (providerRepository.count() == 0) {
-            Provider provider1 = new Provider("Caroline", "Vail", "1234", "carolineevail@gmail.com", "334-669-5482");
+            Provider provider1 = new Provider("Caroline", "Vail", "123", "carolineevail@gmail.com", "334-669-5482");
             providerRepository.save(provider1);
         }
         if (providerRepository.count() == 1) {
-            Provider provider2 = new Provider("Zach", "Owens", "1234", "carolineevail@gmail.com", "334-669-5482");
+            Provider provider2 = new Provider("Zach", "Owens", "456", "carolineevail@gmail.com", "334-669-5482");
             providerRepository.save(provider2);
         }
     }
@@ -103,12 +123,12 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/client", method = RequestMethod.PUT)
-    public Client editClient(@RequestBody Client client, HttpSession session) throws Exception {
-        if (client.getEmail().equals(session.getAttribute("email"))) {
-            return clientRepository.save(client);
-        } else {
-            throw new Exception("You're not allowed to edit others' profiles.");
-        }
+    public Client editClient(@RequestBody Client clientUpdates, HttpSession session) throws Exception {
+        String clientEmail = (String) session.getAttribute("email");
+        Client client = clientRepository.findByEmail(clientEmail);
+        Client updatedClient = ObjectUpdateUtils.updateClientObject(client, clientUpdates);
+        clientRepository.save(updatedClient);
+        return updatedClient;
     }
 
     @RequestMapping(path = "/client/request", method = RequestMethod.GET)
@@ -156,7 +176,6 @@ public class MaidMyDayController {
             throw new Exception("Login failed.");
         }
     }
-
     // returns a single provider
     @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
     public Provider viewingProviderProfile(HttpSession session, @PathVariable ("id") int id) {
@@ -198,13 +217,12 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.PUT)
-    public Provider editProfile(@RequestBody Provider provider, HttpSession session) throws Exception {
-
-        if (provider.getEmail().equals(session.getAttribute("email"))) {
-            return providerRepository.save(provider);
-        } else {
-            throw new Exception("You're not allowed to edit others' profiles.");
-        }
+    public Provider editProvider(@RequestBody Provider providerUpdates, HttpSession session) throws Exception {
+        String providerEmail = (String) session.getAttribute("email");
+        Provider provider = providerRepository.findByEmail(providerEmail);
+        Provider updatedProvider = ObjectUpdateUtils.updateProviderObject(provider, providerUpdates);
+        providerRepository.save(updatedProvider);
+        return updatedProvider;
     }
 
     @RequestMapping(path = "/provider/task", method = RequestMethod.PUT)
@@ -227,7 +245,6 @@ public class MaidMyDayController {
         List<ProviderRating> localRatings = providerRatingRepository.findByProvider(provider);
         return localRatings;
     }
-
 
     @RequestMapping(path = "/provider/{id}", method = RequestMethod.DELETE)
     public void deleteProvider(HttpSession session, @PathVariable ("id") int id) {
@@ -259,6 +276,15 @@ public class MaidMyDayController {
         requestRepository.save(request);
     }
 
+    @RequestMapping(path = "/request/{id}/isDone", method = RequestMethod.PUT)
+    public void requestCompleted(@PathVariable ("id") int id) {
+        Request request = requestRepository.findOne(id);
+        request.setIsDone(true);
+        requestRepository.save(request);
+        Notification notification = new Notification(Constants.NOTIFICAITON_TEXT, LocalDateTime.now());
+        notificationRepository.save(notification);
+    }
+
     @RequestMapping(path = "/request/{id}", method = RequestMethod.DELETE)
     public void deleteRequest(@PathVariable ("id") int id) {
         requestRepository.delete(id);
@@ -268,13 +294,13 @@ public class MaidMyDayController {
 
 
 
-    @RequestMapping(path = "/notification", method = RequestMethod.POST)
-    public void createNotification() {
-    }
 
     @RequestMapping(path = "/notification", method = RequestMethod.GET)
-    public Notification viewNotifications() {
-        return null;
+    public List<Notification> viewNotifications(HttpSession session) {
+        String clientEmail = (String) session.getAttribute("email");
+        Client client = clientRepository.findByEmail(clientEmail);
+        List<Notification> clientNotifications = notificationRepository.findByClient(client);
+        return clientNotifications;
     }
 
     @RequestMapping(path = "/notification", method = RequestMethod.DELETE)
@@ -308,5 +334,53 @@ public class MaidMyDayController {
     @RequestMapping(path = "/task", method = RequestMethod.GET)
     public Task populateTasks() {
         return null;
+    }
+
+
+
+
+    //////
+    ////// Messing with file upload
+    //////
+    ////// Credit : http://www.journaldev.com/2573/spring-mvc-file-upload-example-tutorial-single-and-multiple-files
+    //////
+    ////// Need to figure out how to ONLY allow jpeg, png, etc... only photos. No mp4, mp3, mov, etc...
+    ////// We did this in class
+    //////
+    ////// Also need to set a max file size limit
+    ////// We've also done this in class, but it might be accomplished on the frontend
+    //////
+
+
+
+    /**
+     * Upload single file using Spring Controller
+     */
+    @RequestMapping(path = "/fileUpload", method = RequestMethod.POST)
+    public void upload(MultipartFile photo, HttpSession session) throws Exception {
+
+        Client client = clientRepository.findByEmail((String) session.getAttribute("email"));
+        Provider provider = providerRepository.findByEmail((String) session.getAttribute("email"));
+
+        if (!photo.getContentType().startsWith("image")) {
+            throw new Exception("You can only upload images");
+        }
+
+        // not sure if this is the correct directory
+        File photoFile = File.createTempFile("image", photo.getOriginalFilename(), new File("public"));
+        FileOutputStream fos = new FileOutputStream(photoFile);
+        fos.write(photo.getBytes());
+
+        FileUpload newPhoto = new FileUpload(photo.getOriginalFilename());
+
+        if (client != null) {
+            newPhoto.setFileName(client.getEmail() + " " + "profile image");
+            newPhoto.setClient(client);
+        } else if (provider != null) {
+            newPhoto.setFileName(provider.getEmail() + " " + "profile image");
+            newPhoto.setProvider(provider);
+        }
+
+        fileUploadRepository.save(newPhoto);
     }
 }

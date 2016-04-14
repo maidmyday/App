@@ -7,6 +7,24 @@ angular
   function ClientController($scope,$rootScope,$location,$uibModal,$log,ClientService) {
     var vm = this;
 
+    vm.animationsEnabled = true;
+
+    // THIS OPENS JOB POST FORM MODAL
+      vm.openJobModal = function (size) {
+
+        var modalInstance = $uibModal.open({
+          animation: vm.animationsEnabled,
+          templateUrl: 'chome/tmpls/jobMainModal.html',
+          controller: 'JobInstanceCtrl as JobCtrl',
+          size: size,
+          resolve: {
+            items: function () {
+              return vm.items;
+            }
+          }
+        });
+      };
+
     //logout button
     vm.logout = function(){
       console.log('data inside logout function',window.localStorage);
@@ -17,19 +35,58 @@ angular
       })
     }
 
-    //getting data from the login and register
-    ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id).then(function(data){
-      console.log('client data from chome controller',data);
-      console.log('testing theclient from chome controller',window.localStorage.getItem('theclient'));
-      // vm.client = data;
-      vm.clientData =  JSON.parse(window.localStorage.getItem('theclient'));
-      console.log('vm client from chome controller',vm.clientData);
-    })
+    //to load the page after changes
+    vm.loadPage = function(){
+      //getting data from the login and register
+      ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
+      .then(function(data){
+        console.log('client data from chome controller',data);
+        vm.clientData =  data.data  ;
+        console.log('vm client from chome controller',vm.clientData);
+      })
+    }
+    vm.loadPage();
+
+    //PHOTO UPLOAD
+    vm.uploadFile = function(){
+        var file = vm.myFile;
+        console.log('photo file is ',file );
+        console.dir(file);
+        var uploadUrl = "/fileUpload";
+        ClientService.uploadFileToUrl(file, uploadUrl);
+    };
+
+    //photo forms ng show
+    vm.savePhotoUrl = true;
+    vm.uploadPhotoFile = false;
+
+    vm.showUploadForm = function(){
+      vm.savePhotoUrl = !vm.savePhotoUrl;
+      vm.uploadPhotoFile = !vm.uploadPhotoFile;
+    }
+
+    vm.showSaveForm = function(){
+      vm.savePhotoUrl = !vm.savePhotoUrl;
+      vm.uploadPhotoFile = !vm.uploadPhotoFile;
+    }
 
     //edit profile content
     vm.editInfo = false;
+
     vm.editBtn = function(){
       vm.editInfo = !vm.editInfo;
+    }
+
+    vm.master = {};
+    vm.saveEdit = function(user){
+      // vm.master = angular.copy(user);
+      console.log('should be new profile info obj',user);
+      ClientService.editClient(user).then(function(data){
+        vm.edittedData =  data.data;
+        console.log('client after edit',vm.edittedData);
+      });
+      vm.editInfo = !vm.editInfo;
+      vm.loadPage();
     }
 
     //delete client account

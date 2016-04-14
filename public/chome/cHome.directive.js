@@ -1,17 +1,11 @@
 angular
   .module('cHome')
-  .directive('cliHomeDir', function () {
+  .directive('cliHomeDir', ['$parse',function ($parse) {
     return {
-      restrict: 'E',
+      restrict: 'EA',
       templateUrl: 'chome/tmpls/profileTmpl.html',
       scope: {
         theClientData: '='
-      },
-      link: function (scope, elem, attrs, transclude) {
-       // dom stuff here
-       elem.on('click', function (e) {
-         elem.css('background-color', 'red');
-       })
       }
     }
-  });
+}]);

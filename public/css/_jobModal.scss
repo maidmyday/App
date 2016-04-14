@@ -1,0 +1,44 @@
+div.jobModal{
+  div.modal-header{
+    text-align: center;
+    border: none;
+  }
+  div.modal-body{
+    border: none;
+    p{
+      display: inline-block;
+    }
+    table{
+      width: 100%;
+      tr.jobChecks{
+        vertical-align: text-top;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        p{
+          margin-left: 10px;
+        }
+      }
+      tr.instruction, tr.location{
+        div.instruction, div.location{
+          display: flex;
+          justify-content: space-around;
+          input[name='jobLocation']{
+            width: 70%;
+          }
+          textarea[name='instruction']{
+            width: 70%;
+          }
+        }
+      }
+    }
+  }
+  div.modal-footer{
+    border: none;
+    display: block;
+    div.jobFormBtns{
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

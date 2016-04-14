@@ -8,3 +8,5 @@ Workflow Doc: https://drive.google.com/file/d/0BxZEapDguHKkc2VQakJRWHRXT2c/view?
 
 
 localhost8020  jdb:ch2:./main  sa
+
+rm -rf main.mv.db

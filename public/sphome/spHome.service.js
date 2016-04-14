@@ -19,6 +19,11 @@ angular
       return $http.get(spurl + '/' + id);
     }
 
+    //editing provider profile
+    function editProvider(user) {
+      return $http.put(spurl, user);
+    }
+
     function getAllProviders(){
       return $http.get(allProviders);
     }
@@ -49,6 +54,7 @@ angular
     ]
 
     return {
+      editProvider: editProvider,
       logoutNow: logoutNow,
       getAllProviders: getAllProviders,
       getProvider: getProvider,

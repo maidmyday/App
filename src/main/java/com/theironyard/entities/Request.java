@@ -66,12 +66,12 @@ public class Request {
         this.requestDateTime = requestDateTime;
     }
 
-    public boolean isDone() {
+    public boolean getIsDone() {
         return isDone;
     }
 
-    public void setDone(boolean done) {
-        isDone = done;
+    public void setIsDone(boolean done) {
+        this.isDone = done;
     }
 
     public Client getClient() {
