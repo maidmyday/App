@@ -185,6 +185,7 @@ angular
     var allClients = '/clients';
     var logouturl = '/logout';
     var uploadUrl = '/fileUpload';
+    var getPhoto = '/photo';
 
     function deleteClient(){
       return $http.delete(clienturl);
@@ -214,6 +215,7 @@ angular
         })
         .success(function(){
           console.log('Holy Moly it worked!');
+          $http.get(getPhoto);
         })
         .error(function(){
           console.log('Nah the picture didnt go!');

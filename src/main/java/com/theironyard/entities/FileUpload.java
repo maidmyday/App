@@ -23,6 +23,8 @@ public class FileUpload {
     @OneToOne
     private Client client;
 
+    public FileUpload() {
+    }
 
     public FileUpload(String originalFileName) {
         this.originalFileName = originalFileName;
