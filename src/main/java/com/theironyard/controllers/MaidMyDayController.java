@@ -266,18 +266,20 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider/{id}/isOnline", method = RequestMethod.PUT)
-    public Provider toggleIsOnline(@PathVariable ("id") int id, @RequestBody HashMap taskMap) {
+    public Provider toggleIsOnline(@PathVariable ("id") int id, @RequestBody HashMap map) {
+        boolean isOnline = (boolean) map.get("isOnline");
+
         Provider provider = providerRepository.findOne(id);
-        provider.setIsOnline(!provider.getIsOnline());
+        provider.setIsOnline(isOnline);
         providerRepository.save(provider);
 
+        HashMap taskMap = (HashMap) map.get("tasks");
+
         taskRepository.deleteByProvider(provider);
-        if (taskMap != null) {
-            Set<String> tasks = taskMap.keySet();
-            for(String taskName : tasks) {
-                Task task = new Task(taskName, provider, null);
-                taskRepository.save(task);
-            }
+        Set<String> tasks = taskMap.keySet();
+        for(String taskName : tasks) {
+            Task task = new Task(taskName, provider, null);
+            taskRepository.save(task);
         }
 
         return providerRepository.findOne(id);
