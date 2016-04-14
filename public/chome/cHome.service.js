@@ -5,7 +5,7 @@ angular
     var clienturl = '/client';
     var allClients = '/clients';
     var logouturl = '/logout';
-    // var uploadUrl = '/fileUpload';
+    var uploadUrl = '/fileUpload';
 
     function deleteClient(){
       return $http.delete(clienturl);
@@ -23,9 +23,9 @@ angular
       return $http.put(clienturl, user);
     }
 
-    this.uploadFileToUrl = function(file, uploadUrl){
+    function uploadFileToUrl(file, uploadUrl){
         var fd = new FormData();
-        fd.append('file', file);
+        fd.append('photo', file);
         $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
@@ -63,6 +63,7 @@ angular
    ]
 
     return {
+      uploadFileToUrl: uploadFileToUrl,
       editClient: editClient,
       deleteClient: deleteClient,
       logoutNow: logoutNow,
