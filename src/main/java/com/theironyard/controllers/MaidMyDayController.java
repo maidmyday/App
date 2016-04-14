@@ -424,7 +424,7 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/photo", method = RequestMethod.GET)
-    public FileUpload getPhoto(@RequestBody FileUpload photo, HttpSession session) throws Exception {
+    public Object getPhoto(HttpSession session) throws Exception {
 
         String email = (String) session.getAttribute("email");
 
@@ -433,9 +433,9 @@ public class MaidMyDayController {
 
 
         if (client != null) {
-            return photo;
+            return client;
         } else if (provider != null) {
-            return photo;
+            return provider;
         } else {
             throw new Exception("You backenders suck at life!!! We didn't receive a photo!!");
         }
