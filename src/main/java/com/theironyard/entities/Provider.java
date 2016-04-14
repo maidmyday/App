@@ -152,7 +152,15 @@ public class Provider {
         isOnline = online;
     }
 
-//    public String getUrl() {
+    public FileUpload getFileUpload() {
+        return fileUpload;
+    }
+
+    public void setFileUpload(FileUpload fileUpload) {
+        this.fileUpload = fileUpload;
+    }
+
+    //    public String getUrl() {
 //        return photoUrl;
 //    }
 //
