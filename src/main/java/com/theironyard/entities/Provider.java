@@ -26,8 +26,8 @@ public class Provider {
     @Column(nullable = false)
     private String phoneNumber;
 
-    @Column(nullable = false)
-    private String photoUrl;
+//    @Column(nullable = false)
+//    private String photoUrl;
 
     @Column(nullable = false)
     private boolean isOnline;
@@ -51,7 +51,7 @@ public class Provider {
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.photoUrl = photoUrl;
+//        this.photoUrl = photoUrl;
     }
 
     public Provider(String firstName, String lastName, String password, String email, String phoneNumber, boolean isOnline, String about, String specialties, List<Task> tasks) {
@@ -148,11 +148,11 @@ public class Provider {
         isOnline = online;
     }
 
-    public String getUrl() {
-        return photoUrl;
-    }
-
-    public void setUrl(String url) {
-        this.photoUrl = photoUrl;
-    }
+//    public String getUrl() {
+//        return photoUrl;
+//    }
+//
+//    public void setUrl(String url) {
+//        this.photoUrl = photoUrl;
+//    }
 }

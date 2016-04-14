@@ -102,8 +102,9 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/client", method = RequestMethod.POST)
-    public Client createClient(@RequestBody Client client) throws PasswordStorage.CannotPerformOperationException {
+    public Client createClient(@RequestBody Client client, HttpSession session) throws PasswordStorage.CannotPerformOperationException {
         client.setPassword(PasswordStorage.createHash(client.getPassword()));
+        session.setAttribute("email", client.getEmail());
         clientRepository.save(client);
         return client;
     }
@@ -190,8 +191,9 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.POST)
-    public Provider createProvider(@RequestBody Provider provider) throws PasswordStorage.CannotPerformOperationException {
+    public Provider createProvider(@RequestBody Provider provider, HttpSession session) throws PasswordStorage.CannotPerformOperationException {
         provider.setPassword(PasswordStorage.createHash(provider.getPassword()));
+        session.setAttribute("email", provider.getEmail());
         providerRepository.save(provider);
         return provider;
     }
@@ -303,8 +305,8 @@ public class MaidMyDayController {
         return clientNotifications;
     }
 
-    @RequestMapping(path = "/notification", method = RequestMethod.DELETE)
-    public Notification deleteNotification() {
+    @RequestMapping(path = "/notification/{id}", method = RequestMethod.DELETE)
+    public Notification deleteNotification(@PathVariable ("id") int id) {
         return null;
     }
 
