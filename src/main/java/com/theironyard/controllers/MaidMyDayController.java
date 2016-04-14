@@ -106,10 +106,16 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/client", method = RequestMethod.POST)
-    public Client createClient(@RequestBody Client client, HttpSession session) throws PasswordStorage.CannotPerformOperationException {
-        client.setPassword(PasswordStorage.createHash(client.getPassword()));
-        session.setAttribute("email", client.getEmail());
-        clientRepository.save(client);
+    public Client createClient(@RequestBody Client client, HttpSession session) throws Exception {
+        Client client1 = clientRepository.findByEmail((String) session.getAttribute("email"));
+        if (client1 != null) {
+            throw new Exception("Account with this email already exists");
+        }
+        else {
+            client.setPassword(PasswordStorage.createHash(client.getPassword()));
+            session.setAttribute("email", client.getEmail());
+            clientRepository.save(client);
+        }
         return client;
     }
 
@@ -195,10 +201,16 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.POST)
-    public Provider createProvider(@RequestBody Provider provider, HttpSession session) throws PasswordStorage.CannotPerformOperationException {
-        provider.setPassword(PasswordStorage.createHash(provider.getPassword()));
-        session.setAttribute("email", provider.getEmail());
-        providerRepository.save(provider);
+    public Provider createProvider(@RequestBody Provider provider, HttpSession session) throws Exception {
+        Provider provider1 = providerRepository.findByEmail((String) session.getAttribute("email"));
+        if (provider1 != null) {
+            throw new Exception("Account with this email already exists");
+        }
+        else {
+            provider.setPassword(PasswordStorage.createHash(provider.getPassword()));
+            session.setAttribute("email", provider.getEmail());
+            providerRepository.save(provider);
+        }
         return provider;
     }
 
