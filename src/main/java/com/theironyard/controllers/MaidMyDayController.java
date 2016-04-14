@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -67,7 +68,7 @@ public class MaidMyDayController {
         dbui = Server.createWebServer().start();
 
         if (clientRepository.count() == 0) {
-            Client client1 = new Client("Kevin", "Bacon", "123", "kbacon@sizzling.com", "843-123-4567");
+            Client client1 = new Client("Kevin", "Bacon", "123", "cbacon@sizzling.com", "843-123-4567");
             clientRepository.save(client1);
         }
         if (clientRepository.count() == 1) {
@@ -79,7 +80,7 @@ public class MaidMyDayController {
             providerRepository.save(provider1);
         }
         if (providerRepository.count() == 1) {
-            Provider provider2 = new Provider("Zach", "Owens", "456", "carolineevail@gmail.com", "334-669-5482");
+            Provider provider2 = new Provider("Zach", "Owens", "456", "karolineevail@gmail.com", "334-669-5482");
             providerRepository.save(provider2);
         }
     }
@@ -107,17 +108,19 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/client", method = RequestMethod.POST)
-    public Client createClient(@RequestBody Client client, HttpSession session) throws Exception {
-        Client client1 = clientRepository.findByEmail((String) session.getAttribute("email"));
+    public Client createClient(@RequestBody Client client, HttpSession session, HttpServletResponse response) throws Exception {
+
+        Client client1 = clientRepository.findByEmail(client.getEmail());
         if (client1 != null) {
-            throw new Exception("Account with this email already exists");
+            response.sendError(403, "Account with this email already exists");
         }
         else {
-            client.setPassword(PasswordStorage.createHash(client.getPassword()));
-            session.setAttribute("email", client.getEmail());
-            clientRepository.save(client);
+            client1 = new Client(client.getFirstName(), client.getLastName(), PasswordStorage.createHash(client.getPassword()),
+                    client.getEmail(), client.getPhoneNumber());
+            session.setAttribute("email", client1.getEmail());
+            clientRepository.save(client1);
         }
-        return client;
+        return client1;
     }
 
     // returns a single client
@@ -202,17 +205,18 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.POST)
-    public Provider createProvider(@RequestBody Provider provider, HttpSession session) throws Exception {
-        Provider provider1 = providerRepository.findByEmail((String) session.getAttribute("email"));
+    public Provider createProvider(@RequestBody Provider provider, HttpSession session, HttpServletResponse response) throws Exception {
+        Provider provider1 = providerRepository.findByEmail(provider.getEmail());
         if (provider1 != null) {
-            throw new Exception("Account with this email already exists");
+            response.sendError(403, "Account with this email already exists");
         }
         else {
-            provider.setPassword(PasswordStorage.createHash(provider.getPassword()));
-            session.setAttribute("email", provider.getEmail());
-            providerRepository.save(provider);
+            provider1 = new Provider(provider.getFirstName(), provider.getLastName(), PasswordStorage.createHash(provider.getPassword()),
+                    provider.getEmail(), provider.getPhoneNumber());
+            session.setAttribute("email", provider1.getEmail());
+            providerRepository.save(provider1);
         }
-        return provider;
+        return provider1;
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.GET)
@@ -396,10 +400,9 @@ public class MaidMyDayController {
         }
 
 
-        //File oldOnDisk = new File("public/files/" + old.getFileName());
-
-        // not sure if this is the correct directory
-        File photoFile = File.createTempFile("image", photo.getOriginalFilename(), new File("public/photoUploads"));
+        File dir = new File("public/photoUploads");
+        dir.mkdirs();
+        File photoFile = File.createTempFile("image", photo.getOriginalFilename(), dir);
         FileOutputStream fos = new FileOutputStream(photoFile);
         fos.write(photo.getBytes());
 
@@ -409,11 +412,28 @@ public class MaidMyDayController {
 
         if (client != null) {
             newPhoto.setClient(client);
-        }
-        if (provider != null) {
+        } else if (provider != null) {
             newPhoto.setProvider(provider);
         }
 
         fileUploadRepository.save(newPhoto);
+    }
+
+    @RequestMapping(path = "/photo", method = RequestMethod.GET)
+    public FileUpload getPhoto(@RequestBody FileUpload photo, HttpSession session) throws Exception {
+
+        String email = (String) session.getAttribute("email");
+
+        Client client = clientRepository.findByEmail(email);
+        Provider provider = providerRepository.findByEmail(email);
+
+
+        if (client != null) {
+            return photo;
+        } else if (provider != null) {
+            return photo;
+        } else {
+            throw new Exception("You backenders suck at life!!! We didn't receive a photo!!");
+        }
     }
 }
