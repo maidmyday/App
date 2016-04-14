@@ -5,6 +5,7 @@ import com.theironyard.services.*;
 import com.theironyard.utils.Constants;
 import com.theironyard.utils.ObjectUpdateUtils;
 import com.theironyard.utils.PasswordStorage;
+import org.h2.engine.Session;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -349,7 +350,7 @@ public class MaidMyDayController {
     ////// Need to figure out how to ONLY allow jpeg, png, etc... only photos. No mp4, mp3, mov, etc...
     ////// We did this in class
     //////
-    ////// Also need to set a max file size limit
+    ////// Also need to set a max file size limit // I've put this in application.properties
     ////// We've also done this in class, but it might be accomplished on the frontend
     //////
 
@@ -361,25 +362,31 @@ public class MaidMyDayController {
     @RequestMapping(path = "/fileUpload", method = RequestMethod.POST)
     public void upload(MultipartFile photo, HttpSession session) throws Exception {
 
-        Client client = clientRepository.findByEmail((String) session.getAttribute("email"));
-        Provider provider = providerRepository.findByEmail((String) session.getAttribute("email"));
+        String email = (String) session.getAttribute("email");
+
+
+        Client client = clientRepository.findByEmail(email);
+        Provider provider = providerRepository.findByEmail(email);
 
         if (!photo.getContentType().startsWith("image")) {
             throw new Exception("You can only upload images");
         }
 
+
+        //File oldOnDisk = new File("public/files/" + old.getFileName());
+
         // not sure if this is the correct directory
-        File photoFile = File.createTempFile("image", photo.getOriginalFilename(), new File("public"));
+        File photoFile = File.createTempFile("image", photo.getOriginalFilename(), new File("public/photoUploads"));
         FileOutputStream fos = new FileOutputStream(photoFile);
         fos.write(photo.getBytes());
 
         FileUpload newPhoto = new FileUpload(photo.getOriginalFilename());
 
+        newPhoto.setFileName(photoFile.getName());
+
         if (client != null) {
-            newPhoto.setFileName(client.getEmail() + " " + "profile image");
             newPhoto.setClient(client);
         } else if (provider != null) {
-            newPhoto.setFileName(provider.getEmail() + " " + "profile image");
             newPhoto.setProvider(provider);
         }
 
