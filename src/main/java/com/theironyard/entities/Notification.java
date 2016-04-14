@@ -18,12 +18,21 @@ public class Notification {
     @Column(nullable = false)
     private LocalDateTime notificationDateTime;
 
+    @ManyToOne
+    private Client client;
+
     public Notification() {
     }
 
     public Notification(String notificationText, LocalDateTime notificationDateTime) {
         this.notificationText = notificationText;
         this.notificationDateTime = notificationDateTime;
+    }
+
+    public Notification(String notificationText, LocalDateTime notificationDateTime, Client client) {
+        this.notificationText = notificationText;
+        this.notificationDateTime = notificationDateTime;
+        this.client = client;
     }
 
     public String getNotificationText() {
@@ -40,5 +49,13 @@ public class Notification {
 
     public void setNotificationDateTime(LocalDateTime notificationDateTime) {
         this.notificationDateTime = notificationDateTime;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 }
