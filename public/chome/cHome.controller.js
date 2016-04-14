@@ -47,14 +47,28 @@ angular
     }
     vm.loadPage();
 
-    //add a photo maybe
+    //PHOTO UPLOAD
     vm.uploadFile = function(){
         var file = vm.myFile;
-        console.log('photo file is ' );
+        console.log('photo file is ',file );
         console.dir(file);
         var uploadUrl = "/fileUpload";
         ClientService.uploadFileToUrl(file, uploadUrl);
     };
+
+    //photo forms ng show
+    vm.savePhotoUrl = true;
+    vm.uploadPhotoFile = false;
+
+    vm.showUploadForm = function(){
+      vm.savePhotoUrl = !vm.savePhotoUrl;
+      vm.uploadPhotoFile = !vm.uploadPhotoFile;
+    }
+
+    vm.showSaveForm = function(){
+      vm.savePhotoUrl = !vm.savePhotoUrl;
+      vm.uploadPhotoFile = !vm.uploadPhotoFile;
+    }
 
     //edit profile content
     vm.editInfo = false;
