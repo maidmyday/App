@@ -1,25 +1,64 @@
 angular
 .module('goOnline')
-.controller('GoOnlineModalInstanceCtrl', function ($rootScope,$scope, $location, $uibModalInstance) {
+.controller('GoOnlineModalInstanceCtrl', function ($rootScope,$scope, $location, $uibModalInstance, GoOnlineService,$window) {
 
-  $rootScope.showThing = false;
+// THIS CHANGES USER FROM ONLINE TO OFFLINE ON UI
+  $rootScope.changeOnline = false;
 
-  $scope.go = function () {
-    // $('#onlinesection').append( '<p>' + 'you are online' + '</p>');
-    $rootScope.showThing = true;
-    $uibModalInstance.dismiss('cancel');
+
+// THIS CHANGES THE BOOLEAN OF IS_ONLINE TO TRUE
+  $scope.goOn = function (post) {
+console.log(post);
+    var online = {isOnline: true};
+
+
+    var userId = JSON.parse($window.localStorage.getItem('theprovider')).id
+    GoOnlineService.putProviderOnline(online,userId)
+    .success(function(dataObj) {
+        console.log("SUCCESS", dataObj);
+        $rootScope.changeOnline = true;
+        $uibModalInstance.dismiss();
+    })
+    .error(function(err) {
+      console.log("ERROR", err)
+    })
   };
 
-  $scope.goOffline = function () {
-    $rootScope.showThing = false;
-    // $('#onlinesection').append( '<p>' + 'you are offline' + '</p>');
 
-    console.log("IVE BEEN CLCIEKD");
-    $uibModalInstance.dismiss('cancel');
+// THIS CHANGES THE BOOLEAN OF IS_ONLINE TO false
+  $scope.goOff = function () {
+    var offline = {isOnline: false};
+    var userId = JSON.parse($window.localStorage.getItem('theprovider')).id
+    console.log(userId);
+    GoOnlineService.putProviderOffline(offline,userId)
+    .success(function(dataObj) {
+      console.log("SUCCESS", dataObj)
+        $rootScope.changeOnline = false;
+        $uibModalInstance.dismiss();
+    })
+    .error(function(err) {
+      console.log("ERROR", err)
+    })
   };
 
 
 
+// THESE ARE THE RATING STARS THE ALEX GOT FROM SOMEWHERE
+  $scope.rate = 0;
+  $scope.max = 5;
+  $scope.isReadonly = false;
 
+  $scope.hoveringOver = function(value) {
+    $scope.overStar = value;
+    $scope.percent = 100 * (value / $scope.max);
+  };
+
+  $scope.ratingStates = [
+    {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
+    {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
+    {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
+    {stateOn: 'glyphicon-heart'},
+    {stateOff: 'glyphicon-off'}
+  ];
 
 });

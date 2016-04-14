@@ -1,8 +1,4 @@
-
-
 angular
   .module('goOnline',[
     'ngRoute'
-
-
   ]);
