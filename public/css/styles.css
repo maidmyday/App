@@ -7,7 +7,7 @@
   align-self: flex-end; }
 
 .backgroundImg {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("https://images.unsplash.com/photo-1422479763403-3aa672b25e0e?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=2734d2e20c48290d634e466abc7932b4");
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url(https://images.unsplash.com/photo-1422479763403-3aa672b25e0e?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=2734d2e20c48290d634e466abc7932b4);
   background-repeat: no-repeat;
   background-size: 100%;
   min-height: 900px;
@@ -15,7 +15,7 @@
   background-position-y: 400%; }
 
 .btn.btn-transparent {
-  font-family: 'Sue Ellen Francisco', cursive;
+  font-family: 'Sue Ellen Francisco',cursive;
   color: #767B91;
   background-color: transparent;
   border-color: #f0ad4e;
@@ -27,19 +27,13 @@
     border-color: transparent;
     color: #C7CCDB; }
 
-#back {
-  background-color: white;
-  color: blue;
-  border-color: white;
-  width: 0%; }
-
 input.ng-invalid {
   border-color: red; }
 
 div.modal-content {
   border-color: #C7CCDB;
   border-width: 10px;
-  font-family: 'Sue Ellen Francisco', cursive; }
+  font-family: 'Sue Ellen Francisco',cursive; }
 
 input.form-control {
   margin-bottom: 2%; }
@@ -49,47 +43,46 @@ input.form-control {
   left: 479px;
   top: 141px;
   color: #767B91;
-  background-color: white;
+  background-color: #fff;
   border-color: #767B91;
   border-width: 3px; }
   #create:hover {
     background-color: #767B91;
-    color: #FFFFFF; }
+    color: #FFF; }
 
 #backBtn {
-  font-family: 'Sue Ellen Francisco', cursive;
+  font-family: 'Sue Ellen Francisco',cursive;
   color: #767B91;
-  /* background-color: #337ab7; */
   border-color: #767B91;
-  background-color: white;
+  background-color: #fff;
   border-width: 3px; }
   #backBtn .glyphicon-chevron-left {
     color: #767B91; }
   #backBtn:hover {
     background-color: #767B91; }
     #backBtn:hover .glyphicon-chevron-left {
-      color: #FFFFFF; }
+      color: #FFF; }
 
 #signin {
-  font-family: 'Sue Ellen Francisco', cursive;
+  font-family: 'Sue Ellen Francisco',cursive;
   position: absolute;
   left: 497px;
   color: #767B91;
-  background-color: white;
+  background-color: #fff;
   border-color: #767B91;
   border-width: 3px; }
   #signin:hover {
     background-color: #767B91;
-    color: #FFFFFF; }
+    color: #FFF; }
 
 #login {
   color: #767B91;
-  background-color: white;
+  background-color: #fff;
   border-color: #767B91;
   border-width: 3px; }
   #login:hover {
     background-color: #767B91;
-    color: #FFFFFF; }
+    color: #FFF; }
 
 .red {
   color: red; }
@@ -235,6 +228,29 @@ nav.home {
   nav.home a {
     color: #ffffff; }
 
+<<<<<<< HEAD
+#online {
+  background-color: green; }
+
+#offline {
+  background-color: red; }
+
+.dot {
+  box-sizing: border-box;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: .125rem;
+  display: inline-block; }
+
+.red {
+  background: #e63946;
+  box-shadow: inset 0px 0px 10px 2px #e63946, 0px 0px 10px 2px #e63946; }
+
+.green {
+  background: #32936f;
+  box-shadow: inset 0px 0px 10px 2px #32936f, 0px 0px 10px 2px #32936f; }
+=======
 div.jobModal div.modal-header {
   text-align: center;
   border: none; }
@@ -266,3 +282,4 @@ div.jobModal div.modal-footer {
   div.jobModal div.modal-footer div.jobFormBtns {
     display: flex;
     justify-content: space-between; }
+>>>>>>> 22ace69979b2e005de123623421ee42d00e8914f

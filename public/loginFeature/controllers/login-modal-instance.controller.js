@@ -4,6 +4,7 @@ angular
 
 // SWITCHES THE SECTIONS OF THE MODAL
 
+
 $scope.showModalSection = 'login';
 
   $scope.showRegisterSection = function () {
@@ -16,6 +17,8 @@ $scope.showModalSection = 'login';
 
 
 // SIGNS IN CLIENT AND PROVIDER FROM REGISTER BUTTON
+
+
 
   $scope.registerClientPath = function (client) {
     LoginService.postClient(client)
@@ -49,6 +52,9 @@ $scope.showModalSection = 'login';
 
 // SIGNS IN CLIENT AND PROVIDER FROM LOGIN BUTTON
 
+
+
+
   $scope.loginSpPath = function (provider) {
     LoginService.providerLogin(provider)
     .success(function(data) {
@@ -76,4 +82,6 @@ $scope.showModalSection = 'login';
       $scope.errorMsg = err
     })
   };
+
+
 });
