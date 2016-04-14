@@ -1,5 +1,7 @@
 package com.theironyard.entities;//Created by KevinBozic on 4/13/16.
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,9 +20,11 @@ public class FileUpload {
     private String originalFileName;
 
     @OneToOne
+    @JsonIgnore
     private Provider provider;
 
     @OneToOne
+    @JsonIgnore
     private Client client;
 
     public FileUpload() {
