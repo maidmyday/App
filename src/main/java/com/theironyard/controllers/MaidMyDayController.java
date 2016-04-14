@@ -23,6 +23,7 @@ import java.util.List;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -242,11 +243,6 @@ public class MaidMyDayController {
         return updatedProvider;
     }
 
-    @RequestMapping(path = "/provider/task", method = RequestMethod.PUT)
-    public void providerSelectTasks(@RequestBody Provider provider) {
-        providerRepository.save(provider);
-    }
-
     @RequestMapping(path = "/provider/request", method = RequestMethod.GET)
     public List<Request> providerServiceHistory(HttpSession session) {
         String providerEmail = (String) session.getAttribute("email");
@@ -270,11 +266,21 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider/{id}/isOnline", method = RequestMethod.PUT)
-    public Provider toggleIsOnline(@PathVariable ("id") int id) {
+    public Provider toggleIsOnline(@PathVariable ("id") int id, @RequestBody HashMap taskMap) {
         Provider provider = providerRepository.findOne(id);
         provider.setIsOnline(!provider.getIsOnline());
         providerRepository.save(provider);
-        return provider;
+
+        taskRepository.deleteByProvider(provider);
+        if (taskMap != null) {
+            Set<String> tasks = taskMap.keySet();
+            for(String taskName : tasks) {
+                Task task = new Task(taskName, provider, null);
+                taskRepository.save(task);
+            }
+        }
+
+        return providerRepository.findOne(id);
     }
 
 
