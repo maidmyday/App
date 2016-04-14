@@ -15,14 +15,17 @@ angular
       return $http.post(logouturl);
     }
 
+    //registering a client account
     function getClient(id) {
       return $http.get(clienturl + '/' + id)
     }
 
+    //editing the client profile
     function editClient(user) {
       return $http.put(clienturl, user);
     }
 
+    //uploading a photo to database
     function uploadFileToUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);

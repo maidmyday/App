@@ -35,7 +35,7 @@ angular
       })
   })
 
-},{"./chome":7,"./goOnline":12,"./loginFeature":15,"./sphome":26,"angular":25,"angular-route":19,"angular-ui-bootstrap":21,"angular-validation-match":23}],2:[function(require,module,exports){
+},{"./chome":7,"./goOnline":12,"./loginFeature":15,"./sphome":27,"angular":25,"angular-route":19,"angular-ui-bootstrap":21,"angular-validation-match":23}],2:[function(require,module,exports){
 angular
   .module('cHome')
   .controller('ClientController', ClientController);
@@ -208,14 +208,17 @@ angular
       return $http.post(logouturl);
     }
 
+    //registering a client account
     function getClient(id) {
       return $http.get(clienturl + '/' + id)
     }
 
+    //editing the client profile
     function editClient(user) {
       return $http.put(clienturl, user);
     }
 
+    //uploading a photo to database
     function uploadFileToUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);
@@ -273,15 +276,15 @@ angular
       restrict: 'A',
       link: function(scope, element, attrs) {
             var model = $parse(attrs.fileModel);
-            window.glob = model;
-            window.glob2 = attrs.fileModel;
+            // window.glob = model;
+            // window.glob2 = attrs.fileModel;
             var modelSetter = model.assign;
-            console.log("THIS IS MODEL", model)
-            console.log("THIS IS MODELSETTER", modelSetter)
+            // console.log("THIS IS MODEL", model)
+            // console.log("THIS IS MODELSETTER", modelSetter)
 
             element.bind('change', function(){
                 scope.$apply(function(){
-                    console.log("THIS IS ELEMENT", element);
+                    // console.log("THIS IS ELEMENT", element);
                     modelSetter(scope, element[0].files[0]);
                 });
             });
@@ -329,7 +332,7 @@ angular
 // THIS CHANGES THE BOOLEAN OF IS_ONLINE TO TRUE
   $scope.goOn = function (post) {
 console.log(post);
-    var online = {isOnline: true};
+    var online = {isOnline: true, tasks:post};
 
 
     var userId = JSON.parse($window.localStorage.getItem('theprovider')).id
@@ -39746,12 +39749,37 @@ require('./angular');
 module.exports = angular;
 
 },{"./angular":24}],26:[function(require,module,exports){
+angular
+  .module('spHome')
+  .directive('fileModel', ['$parse',function ($parse) {
+    return {
+      restrict: 'A',
+      link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            // window.glob = model;
+            // window.glob2 = attrs.fileModel;
+            var modelSetter = model.assign;
+            // console.log("THIS IS MODEL", model)
+            // console.log("THIS IS MODELSETTER", modelSetter)
+
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    // console.log("THIS IS ELEMENT", element);
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+      }
+    }
+}]);
+
+},{}],27:[function(require,module,exports){
 require('./spHome.module');
 require('./spHome.controller');
 require('./spHome.service');
 require('./spHome.directive');
+require('./fileUpload.directive')
 
-},{"./spHome.controller":27,"./spHome.directive":28,"./spHome.module":29,"./spHome.service":30}],27:[function(require,module,exports){
+},{"./fileUpload.directive":26,"./spHome.controller":28,"./spHome.directive":29,"./spHome.module":30,"./spHome.service":31}],28:[function(require,module,exports){
 angular
   .module('spHome')
   .controller('SpController',SpController)
@@ -39782,6 +39810,29 @@ angular
       })
     }
     vm.loadPage();
+
+    //PHOTO UPLOAD
+    vm.uploadFile = function(){
+        var file = vm.myFile;
+        console.log('photo file is ',file );
+        console.dir(file);
+        var uploadUrl = "/fileUpload";
+        SpService.uploadFileToUrl(file, uploadUrl);
+    };
+
+    //photo forms ng show
+    vm.savePhotoUrl = true;
+    vm.uploadPhotoFile = false;
+
+    vm.showUploadForm = function(){
+      vm.savePhotoUrl = !vm.savePhotoUrl;
+      vm.uploadPhotoFile = !vm.uploadPhotoFile;
+    }
+
+    vm.showSaveForm = function(){
+      vm.savePhotoUrl = !vm.savePhotoUrl;
+      vm.uploadPhotoFile = !vm.uploadPhotoFile;
+    }
 
     //go online: change a boolean and show change in dom
     vm.inactive = true;
@@ -39918,7 +39969,7 @@ angular
 
   }
 
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 angular
   .module('spHome')
   .directive('spHomeDir', function () {
@@ -39939,7 +39990,7 @@ angular
 
   // <sp-home-dir mydata="angularObject"></sp-home-dir>
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
@@ -39959,7 +40010,7 @@ angular
     })
   })
 
-},{"angular":25,"angular-route":19,"angular-ui-bootstrap":21}],30:[function(require,module,exports){
+},{"angular":25,"angular-route":19,"angular-ui-bootstrap":21}],31:[function(require,module,exports){
 angular
   .module('spHome')
   .service('SpService',function($http, $q, $cacheFactory) {
@@ -39990,6 +40041,22 @@ angular
       return $http.get(allProviders);
     }
 
+    //uploading a photo to database
+    function uploadFileToUrl(file, uploadUrl){
+        var fd = new FormData();
+        fd.append('photo', file);
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        })
+        .success(function(){
+          console.log('Holy Moly it worked!');
+        })
+        .error(function(){
+          console.log('Nah the picture didnt go!');
+        });
+    }
+
     //temp data for history
     var historyData = [
       {
@@ -40016,6 +40083,7 @@ angular
     ]
 
     return {
+      uploadFileToUrl: uploadFileToUrl,
       editProvider: editProvider,
       logoutNow: logoutNow,
       getAllProviders: getAllProviders,

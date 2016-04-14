@@ -5,6 +5,7 @@ import com.theironyard.services.*;
 import com.theironyard.utils.Constants;
 import com.theironyard.utils.ObjectUpdateUtils;
 import com.theironyard.utils.PasswordStorage;
+import org.h2.engine.Session;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +16,15 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,9 +107,16 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/client", method = RequestMethod.POST)
-    public Client createClient(@RequestBody Client client) throws PasswordStorage.CannotPerformOperationException {
-        client.setPassword(PasswordStorage.createHash(client.getPassword()));
-        clientRepository.save(client);
+    public Client createClient(@RequestBody Client client, HttpSession session) throws Exception {
+        Client client1 = clientRepository.findByEmail((String) session.getAttribute("email"));
+        if (client1 != null) {
+            throw new Exception("Account with this email already exists");
+        }
+        else {
+            client.setPassword(PasswordStorage.createHash(client.getPassword()));
+            session.setAttribute("email", client.getEmail());
+            clientRepository.save(client);
+        }
         return client;
     }
 
@@ -190,22 +202,28 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.POST)
-    public Provider createProvider(@RequestBody Provider provider) throws PasswordStorage.CannotPerformOperationException {
-        provider.setPassword(PasswordStorage.createHash(provider.getPassword()));
-        providerRepository.save(provider);
+    public Provider createProvider(@RequestBody Provider provider, HttpSession session) throws Exception {
+        Provider provider1 = providerRepository.findByEmail((String) session.getAttribute("email"));
+        if (provider1 != null) {
+            throw new Exception("Account with this email already exists");
+        }
+        else {
+            provider.setPassword(PasswordStorage.createHash(provider.getPassword()));
+            session.setAttribute("email", provider.getEmail());
+            providerRepository.save(provider);
+        }
         return provider;
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.GET)
-    public List<Provider> findMatchingProviders(@RequestBody List<Task> clientRequestedTasks) {
+    public List<Provider> findMatchingProviders(@RequestBody HashMap clientTasks) {
+        List<Task> clientRequestedTasks = (List<Task>) clientTasks.get("tasks");
         List<Provider> providers = (List<Provider>) providerRepository.findAll();
-        for (Provider provider : providers) {
-            for (Task task : clientRequestedTasks) {
-                if (!provider.getTasks().containsAll(clientRequestedTasks)) {
-                    providers.remove(provider);
-                }
-            }
-        }
+        providers = providers.stream()
+                .filter((provider) -> {
+                    return provider.getTasks().containsAll(clientRequestedTasks);
+                })
+                .collect(Collectors.toCollection(ArrayList<Provider>::new));
         return providers;
     }
 
@@ -223,11 +241,6 @@ public class MaidMyDayController {
         Provider updatedProvider = ObjectUpdateUtils.updateProviderObject(provider, providerUpdates);
         providerRepository.save(updatedProvider);
         return updatedProvider;
-    }
-
-    @RequestMapping(path = "/provider/task", method = RequestMethod.PUT)
-    public void providerSelectTasks(@RequestBody Provider provider) {
-        providerRepository.save(provider);
     }
 
     @RequestMapping(path = "/provider/request", method = RequestMethod.GET)
@@ -253,11 +266,21 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider/{id}/isOnline", method = RequestMethod.PUT)
-    public Provider toggleIsOnline(@PathVariable ("id") int id) {
+    public Provider toggleIsOnline(@PathVariable ("id") int id, @RequestBody HashMap taskMap) {
         Provider provider = providerRepository.findOne(id);
         provider.setIsOnline(!provider.getIsOnline());
         providerRepository.save(provider);
-        return provider;
+
+        taskRepository.deleteByProvider(provider);
+        if (taskMap != null) {
+            Set<String> tasks = taskMap.keySet();
+            for(String taskName : tasks) {
+                Task task = new Task(taskName, provider, null);
+                taskRepository.save(task);
+            }
+        }
+
+        return providerRepository.findOne(id);
     }
 
 
@@ -303,8 +326,8 @@ public class MaidMyDayController {
         return clientNotifications;
     }
 
-    @RequestMapping(path = "/notification", method = RequestMethod.DELETE)
-    public Notification deleteNotification() {
+    @RequestMapping(path = "/notification/{id}", method = RequestMethod.DELETE)
+    public Notification deleteNotification(@PathVariable ("id") int id) {
         return null;
     }
 
@@ -331,10 +354,11 @@ public class MaidMyDayController {
 
 
 
-    @RequestMapping(path = "/task", method = RequestMethod.GET)
-    public Task populateTasks() {
-        return null;
-    }
+//    @RequestMapping(path = "/task", method = RequestMethod.GET)
+//    public List<Task> populateTasks(@RequestBody Task task) {
+//        List<Task> tasks =
+//        return null;
+//    }
 
 
 
@@ -347,7 +371,7 @@ public class MaidMyDayController {
     ////// Need to figure out how to ONLY allow jpeg, png, etc... only photos. No mp4, mp3, mov, etc...
     ////// We did this in class
     //////
-    ////// Also need to set a max file size limit
+    ////// Also need to set a max file size limit // I've put this in application.properties
     ////// We've also done this in class, but it might be accomplished on the frontend
     //////
 
@@ -359,25 +383,32 @@ public class MaidMyDayController {
     @RequestMapping(path = "/fileUpload", method = RequestMethod.POST)
     public void upload(MultipartFile photo, HttpSession session) throws Exception {
 
-        Client client = clientRepository.findByEmail((String) session.getAttribute("email"));
-        Provider provider = providerRepository.findByEmail((String) session.getAttribute("email"));
+        String email = (String) session.getAttribute("email");
+
+
+        Client client = clientRepository.findByEmail(email);
+        Provider provider = providerRepository.findByEmail(email);
 
         if (!photo.getContentType().startsWith("image")) {
             throw new Exception("You can only upload images");
         }
 
+
+        //File oldOnDisk = new File("public/files/" + old.getFileName());
+
         // not sure if this is the correct directory
-        File photoFile = File.createTempFile("image", photo.getOriginalFilename(), new File("public"));
+        File photoFile = File.createTempFile("image", photo.getOriginalFilename(), new File("public/photoUploads"));
         FileOutputStream fos = new FileOutputStream(photoFile);
         fos.write(photo.getBytes());
 
         FileUpload newPhoto = new FileUpload(photo.getOriginalFilename());
 
+        newPhoto.setFileName(photoFile.getName());
+
         if (client != null) {
-            newPhoto.setFileName(client.getEmail() + " " + "profile image");
             newPhoto.setClient(client);
-        } else if (provider != null) {
-            newPhoto.setFileName(provider.getEmail() + " " + "profile image");
+        }
+        if (provider != null) {
             newPhoto.setProvider(provider);
         }
 
