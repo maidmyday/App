@@ -423,9 +423,8 @@ public class MaidMyDayController {
         fileUploadRepository.save(newPhoto);
     }
 
-    @RequestMapping(path = "/photo", method = RequestMethod.GET)
-    public Object getPhoto(HttpSession session) throws Exception {
-
+    @RequestMapping(path = "/fileUpload", method = RequestMethod.PUT)
+    public Object editPhoto(HttpSession session) throws Exception {
         String email = (String) session.getAttribute("email");
 
         Client client = clientRepository.findByEmail(email);
