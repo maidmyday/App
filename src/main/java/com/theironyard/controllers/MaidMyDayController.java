@@ -279,7 +279,11 @@ public class MaidMyDayController {
 
         HashMap taskMap = (HashMap) map.get("tasks");
 
-        taskRepository.deleteByProvider(provider);
+        List<Task> tasksByProvider = taskRepository.findByProvider(provider);
+        for (Task task : tasksByProvider) {
+            taskRepository.delete(task);
+        }
+
         Set<String> tasks = taskMap.keySet();
         for(String taskName : tasks) {
             Task task = new Task(taskName, provider, null);
@@ -401,7 +405,7 @@ public class MaidMyDayController {
 
 
         File dir = new File("public/photoUploads");
-        dir.mkdirs();
+        dir.mkdirs(); // makes directory if
         File photoFile = File.createTempFile("image", photo.getOriginalFilename(), dir);
         FileOutputStream fos = new FileOutputStream(photoFile);
         fos.write(photo.getBytes());
