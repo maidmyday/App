@@ -1,5 +1,7 @@
 package com.theironyard.entities;//Created by KevinBozic on 4/7/16.
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,9 +16,11 @@ public class Task {
     private String taskName;
 
     @ManyToOne
+    @JsonIgnore
     private Provider provider;
 
     @ManyToOne
+    @JsonIgnore
     private Request request;
 
     public Task() {

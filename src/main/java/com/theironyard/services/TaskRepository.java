@@ -4,6 +4,8 @@ import com.theironyard.entities.Provider;
 import com.theironyard.entities.Task;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 public interface TaskRepository extends CrudRepository<Task, Integer> {
-    void deleteByProvider (Provider provider);
+    public List<Task> findByProvider (Provider provider);
 }
