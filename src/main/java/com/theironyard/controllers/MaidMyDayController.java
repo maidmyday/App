@@ -423,14 +423,21 @@ public class MaidMyDayController {
         fileUploadRepository.save(newPhoto);
     }
 
-    @RequestMapping(path = "/photo", method = RequestMethod.GET)
-    public Object getPhoto(HttpSession session) throws Exception {
-
+    @RequestMapping(path = "/fileUpload", method = RequestMethod.PUT)
+    public Object editPhoto(HttpSession session) throws Exception {
         String email = (String) session.getAttribute("email");
 
         Client client = clientRepository.findByEmail(email);
         Provider provider = providerRepository.findByEmail(email);
+        FileUpload newPhoto = new FileUpload();
 
+        if (client != null) {
+            newPhoto.setClient(client);
+        } else if (provider != null) {
+            newPhoto.setProvider(provider);
+        }
+
+        fileUploadRepository.save(newPhoto);
 
         if (client != null) {
             return client;
@@ -440,4 +447,23 @@ public class MaidMyDayController {
             throw new Exception("You backenders suck at life!!! We didn't receive a photo!!");
         }
     }
+
+
+//    @RequestMapping(path = "/photo", method = RequestMethod.GET)
+//    public Object getPhoto(HttpSession session) throws Exception {
+//
+//        String email = (String) session.getAttribute("email");
+//
+//        Client client = clientRepository.findByEmail(email);
+//        Provider provider = providerRepository.findByEmail(email);
+//
+//
+//        if (client != null) {
+//            return client;
+//        } else if (provider != null) {
+//            return provider;
+//        } else {
+//            throw new Exception("You backenders suck at life!!! We didn't receive a photo!!");
+//        }
+//    }
 }
