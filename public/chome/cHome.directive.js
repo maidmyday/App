@@ -13,6 +13,7 @@ angular
 
             element.bind('change', function(){
                 scope.$apply(function(){
+                    console.log(element);
                     modelSetter(scope, element[0].files[0]);
                 });
             });
