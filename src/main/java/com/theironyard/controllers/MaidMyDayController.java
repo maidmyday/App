@@ -5,6 +5,7 @@ import com.theironyard.services.*;
 import com.theironyard.utils.Constants;
 import com.theironyard.utils.ObjectUpdateUtils;
 import com.theironyard.utils.PasswordStorage;
+import org.h2.engine.Session;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -102,8 +103,9 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/client", method = RequestMethod.POST)
-    public Client createClient(@RequestBody Client client) throws PasswordStorage.CannotPerformOperationException {
+    public Client createClient(@RequestBody Client client, HttpSession session) throws PasswordStorage.CannotPerformOperationException {
         client.setPassword(PasswordStorage.createHash(client.getPassword()));
+        session.setAttribute("email", client.getEmail());
         clientRepository.save(client);
         return client;
     }
@@ -190,8 +192,9 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.POST)
-    public Provider createProvider(@RequestBody Provider provider) throws PasswordStorage.CannotPerformOperationException {
+    public Provider createProvider(@RequestBody Provider provider, HttpSession session) throws PasswordStorage.CannotPerformOperationException {
         provider.setPassword(PasswordStorage.createHash(provider.getPassword()));
+        session.setAttribute("email", provider.getEmail());
         providerRepository.save(provider);
         return provider;
     }
@@ -359,15 +362,21 @@ public class MaidMyDayController {
     @RequestMapping(path = "/fileUpload", method = RequestMethod.POST)
     public void upload(MultipartFile photo, HttpSession session) throws Exception {
 
-        Client client = clientRepository.findByEmail((String) session.getAttribute("email"));
-        Provider provider = providerRepository.findByEmail((String) session.getAttribute("email"));
+        String email = (String) session.getAttribute("email");
+
+
+        Client client = clientRepository.findByEmail(email);
+        Provider provider = providerRepository.findByEmail(email);
 
         if (!photo.getContentType().startsWith("image")) {
             throw new Exception("You can only upload images");
         }
 
+
+        //File oldOnDisk = new File("public/files/" + old.getFileName());
+
         // not sure if this is the correct directory
-        File photoFile = File.createTempFile("image", photo.getOriginalFilename(), new File("public"));
+        File photoFile = File.createTempFile("image", photo.getOriginalFilename(), new File("public/photoUploads"));
         FileOutputStream fos = new FileOutputStream(photoFile);
         fos.write(photo.getBytes());
 
