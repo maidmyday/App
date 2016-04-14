@@ -56,20 +56,6 @@ angular
         ClientService.uploadFileToUrl(file, uploadUrl);
     };
 
-    //photo forms ng show
-    vm.savePhotoUrl = true;
-    vm.uploadPhotoFile = false;
-
-    vm.showUploadForm = function(){
-      vm.savePhotoUrl = !vm.savePhotoUrl;
-      vm.uploadPhotoFile = !vm.uploadPhotoFile;
-    }
-
-    vm.showSaveForm = function(){
-      vm.savePhotoUrl = !vm.savePhotoUrl;
-      vm.uploadPhotoFile = !vm.uploadPhotoFile;
-    }
-
     //edit profile content
     vm.editInfo = false;
 
@@ -117,7 +103,7 @@ angular
       {stateOff: 'glyphicon-off'}
     ];
 
-    //temporary accordion data injecting the page
+    //temporary accordion history data injecting the page
 
     vm.historyData = ClientService.historyData;
 

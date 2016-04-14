@@ -11,8 +11,7 @@
   background-repeat: no-repeat;
   background-size: 100%;
   min-height: 900px;
-  width: 100%;
-  background-position-y: 400%; }
+  width: 100%; }
 
 .btn.btn-transparent {
   font-family: 'Sue Ellen Francisco',cursive;
@@ -94,6 +93,39 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
   border-color: rgba(199, 204, 219, 0.8);
   box-shadow: 0 1px 1px rgba(199, 204, 219, 0.075) inset, 0 0 8px rgba(199, 204, 219, 0.6);
   outline: 0 none; }
+
+div.history {
+  width: 80%;
+  margin: 0 auto; }
+  div.history div.historyRow {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; }
+    div.history div.historyRow div.historyBlock {
+      align-self: center;
+      max-height: 200px;
+      width: 200px; }
+      div.history div.historyRow div.historyBlock div.historyBlock.comment {
+        overflow: scroll; }
+      div.history div.historyRow div.historyBlock p.date {
+        text-align: right; }
+
+div.userImgSm {
+  background-color: #ead2ac;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+  position: relative; }
+  div.userImgSm img.userIcon {
+    width: 170%;
+    height: auto;
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translateY(-50%) translateX(-50%); }
 
 p.navbar-text {
   display: inline-block; }
@@ -189,46 +221,12 @@ div.paragraph {
   max-height: 500px;
   overflow: auto; }
 
-div.rAndC {
-  max-height: 500px;
-  overflow: auto; }
-
-table.rAndC-table td p {
-  margin-top: 50px; }
-
-table.rAndC-table td button {
-  margin-top: 40px; }
-
-div.userImgSm {
-  background-color: #ead2ac;
-  display: inline-block;
-  overflow: hidden;
-  border-radius: 100%;
-  width: 100px;
-  height: 100px;
-  position: relative; }
-  div.userImgSm img.userIcon {
-    width: 170%;
-    height: auto;
-    display: block;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translateY(-50%) translateX(-50%); }
-
 .glyphicon-star {
   color: #EAD2AC; }
 
 .glyphicon-star-empty {
   color: #9CAFB7; }
 
-nav.home {
-  background-color: #4281A4;
-  color: #ffffff; }
-  nav.home a {
-    color: #ffffff; }
-
-<<<<<<< HEAD
 #online {
   background-color: green; }
 
@@ -250,7 +248,7 @@ nav.home {
 .green {
   background: #32936f;
   box-shadow: inset 0px 0px 10px 2px #32936f, 0px 0px 10px 2px #32936f; }
-=======
+
 div.jobModal div.modal-header {
   text-align: center;
   border: none; }
@@ -282,4 +280,3 @@ div.jobModal div.modal-footer {
   div.jobModal div.modal-footer div.jobFormBtns {
     display: flex;
     justify-content: space-between; }
->>>>>>> 22ace69979b2e005de123623421ee42d00e8914f

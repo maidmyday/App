@@ -38,20 +38,6 @@ angular
         SpService.uploadFileToUrl(file, uploadUrl);
     };
 
-    //photo forms ng show
-    vm.savePhotoUrl = true;
-    vm.uploadPhotoFile = false;
-
-    vm.showUploadForm = function(){
-      vm.savePhotoUrl = !vm.savePhotoUrl;
-      vm.uploadPhotoFile = !vm.uploadPhotoFile;
-    }
-
-    vm.showSaveForm = function(){
-      vm.savePhotoUrl = !vm.savePhotoUrl;
-      vm.uploadPhotoFile = !vm.uploadPhotoFile;
-    }
-
     //go online: change a boolean and show change in dom
     vm.inactive = true;
     vm.goOnline = function(){
