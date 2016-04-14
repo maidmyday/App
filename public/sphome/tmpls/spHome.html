@@ -14,14 +14,13 @@
 
 
 <div id="onlinesection">
-        <button ng-show="!showThing"  class="btn btn-default navbar-btn" ng-click="openOnlineModal()">GO ONLINE</button>
-          <p ng-show="!showThing">You are offline</p>
-          <div ng-show="!showThing" class="dot red"></div>
-        <button ng-show="showThing" ng-click='openOfflineModal()' class= 'btn btn-default navbar-btn'>Go Offline</button>
-          <p ng-show="showThing">You are online</p>
-          <div ng-show="showThing" class="dot green"></div>
+        <button ng-show="!changeOnline"  class="btn btn-default navbar-btn" ng-click="openOnlineModal()">GO ONLINE</button>
+          <p ng-show="!changeOnline">You are offline</p>
+          <div ng-show="!changeOnline" class="dot red"></div>
+        <button ng-show="changeOnline" ng-click='openOfflineModal()' class= 'btn btn-default navbar-btn'>Go OFFLINE</button>
+          <p ng-show="changeOnline">You are online</p>
+          <div ng-show="changeOnline" class="dot green"></div>
     </div>
-      <!-- <li ng-show="SpCtrl.active"><button class="btn btn-default navbar-btn" ng-click="SpCtrl.goOffline()">GO OFFLINE</button></li> -->
       <li><button class="btn btn-default navbar-btn" ng-click="SpCtrl.logout()">Logout</button></li>
     </ul>
   </div>
