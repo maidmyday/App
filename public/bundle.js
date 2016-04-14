@@ -216,7 +216,7 @@ angular
     function uploadFileToUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);
-        $http.put(uploadUrl, fd, {
+        $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })
@@ -40003,6 +40003,7 @@ angular
     var spurl = '/provider';
     var allProviders = '/providers';
     var logouturl = '/logout';
+    var uploadUrl = '/fileUpload';
 
     function logoutNow(){
       return $http.post(logouturl);
@@ -40030,7 +40031,7 @@ angular
     function uploadFileToUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);
-        $http.put(uploadUrl, fd, {
+        $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })
