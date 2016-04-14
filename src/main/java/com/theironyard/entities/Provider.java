@@ -1,5 +1,8 @@
 package com.theironyard.entities;//Created by KevinBozic on 4/6/16.
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -20,7 +23,7 @@ public class Provider {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
@@ -41,7 +44,8 @@ public class Provider {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "provider")
     private List<Task> tasks;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "provider")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "fileUploadId")
     private FileUpload fileUpload;
 
