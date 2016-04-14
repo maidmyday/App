@@ -32,7 +32,7 @@ angular
     function uploadFileToUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);
-        $http.post(uploadUrl, fd, {
+        $http.put(uploadUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })
@@ -48,7 +48,7 @@ angular
     var historyData = [
       {
         img: './images/bill04.jpg',
-        first: 'Zachary',
+        first: 'Thachary',
         last: 'Binx',
         rating: '3',
         date: 'date/time'

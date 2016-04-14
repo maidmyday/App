@@ -23,7 +23,7 @@
   <div class="row userImgRow">
     <div class="userImgHomeParent col-md-12 col-sm-12">
       <div class="userImgHome">
-        <img src="./images/bill01.jpg" alt="userImg" class="userImgHome">
+        <img src="./photoUploads/{{CliCtrl.providerData.fileUpload.fileName}}" alt="userImg" class="userImgHome">
         </script>
       </div>
     </div>
@@ -63,7 +63,7 @@
                <form role="form" class="photoForm">
                  <div class="form-group col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
                    <div class="tempPhoto">
-                     <img src="./images/bill01.jpg" alt="your image">
+                     <img src="./photoUploads/{{CliCtrl.providerData.fileUpload.fileName}}" alt="your image">
                    </div>
                    <input type="file" file-model="CliCtrl.myFile" class="form-control">
                  </div>

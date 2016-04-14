@@ -36,6 +36,7 @@ angular
         console.dir(file);
         var uploadUrl = "/fileUpload";
         SpService.uploadFileToUrl(file, uploadUrl);
+        vm.loadPage();
     };
 
     //go online: change a boolean and show change in dom
