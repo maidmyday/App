@@ -228,7 +228,6 @@ nav.home {
   nav.home a {
     color: #ffffff; }
 
-<<<<<<< HEAD
 #online {
   background-color: green; }
 
@@ -250,7 +249,13 @@ nav.home {
 .green {
   background: #32936f;
   box-shadow: inset 0px 0px 10px 2px #32936f, 0px 0px 10px 2px #32936f; }
-=======
+
+#stars .stars {
+  outline: none; }
+
+#stars i {
+  font-size: 30px; }
+
 div.jobModal div.modal-header {
   text-align: center;
   border: none; }
@@ -282,4 +287,3 @@ div.jobModal div.modal-footer {
   div.jobModal div.modal-footer div.jobFormBtns {
     display: flex;
     justify-content: space-between; }
->>>>>>> 22ace69979b2e005de123623421ee42d00e8914f

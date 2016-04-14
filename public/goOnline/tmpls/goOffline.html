@@ -1,7 +1,16 @@
+<!-- OFFLINE MODAL -->
+
 <div class= 'overallModal'>
-
-
-<h1>Go Offline Modal</h1>
-
-<button class="btn" type="button btn" ng-click="goOffline()">Go offline</button>
+  <h1>Please Rate the Client</h1>
+<!-- STARS   -->
+  <div id="stars">
+    <uib-rating class="stars" ng-model="rate" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
+    <span class="label stars" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
+  </div>
+<!-- COMMENT -->
+  <div class="form-group comment">
+    <input type="textarea" name="comment" ng-model="post.comment" class="form-control" placeholder="please leave a comment">
+  </div>
+<!-- OFFLINE BUTTON -->
+  <button class="btn" type="button btn" ng-click="goOff()">Go offline</button>
 </div>
