@@ -423,20 +423,48 @@ public class MaidMyDayController {
         fileUploadRepository.save(newPhoto);
     }
 
-    @RequestMapping(path = "/fileUpload", method = RequestMethod.PUT)
-    public Object editPhoto(HttpSession session) throws Exception {
-        String email = (String) session.getAttribute("email");
+//    @RequestMapping(path = "/fileUpload", method = RequestMethod.PUT)
+//    public Object editPhoto(HttpSession session) throws Exception {
+//        String email = (String) session.getAttribute("email");
+//
+//        Client client = clientRepository.findByEmail(email);
+//        Provider provider = providerRepository.findByEmail(email);
+//        FileUpload newPhoto = new FileUpload();
+//
+//        if (client != null) {
+//            newPhoto.setClient(client);
+//        } else if (provider != null) {
+//            newPhoto.setProvider(provider);
+//        }
+//
+//        fileUploadRepository.save(newPhoto);
+//
+//        if (client != null) {
+//            return client;
+//        } else if (provider != null) {
+//            return provider;
+//        } else {
+//            throw new Exception("You backenders suck at life!!! We didn't receive a photo!!");
+//        }
+//    }
 
-        Client client = clientRepository.findByEmail(email);
-        Provider provider = providerRepository.findByEmail(email);
 
-
-        if (client != null) {
-            return client;
-        } else if (provider != null) {
-            return provider;
-        } else {
-            throw new Exception("You backenders suck at life!!! We didn't receive a photo!!");
-        }
-    }
+//    @RequestMapping(path = "/photo", method = RequestMethod.GET)
+//    public Object getPhoto(HttpSession session) throws Exception {
+//
+//        String email = (String) session.getAttribute("email");
+//
+//        Client client = clientRepository.findByEmail(email);
+//        Provider provider = providerRepository.findByEmail(email);
+//
+//
+//        if (client != null) {
+//            return client;
+//        } else if (provider != null) {
+//            return provider;
+//        } else {
+//            throw new Exception("You backenders suck at life!!! We didn't receive a photo!!");
+//        }
+//    }
+>>>>>>> 6df98aa8e11cd0cb7ae1c6beff0b03fea7342833
 }
