@@ -205,14 +205,14 @@ public class MaidMyDayController {
 
     @RequestMapping(path = "/provider", method = RequestMethod.POST)
     public Provider createProvider(@RequestBody Provider provider, HttpSession session, HttpServletResponse response) throws Exception {
-        Provider provider1 = providerRepository.findByEmail((String) session.getAttribute("email"));
+        Provider provider1 = providerRepository.findByEmail(provider.getEmail());
         if (provider1 != null) {
             response.sendError(403, "Account with this email already exists");
         }
         else {
             provider1 = new Provider(provider.getFirstName(), provider.getLastName(), PasswordStorage.createHash(provider.getPassword()),
                     provider.getEmail(), provider.getPhoneNumber());
-            session.setAttribute("email", provider.getEmail());
+            session.setAttribute("email", provider1.getEmail());
             providerRepository.save(provider1);
         }
         return provider1;
