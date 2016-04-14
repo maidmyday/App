@@ -45,7 +45,7 @@ public class Provider {
     @JoinColumn(name = "fileUploadId")
     private FileUpload fileUpload;
 
-    public Provider(String firstName, String lastName, String password, String email, String phoneNumber, String photoUrl) {
+    public Provider(String firstName, String lastName, String password, String email, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;

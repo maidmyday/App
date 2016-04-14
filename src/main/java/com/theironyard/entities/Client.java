@@ -38,7 +38,7 @@ public class Client {
     }
 
 
-    public Client(String firstName, String lastName, String password, String email, String phoneNumber, String photoUrl) {
+    public Client(String firstName, String lastName, String password, String email, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;

@@ -7,7 +7,7 @@
   align-self: flex-end; }
 
 .backgroundImg {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("https://images.unsplash.com/photo-1422479763403-3aa672b25e0e?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=2734d2e20c48290d634e466abc7932b4");
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url(https://images.unsplash.com/photo-1422479763403-3aa672b25e0e?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=2734d2e20c48290d634e466abc7932b4);
   background-repeat: no-repeat;
   background-size: 100%;
   min-height: 900px;
@@ -15,7 +15,7 @@
   background-position-y: 400%; }
 
 .btn.btn-transparent {
-  font-family: 'Sue Ellen Francisco', cursive;
+  font-family: 'Sue Ellen Francisco',cursive;
   color: #767B91;
   background-color: transparent;
   border-color: #f0ad4e;
@@ -27,19 +27,13 @@
     border-color: transparent;
     color: #C7CCDB; }
 
-#back {
-  background-color: white;
-  color: blue;
-  border-color: white;
-  width: 0%; }
-
 input.ng-invalid {
   border-color: red; }
 
 div.modal-content {
   border-color: #C7CCDB;
   border-width: 10px;
-  font-family: 'Sue Ellen Francisco', cursive; }
+  font-family: 'Sue Ellen Francisco',cursive; }
 
 input.form-control {
   margin-bottom: 2%; }
@@ -49,47 +43,46 @@ input.form-control {
   left: 479px;
   top: 141px;
   color: #767B91;
-  background-color: white;
+  background-color: #fff;
   border-color: #767B91;
   border-width: 3px; }
   #create:hover {
     background-color: #767B91;
-    color: #FFFFFF; }
+    color: #FFF; }
 
 #backBtn {
-  font-family: 'Sue Ellen Francisco', cursive;
+  font-family: 'Sue Ellen Francisco',cursive;
   color: #767B91;
-  /* background-color: #337ab7; */
   border-color: #767B91;
-  background-color: white;
+  background-color: #fff;
   border-width: 3px; }
   #backBtn .glyphicon-chevron-left {
     color: #767B91; }
   #backBtn:hover {
     background-color: #767B91; }
     #backBtn:hover .glyphicon-chevron-left {
-      color: #FFFFFF; }
+      color: #FFF; }
 
 #signin {
-  font-family: 'Sue Ellen Francisco', cursive;
+  font-family: 'Sue Ellen Francisco',cursive;
   position: absolute;
   left: 497px;
   color: #767B91;
-  background-color: white;
+  background-color: #fff;
   border-color: #767B91;
   border-width: 3px; }
   #signin:hover {
     background-color: #767B91;
-    color: #FFFFFF; }
+    color: #FFF; }
 
 #login {
   color: #767B91;
-  background-color: white;
+  background-color: #fff;
   border-color: #767B91;
   border-width: 3px; }
   #login:hover {
     background-color: #767B91;
-    color: #FFFFFF; }
+    color: #FFF; }
 
 .red {
   color: red; }
@@ -121,83 +114,6 @@ div.panel div.textContent {
   div.panel div.textContent p.headerUser {
     display: inline-block;
     font-weight: 700; }
-
-.switch {
-  position: relative;
-  height: 26px;
-  width: 120px;
-  margin: 20px auto;
-  background: rgba(0, 0, 0, 0.25);
-  border-radius: 3px;
-  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1); }
-
-.switch-label {
-  position: relative;
-  z-index: 2;
-  float: left;
-  width: 58px;
-  line-height: 26px;
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.35);
-  text-align: center;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.45);
-  cursor: pointer; }
-
-.switch-label:active {
-  font-weight: bold; }
-
-.switch-label-off {
-  padding-left: 2px; }
-
-.switch-label-on {
-  padding-right: 2px; }
-
-.switch-input {
-  display: none; }
-
-.switch-input:checked + .switch-label {
-  font-weight: bold;
-  color: rgba(0, 0, 0, 0.65);
-  text-shadow: 0 1px rgba(255, 255, 255, 0.25);
-  -webkit-transition: 0.15s ease-out;
-  -moz-transition: 0.15s ease-out;
-  -ms-transition: 0.15s ease-out;
-  -o-transition: 0.15s ease-out;
-  transition: 0.15s ease-out;
-  -webkit-transition-property: color, text-shadow;
-  -moz-transition-property: color, text-shadow;
-  -ms-transition-property: color, text-shadow;
-  -o-transition-property: color, text-shadow;
-  transition-property: color, text-shadow; }
-
-.switch-input:checked + .switch-label-on ~ .switch-selection {
-  left: 60px;
-  /* Note: left: 50%; doesn't transition in WebKit */ }
-
-.switch-selection {
-  position: absolute;
-  z-index: 1;
-  top: 2px;
-  left: 2px;
-  display: block;
-  width: 58px;
-  height: 22px;
-  border-radius: 3px;
-  background-color: #65bd63;
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #9dd993), color-stop(100%, #65bd63));
-  background-image: -webkit-linear-gradient(top, #9dd993, #65bd63);
-  background-image: -moz-linear-gradient(top, #9dd993, #65bd63);
-  background-image: -ms-linear-gradient(top, #9dd993, #65bd63);
-  background-image: -o-linear-gradient(top, #9dd993, #65bd63);
-  background-image: linear-gradient(top, #9dd993, #65bd63);
-  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
-  box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
-  -webkit-transition: left 0.15s ease-out;
-  -moz-transition: left 0.15s ease-out;
-  -ms-transition: left 0.15s ease-out;
-  -o-transition: left 0.15s ease-out;
-  transition: left 0.15s ease-out; }
 
 div.userImgRow {
   margin-top: 10px;
@@ -233,6 +149,28 @@ div.panel > .panel-heading {
     color: #FFFFFF; }
     div.panel > .panel-heading h3 a {
       text-decoration: none; }
+
+form.photoForm {
+  margin-bottom: 10px; }
+  form.photoForm div.tempPhoto {
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+    overflow: hidden;
+    margin: 20px auto;
+    position: relative; }
+    form.photoForm div.tempPhoto img {
+      height: auto;
+      width: 140%;
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      -webkit-transform: translateY(-50%) translateX(-50%); }
+  form.photoForm div.uploadBtn {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px; }
 
 uib-accordion-heading {
   background-color: #EAD2AC; }
@@ -290,6 +228,29 @@ nav.home {
   nav.home a {
     color: #ffffff; }
 
+<<<<<<< HEAD
+#online {
+  background-color: green; }
+
+#offline {
+  background-color: red; }
+
+.dot {
+  box-sizing: border-box;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: .125rem;
+  display: inline-block; }
+
+.red {
+  background: #e63946;
+  box-shadow: inset 0px 0px 10px 2px #e63946, 0px 0px 10px 2px #e63946; }
+
+.green {
+  background: #32936f;
+  box-shadow: inset 0px 0px 10px 2px #32936f, 0px 0px 10px 2px #32936f; }
+=======
 div.jobModal div.modal-header {
   text-align: center;
   border: none; }
@@ -300,11 +261,25 @@ div.jobModal div.modal-body {
     display: inline-block; }
   div.jobModal div.modal-body table {
     width: 100%; }
-    div.jobModal div.modal-body table tr {
-      vertical-align: text-top; }
-      div.jobModal div.modal-body table tr p {
+    div.jobModal div.modal-body table tr.jobChecks {
+      vertical-align: text-top;
+      width: 100%;
+      display: flex;
+      justify-content: space-around; }
+      div.jobModal div.modal-body table tr.jobChecks p {
         margin-left: 10px; }
+    div.jobModal div.modal-body table tr.instruction div.instruction, div.jobModal div.modal-body table tr.instruction div.location, div.jobModal div.modal-body table tr.location div.instruction, div.jobModal div.modal-body table tr.location div.location {
+      display: flex;
+      justify-content: space-around; }
+      div.jobModal div.modal-body table tr.instruction div.instruction input[name='jobLocation'], div.jobModal div.modal-body table tr.instruction div.location input[name='jobLocation'], div.jobModal div.modal-body table tr.location div.instruction input[name='jobLocation'], div.jobModal div.modal-body table tr.location div.location input[name='jobLocation'] {
+        width: 70%; }
+      div.jobModal div.modal-body table tr.instruction div.instruction textarea[name='instruction'], div.jobModal div.modal-body table tr.instruction div.location textarea[name='instruction'], div.jobModal div.modal-body table tr.location div.instruction textarea[name='instruction'], div.jobModal div.modal-body table tr.location div.location textarea[name='instruction'] {
+        width: 70%; }
 
 div.jobModal div.modal-footer {
   border: none;
   display: block; }
+  div.jobModal div.modal-footer div.jobFormBtns {
+    display: flex;
+    justify-content: space-between; }
+>>>>>>> 22ace69979b2e005de123623421ee42d00e8914f

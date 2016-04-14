@@ -7,7 +7,8 @@ angular
   function JobInstanceCtrl($rootScope,$scope,$uibModal,$log,$location,$uibModalInstance){
     var vm = this;
 
-    vm.ok = function(){
+    vm.ok = function(post){
+      console.log('ok btn triggered',post);
       $uibModalInstance.close();
     }
 
