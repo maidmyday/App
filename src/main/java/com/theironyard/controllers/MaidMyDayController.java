@@ -275,7 +275,11 @@ public class MaidMyDayController {
 
         HashMap taskMap = (HashMap) map.get("tasks");
 
-        taskRepository.deleteByProvider(provider);
+        List<Task> tasksByProvider = taskRepository.findByProvider(provider);
+        for (Task task : tasksByProvider) {
+            taskRepository.delete(task);
+        }
+
         Set<String> tasks = taskMap.keySet();
         for(String taskName : tasks) {
             Task task = new Task(taskName, provider, null);

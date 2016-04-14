@@ -38,7 +38,7 @@ public class Provider {
     @Column
     private String specialties;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "provider")
     private List<Task> tasks;
 
     @OneToOne
