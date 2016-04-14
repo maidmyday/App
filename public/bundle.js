@@ -35,7 +35,7 @@ angular
       })
   })
 
-},{"./chome":7,"./goOnline":11,"./loginFeature":14,"./sphome":25,"angular":24,"angular-route":18,"angular-ui-bootstrap":20,"angular-validation-match":22}],2:[function(require,module,exports){
+},{"./chome":7,"./goOnline":11,"./loginFeature":14,"./sphome":26,"angular":24,"angular-route":18,"angular-ui-bootstrap":20,"angular-validation-match":22}],2:[function(require,module,exports){
 angular
   .module('cHome')
   .controller('ClientController', ClientController);
@@ -208,14 +208,17 @@ angular
       return $http.post(logouturl);
     }
 
+    //registering a client account
     function getClient(id) {
       return $http.get(clienturl + '/' + id)
     }
 
+    //editing the client profile
     function editClient(user) {
       return $http.put(clienturl, user);
     }
 
+    //uploading a photo to database
     function uploadFileToUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);
@@ -273,15 +276,15 @@ angular
       restrict: 'A',
       link: function(scope, element, attrs) {
             var model = $parse(attrs.fileModel);
-            window.glob = model;
-            window.glob2 = attrs.fileModel;
+            // window.glob = model;
+            // window.glob2 = attrs.fileModel;
             var modelSetter = model.assign;
-            console.log("THIS IS MODEL", model)
-            console.log("THIS IS MODELSETTER", modelSetter)
+            // console.log("THIS IS MODEL", model)
+            // console.log("THIS IS MODELSETTER", modelSetter)
 
             element.bind('change', function(){
                 scope.$apply(function(){
-                    console.log("THIS IS ELEMENT", element);
+                    // console.log("THIS IS ELEMENT", element);
                     modelSetter(scope, element[0].files[0]);
                 });
             });
@@ -39689,12 +39692,37 @@ require('./angular');
 module.exports = angular;
 
 },{"./angular":23}],25:[function(require,module,exports){
+angular
+  .module('spHome')
+  .directive('fileModel', ['$parse',function ($parse) {
+    return {
+      restrict: 'A',
+      link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            // window.glob = model;
+            // window.glob2 = attrs.fileModel;
+            var modelSetter = model.assign;
+            // console.log("THIS IS MODEL", model)
+            // console.log("THIS IS MODELSETTER", modelSetter)
+
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    // console.log("THIS IS ELEMENT", element);
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+      }
+    }
+}]);
+
+},{}],26:[function(require,module,exports){
 require('./spHome.module');
 require('./spHome.controller');
 require('./spHome.service');
 require('./spHome.directive');
+require('./fileUpload.directive')
 
-},{"./spHome.controller":26,"./spHome.directive":27,"./spHome.module":28,"./spHome.service":29}],26:[function(require,module,exports){
+},{"./fileUpload.directive":25,"./spHome.controller":27,"./spHome.directive":28,"./spHome.module":29,"./spHome.service":30}],27:[function(require,module,exports){
 angular
   .module('spHome')
   .controller('SpController',SpController)
@@ -39725,6 +39753,29 @@ angular
       })
     }
     vm.loadPage();
+
+    //PHOTO UPLOAD
+    vm.uploadFile = function(){
+        var file = vm.myFile;
+        console.log('photo file is ',file );
+        console.dir(file);
+        var uploadUrl = "/fileUpload";
+        SpService.uploadFileToUrl(file, uploadUrl);
+    };
+
+    //photo forms ng show
+    vm.savePhotoUrl = true;
+    vm.uploadPhotoFile = false;
+
+    vm.showUploadForm = function(){
+      vm.savePhotoUrl = !vm.savePhotoUrl;
+      vm.uploadPhotoFile = !vm.uploadPhotoFile;
+    }
+
+    vm.showSaveForm = function(){
+      vm.savePhotoUrl = !vm.savePhotoUrl;
+      vm.uploadPhotoFile = !vm.uploadPhotoFile;
+    }
 
     //go online: change a boolean and show change in dom
     vm.inactive = true;
@@ -39861,7 +39912,7 @@ angular
 
   }
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 angular
   .module('spHome')
   .directive('spHomeDir', function () {
@@ -39882,7 +39933,7 @@ angular
 
   // <sp-home-dir mydata="angularObject"></sp-home-dir>
 
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
@@ -39902,7 +39953,7 @@ angular
     })
   })
 
-},{"angular":24,"angular-route":18,"angular-ui-bootstrap":20}],29:[function(require,module,exports){
+},{"angular":24,"angular-route":18,"angular-ui-bootstrap":20}],30:[function(require,module,exports){
 angular
   .module('spHome')
   .service('SpService',function($http, $q, $cacheFactory) {
@@ -39933,6 +39984,22 @@ angular
       return $http.get(allProviders);
     }
 
+    //uploading a photo to database
+    function uploadFileToUrl(file, uploadUrl){
+        var fd = new FormData();
+        fd.append('photo', file);
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        })
+        .success(function(){
+          console.log('Holy Moly it worked!');
+        })
+        .error(function(){
+          console.log('Nah the picture didnt go!');
+        });
+    }
+
     //temp data for history
     var historyData = [
       {
@@ -39959,6 +40026,7 @@ angular
     ]
 
     return {
+      uploadFileToUrl: uploadFileToUrl,
       editProvider: editProvider,
       logoutNow: logoutNow,
       getAllProviders: getAllProviders,

@@ -1,5 +1,5 @@
 angular
-  .module('cHome')
+  .module('spHome')
   .directive('fileModel', ['$parse',function ($parse) {
     return {
       restrict: 'A',
