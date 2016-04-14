@@ -21,7 +21,7 @@ input.form-control {
   background-color: #fff;
   border-color: #767B91;
   border-width: 3px;
-  &: hover{;
+  &:hover{
   background-color: #767B91;
   color: #FFF;
 }
@@ -33,17 +33,15 @@ input.form-control {
   border-color: #767B91;
   background-color: #fff;
   border-width: 3px;
-  .glyphicon-chevron-leftcolor: #767B91;
-}
-
-&:hover {
-  background-color: #767B91;
-  .glyphicon-chevron-leftcolor: #FFF;
+  .glyphicon-chevron-left{color: #767B91;}
+  &:hover {
+    background-color: #767B91;
+    .glyphicon-chevron-left{color: #FFF;}
 }
 }
 
 
-}
+
 
 #signin {
   font-family: 'Sue Ellen Francisco',cursive;
@@ -53,10 +51,10 @@ input.form-control {
   background-color: #fff;
   border-color: #767B91;
   border-width: 3px;
-  &: hover{;
-  background-color: #767B91;
-  color: #FFF;
-}
+  &:hover{
+    background-color: #767B91;
+    color: #FFF;
+  }
 }
 
 #login {
@@ -64,10 +62,10 @@ input.form-control {
   background-color: #fff;
   border-color: #767B91;
   border-width: 3px;
-  &: hover{;
-  background-color: #767B91;
-  color: #FFF;
-}
+  &:hover{
+    background-color: #767B91;
+    color: #FFF;
+  }
 }
 
 .red {

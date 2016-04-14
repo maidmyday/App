@@ -1,10 +1,10 @@
 angular
   .module('spHome')
-  .controller('SpController',SpController);
+  .controller('SpController',SpController)
 
   SpController.$inject = ['$scope','$rootScope','$location','$uibModal','$log','SpService'];
 
-  function SpController($scope,$rootScope,$location,$uibModal,$log,SpService) {
+  function SpController($scope,$rootScope,$location,$uibModal,$log,SpService, $modalInstance) {
     var vm = this;
 
     //logout button
@@ -85,5 +85,45 @@ angular
 
     // temporary accordion data to inject the page moved to service
     vm.historyData = SpService.historyData;
+
+    function standardSwitch($scope) {
+    $scope.switch = 'off';
+    }
+
+    function alternateSwitch($scope) {
+    $scope.switchAlternate = 'off';
+    }
+
+    $rootScope.openOnlineModal = function (size) {
+
+      var modalInstance = $uibModal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: './goOnline/tmpls/goOnline.html',
+        controller: 'GoOnlineModalInstanceCtrl',
+        size: size,
+        resolve: {
+          items: function () {
+            return $scope.items;
+          }
+        }
+      });
+    }
+
+    $rootScope.openOfflineModal = function (size) {
+
+      var modalInstance = $uibModal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: './goOnline/tmpls/goOffline.html',
+        controller: 'GoOnlineModalInstanceCtrl',
+        size: size,
+        resolve: {
+          items: function () {
+            return $scope.items;
+          }
+        }
+      });
+    }
+
+
 
   }
