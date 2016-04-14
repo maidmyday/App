@@ -47,6 +47,7 @@ angular
     }
     vm.loadPage();
 
+
     //PHOTO UPLOAD
     vm.uploadFile = function(){
         var file = vm.myFile;
@@ -54,7 +55,7 @@ angular
         console.dir(file);
         var uploadUrl = "/fileUpload";
         ClientService.uploadFileToUrl(file, uploadUrl);
-        ClientService.getThatPhoto();
+        vm.loadPage();
     };
 
     //edit profile content
@@ -73,7 +74,6 @@ angular
         console.log('client after edit',vm.edittedData);
       });
       vm.editInfo = !vm.editInfo;
-      vm.loadPage();
     }
 
     //delete client account

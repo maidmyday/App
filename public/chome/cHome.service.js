@@ -6,7 +6,7 @@ angular
     var allClients = '/clients';
     var logouturl = '/logout';
     var uploadUrl = '/fileUpload';
-    var getPhoto = '/photo';
+    // var getPhoto = '/photo';
 
     function deleteClient(){
       return $http.delete(clienturl);
@@ -27,9 +27,9 @@ angular
     }
 
     //get the photo?
-    function getThatPhoto(){
-      return $http.get(getPhoto);
-    }
+    // function getThatPhoto(){
+    //   return $http.get(getPhoto);
+    // }
 
 
     //uploading a photo to database
@@ -76,7 +76,7 @@ angular
    ]
 
     return {
-      getThatPhoto: getThatPhoto,
+      // getThatPhoto: getThatPhoto,
       uploadFileToUrl: uploadFileToUrl,
       editClient: editClient,
       deleteClient: deleteClient,

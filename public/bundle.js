@@ -85,6 +85,7 @@ angular
     }
     vm.loadPage();
 
+
     //PHOTO UPLOAD
     vm.uploadFile = function(){
         var file = vm.myFile;
@@ -92,7 +93,7 @@ angular
         console.dir(file);
         var uploadUrl = "/fileUpload";
         ClientService.uploadFileToUrl(file, uploadUrl);
-        ClientService.getThatPhoto();
+        vm.loadPage();
     };
 
     //edit profile content
@@ -111,7 +112,6 @@ angular
         console.log('client after edit',vm.edittedData);
       });
       vm.editInfo = !vm.editInfo;
-      vm.loadPage();
     }
 
     //delete client account
@@ -186,7 +186,7 @@ angular
     var allClients = '/clients';
     var logouturl = '/logout';
     var uploadUrl = '/fileUpload';
-    var getPhoto = '/photo';
+    // var getPhoto = '/photo';
 
     function deleteClient(){
       return $http.delete(clienturl);
@@ -207,9 +207,9 @@ angular
     }
 
     //get the photo?
-    function getThatPhoto(){
-      return $http.get(getPhoto);
-    }
+    // function getThatPhoto(){
+    //   return $http.get(getPhoto);
+    // }
 
 
     //uploading a photo to database
@@ -256,7 +256,7 @@ angular
    ]
 
     return {
-      getThatPhoto: getThatPhoto,
+      // getThatPhoto: getThatPhoto,
       uploadFileToUrl: uploadFileToUrl,
       editClient: editClient,
       deleteClient: deleteClient,
