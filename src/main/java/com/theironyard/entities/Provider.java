@@ -1,5 +1,8 @@
 package com.theironyard.entities;//Created by KevinBozic on 4/6/16.
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -41,7 +44,8 @@ public class Provider {
     @OneToMany
     private List<Task> tasks;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "provider")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "fileUploadId")
     private FileUpload fileUpload;
 
