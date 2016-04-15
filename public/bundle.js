@@ -7,6 +7,7 @@ require('./chome');
 require('./sphome');
 require('./goOnline');
 require('./loginFeature');
+require('./matches/');
 
 
 angular
@@ -17,7 +18,8 @@ angular
     'cHome',
     'spHome',
     'login',
-    'goOnline'
+    'goOnline',
+    'match'
   ])
 
   .config(function($routeProvider) {
@@ -35,33 +37,37 @@ angular
       })
   })
 
-},{"./chome":7,"./goOnline":12,"./loginFeature":15,"./sphome":27,"angular":25,"angular-route":19,"angular-ui-bootstrap":21,"angular-validation-match":23}],2:[function(require,module,exports){
+},{"./chome":7,"./goOnline":12,"./loginFeature":15,"./matches/":19,"./sphome":31,"angular":29,"angular-route":23,"angular-ui-bootstrap":25,"angular-validation-match":27}],2:[function(require,module,exports){
 angular
   .module('cHome')
   .controller('ClientController', ClientController);
 
   ClientController.$inject = ['$scope','$rootScope','$route','$location','$uibModal','$log','ClientService'];
 
+<<<<<<< HEAD
+  function ClientController($scope,$rootScope,$location,$uibModal,$log,ClientService, $modalInstance) {
+=======
   function ClientController($scope,$rootScope,$route,$location,$uibModal,$log,ClientService) {
+>>>>>>> 76a45e8c40ff229a8e849ad00da031961e01bbc0
     var vm = this;
 
     vm.animationsEnabled = true;
 
     // THIS OPENS JOB POST FORM MODAL
-      vm.openJobModal = function (size) {
-
-        var modalInstance = $uibModal.open({
-          animation: vm.animationsEnabled,
-          templateUrl: 'chome/tmpls/jobMainModal.html',
-          controller: 'JobInstanceCtrl as JobCtrl',
-          size: size,
-          resolve: {
-            items: function () {
-              return vm.items;
-            }
-          }
-        });
-      };
+      // vm.openMatchModal = function (size) {
+      //
+      //   var modalInstance = $uibModal.open({
+      //     animation: vm.animationsEnabled,
+      //     templateUrl: './goOnline/tmpls/goOnline.html',
+      //     controller: 'JobInstanceCtrl as JobCtrl',
+      //     size: size,
+      //     resolve: {
+      //       items: function () {
+      //         return vm.items;
+      //       }
+      //     }
+      //   });
+      // };
 
     //logout button
     vm.logout = function(){
@@ -150,6 +156,24 @@ angular
 
     vm.historyData = ClientService.historyData;
 
+
+
+       $scope.animationsEnabled = true;
+    $scope.openMatchModal = function (size) {
+
+      var modalInstance = $uibModal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: './matches/tmpls/match-modal.html',
+        controller: 'MatchModalController',
+        size: size,
+        resolve: {
+          items: function () {
+            return $scope.items;
+          }
+        }
+      });
+    }
+
   }
 
 },{}],3:[function(require,module,exports){
@@ -168,10 +192,14 @@ angular
 },{}],4:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
+var uiBoot = require('angular-ui-bootstrap');
 
 
 angular
-  .module('cHome',['ngRoute'])
+  .module('cHome',[
+    'ngRoute',
+    'ui.bootstrap'
+])
   .config(function($routeProvider){
     $routeProvider
 
@@ -181,7 +209,7 @@ angular
     })
   })
 
-},{"angular":25,"angular-route":19}],5:[function(require,module,exports){
+},{"angular":29,"angular-route":23,"angular-ui-bootstrap":25}],5:[function(require,module,exports){
 angular
   .module('cHome')
   .service('ClientService',function($http, $q, $cacheFactory) {
@@ -321,13 +349,18 @@ angular
 .controller('GoOnlineModalInstanceCtrl', function ($rootScope,$scope, $location, $uibModalInstance, GoOnlineService,$window) {
 
 // THIS CHANGES USER FROM ONLINE TO OFFLINE ON UI
-  $rootScope.changeOnline = false;
+GoOnlineService.isUserOnline(JSON.parse($window.localStorage.getItem('theprovider')).id).then(function (bool) {
+  console.log(bool);
+  $rootScope.changeOnline = bool;
+});
+
 
 
 // THIS CHANGES THE BOOLEAN OF IS_ONLINE TO TRUE
   $scope.goOn = function (post) {
-console.log(post);
+
     var online = {isOnline: true, tasks:post};
+
 
 
     var userId = JSON.parse($window.localStorage.getItem('theprovider')).id
@@ -341,24 +374,6 @@ console.log(post);
       console.log("ERROR", err)
     })
   };
-
-
-// THIS CHANGES THE BOOLEAN OF IS_ONLINE TO false
-  $scope.goOff = function () {
-    var offline = {isOnline: false};
-    var userId = JSON.parse($window.localStorage.getItem('theprovider')).id
-    console.log(userId);
-    GoOnlineService.putProviderOffline(offline,userId)
-    .success(function(dataObj) {
-      console.log("SUCCESS", dataObj)
-        $rootScope.changeOnline = false;
-        $uibModalInstance.dismiss();
-    })
-    .error(function(err) {
-      console.log("ERROR", err)
-    })
-  };
-
 
 
 // THESE ARE THE RATING STARS THE ALEX GOT FROM SOMEWHERE
@@ -397,6 +412,13 @@ angular
       return $http.put(spurl + '/' + idOfUser + "/isOnline", user);
     }
 
+    function isUserOnline(userId) {
+      return $http.get(spurl + '/' + userId).then(function (user) {
+        console.log('service isOnline', user.data.isOnline);
+        return user.data.isOnline;
+      });
+    }
+
     function putProviderOffline(user,idOfUser) {
       return $http.put(spurl + '/' + idOfUser + "/isOnline", user);
     }
@@ -406,14 +428,15 @@ angular
 
     return {
       putProviderOnline: putProviderOnline,
-      putProviderOffline: putProviderOffline
+      putProviderOffline: putProviderOffline,
+      isUserOnline: isUserOnline
     };
   })
 
 },{}],12:[function(require,module,exports){
 require('./goOnline.module.js');
 require('./controllers/goOnlineInstance.controller.js');
-require('./goOnline.service.js')
+require('./goOnline.service.js');
 
 },{"./controllers/goOnlineInstance.controller.js":9,"./goOnline.module.js":10,"./goOnline.service.js":11}],13:[function(require,module,exports){
 angular
@@ -561,7 +584,7 @@ angular
 
   ]);
 
-},{"angular-validation-match":23}],17:[function(require,module,exports){
+},{"angular-validation-match":27}],17:[function(require,module,exports){
 angular
   .module('login')
   .service('LoginService',function($http) {
@@ -600,6 +623,116 @@ angular
   })
 
 },{}],18:[function(require,module,exports){
+angular
+.module('match')
+.controller('MatchModalController', function ($rootScope,$scope, $location, $uibModalInstance, MatchService) {
+
+
+
+$scope.matchMe = function (post) {
+console.log(post);
+  var task = {tasks:post};
+
+
+  var userId = JSON.parse(window.localStorage.getItem('theclient')).id
+  MatchService.putMatches(task,userId)
+  .success(function(dataObj) {
+      console.log("SUCCESS", dataObj);
+      // $rootScope.changeOnline = true;
+      $uibModalInstance.dismiss();
+  })
+  .error(function(err) {
+    console.log("ERROR", err)
+  })
+};
+
+
+
+// THIS CHANGES THE BOOLEAN OF IS_ONLINE TO TRUE
+  // $scope.matchMe = function () {
+  //    $uibModalInstance.dismiss();
+// console.log(post);
+//     var online = {isOnline: true, tasks:post};
+
+
+    // var userId = JSON.parse($window.localStorage.getItem('theprovider')).id
+    // GoOnlineService.putProviderOnline(online,userId)
+    // .success(function(dataObj) {
+    //     console.log("SUCCESS", dataObj);
+    //     // $rootScope.changeOnline = true;
+    //     // $uibModalInstance.dismiss();
+    // })
+    // .error(function(err) {
+    //   console.log("ERROR", err)
+    // })
+  // };
+
+
+// THESE ARE THE RATING STARS THE ALEX GOT FROM SOMEWHERE
+  // $scope.rate = 0;
+  // $scope.max = 5;
+  // $scope.isReadonly = false;
+  //
+  // $scope.hoveringOver = function(value) {
+  //   $scope.overStar = value;
+  //   $scope.percent = 100 * (value / $scope.max);
+  // };
+  //
+  // $scope.ratingStates = [
+  //   {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
+  //   {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
+  //   {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
+  //   {stateOn: 'glyphicon-heart'},
+  //   {stateOff: 'glyphicon-off'}
+  // ];
+
+});
+
+},{}],19:[function(require,module,exports){
+require('./matches.module.js');
+require('./controllers/matches.controller.js');
+require('./matches.service.js');
+
+},{"./controllers/matches.controller.js":18,"./matches.module.js":20,"./matches.service.js":21}],20:[function(require,module,exports){
+angular
+  .module('match',[
+    'ngRoute'
+  ]);
+
+},{}],21:[function(require,module,exports){
+angular
+  .module('match')
+  .service('MatchService',function($http) {
+    var clienturl = '/client';
+    var match= '/clientTasks'
+
+    function putMatches(user,idOfUser) {
+      return $http.post(clienturl+ "-tasks" + '/' + idOfUser, user);
+    }
+
+    //
+    // function isUserOnline(userId) {
+    //   return $http.get(spurl + '/' + userId).then(function (user) {
+    //     console.log('service isOnline', user.data.isOnline);
+    //     return user.data.isOnline;
+    //   });
+    // }
+    //
+    // function putProviderOffline(user,idOfUser) {
+    //   return $http.put(spurl + '/' + idOfUser + "/isOnline", user);
+    // }
+
+
+
+
+    return {
+      putMatches: putMatches
+      // putProviderOffline: putProviderOffline,
+      // isUserOnline: isUserOnline
+    };
+  })
+
+},{}],22:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -1623,11 +1756,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],19:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":18}],20:[function(require,module,exports){
+},{"./angular-route":22}],24:[function(require,module,exports){
 /*
  * angular-ui-bootstrap
  * http://angular-ui.github.io/bootstrap/
@@ -8956,12 +9089,12 @@ angular.module('ui.bootstrap.datepickerPopup').run(function() {!angular.$$csp().
 angular.module('ui.bootstrap.tooltip').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTooltipCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-tooltip-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-bottom > .tooltip-arrow,[uib-popover-popup].popover.top-left > .arrow,[uib-popover-popup].popover.top-right > .arrow,[uib-popover-popup].popover.bottom-left > .arrow,[uib-popover-popup].popover.bottom-right > .arrow,[uib-popover-popup].popover.left-top > .arrow,[uib-popover-popup].popover.left-bottom > .arrow,[uib-popover-popup].popover.right-top > .arrow,[uib-popover-popup].popover.right-bottom > .arrow,[uib-popover-html-popup].popover.top-left > .arrow,[uib-popover-html-popup].popover.top-right > .arrow,[uib-popover-html-popup].popover.bottom-left > .arrow,[uib-popover-html-popup].popover.bottom-right > .arrow,[uib-popover-html-popup].popover.left-top > .arrow,[uib-popover-html-popup].popover.left-bottom > .arrow,[uib-popover-html-popup].popover.right-top > .arrow,[uib-popover-html-popup].popover.right-bottom > .arrow,[uib-popover-template-popup].popover.top-left > .arrow,[uib-popover-template-popup].popover.top-right > .arrow,[uib-popover-template-popup].popover.bottom-left > .arrow,[uib-popover-template-popup].popover.bottom-right > .arrow,[uib-popover-template-popup].popover.left-top > .arrow,[uib-popover-template-popup].popover.left-bottom > .arrow,[uib-popover-template-popup].popover.right-top > .arrow,[uib-popover-template-popup].popover.right-bottom > .arrow{top:auto;bottom:auto;left:auto;right:auto;margin:0;}[uib-popover-popup].popover,[uib-popover-html-popup].popover,[uib-popover-template-popup].popover{display:block !important;}</style>'); angular.$$uibTooltipCss = true; });
 angular.module('ui.bootstrap.timepicker').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTimepickerCss && angular.element(document).find('head').prepend('<style type="text/css">.uib-time input{width:50px;}</style>'); angular.$$uibTimepickerCss = true; });
 angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTypeaheadCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-typeahead-popup].dropdown-menu{display:block;}</style>'); angular.$$uibTypeaheadCss = true; });
-},{}],21:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 require('./dist/ui-bootstrap-tpls');
 
 module.exports = 'ui.bootstrap';
 
-},{"./dist/ui-bootstrap-tpls":20}],22:[function(require,module,exports){
+},{"./dist/ui-bootstrap-tpls":24}],26:[function(require,module,exports){
 /*!
  * angular-validation-match
  * Checks if one input matches another
@@ -9020,11 +9153,11 @@ function match ($parse) {
 }
 match.$inject = ["$parse"];
 })(window, window.angular);
-},{}],23:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 require('./dist/angular-validation-match');
 module.exports = 'validation.match';
 
-},{"./dist/angular-validation-match":22}],24:[function(require,module,exports){
+},{"./dist/angular-validation-match":26}],28:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -39739,11 +39872,11 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],25:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":24}],26:[function(require,module,exports){
+},{"./angular":28}],30:[function(require,module,exports){
 angular
   .module('spHome')
   .directive('fileModel', ['$parse',function ($parse) {
@@ -39767,14 +39900,14 @@ angular
     }
 }]);
 
-},{}],27:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 require('./spHome.module');
 require('./spHome.controller');
 require('./spHome.service');
 require('./spHome.directive');
-require('./fileUpload.directive')
+require('./fileUpload.directive');
 
-},{"./fileUpload.directive":26,"./spHome.controller":28,"./spHome.directive":29,"./spHome.module":30,"./spHome.service":31}],28:[function(require,module,exports){
+},{"./fileUpload.directive":30,"./spHome.controller":32,"./spHome.directive":33,"./spHome.module":34,"./spHome.service":35}],32:[function(require,module,exports){
 angular
   .module('spHome')
   .controller('SpController',SpController)
@@ -39791,6 +39924,17 @@ angular
         window.localStorage.clear();
         console.log('hopefully empty: ',window.localStorage);
         $location.path('/');
+
+      })
+      var offline = {isOnline: false, tasks:null};
+      var userId = JSON.parse(window.localStorage.getItem('theprovider')).id
+      SpService.putProviderOffline(offline,userId)
+      .success(function(dataObj) {
+        console.log("SUCCESS", dataObj)
+          $rootScope.changeOnline = false;
+      })
+      .error(function(err) {
+        $rootScope.changeOnline = false;
       })
     }
 
@@ -39936,26 +40080,29 @@ angular
       });
     }
 
-    $rootScope.openOfflineModal = function (size) {
 
-      var modalInstance = $uibModal.open({
-        animation: $scope.animationsEnabled,
-        templateUrl: './goOnline/tmpls/goOffline.html',
-        controller: 'GoOnlineModalInstanceCtrl',
-        size: size,
-        resolve: {
-          items: function () {
-            return $scope.items;
-          }
-        }
-      });
-    }
+    $scope.goOff = function () {
+      var offline = {isOnline: false, tasks:null};
+      var userId = JSON.parse(window.localStorage.getItem('theprovider')).id
+      SpService.putProviderOffline(offline,userId)
+      .success(function(dataObj) {
+        console.log("SUCCESS", dataObj)
+          $rootScope.changeOnline = false;
+      })
+      .error(function(err) {
+        $rootScope.changeOnline = false;
+      })
+    };
+
+    SpService.isUserOnline(JSON.parse(localStorage.getItem('theprovider')).id).then(function (bool) {
+      $rootScope.changeOnline = bool;
+    });
 
 
 
   }
 
-},{}],29:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 angular
   .module('spHome')
   .directive('spHomeDir', function () {
@@ -39976,7 +40123,7 @@ angular
 
   // <sp-home-dir mydata="angularObject"></sp-home-dir>
 
-},{}],30:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
@@ -39996,7 +40143,7 @@ angular
     })
   })
 
-},{"angular":25,"angular-route":19,"angular-ui-bootstrap":21}],31:[function(require,module,exports){
+},{"angular":29,"angular-route":23,"angular-ui-bootstrap":25}],35:[function(require,module,exports){
 angular
   .module('spHome')
   .service('SpService',function($http, $q, $cacheFactory) {
@@ -40040,6 +40187,17 @@ angular
         });
     }
 
+    function putProviderOffline(user,idOfUser) {
+      return $http.put(spurl + '/' + idOfUser + "/isOnline", user);
+    }
+    function isUserOnline(userId) {
+      return $http.get(spurl + '/' + userId).then(function (user) {
+        console.log('service isOnline', user.data.isOnline);
+        return user.data.isOnline;
+      });
+    }
+
+
     //temp data for history
     var historyData = [
       {
@@ -40066,7 +40224,15 @@ angular
     ]
 
     return {
+<<<<<<< HEAD
+
+      putProviderOffline: putProviderOffline,
+      isUserOnline: isUserOnline,
+
+
+=======
       uploadFileToUrl: uploadFileToUrl,
+>>>>>>> 76a45e8c40ff229a8e849ad00da031961e01bbc0
       editProvider: editProvider,
       logoutNow: logoutNow,
       getProvider: getProvider,

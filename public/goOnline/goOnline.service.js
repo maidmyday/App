@@ -7,6 +7,13 @@ angular
       return $http.put(spurl + '/' + idOfUser + "/isOnline", user);
     }
 
+    function isUserOnline(userId) {
+      return $http.get(spurl + '/' + userId).then(function (user) {
+        console.log('service isOnline', user.data.isOnline);
+        return user.data.isOnline;
+      });
+    }
+
     function putProviderOffline(user,idOfUser) {
       return $http.put(spurl + '/' + idOfUser + "/isOnline", user);
     }
@@ -16,6 +23,7 @@ angular
 
     return {
       putProviderOnline: putProviderOnline,
-      putProviderOffline: putProviderOffline
+      putProviderOffline: putProviderOffline,
+      isUserOnline: isUserOnline
     };
   })
