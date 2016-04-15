@@ -12,8 +12,9 @@ GoOnlineService.isUserOnline(JSON.parse($window.localStorage.getItem('theprovide
 
 // THIS CHANGES THE BOOLEAN OF IS_ONLINE TO TRUE
   $scope.goOn = function (post) {
-console.log(post);
+
     var online = {isOnline: true, tasks:post};
+
 
 
     var userId = JSON.parse($window.localStorage.getItem('theprovider')).id

@@ -40,32 +40,30 @@ angular
       //getting data from the login and register
       ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
       .then(function(data){
-        console.log('client data from chome controller',data);
         vm.clientData =  data.data  ;
-        console.log('vm client from chome controller',vm.clientData);
+        console.log('vm clientData from chome controller',vm.clientData);
       })
     }
     vm.loadPage();
 
 
     //PHOTO UPLOAD
-    vm.uploadFile = function(){
+    vm.uploadCFile = function(){
         var file = vm.myFile;
         console.log('photo file is ',file );
         console.dir(file);
         var uploadUrl = "/fileUpload";
-        ClientService.uploadFileToUrl(file, uploadUrl);
+        ClientService.uploadFileToCUrl(file, uploadUrl);
         vm.loadPage();
     };
 
     //edit profile content
     vm.editInfo = false;
-
     vm.editBtn = function(){
       vm.editInfo = !vm.editInfo;
     }
 
-    vm.master = {};
+    // vm.master = {};
     vm.saveEdit = function(user){
       // vm.master = angular.copy(user);
       console.log('should be new profile info obj',user);
@@ -79,7 +77,7 @@ angular
     //delete client account
     vm.deleteC = function(){
       console.log('data inside delete function',window.localStorage);
-      ClientService.deleteClient().then(function(){
+      ClientService.deleteClient(window.JSON.parse(window.localStorage.getItem('theclient')).id).then(function(){
         window.localStorage.clear();
         console.log('hopefully empty: ',window.localStorage);
         $location.path('/');

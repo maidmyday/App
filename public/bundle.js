@@ -80,32 +80,30 @@ angular
       //getting data from the login and register
       ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
       .then(function(data){
-        console.log('client data from chome controller',data);
         vm.clientData =  data.data  ;
-        console.log('vm client from chome controller',vm.clientData);
+        console.log('vm clientData from chome controller',vm.clientData);
       })
     }
     vm.loadPage();
 
 
     //PHOTO UPLOAD
-    vm.uploadFile = function(){
+    vm.uploadCFile = function(){
         var file = vm.myFile;
         console.log('photo file is ',file );
         console.dir(file);
         var uploadUrl = "/fileUpload";
-        ClientService.uploadFileToUrl(file, uploadUrl);
+        ClientService.uploadFileToCUrl(file, uploadUrl);
         vm.loadPage();
     };
 
     //edit profile content
     vm.editInfo = false;
-
     vm.editBtn = function(){
       vm.editInfo = !vm.editInfo;
     }
 
-    vm.master = {};
+    // vm.master = {};
     vm.saveEdit = function(user){
       // vm.master = angular.copy(user);
       console.log('should be new profile info obj',user);
@@ -119,7 +117,7 @@ angular
     //delete client account
     vm.deleteC = function(){
       console.log('data inside delete function',window.localStorage);
-      ClientService.deleteClient().then(function(){
+      ClientService.deleteClient(window.JSON.parse(window.localStorage.getItem('theclient')).id).then(function(){
         window.localStorage.clear();
         console.log('hopefully empty: ',window.localStorage);
         $location.path('/');
@@ -209,11 +207,11 @@ angular
     var clienturl = '/client';
     var allClients = '/clients';
     var logouturl = '/logout';
-    var uploadUrl = '/fileUpload';
+    var uploadCUrl = '/fileUpload';
     // var getPhoto = '/photo';
 
-    function deleteClient(){
-      return $http.delete(clienturl);
+    function deleteClient(id){
+      return $http.delete(clienturl + '/' + id);
     }
 
     function logoutNow(id){
@@ -232,10 +230,10 @@ angular
 
 
     //uploading a photo to database
-    function uploadFileToUrl(file, uploadUrl){
+    function uploadFileToCUrl(file, uploadCUrl){
         var fd = new FormData();
         fd.append('photo', file);
-        $http.post(uploadUrl, fd, {
+        $http.post(uploadCUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })
@@ -275,8 +273,7 @@ angular
    ]
 
     return {
-      // getThatPhoto: getThatPhoto,
-      uploadFileToUrl: uploadFileToUrl,
+      uploadFileToCUrl: uploadFileToCUrl,
       editClient: editClient,
       deleteClient: deleteClient,
       logoutNow: logoutNow,
@@ -352,8 +349,9 @@ GoOnlineService.isUserOnline(JSON.parse($window.localStorage.getItem('theprovide
 
 // THIS CHANGES THE BOOLEAN OF IS_ONLINE TO TRUE
   $scope.goOn = function (post) {
-console.log(post);
+
     var online = {isOnline: true, tasks:post};
+
 
 
     var userId = JSON.parse($window.localStorage.getItem('theprovider')).id
@@ -620,17 +618,30 @@ angular
 .module('match')
 .controller('MatchModalController', function ($rootScope,$scope, $location, $uibModalInstance, MatchService) {
 
-// // THIS CHANGES USER FROM ONLINE TO OFFLINE ON UI
-// GoOnlineService.isUserOnline(JSON.parse($window.localStorage.getItem('theprovider')).id).then(function (bool) {
-//   console.log(bool);
-//   $rootScope.changeOnline = bool;
-// });
+
+
+$scope.matchMe = function (post) {
+console.log(post);
+  var task = {tasks:post};
+
+
+  var userId = JSON.parse(window.localStorage.getItem('theclient')).id
+  MatchService.putMatches(task,userId)
+  .success(function(dataObj) {
+      console.log("SUCCESS", dataObj);
+      // $rootScope.changeOnline = true;
+      $uibModalInstance.dismiss();
+  })
+  .error(function(err) {
+    console.log("ERROR", err)
+  })
+};
 
 
 
 // THIS CHANGES THE BOOLEAN OF IS_ONLINE TO TRUE
-  $scope.matchMe = function () {
-     $uibModalInstance.dismiss();
+  // $scope.matchMe = function () {
+  //    $uibModalInstance.dismiss();
 // console.log(post);
 //     var online = {isOnline: true, tasks:post};
 
@@ -645,7 +656,7 @@ angular
     // .error(function(err) {
     //   console.log("ERROR", err)
     // })
-  };
+  // };
 
 
 // THESE ARE THE RATING STARS THE ALEX GOT FROM SOMEWHERE
@@ -683,11 +694,12 @@ angular
 angular
   .module('match')
   .service('MatchService',function($http) {
-    // var spurl = '/provider';
+    var clienturl = '/client';
+    var match= '/clientTasks'
 
-    // function putProviderOnline(user,idOfUser) {
-    //   return $http.put(spurl + '/' + idOfUser + "/isOnline", user);
-    // }
+    function putMatches(user,idOfUser) {
+      return $http.post(match);
+    }
     //
     // function isUserOnline(userId) {
     //   return $http.get(spurl + '/' + userId).then(function (user) {
@@ -704,7 +716,7 @@ angular
 
 
     return {
-      // putProviderOnline: putProviderOnline,
+      putMatches: putMatches
       // putProviderOffline: putProviderOffline,
       // isUserOnline: isUserOnline
     };
@@ -39921,20 +39933,19 @@ angular
       //getting data from the login and register
       SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
       .then(function(data){
-        console.log('provider data from sphome controller',data);
         vm.providerData =  data.data;
-        console.log('vm provider from sphome controller',vm.providerData);
+        console.log('vm providerData from sphome controller',vm.providerData);
       })
     }
     vm.loadPage();
 
     //PHOTO UPLOAD
-    vm.uploadFile = function(){
+    vm.uploadPFile = function(){
         var file = vm.myFile;
         console.log('photo file is ',file );
         console.dir(file);
         var uploadUrl = "/fileUpload";
-        SpService.uploadFileToUrl(file, uploadUrl);
+        SpService.uploadFileToPUrl(file, uploadUrl);
         vm.loadPage();
     };
 
@@ -39956,7 +39967,7 @@ angular
       vm.editInfo = !vm.editInfo;
     }
 
-    vm.master = {};
+    // vm.master = {};
     vm.saveEdit = function(user){
       // vm.master = angular.copy(user);
       console.log('should be new profile info obj',user);
@@ -40125,7 +40136,7 @@ angular
     var spurl = '/provider';
     var allProviders = '/providers';
     var logouturl = '/logout';
-    var uploadUrl = '/fileUpload';
+    var uploadPUrl = '/fileUpload';
 
     function logoutNow(){
       return $http.post(logouturl);
@@ -40146,10 +40157,10 @@ angular
     }
 
     //uploading a photo to database
-    function uploadFileToUrl(file, uploadUrl){
+    function uploadFileToPUrl(file, uploadPUrl){
         var fd = new FormData();
         fd.append('photo', file);
-        $http.post(uploadUrl, fd, {
+        $http.post(uploadPUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })
@@ -40198,9 +40209,11 @@ angular
     ]
 
     return {
+
       putProviderOffline: putProviderOffline,
       isUserOnline: isUserOnline,
-      uploadFileToUrl: uploadFileToUrl,
+
+
       editProvider: editProvider,
       logoutNow: logoutNow,
       getProvider: getProvider,

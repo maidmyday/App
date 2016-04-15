@@ -1,6 +1,7 @@
 package com.theironyard.utils;
 
 import com.theironyard.entities.Client;
+import com.theironyard.entities.FileUpload;
 import com.theironyard.entities.Provider;
 import com.theironyard.entities.Task;
 
@@ -19,6 +20,7 @@ public class ObjectUpdateUtils {
         String newLastName = updates.getLastName();
         String newEmail = updates.getEmail();
         String newPhoneNumber = updates.getPhoneNumber();
+//        FileUpload newFileUpload = updates.getFileUpload();
 
         if (!StringUtils.isEmptyOrNull(newfirstName)) {
             client.setFirstName(newfirstName);
@@ -32,6 +34,7 @@ public class ObjectUpdateUtils {
         if (!StringUtils.isEmptyOrNull(newPhoneNumber)) {
             client.setPhoneNumber(newPhoneNumber);
         }
+
 
         return client;
 

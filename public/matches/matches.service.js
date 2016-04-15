@@ -1,11 +1,12 @@
 angular
   .module('match')
   .service('MatchService',function($http) {
-    // var spurl = '/provider';
+    var clienturl = '/client';
+    var match= '/clientTasks'
 
-    // function putProviderOnline(user,idOfUser) {
-    //   return $http.put(spurl + '/' + idOfUser + "/isOnline", user);
-    // }
+    function putMatches(user,idOfUser) {
+      return $http.post(match);
+    }
     //
     // function isUserOnline(userId) {
     //   return $http.get(spurl + '/' + userId).then(function (user) {
@@ -22,7 +23,7 @@ angular
 
 
     return {
-      // putProviderOnline: putProviderOnline,
+      putMatches: putMatches
       // putProviderOffline: putProviderOffline,
       // isUserOnline: isUserOnline
     };

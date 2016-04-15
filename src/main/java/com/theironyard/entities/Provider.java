@@ -49,13 +49,13 @@ public class Provider {
     @JoinColumn(name = "fileUploadId")
     private FileUpload fileUpload;
 
-    public Provider(String firstName, String lastName, String password, String email, String phoneNumber) {
+    public Provider(String firstName, String lastName, String password, String email, String phoneNumber, FileUpload fileUpload) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
-//        this.photoUrl = photoUrl;
+        this.fileUpload = fileUpload;
     }
 
     public Provider(String firstName, String lastName, String password, String email, String phoneNumber, boolean isOnline, String about, String specialties, List<Task> tasks) {
@@ -68,6 +68,14 @@ public class Provider {
         this.about = about;
         this.specialties = specialties;
         this.tasks = tasks;
+    }
+
+    public Provider(String firstName, String lastName, String password, String email, String phoneNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
     }
 
     public Provider() {

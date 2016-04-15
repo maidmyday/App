@@ -33,20 +33,19 @@ angular
       //getting data from the login and register
       SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
       .then(function(data){
-        console.log('provider data from sphome controller',data);
         vm.providerData =  data.data;
-        console.log('vm provider from sphome controller',vm.providerData);
+        console.log('vm providerData from sphome controller',vm.providerData);
       })
     }
     vm.loadPage();
 
     //PHOTO UPLOAD
-    vm.uploadFile = function(){
+    vm.uploadPFile = function(){
         var file = vm.myFile;
         console.log('photo file is ',file );
         console.dir(file);
         var uploadUrl = "/fileUpload";
-        SpService.uploadFileToUrl(file, uploadUrl);
+        SpService.uploadFileToPUrl(file, uploadUrl);
         vm.loadPage();
     };
 
@@ -68,7 +67,7 @@ angular
       vm.editInfo = !vm.editInfo;
     }
 
-    vm.master = {};
+    // vm.master = {};
     vm.saveEdit = function(user){
       // vm.master = angular.copy(user);
       console.log('should be new profile info obj',user);
