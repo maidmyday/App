@@ -42,13 +42,13 @@ public class Client {
     }
 
 
-    public Client(String firstName, String lastName, String password, String email, String phoneNumber) {
+    public Client(String firstName, String lastName, String password, String email, String phoneNumber, FileUpload fileUpload) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
-//        this.photoUrl = photoUrl;
+        this.fileUpload = fileUpload;
     }
 
     public String getFirstName() {
@@ -115,4 +115,6 @@ public class Client {
     public void setFileUpload(FileUpload fileUpload) {
         this.fileUpload = fileUpload;
     }
+
+
 }
