@@ -29,8 +29,8 @@ public class Provider {
     @Column(nullable = false)
     private String phoneNumber;
 
-//    @Column(nullable = false)
-//    private String photoUrl;
+    @Column(nullable = false)
+    private String photoUrl;
 
     @Column(nullable = false)
     private boolean isOnline;
@@ -49,13 +49,14 @@ public class Provider {
     @JoinColumn(name = "fileUploadId")
     private FileUpload fileUpload;
 
-    public Provider(String firstName, String lastName, String password, String email, String phoneNumber, FileUpload fileUpload) {
+    public Provider(String firstName, String lastName, String password, String email, String phoneNumber, FileUpload fileUpload, String photoUrl) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.fileUpload = fileUpload;
+        this.photoUrl = photoUrl;
     }
 
     public Provider(String firstName, String lastName, String password, String email, String phoneNumber, boolean isOnline, String about, String specialties, List<Task> tasks) {
@@ -168,11 +169,11 @@ public class Provider {
         this.fileUpload = fileUpload;
     }
 
-    //    public String getUrl() {
-//        return photoUrl;
-//    }
-//
-//    public void setUrl(String url) {
-//        this.photoUrl = photoUrl;
-//    }
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
 }
