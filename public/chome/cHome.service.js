@@ -8,8 +8,8 @@ angular
     var uploadCUrl = '/fileUpload';
     // var getPhoto = '/photo';
 
-    function deleteClient(){
-      return $http.delete(clienturl);
+    function deleteClient(id){
+      return $http.delete(clienturl + '/' + id);
     }
 
     function logoutNow(id){

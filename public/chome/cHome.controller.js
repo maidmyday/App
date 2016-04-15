@@ -78,7 +78,7 @@ angular
     //delete client account
     vm.deleteC = function(){
       console.log('data inside delete function',window.localStorage);
-      ClientService.deleteClient().then(function(){
+      ClientService.deleteClient(window.JSON.parse(window.localStorage.getItem('theclient')).id).then(function(){
         window.localStorage.clear();
         console.log('hopefully empty: ',window.localStorage);
         $location.path('/');

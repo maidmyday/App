@@ -116,7 +116,7 @@ angular
     //delete client account
     vm.deleteC = function(){
       console.log('data inside delete function',window.localStorage);
-      ClientService.deleteClient().then(function(){
+      ClientService.deleteClient(window.JSON.parse(window.localStorage.getItem('theclient')).id).then(function(){
         window.localStorage.clear();
         console.log('hopefully empty: ',window.localStorage);
         $location.path('/');
@@ -187,8 +187,8 @@ angular
     var uploadCUrl = '/fileUpload';
     // var getPhoto = '/photo';
 
-    function deleteClient(){
-      return $http.delete(clienturl);
+    function deleteClient(id){
+      return $http.delete(clienturl + '/' + id);
     }
 
     function logoutNow(id){
