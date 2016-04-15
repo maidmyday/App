@@ -426,20 +426,8 @@ public class MaidMyDayController {
 
         String email = (String) session.getAttribute("email");
 
-        Client client = new Client();
-        try {
-            client = clientRepository.findByEmail(email);
-        } catch (Exception e) {
-
-        }
-
-        Provider provider = new Provider();
-        try {
-            provider = providerRepository.findByEmail(email);
-        } catch (Exception e) {
-
-        }
-
+        Provider provider = providerRepository.findByEmail(email);
+        Client client = clientRepository.findByEmail(email);
 
 
         File dir = new File("public/photoUploads");
