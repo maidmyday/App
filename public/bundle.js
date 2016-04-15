@@ -698,8 +698,9 @@ angular
     var match= '/clientTasks'
 
     function putMatches(user,idOfUser) {
-      return $http.post(match);
+      return $http.post(clienturl+ "-tasks" + '/' + idOfUser, user);
     }
+
     //
     // function isUserOnline(userId) {
     //   return $http.get(spurl + '/' + userId).then(function (user) {
