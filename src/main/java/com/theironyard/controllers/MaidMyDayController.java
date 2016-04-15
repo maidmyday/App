@@ -67,22 +67,22 @@ public class MaidMyDayController {
     public void init() throws SQLException {
         dbui = Server.createWebServer().start();
 
-//        if (clientRepository.count() == 0) {
-//            Client client1 = new Client("Kevin", "Bacon", "123", "cbacon@sizzling.com", "843-123-4567");
-//            clientRepository.save(client1);
-//        }
-//        if (clientRepository.count() == 1) {
-//            Client client2 = new Client("Clint", "Bozic", "456", "kbacon@sizzling.com", "843-123-4567");
-//            clientRepository.save(client2);
-//        }
-//        if (providerRepository.count() == 0) {
-//            Provider provider1 = new Provider("Caroline", "Vail", "123", "carolineevail@gmail.com", "334-669-5482");
-//            providerRepository.save(provider1);
-//        }
-//        if (providerRepository.count() == 1) {
-//            Provider provider2 = new Provider("Zach", "Owens", "456", "karolineevail@gmail.com", "334-669-5482");
-//            providerRepository.save(provider2);
-//        }
+        if (clientRepository.count() == 0) {
+            Client client1 = new Client("Kevin", "Bacon", "123", "cbacon@sizzling.com", "843-123-4567");
+            clientRepository.save(client1);
+        }
+        if (clientRepository.count() == 1) {
+            Client client2 = new Client("Clint", "Bozic", "456", "kbacon@sizzling.com", "843-123-4567");
+            clientRepository.save(client2);
+        }
+        if (providerRepository.count() == 0) {
+            Provider provider1 = new Provider("Caroline", "Vail", "123", "carolineevail@gmail.com", "334-669-5482");
+            providerRepository.save(provider1);
+        }
+        if (providerRepository.count() == 1) {
+            Provider provider2 = new Provider("Zach", "Owens", "456", "karolineevail@gmail.com", "334-669-5482");
+            providerRepository.save(provider2);
+        }
     }
 
     @PreDestroy
