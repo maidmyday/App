@@ -62,6 +62,19 @@ angular
         // $window.location.reload();
     };
 
+    //PHOTO EDIT ROUTE
+    vm.changeCFile = function(){
+      var file = vm.myFile;
+      console.log('photo file is ',file );
+      console.dir(file);
+      var uploadUrl = "/fileUpload";
+      ClientService.editFile(file, uploadUrl);
+      vm.editInfo = !vm.editInfo;
+      console.log('page should have reloaded');
+      vm.loadPage();
+      $route.reload();
+    }
+
     //edit profile content
     vm.editInfo = false;
     vm.editBtn = function(){
