@@ -69,6 +69,7 @@ public class MaidMyDayController {
 
         if (clientRepository.count() == 0) {
             Client client1 = new Client("Kevin", "Bacon", "123", "cbacon@sizzling.com", "843-123-4567");
+            ArrayList<Task> c1Tasks = new ArrayList<>();
             clientRepository.save(client1);
         }
         if (clientRepository.count() == 1) {
@@ -144,6 +145,34 @@ public class MaidMyDayController {
         Client updatedClient = ObjectUpdateUtils.updateClientObject(client, clientUpdates);
         clientRepository.save(updatedClient);
         return updatedClient;
+    }
+
+    @RequestMapping(path = "/clientTasks", method = RequestMethod.POST)
+    public String clientTasks(@RequestBody HashMap map, HttpSession session) {
+
+        Client client = clientRepository.findByEmail((String) session.getAttribute("email"));
+        HashMap taskMap = (HashMap) map.get("tasks");
+
+        List<Task> tasksByClient = taskRepository.findByClient(client);
+        for (Task task : tasksByClient) {
+            taskRepository.delete(task);
+        }
+
+        Set<String> tasks = taskMap.keySet();
+        for(String taskName : tasks) {
+            Task task = new Task(taskName, client, null);
+            taskRepository.save(task);
+        }
+
+        return null;
+    }
+
+    @RequestMapping(path = "/clientTasks/{id}", method = RequestMethod.GET)
+    public ArrayList<Task> clientTasks(@PathVariable("id") int id) {
+
+        Client client = clientRepository.findOne(id);
+
+        return (ArrayList<Task>) taskRepository.findByClient(client);
     }
 
     @RequestMapping(path = "/client/request", method = RequestMethod.GET)
