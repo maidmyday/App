@@ -4,26 +4,27 @@ angular
 
   ClientController.$inject = ['$scope','$rootScope','$route','$location','$uibModal','$log','ClientService'];
 
-  function ClientController($scope,$rootScope,$route,$location,$uibModal,$log,ClientService) {
+  function ClientController($scope,$rootScope,$route,$location,$uibModal,$log,ClientService, $modalInstance) {
+
     var vm = this;
 
     vm.animationsEnabled = true;
 
     // THIS OPENS JOB POST FORM MODAL
-      vm.openJobModal = function (size) {
-
-        var modalInstance = $uibModal.open({
-          animation: vm.animationsEnabled,
-          templateUrl: 'chome/tmpls/jobMainModal.html',
-          controller: 'JobInstanceCtrl as JobCtrl',
-          size: size,
-          resolve: {
-            items: function () {
-              return vm.items;
-            }
-          }
-        });
-      };
+      // vm.openMatchModal = function (size) {
+      //
+      //   var modalInstance = $uibModal.open({
+      //     animation: vm.animationsEnabled,
+      //     templateUrl: './goOnline/tmpls/goOnline.html',
+      //     controller: 'JobInstanceCtrl as JobCtrl',
+      //     size: size,
+      //     resolve: {
+      //       items: function () {
+      //         return vm.items;
+      //       }
+      //     }
+      //   });
+      // };
 
     //logout button
     vm.logout = function(){
@@ -111,5 +112,23 @@ angular
     //temporary accordion history data injecting the page
 
     vm.historyData = ClientService.historyData;
+
+
+
+       $scope.animationsEnabled = true;
+    $scope.openMatchModal = function (size) {
+
+      var modalInstance = $uibModal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: './matches/tmpls/match-modal.html',
+        controller: 'MatchModalController',
+        size: size,
+        resolve: {
+          items: function () {
+            return $scope.items;
+          }
+        }
+      });
+    }
 
   }
