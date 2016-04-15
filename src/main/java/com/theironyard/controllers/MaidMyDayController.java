@@ -445,10 +445,10 @@ public class MaidMyDayController {
 
         newPhoto.setFileName(photoFile.getName());
 
-        if (client != null) {
-            newPhoto.setClient(client);
-        } else if (provider != null) {
+        if (provider != null) {
             newPhoto.setProvider(provider);
+        } else if (client != null) {
+            newPhoto.setClient(client);
         }
 
         fileUploadRepository.save(newPhoto);
