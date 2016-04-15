@@ -44,11 +44,8 @@ angular
 
   ClientController.$inject = ['$scope','$rootScope','$route','$location','$uibModal','$log','ClientService'];
 
-<<<<<<< HEAD
-  function ClientController($scope,$rootScope,$location,$uibModal,$log,ClientService, $modalInstance) {
-=======
-  function ClientController($scope,$rootScope,$route,$location,$uibModal,$log,ClientService) {
->>>>>>> 76a45e8c40ff229a8e849ad00da031961e01bbc0
+  function ClientController($scope,$rootScope,$route,$location,$uibModal,$log,ClientService, $modalInstance) {
+
     var vm = this;
 
     vm.animationsEnabled = true;
@@ -40224,15 +40221,15 @@ angular
     ]
 
     return {
-<<<<<<< HEAD
+
 
       putProviderOffline: putProviderOffline,
       isUserOnline: isUserOnline,
 
 
-=======
+
       uploadFileToUrl: uploadFileToUrl,
->>>>>>> 76a45e8c40ff229a8e849ad00da031961e01bbc0
+
       editProvider: editProvider,
       logoutNow: logoutNow,
       getProvider: getProvider,
