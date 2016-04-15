@@ -25,7 +25,7 @@ angular
       return $http.put('/provider', user);
     }
 
-    //putting the file
+    //putting the new file
     function editFile(file, uploadUrl){
       var fd = new FormData();
       fd.append('photo', file);
@@ -98,8 +98,6 @@ angular
 
       putProviderOffline: putProviderOffline,
       isUserOnline: isUserOnline,
-
-
 
       uploadFileToUrl: uploadFileToUrl,
 
