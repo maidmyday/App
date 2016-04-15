@@ -466,5 +466,4 @@ public class MaidMyDayController {
 //            throw new Exception("You backenders suck at life!!! We didn't receive a photo!!");
 //        }
 //    }
->>>>>>> 6df98aa8e11cd0cb7ae1c6beff0b03fea7342833
 }
