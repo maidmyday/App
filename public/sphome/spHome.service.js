@@ -41,6 +41,17 @@ angular
         });
     }
 
+    function putProviderOffline(user,idOfUser) {
+      return $http.put(spurl + '/' + idOfUser + "/isOnline", user);
+    }
+    function isUserOnline(userId) {
+      return $http.get(spurl + '/' + userId).then(function (user) {
+        console.log('service isOnline', user.data.isOnline);
+        return user.data.isOnline;
+      });
+    }
+
+
     //temp data for history
     var historyData = [
       {
@@ -67,7 +78,15 @@ angular
     ]
 
     return {
+
+
+      putProviderOffline: putProviderOffline,
+      isUserOnline: isUserOnline,
+
+
+
       uploadFileToUrl: uploadFileToUrl,
+
       editProvider: editProvider,
       logoutNow: logoutNow,
       getProvider: getProvider,

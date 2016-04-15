@@ -1,9 +1,13 @@
 var angular = require('angular');
 var angularRoute = require('angular-route');
+var uiBoot = require('angular-ui-bootstrap');
 
 
 angular
-  .module('cHome',['ngRoute'])
+  .module('cHome',[
+    'ngRoute',
+    'ui.bootstrap'
+])
   .config(function($routeProvider){
     $routeProvider
 
