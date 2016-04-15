@@ -38,6 +38,8 @@ public class MaidMyDayApplicationTests {
     RequestRepository requestRepository;
     @Autowired
     TaskRepository taskRepository;
+    @Autowired
+    FileUploadRepository fileUploadRepository;
 
     @Autowired
     WebApplicationContext wap;
@@ -53,7 +55,7 @@ public class MaidMyDayApplicationTests {
     // creating a client account
 	@Test
 	public void testA() throws Exception {
-        Client client = new Client("asdf", "asdf", PasswordStorage.createHash("asdf"), "asdf", "asdf");
+        Client client = new Client("asdf", "asdf", PasswordStorage.createHash("asdf"), "asdf", "asdf", null, "");
 
         //this is for creating JSON strings
         ObjectMapper mapper = new ObjectMapper();
@@ -70,7 +72,7 @@ public class MaidMyDayApplicationTests {
     // creating a provider account
     @Test
     public void testB() throws Exception {
-        Provider provider = new Provider("2asdf", "2asdf", PasswordStorage.createHash("2asdf"), "2asdf", "2asdf");
+        Provider provider = new Provider("2asdf", "2asdf", PasswordStorage.createHash("2asdf"), "2asdf", "2asdf", null, "");
 
         //this is for creating JSON strings
         ObjectMapper mapper = new ObjectMapper();
