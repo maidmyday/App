@@ -97,12 +97,11 @@ angular
 
     //edit profile content
     vm.editInfo = false;
-
     vm.editBtn = function(){
       vm.editInfo = !vm.editInfo;
     }
 
-    vm.master = {};
+    // vm.master = {};
     vm.saveEdit = function(user){
       // vm.master = angular.copy(user);
       console.log('should be new profile info obj',user);
@@ -39829,7 +39828,7 @@ angular
       vm.editInfo = !vm.editInfo;
     }
 
-    vm.master = {};
+    // vm.master = {};
     vm.saveEdit = function(user){
       // vm.master = angular.copy(user);
       console.log('should be new profile info obj',user);
