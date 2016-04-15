@@ -29,7 +29,7 @@ public class Client {
     @Column(nullable = false)
     private String phoneNumber;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "provider")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "client")
     private List<Task> tasks;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "client")
