@@ -21,6 +21,10 @@ public class Task {
 
     @ManyToOne
     @JsonIgnore
+    private Client client;
+
+    @ManyToOne
+    @JsonIgnore
     private Request request;
 
     public Task() {
@@ -29,6 +33,12 @@ public class Task {
     public Task(String taskName, Provider provider, Request request) {
         this.taskName = taskName;
         this.provider = provider;
+        this.request = request;
+    }
+
+    public Task(String taskName, Client client, Request request) {
+        this.taskName = taskName;
+        this.client = client;
         this.request = request;
     }
 
@@ -54,5 +64,13 @@ public class Task {
 
     public void setRequest(Request request) {
         this.request = request;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 }

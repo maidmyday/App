@@ -29,8 +29,8 @@ public class Client {
     @Column(nullable = false)
     private String phoneNumber;
 
-//    @Column(nullable = false)
-//    private String photoUrl;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "provider")
+    private List<Task> tasks;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "client")
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -124,5 +124,11 @@ public class Client {
         this.fileUpload = fileUpload;
     }
 
+    public List<Task> getTasks() {
+        return tasks;
+    }
 
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
 }
