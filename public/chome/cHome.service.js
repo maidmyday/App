@@ -5,14 +5,13 @@ angular
     var clienturl = '/client';
     var allClients = '/clients';
     var logouturl = '/logout';
-    var uploadCUrl = '/fileUpload';
-    // var getPhoto = '/photo';
+    // var uploadCUrl = '/fileUpload';
 
     function deleteClient(id){
       return $http.delete(clienturl + '/' + id);
     }
 
-    function logoutNow(id){
+    function logoutNow(){
       return $http.post(logouturl);
     }
 
@@ -28,10 +27,10 @@ angular
 
 
     //uploading a photo to database
-    function uploadFileToCUrl(file, uploadCUrl){
+    function uploadFileToCUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);
-        $http.post(uploadCUrl, fd, {
+        $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })

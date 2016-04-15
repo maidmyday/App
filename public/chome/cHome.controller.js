@@ -2,9 +2,10 @@ angular
   .module('cHome')
   .controller('ClientController', ClientController);
 
-  ClientController.$inject = ['$scope','$rootScope','$location','$uibModal','$log','ClientService'];
+  ClientController.$inject = ['$scope','$rootScope','$route','$location','$uibModal','$log','ClientService'];
 
-  function ClientController($scope,$rootScope,$location,$uibModal,$log,ClientService, $modalInstance) {
+  function ClientController($scope,$rootScope,$route,$location,$uibModal,$log,ClientService, $modalInstance) {
+
     var vm = this;
 
     vm.animationsEnabled = true;
@@ -28,7 +29,7 @@ angular
     //logout button
     vm.logout = function(){
       console.log('data inside logout function',window.localStorage);
-      ClientService.logoutNow(window.JSON.parse(window.localStorage.getItem('theclient')).id).then(function(){
+      ClientService.logoutNow().then(function(){
         window.localStorage.clear();
         console.log('hopefully empty: ',window.localStorage);
         $location.path('/');
@@ -54,7 +55,11 @@ angular
         console.dir(file);
         var uploadUrl = "/fileUpload";
         ClientService.uploadFileToCUrl(file, uploadUrl);
+        vm.editInfo = !vm.editInfo;
+        console.log('page should have reloaded');
         vm.loadPage();
+        $route.reload();
+        // $window.location.reload();
     };
 
     //edit profile content
@@ -70,8 +75,10 @@ angular
       ClientService.editClient(user).then(function(data){
         vm.edittedData =  data.data;
         console.log('client after edit',vm.edittedData);
-      });
-      vm.editInfo = !vm.editInfo;
+        vm.editInfo = !vm.editInfo;
+        console.log('page should have reloaded');
+        vm.loadPage();
+      })
     }
 
     //delete client account

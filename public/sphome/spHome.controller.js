@@ -2,9 +2,9 @@ angular
   .module('spHome')
   .controller('SpController',SpController)
 
-  SpController.$inject = ['$scope','$rootScope','$location','$uibModal','$log','SpService'];
+  SpController.$inject = ['$scope','$rootScope','$route','$location','$uibModal','$log','SpService'];
 
-  function SpController($scope,$rootScope,$location,$uibModal,$log,SpService, $modalInstance) {
+  function SpController($scope,$rootScope,$route,$location,$uibModal,$log,SpService, $modalInstance) {
     var vm = this;
 
     //logout button
@@ -45,8 +45,11 @@ angular
         console.log('photo file is ',file );
         console.dir(file);
         var uploadUrl = "/fileUpload";
-        SpService.uploadFileToPUrl(file, uploadUrl);
+        SpService.uploadFileToUrl(file, uploadUrl);
+        vm.editInfo = !vm.editInfo;
+        console.log('page should have reloaded');
         vm.loadPage();
+        $route.reload();
     };
 
     //go online: change a boolean and show change in dom
@@ -74,9 +77,11 @@ angular
       SpService.editProvider(user).then(function(data){
         vm.edittedData =  data.data;
         console.log('provider after edit',vm.edittedData);
-      });
-      vm.editInfo = !vm.editInfo;
-      vm.loadPage();
+        vm.editInfo = !vm.editInfo;
+        console.log('page should have reloaded');
+        vm.loadPage();
+        $route.reload();
+      })
     }
 
     //edit about content

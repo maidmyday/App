@@ -42,9 +42,13 @@ angular
   .module('cHome')
   .controller('ClientController', ClientController);
 
-  ClientController.$inject = ['$scope','$rootScope','$location','$uibModal','$log','ClientService'];
+  ClientController.$inject = ['$scope','$rootScope','$route','$location','$uibModal','$log','ClientService'];
 
+<<<<<<< HEAD
   function ClientController($scope,$rootScope,$location,$uibModal,$log,ClientService, $modalInstance) {
+=======
+  function ClientController($scope,$rootScope,$route,$location,$uibModal,$log,ClientService) {
+>>>>>>> 76a45e8c40ff229a8e849ad00da031961e01bbc0
     var vm = this;
 
     vm.animationsEnabled = true;
@@ -68,7 +72,7 @@ angular
     //logout button
     vm.logout = function(){
       console.log('data inside logout function',window.localStorage);
-      ClientService.logoutNow(window.JSON.parse(window.localStorage.getItem('theclient')).id).then(function(){
+      ClientService.logoutNow().then(function(){
         window.localStorage.clear();
         console.log('hopefully empty: ',window.localStorage);
         $location.path('/');
@@ -94,7 +98,11 @@ angular
         console.dir(file);
         var uploadUrl = "/fileUpload";
         ClientService.uploadFileToCUrl(file, uploadUrl);
+        vm.editInfo = !vm.editInfo;
+        console.log('page should have reloaded');
         vm.loadPage();
+        $route.reload();
+        // $window.location.reload();
     };
 
     //edit profile content
@@ -110,8 +118,10 @@ angular
       ClientService.editClient(user).then(function(data){
         vm.edittedData =  data.data;
         console.log('client after edit',vm.edittedData);
-      });
-      vm.editInfo = !vm.editInfo;
+        vm.editInfo = !vm.editInfo;
+        console.log('page should have reloaded');
+        vm.loadPage();
+      })
     }
 
     //delete client account
@@ -207,14 +217,13 @@ angular
     var clienturl = '/client';
     var allClients = '/clients';
     var logouturl = '/logout';
-    var uploadCUrl = '/fileUpload';
-    // var getPhoto = '/photo';
+    // var uploadCUrl = '/fileUpload';
 
     function deleteClient(id){
       return $http.delete(clienturl + '/' + id);
     }
 
-    function logoutNow(id){
+    function logoutNow(){
       return $http.post(logouturl);
     }
 
@@ -230,10 +239,10 @@ angular
 
 
     //uploading a photo to database
-    function uploadFileToCUrl(file, uploadCUrl){
+    function uploadFileToCUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);
-        $http.post(uploadCUrl, fd, {
+        $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })
@@ -39903,9 +39912,9 @@ angular
   .module('spHome')
   .controller('SpController',SpController)
 
-  SpController.$inject = ['$scope','$rootScope','$location','$uibModal','$log','SpService'];
+  SpController.$inject = ['$scope','$rootScope','$route','$location','$uibModal','$log','SpService'];
 
-  function SpController($scope,$rootScope,$location,$uibModal,$log,SpService, $modalInstance) {
+  function SpController($scope,$rootScope,$route,$location,$uibModal,$log,SpService, $modalInstance) {
     var vm = this;
 
     //logout button
@@ -39946,8 +39955,11 @@ angular
         console.log('photo file is ',file );
         console.dir(file);
         var uploadUrl = "/fileUpload";
-        SpService.uploadFileToPUrl(file, uploadUrl);
+        SpService.uploadFileToUrl(file, uploadUrl);
+        vm.editInfo = !vm.editInfo;
+        console.log('page should have reloaded');
         vm.loadPage();
+        $route.reload();
     };
 
     //go online: change a boolean and show change in dom
@@ -39975,9 +39987,11 @@ angular
       SpService.editProvider(user).then(function(data){
         vm.edittedData =  data.data;
         console.log('provider after edit',vm.edittedData);
-      });
-      vm.editInfo = !vm.editInfo;
-      vm.loadPage();
+        vm.editInfo = !vm.editInfo;
+        console.log('page should have reloaded');
+        vm.loadPage();
+        $route.reload();
+      })
     }
 
     //edit about content
@@ -40137,7 +40151,7 @@ angular
     var spurl = '/provider';
     var allProviders = '/providers';
     var logouturl = '/logout';
-    var uploadPUrl = '/fileUpload';
+    // var uploadPUrl = '/fileUpload';
 
     function logoutNow(){
       return $http.post(logouturl);
@@ -40154,14 +40168,14 @@ angular
 
     //editing provider profile
     function editProvider(user) {
-      return $http.put(spurl, user);
+      return $http.put('/provider', user);
     }
 
     //uploading a photo to database
-    function uploadFileToPUrl(file, uploadPUrl){
+    function uploadFileToUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);
-        $http.post(uploadPUrl, fd, {
+        $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })
@@ -40210,11 +40224,15 @@ angular
     ]
 
     return {
+<<<<<<< HEAD
 
       putProviderOffline: putProviderOffline,
       isUserOnline: isUserOnline,
 
 
+=======
+      uploadFileToUrl: uploadFileToUrl,
+>>>>>>> 76a45e8c40ff229a8e849ad00da031961e01bbc0
       editProvider: editProvider,
       logoutNow: logoutNow,
       getProvider: getProvider,

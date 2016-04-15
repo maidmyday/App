@@ -5,7 +5,7 @@ angular
     var spurl = '/provider';
     var allProviders = '/providers';
     var logouturl = '/logout';
-    var uploadPUrl = '/fileUpload';
+    // var uploadPUrl = '/fileUpload';
 
     function logoutNow(){
       return $http.post(logouturl);
@@ -22,14 +22,14 @@ angular
 
     //editing provider profile
     function editProvider(user) {
-      return $http.put(spurl, user);
+      return $http.put('/provider', user);
     }
 
     //uploading a photo to database
-    function uploadFileToPUrl(file, uploadPUrl){
+    function uploadFileToUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);
-        $http.post(uploadPUrl, fd, {
+        $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })
@@ -79,9 +79,13 @@ angular
 
     return {
 
+
       putProviderOffline: putProviderOffline,
       isUserOnline: isUserOnline,
 
+
+
+      uploadFileToUrl: uploadFileToUrl,
 
       editProvider: editProvider,
       logoutNow: logoutNow,
