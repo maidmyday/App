@@ -52,6 +52,19 @@ angular
         $route.reload();
     };
 
+    //PHOTO EDIT ROUTE
+    vm.changePFile = function(){
+      var file = vm.myFile;
+      console.log('photo file is ',file );
+      console.dir(file);
+      var uploadUrl = "/fileUpload";
+      SpService.editFile(file, uploadUrl);
+      vm.editInfo = !vm.editInfo;
+      console.log('page should have reloaded');
+      vm.loadPage();
+      $route.reload();
+    }
+
     //go online: change a boolean and show change in dom
     vm.inactive = true;
     vm.goOnline = function(){
