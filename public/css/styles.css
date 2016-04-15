@@ -27,13 +27,20 @@
     border-color: transparent;
     color: #C7CCDB; }
 
+.headline {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center; }
+  .headline h1 {
+    font-size: 6em; }
+
 input.ng-invalid {
   border-color: red; }
 
 div.modal-content {
   border-color: #C7CCDB;
-  border-width: 10px;
-  font-family: 'Sue Ellen Francisco',cursive; }
+  border-width: 10px; }
 
 input.form-control {
   margin-bottom: 2%; }
@@ -51,7 +58,6 @@ input.form-control {
     color: #FFF; }
 
 #backBtn {
-  font-family: 'Sue Ellen Francisco',cursive;
   color: #767B91;
   border-color: #767B91;
   background-color: #fff;
@@ -64,7 +70,6 @@ input.form-control {
       color: #FFF; }
 
 #signin {
-  font-family: 'Sue Ellen Francisco',cursive;
   position: absolute;
   left: 497px;
   color: #767B91;
@@ -287,3 +292,7 @@ div.jobModal div.modal-footer {
   div.jobModal div.modal-footer div.jobFormBtns {
     display: flex;
     justify-content: space-between; }
+
+* {
+  font-family: A little sunshine;
+  font-weight: bold; }

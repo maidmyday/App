@@ -33,3 +33,13 @@
   color: #C7CCDB;
 }
 }
+
+.headline{
+  display: flex;
+flex-flow: column;
+justify-content: center;
+align-items: center;
+h1{
+  font-size: 6em;
+}
+}
