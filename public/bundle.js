@@ -78,21 +78,20 @@ angular
       //getting data from the login and register
       ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
       .then(function(data){
-        console.log('client data from chome controller',data);
         vm.clientData =  data.data  ;
-        console.log('vm client from chome controller',vm.clientData);
+        console.log('vm clientData from chome controller',vm.clientData);
       })
     }
     vm.loadPage();
 
 
     //PHOTO UPLOAD
-    vm.uploadFile = function(){
+    vm.uploadCFile = function(){
         var file = vm.myFile;
         console.log('photo file is ',file );
         console.dir(file);
         var uploadUrl = "/fileUpload";
-        ClientService.uploadFileToUrl(file, uploadUrl);
+        ClientService.uploadFileToCUrl(file, uploadUrl);
         vm.loadPage();
     };
 
@@ -185,7 +184,7 @@ angular
     var clienturl = '/client';
     var allClients = '/clients';
     var logouturl = '/logout';
-    var uploadUrl = '/fileUpload';
+    var uploadCUrl = '/fileUpload';
     // var getPhoto = '/photo';
 
     function deleteClient(){
@@ -208,10 +207,10 @@ angular
 
 
     //uploading a photo to database
-    function uploadFileToUrl(file, uploadUrl){
+    function uploadFileToCUrl(file, uploadCUrl){
         var fd = new FormData();
         fd.append('photo', file);
-        $http.post(uploadUrl, fd, {
+        $http.post(uploadCUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })
@@ -251,8 +250,7 @@ angular
    ]
 
     return {
-      // getThatPhoto: getThatPhoto,
-      uploadFileToUrl: uploadFileToUrl,
+      uploadFileToCUrl: uploadFileToCUrl,
       editClient: editClient,
       deleteClient: deleteClient,
       logoutNow: logoutNow,
@@ -39797,20 +39795,19 @@ angular
       //getting data from the login and register
       SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
       .then(function(data){
-        console.log('provider data from sphome controller',data);
         vm.providerData =  data.data;
-        console.log('vm provider from sphome controller',vm.providerData);
+        console.log('vm providerData from sphome controller',vm.providerData);
       })
     }
     vm.loadPage();
 
     //PHOTO UPLOAD
-    vm.uploadFile = function(){
+    vm.uploadPFile = function(){
         var file = vm.myFile;
         console.log('photo file is ',file );
         console.dir(file);
         var uploadUrl = "/fileUpload";
-        SpService.uploadFileToUrl(file, uploadUrl);
+        SpService.uploadFileToPUrl(file, uploadUrl);
         vm.loadPage();
     };
 
@@ -39998,7 +39995,7 @@ angular
     var spurl = '/provider';
     var allProviders = '/providers';
     var logouturl = '/logout';
-    var uploadUrl = '/fileUpload';
+    var uploadPUrl = '/fileUpload';
 
     function logoutNow(){
       return $http.post(logouturl);
@@ -40019,10 +40016,10 @@ angular
     }
 
     //uploading a photo to database
-    function uploadFileToUrl(file, uploadUrl){
+    function uploadFileToPUrl(file, uploadPUrl){
         var fd = new FormData();
         fd.append('photo', file);
-        $http.post(uploadUrl, fd, {
+        $http.post(uploadPUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })
@@ -40060,7 +40057,7 @@ angular
     ]
 
     return {
-      uploadFileToUrl: uploadFileToUrl,
+      uploadFileToPUrl: uploadFileToPUrl,
       editProvider: editProvider,
       logoutNow: logoutNow,
       getProvider: getProvider,
