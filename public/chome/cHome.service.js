@@ -26,11 +26,6 @@ angular
       return $http.put(clienturl, user);
     }
 
-    //get the photo?
-    // function getThatPhoto(){
-    //   return $http.get(getPhoto);
-    // }
-
 
     //uploading a photo to database
     function uploadFileToUrl(file, uploadUrl){

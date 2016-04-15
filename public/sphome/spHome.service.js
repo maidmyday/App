@@ -25,10 +25,6 @@ angular
       return $http.put(spurl, user);
     }
 
-    function getAllProviders(){
-      return $http.get(allProviders);
-    }
-
     //uploading a photo to database
     function uploadFileToUrl(file, uploadUrl){
         var fd = new FormData();
@@ -74,7 +70,6 @@ angular
       uploadFileToUrl: uploadFileToUrl,
       editProvider: editProvider,
       logoutNow: logoutNow,
-      getAllProviders: getAllProviders,
       getProvider: getProvider,
       historyData: historyData,
       deleteSpAccount: deleteSpAccount
