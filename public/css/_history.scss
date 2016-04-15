@@ -1,0 +1,39 @@
+div.history{
+  width: 80%;
+  margin: 0 auto;
+  div.historyRow{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    div.historyBlock{
+      align-self: center;
+      max-height: 200px;
+      width: 200px;
+      div.historyBlock.comment{
+        overflow: scroll;
+      }
+      p.date{
+        text-align: right;
+      }
+    }
+  }
+}
+
+div.userImgSm{
+  background-color: #ead2ac;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  img.userIcon{
+    width: 170%;
+    height: auto;
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translateY(-50%) translateX(-50%);
+  }
+}

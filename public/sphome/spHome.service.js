@@ -5,6 +5,7 @@ angular
     var spurl = '/provider';
     var allProviders = '/providers';
     var logouturl = '/logout';
+    var uploadUrl = '/fileUpload';
 
     function logoutNow(){
       return $http.post(logouturl);
@@ -22,10 +23,6 @@ angular
     //editing provider profile
     function editProvider(user) {
       return $http.put(spurl, user);
-    }
-
-    function getAllProviders(){
-      return $http.get(allProviders);
     }
 
     //uploading a photo to database
@@ -48,7 +45,7 @@ angular
     var historyData = [
       {
         img: './images/bill04.jpg',
-        first: 'Zachary',
+        first: 'Thachary',
         last: 'Binx',
         rating: '3',
         date: 'date/time'
@@ -73,7 +70,6 @@ angular
       uploadFileToUrl: uploadFileToUrl,
       editProvider: editProvider,
       logoutNow: logoutNow,
-      getAllProviders: getAllProviders,
       getProvider: getProvider,
       historyData: historyData,
       deleteSpAccount: deleteSpAccount

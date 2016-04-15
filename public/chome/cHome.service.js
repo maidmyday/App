@@ -6,6 +6,7 @@ angular
     var allClients = '/clients';
     var logouturl = '/logout';
     var uploadUrl = '/fileUpload';
+    // var getPhoto = '/photo';
 
     function deleteClient(){
       return $http.delete(clienturl);
@@ -17,13 +18,14 @@ angular
 
     //registering a client account
     function getClient(id) {
-      return $http.get(clienturl + '/' + id)
+      return $http.get(clienturl + '/' + id);
     }
 
     //editing the client profile
     function editClient(user) {
       return $http.put(clienturl, user);
     }
+
 
     //uploading a photo to database
     function uploadFileToUrl(file, uploadUrl){
@@ -44,28 +46,32 @@ angular
    var historyData = [
      {
        img: './images/bill04.jpg',
-       first: 'Zachary',
-       last: 'Binx',
+       firstName: 'Thachary',
+       lastName: 'Binx',
        rating: '5',
-       date: 'date/time'
+       date: 'date/time',
+       comment: 'Wakka wakka'
      },
      {
        img: './images/bill02.jpg',
-       first: 'Will',
-       last: 'Graham',
+       firstName: 'Will',
+       lastName: 'Graham',
        rating: '2',
-       date: 'date/time'
+       date: 'date/time',
+       comment: 'Like a good neighbor, state farm is there!'
      },
      {
        img: './images/bill03.jpg',
-       first: 'Spencer',
-       last: 'Reid',
+       firstName: 'Spencer',
+       lastName: 'Reid',
        rating: '1',
-       date: 'date/time'
+       date: 'date/time',
+       comment: 'Whazzahhhp'
      }
    ]
 
     return {
+      // getThatPhoto: getThatPhoto,
       uploadFileToUrl: uploadFileToUrl,
       editClient: editClient,
       deleteClient: deleteClient,

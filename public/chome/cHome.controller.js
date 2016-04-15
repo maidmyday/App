@@ -47,6 +47,7 @@ angular
     }
     vm.loadPage();
 
+
     //PHOTO UPLOAD
     vm.uploadFile = function(){
         var file = vm.myFile;
@@ -54,21 +55,8 @@ angular
         console.dir(file);
         var uploadUrl = "/fileUpload";
         ClientService.uploadFileToUrl(file, uploadUrl);
+        vm.loadPage();
     };
-
-    //photo forms ng show
-    vm.savePhotoUrl = true;
-    vm.uploadPhotoFile = false;
-
-    vm.showUploadForm = function(){
-      vm.savePhotoUrl = !vm.savePhotoUrl;
-      vm.uploadPhotoFile = !vm.uploadPhotoFile;
-    }
-
-    vm.showSaveForm = function(){
-      vm.savePhotoUrl = !vm.savePhotoUrl;
-      vm.uploadPhotoFile = !vm.uploadPhotoFile;
-    }
 
     //edit profile content
     vm.editInfo = false;
@@ -86,7 +74,6 @@ angular
         console.log('client after edit',vm.edittedData);
       });
       vm.editInfo = !vm.editInfo;
-      vm.loadPage();
     }
 
     //delete client account
@@ -117,7 +104,7 @@ angular
       {stateOff: 'glyphicon-off'}
     ];
 
-    //temporary accordion data injecting the page
+    //temporary accordion history data injecting the page
 
     vm.historyData = ClientService.historyData;
 

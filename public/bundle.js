@@ -85,6 +85,7 @@ angular
     }
     vm.loadPage();
 
+
     //PHOTO UPLOAD
     vm.uploadFile = function(){
         var file = vm.myFile;
@@ -92,21 +93,8 @@ angular
         console.dir(file);
         var uploadUrl = "/fileUpload";
         ClientService.uploadFileToUrl(file, uploadUrl);
+        vm.loadPage();
     };
-
-    //photo forms ng show
-    vm.savePhotoUrl = true;
-    vm.uploadPhotoFile = false;
-
-    vm.showUploadForm = function(){
-      vm.savePhotoUrl = !vm.savePhotoUrl;
-      vm.uploadPhotoFile = !vm.uploadPhotoFile;
-    }
-
-    vm.showSaveForm = function(){
-      vm.savePhotoUrl = !vm.savePhotoUrl;
-      vm.uploadPhotoFile = !vm.uploadPhotoFile;
-    }
 
     //edit profile content
     vm.editInfo = false;
@@ -124,7 +112,6 @@ angular
         console.log('client after edit',vm.edittedData);
       });
       vm.editInfo = !vm.editInfo;
-      vm.loadPage();
     }
 
     //delete client account
@@ -155,7 +142,7 @@ angular
       {stateOff: 'glyphicon-off'}
     ];
 
-    //temporary accordion data injecting the page
+    //temporary accordion history data injecting the page
 
     vm.historyData = ClientService.historyData;
 
@@ -199,6 +186,7 @@ angular
     var allClients = '/clients';
     var logouturl = '/logout';
     var uploadUrl = '/fileUpload';
+    // var getPhoto = '/photo';
 
     function deleteClient(){
       return $http.delete(clienturl);
@@ -210,13 +198,14 @@ angular
 
     //registering a client account
     function getClient(id) {
-      return $http.get(clienturl + '/' + id)
+      return $http.get(clienturl + '/' + id);
     }
 
     //editing the client profile
     function editClient(user) {
       return $http.put(clienturl, user);
     }
+
 
     //uploading a photo to database
     function uploadFileToUrl(file, uploadUrl){
@@ -237,28 +226,32 @@ angular
    var historyData = [
      {
        img: './images/bill04.jpg',
-       first: 'Zachary',
-       last: 'Binx',
+       firstName: 'Thachary',
+       lastName: 'Binx',
        rating: '5',
-       date: 'date/time'
+       date: 'date/time',
+       comment: 'Wakka wakka'
      },
      {
        img: './images/bill02.jpg',
-       first: 'Will',
-       last: 'Graham',
+       firstName: 'Will',
+       lastName: 'Graham',
        rating: '2',
-       date: 'date/time'
+       date: 'date/time',
+       comment: 'Like a good neighbor, state farm is there!'
      },
      {
        img: './images/bill03.jpg',
-       first: 'Spencer',
-       last: 'Reid',
+       firstName: 'Spencer',
+       lastName: 'Reid',
        rating: '1',
-       date: 'date/time'
+       date: 'date/time',
+       comment: 'Whazzahhhp'
      }
    ]
 
     return {
+      // getThatPhoto: getThatPhoto,
       uploadFileToUrl: uploadFileToUrl,
       editClient: editClient,
       deleteClient: deleteClient,
@@ -39818,21 +39811,8 @@ angular
         console.dir(file);
         var uploadUrl = "/fileUpload";
         SpService.uploadFileToUrl(file, uploadUrl);
+        vm.loadPage();
     };
-
-    //photo forms ng show
-    vm.savePhotoUrl = true;
-    vm.uploadPhotoFile = false;
-
-    vm.showUploadForm = function(){
-      vm.savePhotoUrl = !vm.savePhotoUrl;
-      vm.uploadPhotoFile = !vm.uploadPhotoFile;
-    }
-
-    vm.showSaveForm = function(){
-      vm.savePhotoUrl = !vm.savePhotoUrl;
-      vm.uploadPhotoFile = !vm.uploadPhotoFile;
-    }
 
     //go online: change a boolean and show change in dom
     vm.inactive = true;
@@ -40018,6 +39998,7 @@ angular
     var spurl = '/provider';
     var allProviders = '/providers';
     var logouturl = '/logout';
+    var uploadUrl = '/fileUpload';
 
     function logoutNow(){
       return $http.post(logouturl);
@@ -40035,10 +40016,6 @@ angular
     //editing provider profile
     function editProvider(user) {
       return $http.put(spurl, user);
-    }
-
-    function getAllProviders(){
-      return $http.get(allProviders);
     }
 
     //uploading a photo to database
@@ -40061,7 +40038,7 @@ angular
     var historyData = [
       {
         img: './images/bill04.jpg',
-        first: 'Zachary',
+        first: 'Thachary',
         last: 'Binx',
         rating: '3',
         date: 'date/time'
@@ -40086,7 +40063,6 @@ angular
       uploadFileToUrl: uploadFileToUrl,
       editProvider: editProvider,
       logoutNow: logoutNow,
-      getAllProviders: getAllProviders,
       getProvider: getProvider,
       historyData: historyData,
       deleteSpAccount: deleteSpAccount
