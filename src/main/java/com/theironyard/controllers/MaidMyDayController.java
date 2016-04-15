@@ -426,13 +426,20 @@ public class MaidMyDayController {
 
         String email = (String) session.getAttribute("email");
 
+        Client client = new Client();
+        try {
+            client = clientRepository.findByEmail(email);
+        } catch (Exception e) {
 
-        Client client = clientRepository.findByEmail(email);
-        Provider provider = providerRepository.findByEmail(email);
-
-        if (!photo.getContentType().startsWith("image")) {
-            throw new Exception("You can only upload images");
         }
+
+        Provider provider = new Provider();
+        try {
+            provider = providerRepository.findByEmail(email);
+        } catch (Exception e) {
+
+        }
+
 
 
         File dir = new File("public/photoUploads");
