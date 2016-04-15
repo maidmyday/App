@@ -454,7 +454,10 @@ public class MaidMyDayController {
 
 
         Client client = clientRepository.findByEmail(email);
-        Provider provider = providerRepository.findByEmail(email);
+        Provider provider = new Provider();
+        if (client == null) {
+            provider = providerRepository.findByEmail(email);
+        }
 
 
         if (!photo.getContentType().startsWith("image")) {
@@ -533,4 +536,4 @@ public class MaidMyDayController {
 //        } else {
 //            throw new Exception("You backenders suck at life!!! We didn't receive a photo!!");
 //        }
-//    }
+    }
