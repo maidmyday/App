@@ -106,4 +106,13 @@ public class Client {
 //    public void setPhotoUrl(String photoUrl) {
 //        this.photoUrl = photoUrl;
 //    }
+
+
+    public FileUpload getFileUpload() {
+        return fileUpload;
+    }
+
+    public void setFileUpload(FileUpload fileUpload) {
+        this.fileUpload = fileUpload;
+    }
 }

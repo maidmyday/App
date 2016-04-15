@@ -4,26 +4,26 @@ angular
 
   ClientController.$inject = ['$scope','$rootScope','$location','$uibModal','$log','ClientService'];
 
-  function ClientController($scope,$rootScope,$location,$uibModal,$log,ClientService) {
+  function ClientController($scope,$rootScope,$location,$uibModal,$log,ClientService, $modalInstance) {
     var vm = this;
 
     vm.animationsEnabled = true;
 
     // THIS OPENS JOB POST FORM MODAL
-      vm.openJobModal = function (size) {
-
-        var modalInstance = $uibModal.open({
-          animation: vm.animationsEnabled,
-          templateUrl: 'chome/tmpls/jobMainModal.html',
-          controller: 'JobInstanceCtrl as JobCtrl',
-          size: size,
-          resolve: {
-            items: function () {
-              return vm.items;
-            }
-          }
-        });
-      };
+      // vm.openMatchModal = function (size) {
+      //
+      //   var modalInstance = $uibModal.open({
+      //     animation: vm.animationsEnabled,
+      //     templateUrl: './goOnline/tmpls/goOnline.html',
+      //     controller: 'JobInstanceCtrl as JobCtrl',
+      //     size: size,
+      //     resolve: {
+      //       items: function () {
+      //         return vm.items;
+      //       }
+      //     }
+      //   });
+      // };
 
     //logout button
     vm.logout = function(){
@@ -47,6 +47,7 @@ angular
     }
     vm.loadPage();
 
+
     //PHOTO UPLOAD
     vm.uploadFile = function(){
         var file = vm.myFile;
@@ -54,21 +55,8 @@ angular
         console.dir(file);
         var uploadUrl = "/fileUpload";
         ClientService.uploadFileToUrl(file, uploadUrl);
+        vm.loadPage();
     };
-
-    //photo forms ng show
-    vm.savePhotoUrl = true;
-    vm.uploadPhotoFile = false;
-
-    vm.showUploadForm = function(){
-      vm.savePhotoUrl = !vm.savePhotoUrl;
-      vm.uploadPhotoFile = !vm.uploadPhotoFile;
-    }
-
-    vm.showSaveForm = function(){
-      vm.savePhotoUrl = !vm.savePhotoUrl;
-      vm.uploadPhotoFile = !vm.uploadPhotoFile;
-    }
 
     //edit profile content
     vm.editInfo = false;
@@ -86,7 +74,6 @@ angular
         console.log('client after edit',vm.edittedData);
       });
       vm.editInfo = !vm.editInfo;
-      vm.loadPage();
     }
 
     //delete client account
@@ -117,8 +104,26 @@ angular
       {stateOff: 'glyphicon-off'}
     ];
 
-    //temporary accordion data injecting the page
+    //temporary accordion history data injecting the page
 
     vm.historyData = ClientService.historyData;
+
+
+
+       $scope.animationsEnabled = true;
+    $scope.openMatchModal = function (size) {
+
+      var modalInstance = $uibModal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: './matches/tmpls/match-modal.html',
+        controller: 'MatchModalController',
+        size: size,
+        resolve: {
+          items: function () {
+            return $scope.items;
+          }
+        }
+      });
+    }
 
   }

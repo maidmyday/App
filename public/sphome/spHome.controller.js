@@ -14,6 +14,17 @@ angular
         window.localStorage.clear();
         console.log('hopefully empty: ',window.localStorage);
         $location.path('/');
+
+      })
+      var offline = {isOnline: false, tasks:null};
+      var userId = JSON.parse(window.localStorage.getItem('theprovider')).id
+      SpService.putProviderOffline(offline,userId)
+      .success(function(dataObj) {
+        console.log("SUCCESS", dataObj)
+          $rootScope.changeOnline = false;
+      })
+      .error(function(err) {
+        $rootScope.changeOnline = false;
       })
     }
 
@@ -36,21 +47,8 @@ angular
         console.dir(file);
         var uploadUrl = "/fileUpload";
         SpService.uploadFileToUrl(file, uploadUrl);
+        vm.loadPage();
     };
-
-    //photo forms ng show
-    vm.savePhotoUrl = true;
-    vm.uploadPhotoFile = false;
-
-    vm.showUploadForm = function(){
-      vm.savePhotoUrl = !vm.savePhotoUrl;
-      vm.uploadPhotoFile = !vm.uploadPhotoFile;
-    }
-
-    vm.showSaveForm = function(){
-      vm.savePhotoUrl = !vm.savePhotoUrl;
-      vm.uploadPhotoFile = !vm.uploadPhotoFile;
-    }
 
     //go online: change a boolean and show change in dom
     vm.inactive = true;
@@ -168,20 +166,23 @@ angular
       });
     }
 
-    $rootScope.openOfflineModal = function (size) {
 
-      var modalInstance = $uibModal.open({
-        animation: $scope.animationsEnabled,
-        templateUrl: './goOnline/tmpls/goOffline.html',
-        controller: 'GoOnlineModalInstanceCtrl',
-        size: size,
-        resolve: {
-          items: function () {
-            return $scope.items;
-          }
-        }
-      });
-    }
+    $scope.goOff = function () {
+      var offline = {isOnline: false, tasks:null};
+      var userId = JSON.parse(window.localStorage.getItem('theprovider')).id
+      SpService.putProviderOffline(offline,userId)
+      .success(function(dataObj) {
+        console.log("SUCCESS", dataObj)
+          $rootScope.changeOnline = false;
+      })
+      .error(function(err) {
+        $rootScope.changeOnline = false;
+      })
+    };
+
+    SpService.isUserOnline(JSON.parse(localStorage.getItem('theprovider')).id).then(function (bool) {
+      $rootScope.changeOnline = bool;
+    });
 
 
 

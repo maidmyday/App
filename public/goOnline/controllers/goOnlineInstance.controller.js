@@ -3,7 +3,11 @@ angular
 .controller('GoOnlineModalInstanceCtrl', function ($rootScope,$scope, $location, $uibModalInstance, GoOnlineService,$window) {
 
 // THIS CHANGES USER FROM ONLINE TO OFFLINE ON UI
-  $rootScope.changeOnline = false;
+GoOnlineService.isUserOnline(JSON.parse($window.localStorage.getItem('theprovider')).id).then(function (bool) {
+  console.log(bool);
+  $rootScope.changeOnline = bool;
+});
+
 
 
 // THIS CHANGES THE BOOLEAN OF IS_ONLINE TO TRUE
@@ -23,24 +27,6 @@ console.log(post);
       console.log("ERROR", err)
     })
   };
-
-
-// THIS CHANGES THE BOOLEAN OF IS_ONLINE TO false
-  $scope.goOff = function () {
-    var offline = {isOnline: false};
-    var userId = JSON.parse($window.localStorage.getItem('theprovider')).id
-    console.log(userId);
-    GoOnlineService.putProviderOffline(offline,userId)
-    .success(function(dataObj) {
-      console.log("SUCCESS", dataObj)
-        $rootScope.changeOnline = false;
-        $uibModalInstance.dismiss();
-    })
-    .error(function(err) {
-      console.log("ERROR", err)
-    })
-  };
-
 
 
 // THESE ARE THE RATING STARS THE ALEX GOT FROM SOMEWHERE

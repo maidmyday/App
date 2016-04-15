@@ -5,6 +5,7 @@ angular
     var spurl = '/provider';
     var allProviders = '/providers';
     var logouturl = '/logout';
+    var uploadUrl = '/fileUpload';
 
     function logoutNow(){
       return $http.post(logouturl);
@@ -24,10 +25,6 @@ angular
       return $http.put(spurl, user);
     }
 
-    function getAllProviders(){
-      return $http.get(allProviders);
-    }
-
     //uploading a photo to database
     function uploadFileToUrl(file, uploadUrl){
         var fd = new FormData();
@@ -44,11 +41,22 @@ angular
         });
     }
 
+    function putProviderOffline(user,idOfUser) {
+      return $http.put(spurl + '/' + idOfUser + "/isOnline", user);
+    }
+    function isUserOnline(userId) {
+      return $http.get(spurl + '/' + userId).then(function (user) {
+        console.log('service isOnline', user.data.isOnline);
+        return user.data.isOnline;
+      });
+    }
+
+
     //temp data for history
     var historyData = [
       {
         img: './images/bill04.jpg',
-        first: 'Zachary',
+        first: 'Thachary',
         last: 'Binx',
         rating: '3',
         date: 'date/time'
@@ -70,10 +78,11 @@ angular
     ]
 
     return {
+      putProviderOffline: putProviderOffline,
+      isUserOnline: isUserOnline,
       uploadFileToUrl: uploadFileToUrl,
       editProvider: editProvider,
       logoutNow: logoutNow,
-      getAllProviders: getAllProviders,
       getProvider: getProvider,
       historyData: historyData,
       deleteSpAccount: deleteSpAccount

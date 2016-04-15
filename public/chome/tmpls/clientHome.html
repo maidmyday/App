@@ -1,5 +1,5 @@
 <!-- bootstraping navbar -->
-
+  <button class="btn btn-default" ng-click="openMatchModal()">POST JOB</button>
 <nav class="navbar">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -9,7 +9,7 @@
     <ul class="nav navbar-nav navbar-right">
 
       <li><p class="navbar-text">Signed in as <span>{{CliCtrl.clientData.firstName}}</span></p></li>
-      <li><button class="btn btn-default navbar-btn" ng-click="CliCtrl.openJobModal()">POST JOB</button></li>
+
       <li><button class="btn btn-default navbar-btn" ng-click="CliCtrl.logout()">Logout</button></li>
 
     </ul>
@@ -23,7 +23,7 @@
   <div class="row userImgRow">
     <div class="userImgHomeParent col-md-12 col-sm-12">
       <div class="userImgHome">
-        <img src="./images/bill01.jpg" alt="userImg" class="userImgHome">
+        <img src="./photoUploads/{{CliCtrl.clientData.fileUpload.fileName}}" alt="userImg" class="userImgHome">
         </script>
       </div>
     </div>
@@ -34,7 +34,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
+    <div class="col-md-10 col-md-offset-1 col-sm-12">
 
         <uib-accordion>
 
@@ -58,30 +58,21 @@
                <cli-home-dir the-client-data=CliCtrl.clientData></cli-home-dir>
              </div>
              <div class="panel-body" ng-show="CliCtrl.editInfo">
-               <form role="form" ng-show="CliCtrl.savePhotoUrl" class="photoForm">
-                 <div class="form-group col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
+
+
+               <form role="form" class="photoForm">
+                 <div class="form-group col-md-12 col-sm-12">
                    <div class="tempPhoto">
-                     <img src="./images/bill01.jpg" alt="photo preview">
-                   </div>
-                   <input type="text" ng-model="user.photoUrl" class="form-control" placeholder="photo url">
-                 </div>
-                 <div class="uploadBtn col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
-                   <button type="button" class="btn btn-info" ng-click="CliCtrl.showUploadForm()">upload file</button>
-                   <button type="button" class="btn btn-warning" ng-click="CliCtrl.saveUrl(user)">save url</button>
-                 </div>
-               </form>
-               <form role="form" ng-show="CliCtrl.uploadPhotoFile" class="photoForm">
-                 <div class="form-group col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
-                   <div class="tempPhoto">
-                     <img src="./images/bill01.jpg" alt="photo preview">
+                     <img src="./photoUploads/{{CliCtrl.clientData.fileUpload.fileName}}" alt="yourImg">
                    </div>
                    <input type="file" file-model="CliCtrl.myFile" class="form-control">
                  </div>
                  <div class="uploadBtn col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
-                   <button type="button" class="btn btn-info" ng-click="CliCtrl.showSaveForm()">save url</button>
-                   <button type="button" class="btn btn-warning" ng-click="CliCtrl.uploadFile()">upload file</button>
+                   <button type="button" class="btn btn-warning" ng-click="CliCtrl.uploadFile()">post upload file</button>
                  </div>
                </form>
+
+
                <form role="form">
                  <div class="form-group col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
                    <input type="text" ng-model="user.firstName" class="form-control" placeholder="{{CliCtrl.clientData.firstName}}">
@@ -103,31 +94,28 @@
              <h3>History</h3>
            </uib-accordion-heading>
 
-           <div class="rAndC">
+           <div class="history">
              <div class="panel-body">
 
-                 <table class="table-responsive rAndC-table">
-                   <tbody>
-
-                     <tr class="table-hover" ng-repeat="user in CliCtrl.historyData">
-                       <td>
-                         <div class="userImgSm">
-                           <img src={{user.img}} alt="" class="userIcon">
-                         </div>
-                       </td>
-                       <td>
-                         <p>{{user.first}} {{user.last}}</p>
-                       </td>
-                       <td>
-                         <button class="btn btn-default"><uib-rating ng-model="user.rating" max="{{user.rating}}" read-only="true" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating></button>
-                       </td>
-                       <td>
-                         <p>{{user.date}}</p>
-                       </td>
-                     </tr>
-
-                   </tbody>
-                 </table>
+               <div class="historyRow" ng-repeat="user in CliCtrl.historyData">
+                 <div class="historyBlock">
+                   <div class="userImgSm">
+                     <img src={{user.img}} alt="" class="userIcon">
+                   </div>
+                 </div>
+                 <div class="historyBlock">
+                     <p>{{user.firstName}} {{user.lastName}}</p>
+                 </div>
+                 <div class="historyBlock">
+                     <uib-rating ng-model="user.rating" max="{{user.rating}}" read-only="true" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
+                 </div>
+                 <div class="historyBlock comment">
+                     <p>{{user.comment}}</p>
+                 </div>
+                 <div class="historyBlock">
+                     <p class="date">{{user.date}}</p>
+                 </div>
+               </div>
 
              </div>
            </div>
