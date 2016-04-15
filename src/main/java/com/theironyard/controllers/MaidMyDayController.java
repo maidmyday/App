@@ -147,24 +147,13 @@ public class MaidMyDayController {
         return updatedClient;
     }
 
-    @RequestMapping(path = "/clientTasks", method = RequestMethod.POST)
-    public String clientTasks(@RequestBody HashMap map, HttpSession session) {
+    @RequestMapping(path = "/client-tasks/{id}", method = RequestMethod.PUT)
+    public Client clientTasks(@RequestBody Client taskClient, HttpSession session) {
+        Client sClient = clientRepository.findByEmail((String) session.getAttribute("email"));
+        Client tClient = ObjectUpdateUtils.updateClientObject(sClient, taskClient);
 
-        Client client = clientRepository.findByEmail((String) session.getAttribute("email"));
-        HashMap taskMap = (HashMap) map.get("tasks");
-
-        List<Task> tasksByClient = taskRepository.findByClient(client);
-        for (Task task : tasksByClient) {
-            taskRepository.delete(task);
-        }
-
-        Set<String> tasks = taskMap.keySet();
-        for(String taskName : tasks) {
-            Task task = new Task(taskName, client, null);
-            taskRepository.save(task);
-        }
-
-        return null;
+        clientRepository.save(tClient);
+        return tClient;
     }
 
     @RequestMapping(path = "/clientTasks/{id}", method = RequestMethod.GET)
@@ -428,7 +417,10 @@ public class MaidMyDayController {
 
 
         Client client = clientRepository.findByEmail(email);
-        Provider provider = providerRepository.findByEmail(email);
+        Provider provider = new Provider();
+        if (client == null) {
+            provider = providerRepository.findByEmail(email);
+        }
 
         if (!photo.getContentType().startsWith("image")) {
             throw new Exception("You can only upload images");
@@ -454,6 +446,49 @@ public class MaidMyDayController {
         fileUploadRepository.save(newPhoto);
 
         return null;
+    }
+
+    @RequestMapping(path = "/fileUpload", method = RequestMethod.PUT)
+    public String updateUpload(MultipartFile photo, HttpSession session) throws Exception {
+        String email = (String) session.getAttribute("email");
+
+
+        Client client = clientRepository.findByEmail(email);
+        Provider provider = providerRepository.findByEmail(email);
+
+
+        if (!photo.getContentType().startsWith("image")) {
+            throw new Exception("You can only upload images");
+        }
+
+
+        File dir = new File("public/photoUploads");
+        dir.mkdirs(); // makes directory if it doesn't already exists
+        File photoFile = File.createTempFile("image", photo.getOriginalFilename(), dir);
+        FileOutputStream fos = new FileOutputStream(photoFile);
+        fos.write(photo.getBytes());
+
+        FileUpload newPhoto = new FileUpload(photo.getOriginalFilename());
+
+        newPhoto.setFileName(photoFile.getName());
+
+        if (client != null) {
+            newPhoto.setClient(client);
+            FileUpload oldFile = fileUploadRepository.findByClient(client);
+            fileUploadRepository.delete(oldFile);
+        } else if (provider != null) {
+            newPhoto.setProvider(provider);
+            FileUpload oldFile = fileUploadRepository.findByProvider(provider);
+            fileUploadRepository.delete(oldFile);
+        }
+
+
+        fileUploadRepository.save(newPhoto);
+
+
+
+        return null;
+
     }
 
 //    @RequestMapping(path = "/fileUpload", method = RequestMethod.PUT)
