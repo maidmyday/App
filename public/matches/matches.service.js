@@ -8,13 +8,8 @@ angular
       return $http.put(clienturl+ "-tasks" + '/' + idOfUser, user);
     }
 
-
-
-
-
     return {
       putMatches: putMatches
-      // putProviderOffline: putProviderOffline,
-      // isUserOnline: isUserOnline
+
     };
   })

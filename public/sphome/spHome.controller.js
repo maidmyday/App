@@ -5,6 +5,7 @@ angular
   SpController.$inject = ['$scope','$rootScope','$route','$location','$uibModal','$log','SpService'];
 
   function SpController($scope,$rootScope,$route,$location,$uibModal,$log,SpService, $modalInstance) {
+    $scope.photoFill = false;
     var vm = this;
 
     //logout button

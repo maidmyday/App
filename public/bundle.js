@@ -386,7 +386,7 @@ GoOnlineService.isUserOnline(JSON.parse($window.localStorage.getItem('theprovide
   $scope.goOn = function (post) {
 
     var online = {isOnline: true, tasks:post};
-
+console.log(online);
 
 
     var userId = JSON.parse($window.localStorage.getItem('theprovider')).id
@@ -403,22 +403,22 @@ GoOnlineService.isUserOnline(JSON.parse($window.localStorage.getItem('theprovide
 
 
 // THESE ARE THE RATING STARS THE ALEX GOT FROM SOMEWHERE
-  $scope.rate = 0;
-  $scope.max = 5;
-  $scope.isReadonly = false;
-
-  $scope.hoveringOver = function(value) {
-    $scope.overStar = value;
-    $scope.percent = 100 * (value / $scope.max);
-  };
-
-  $scope.ratingStates = [
-    {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
-    {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-    {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
-    {stateOn: 'glyphicon-heart'},
-    {stateOff: 'glyphicon-off'}
-  ];
+  // $scope.rate = 0;
+  // $scope.max = 5;
+  // $scope.isReadonly = false;
+  //
+  // $scope.hoveringOver = function(value) {
+  //   $scope.overStar = value;
+  //   $scope.percent = 100 * (value / $scope.max);
+  // };
+  //
+  // $scope.ratingStates = [
+  //   {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
+  //   {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
+  //   {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
+  //   {stateOn: 'glyphicon-heart'},
+  //   {stateOff: 'glyphicon-off'}
+  // ];
 
 });
 
@@ -664,53 +664,12 @@ console.log(post);
   MatchService.putMatches(task,userId)
   .success(function(dataObj) {
       console.log("SUCCESS", dataObj);
-      // $rootScope.changeOnline = true;
       $uibModalInstance.dismiss();
   })
   .error(function(err) {
     console.log("ERROR", err)
   })
 };
-
-
-
-// THIS CHANGES THE BOOLEAN OF IS_ONLINE TO TRUE
-  // $scope.matchMe = function () {
-  //    $uibModalInstance.dismiss();
-// console.log(post);
-//     var online = {isOnline: true, tasks:post};
-
-
-    // var userId = JSON.parse($window.localStorage.getItem('theprovider')).id
-    // GoOnlineService.putProviderOnline(online,userId)
-    // .success(function(dataObj) {
-    //     console.log("SUCCESS", dataObj);
-    //     // $rootScope.changeOnline = true;
-    //     // $uibModalInstance.dismiss();
-    // })
-    // .error(function(err) {
-    //   console.log("ERROR", err)
-    // })
-  // };
-
-
-// THESE ARE THE RATING STARS THE ALEX GOT FROM SOMEWHERE
-  // $scope.rate = 0;
-  // $scope.max = 5;
-  // $scope.isReadonly = false;
-  //
-  // $scope.hoveringOver = function(value) {
-  //   $scope.overStar = value;
-  //   $scope.percent = 100 * (value / $scope.max);
-  // };
-  //
-  // $scope.ratingStates = [
-  //   {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
-  //   {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-  //   {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
-  //   {stateOn: 'glyphicon-heart'},
-  //   {stateOff: 'glyphicon-off'}
-  // ];
 
 });
 
@@ -736,14 +695,9 @@ angular
       return $http.put(clienturl+ "-tasks" + '/' + idOfUser, user);
     }
 
-
-
-
-
     return {
       putMatches: putMatches
-      // putProviderOffline: putProviderOffline,
-      // isUserOnline: isUserOnline
+
     };
   })
 
@@ -39930,6 +39884,7 @@ angular
   SpController.$inject = ['$scope','$rootScope','$route','$location','$uibModal','$log','SpService'];
 
   function SpController($scope,$rootScope,$route,$location,$uibModal,$log,SpService, $modalInstance) {
+    $scope.photoFill = false;
     var vm = this;
 
     //logout button
