@@ -11,6 +11,7 @@ import java.util.List;
 public class Client {
 
     @Id
+    @Column(name = "fileUploadId")
     @GeneratedValue
     private int id;
 
@@ -29,7 +30,10 @@ public class Client {
     @Column(nullable = false)
     private String phoneNumber;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "client")
+    @Column//(nullable = false)
+    private String photoUrl;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "provider")
     private List<Task> tasks;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "client")
@@ -42,13 +46,14 @@ public class Client {
     }
 
 
-    public Client(String firstName, String lastName, String password, String email, String phoneNumber, FileUpload fileUpload) {
+    public Client(String firstName, String lastName, String password, String email, String phoneNumber, FileUpload fileUpload, String photoUrl) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.fileUpload = fileUpload;
+        this.photoUrl = photoUrl;
     }
 
     public Client(String firstName, String lastName, String password, String email, String phoneNumber) {
@@ -107,14 +112,13 @@ public class Client {
         this.id = id;
     }
 
-//    public String getPhotoUrl() {
-//        return photoUrl;
-//    }
-//
-//    public void setPhotoUrl(String photoUrl) {
-//        this.photoUrl = photoUrl;
-//    }
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
 
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
 
     public FileUpload getFileUpload() {
         return fileUpload;

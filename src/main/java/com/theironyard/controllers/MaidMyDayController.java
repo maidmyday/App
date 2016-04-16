@@ -68,20 +68,20 @@ public class MaidMyDayController {
         dbui = Server.createWebServer().start();
 
         if (clientRepository.count() == 0) {
-            Client client1 = new Client("Kevin", "Bacon", "123", "cbacon@sizzling.com", "843-123-4567");
+            Client client1 = new Client("Kevin", "Bacon", "123", "cbacon@sizzling.com", "843-123-4567", null, "");
             ArrayList<Task> c1Tasks = new ArrayList<>();
             clientRepository.save(client1);
         }
         if (clientRepository.count() == 1) {
-            Client client2 = new Client("Clint", "Bozic", "456", "kbacon@sizzling.com", "843-123-4567");
+            Client client2 = new Client("Clint", "Bozic", "456", "kbacon@sizzling.com", "843-123-4567", null, "");
             clientRepository.save(client2);
         }
         if (providerRepository.count() == 0) {
-            Provider provider1 = new Provider("Caroline", "Vail", "123", "carolineevail@gmail.com", "334-669-5482");
+            Provider provider1 = new Provider("Caroline", "Vail", "123", "carolineevail@gmail.com", "334-669-5482", null, "");
             providerRepository.save(provider1);
         }
         if (providerRepository.count() == 1) {
-            Provider provider2 = new Provider("Zach", "Owens", "456", "karolineevail@gmail.com", "334-669-5482");
+            Provider provider2 = new Provider("Zach", "Owens", "456", "karolineevail@gmail.com", "334-669-5482", null, "");
             providerRepository.save(provider2);
         }
     }
@@ -102,6 +102,7 @@ public class MaidMyDayController {
 
         if (client != null && PasswordStorage.verifyPassword(client.getPassword() , newClient.getPassword())) {
             session.setAttribute("email", client.getEmail());
+            session.setAttribute("type", "client");
             return newClient;
         } else {
             throw new Exception("Login failed.");
@@ -117,8 +118,9 @@ public class MaidMyDayController {
         }
         else {
             client1 = new Client(client.getFirstName(), client.getLastName(), PasswordStorage.createHash(client.getPassword()),
-                    client.getEmail(), client.getPhoneNumber(), client.getFileUpload());
+                    client.getEmail(), client.getPhoneNumber(), client.getFileUpload(), client.getPhotoUrl());
             session.setAttribute("email", client1.getEmail());
+            session.setAttribute("type", "client");
             clientRepository.save(client1);
         }
         return client1;
@@ -205,6 +207,7 @@ public class MaidMyDayController {
 
         if (provider != null && PasswordStorage.verifyPassword(provider.getPassword() , newProvider.getPassword())) {
             session.setAttribute("email", provider.getEmail());
+            session.setAttribute("type", "provider");
             return newProvider;
         } else {
             throw new Exception("Login failed.");
@@ -231,8 +234,9 @@ public class MaidMyDayController {
         }
         else {
             provider1 = new Provider(provider.getFirstName(), provider.getLastName(), PasswordStorage.createHash(provider.getPassword()),
-                    provider.getEmail(), provider.getPhoneNumber(), provider.getFileUpload());
+                    provider.getEmail(), provider.getPhoneNumber(), provider.getFileUpload(), provider.getPhotoUrl());
             session.setAttribute("email", provider1.getEmail());
+            session.setAttribute("type", "provider");
             providerRepository.save(provider1);
         }
         return provider1;
@@ -413,127 +417,64 @@ public class MaidMyDayController {
     @RequestMapping(path = "/fileUpload", method = RequestMethod.POST)
     public String upload(MultipartFile photo, HttpSession session) throws Exception {
 
+        String type = (String) session.getAttribute("type");
         String email = (String) session.getAttribute("email");
 
+        if (type == "client") {
+            Client client = clientRepository.findByEmail(email);
 
-        Client client = clientRepository.findByEmail(email);
-        Provider provider = new Provider();
-        if (client == null) {
-            provider = providerRepository.findByEmail(email);
-        }
+            File dir = new File("public/photoUploads");
+            dir.mkdirs(); // makes directory if it doesn't already exists
+            File photoFile = File.createTempFile("image", photo.getOriginalFilename(), dir);
+            FileOutputStream fos = new FileOutputStream(photoFile);
+            fos.write(photo.getBytes());
 
-        if (!photo.getContentType().startsWith("image")) {
-            throw new Exception("You can only upload images");
-        }
+            if (client.getFileUpload() != null) {
+                FileUpload oldFile = fileUploadRepository.findByClient(client);
+                oldFile.setClient(null);
+                client.setFileUpload(null);
+                clientRepository.save(client);
+                fileUploadRepository.delete(oldFile);
+                File diskFile = new File("public/photoUploads", oldFile.getFileName());
+                diskFile.delete();
+            }
 
-
-        File dir = new File("public/photoUploads");
-        dir.mkdirs(); // makes directory if it doesn't already exists
-        File photoFile = File.createTempFile("image", photo.getOriginalFilename(), dir);
-        FileOutputStream fos = new FileOutputStream(photoFile);
-        fos.write(photo.getBytes());
-
-        FileUpload newPhoto = new FileUpload(photo.getOriginalFilename());
-
-        newPhoto.setFileName(photoFile.getName());
-
-        if (client != null) {
+            FileUpload newPhoto = new FileUpload(photo.getOriginalFilename());
+            newPhoto.setFileName(photoFile.getName());
             newPhoto.setClient(client);
-        } else if (provider != null) {
-            newPhoto.setProvider(provider);
+            client.setFileUpload(newPhoto);
+            fileUploadRepository.save(newPhoto);
+            clientRepository.save(client);
         }
 
-        fileUploadRepository.save(newPhoto);
-
-        return null;
-    }
-
-    @RequestMapping(path = "/fileUpload", method = RequestMethod.PUT)
-    public String updateUpload(MultipartFile photo, HttpSession session) throws Exception {
-        String email = (String) session.getAttribute("email");
-
-
-        Client client = clientRepository.findByEmail(email);
-        Provider provider = new Provider();
-        if (client == null) {
-            provider = providerRepository.findByEmail(email);
-        }
-
-
-        if (!photo.getContentType().startsWith("image")) {
-            throw new Exception("You can only upload images");
-        }
-
-
-        File dir = new File("public/photoUploads");
-        dir.mkdirs(); // makes directory if it doesn't already exists
-        File photoFile = File.createTempFile("image", photo.getOriginalFilename(), dir);
-        FileOutputStream fos = new FileOutputStream(photoFile);
-        fos.write(photo.getBytes());
-
-        FileUpload newPhoto = new FileUpload(photo.getOriginalFilename());
-
-        newPhoto.setFileName(photoFile.getName());
-
-        if (client != null) {
-            newPhoto.setClient(client);
-            FileUpload oldFile = fileUploadRepository.findByClient(client);
-            fileUploadRepository.delete(oldFile);
-        } else if (provider != null) {
-            newPhoto.setProvider(provider);
-            FileUpload oldFile = fileUploadRepository.findByProvider(provider);
-            fileUploadRepository.delete(oldFile);
-        }
-
-
-        fileUploadRepository.save(newPhoto);
-
-
-
-        return null;
-
-    }
-
-//    @RequestMapping(path = "/fileUpload", method = RequestMethod.PUT)
-//    public Object editPhoto(HttpSession session) throws Exception {
-//        String email = (String) session.getAttribute("email");
+//        else if (type == "provider") {
+//            File dir = new File("public/photoUploads");
+//            dir.mkdirs(); // makes directory if it doesn't already exists
+//            File photoFile = File.createTempFile("image", photo.getOriginalFilename(), dir);
+//            FileOutputStream fos = new FileOutputStream(photoFile);
+//            fos.write(photo.getBytes());
 //
-//        Client client = clientRepository.findByEmail(email);
-//        Provider provider = providerRepository.findByEmail(email);
-//        FileUpload newPhoto = new FileUpload();
+//            if (client.getFileUpload() != null) {
+//                FileUpload oldFile = fileUploadRepository.findByClient(client);
+//                oldFile.setClient(null);
+//                client.setFileUpload(null);
+//                clientRepository.save(client);
+//                fileUploadRepository.delete(oldFile);
+//                File diskFile = new File("public", oldFile.getFileName());
+//                diskFile.delete();
+//            }
 //
-//        if (client != null) {
+//            FileUpload newPhoto = new FileUpload(photo.getOriginalFilename());
+//            newPhoto.setFileName(photoFile.getName());
 //            newPhoto.setClient(client);
-//        } else if (provider != null) {
-//            newPhoto.setProvider(provider);
+//            client.setFileUpload(newPhoto);
+//            fileUploadRepository.save(newPhoto);
+//            clientRepository.save(client);
 //        }
-//
-//        fileUploadRepository.save(newPhoto);
-//
-//        if (client != null) {
-//            return client;
-//        } else if (provider != null) {
-//            return provider;
-//        } else {
-//            throw new Exception("You backenders suck at life!!! We didn't receive a photo!!");
-//        }
-//    }
 
-
-//    @RequestMapping(path = "/photo", method = RequestMethod.GET)
-//    public Object getPhoto(HttpSession session) throws Exception {
-//
-//        String email = (String) session.getAttribute("email");
-//
-//        Client client = clientRepository.findByEmail(email);
-//        Provider provider = providerRepository.findByEmail(email);
-//
-//
-//        if (client != null) {
-//            return client;
-//        } else if (provider != null) {
-//            return provider;
-//        } else {
-//            throw new Exception("You backenders suck at life!!! We didn't receive a photo!!");
-//        }
+        if (!photo.getContentType().startsWith("image")) {
+            throw new Exception("You can only upload images");
+        }
+        return null;
     }
+}

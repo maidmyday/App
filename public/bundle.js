@@ -102,6 +102,19 @@ angular
         // $window.location.reload();
     };
 
+    //PHOTO EDIT ROUTE
+    vm.changeCFile = function(){
+      var file = vm.myFile;
+      console.log('photo file is ',file );
+      console.dir(file);
+      var uploadUrl = "/fileUpload";
+      ClientService.editFile(file, uploadUrl);
+      vm.editInfo = !vm.editInfo;
+      console.log('page should have reloaded');
+      vm.loadPage();
+      $route.reload();
+    }
+
     //edit profile content
     vm.editInfo = false;
     vm.editBtn = function(){
@@ -214,7 +227,7 @@ angular
     var clienturl = '/client';
     var allClients = '/clients';
     var logouturl = '/logout';
-    // var uploadCUrl = '/fileUpload';
+    // var uploadUrl = '/fileUpload';
 
     function deleteClient(id){
       return $http.delete(clienturl + '/' + id);
@@ -234,6 +247,21 @@ angular
       return $http.put(clienturl, user);
     }
 
+    //putting the file
+    function editFile(file, uploadUrl){
+      var fd = new FormData();
+      fd.append('photo', file);
+      $http.put(uploadUrl, fd, {
+          transformRequest: angular.identity,
+          headers: {'Content-Type': undefined}
+      })
+      .success(function(){
+        console.log('Holy Moly it worked!');
+      })
+      .error(function(){
+        console.log('Nah the picture didnt go!');
+      });
+    }
 
     //uploading a photo to database
     function uploadFileToCUrl(file, uploadUrl){
@@ -279,6 +307,7 @@ angular
    ]
 
     return {
+      editFile: editFile,
       uploadFileToCUrl: uploadFileToCUrl,
       editClient: editClient,
       deleteClient: deleteClient,
@@ -39948,6 +39977,19 @@ angular
         $route.reload();
     };
 
+    //PHOTO EDIT ROUTE
+    vm.changePFile = function(){
+      var file = vm.myFile;
+      console.log('photo file is ',file );
+      console.dir(file);
+      var uploadUrl = "/fileUpload";
+      SpService.editFile(file, uploadUrl);
+      vm.editInfo = !vm.editInfo;
+      console.log('page should have reloaded');
+      vm.loadPage();
+      $route.reload();
+    }
+
     //go online: change a boolean and show change in dom
     vm.inactive = true;
     vm.goOnline = function(){
@@ -40157,6 +40199,22 @@ angular
       return $http.put('/provider', user);
     }
 
+    //putting the new file
+    function editFile(file, uploadUrl){
+      var fd = new FormData();
+      fd.append('photo', file);
+      $http.put(uploadUrl, fd, {
+          transformRequest: angular.identity,
+          headers: {'Content-Type': undefined}
+      })
+      .success(function(){
+        console.log('Holy Moly it worked!');
+      })
+      .error(function(){
+        console.log('Nah the picture didnt go!');
+      });
+    }
+
     //uploading a photo to database
     function uploadFileToUrl(file, uploadUrl){
         var fd = new FormData();
@@ -40210,12 +40268,10 @@ angular
     ]
 
     return {
-
+      editFile: editFile,
 
       putProviderOffline: putProviderOffline,
       isUserOnline: isUserOnline,
-
-
 
       uploadFileToUrl: uploadFileToUrl,
 
