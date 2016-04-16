@@ -29,7 +29,7 @@ public class Provider {
     @Column(nullable = false)
     private String phoneNumber;
 
-    @Column(nullable = false)
+    @Column//(nullable = false)
     private String photoUrl;
 
     @Column(nullable = false)
