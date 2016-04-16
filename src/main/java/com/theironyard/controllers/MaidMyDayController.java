@@ -243,6 +243,7 @@ public class MaidMyDayController {
         return provider1;
     }
 
+
     @RequestMapping(path = "/provider", method = RequestMethod.GET)
     public List<Provider> findMatchingProviders(@RequestBody ListWrapper clientTasks) {
         List<Task> clientRequestedTasks = (List<Task>) clientTasks.getTasks();
