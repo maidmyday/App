@@ -23,8 +23,10 @@
   <div class="row userImgRow">
     <div class="userImgHomeParent col-md-12 col-sm-12">
       <div class="userImgHome">
-        <!-- <img ng-show="CliCtrl.empty" src="./images/bill01.jpg" alt="userImg" class="userImgHome"> -->
-        <img ng-show="CliCtrl.empty" src="./photoUploads/{{CliCtrl.clientData.fileUpload.fileName}}" alt="userImg" class="userImgHome">
+
+        <img ngshow="photoFill" src="./images/noProfileImage.png" alt="" class="userImgHome">
+        <img ngshow="!photoFill" src="./photoUploads/{{CliCtrl.clientData.fileUpload.fileName}}" alt="userImg" class="userImgHome">
+
         </script>
       </div>
     </div>
