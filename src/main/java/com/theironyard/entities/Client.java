@@ -11,6 +11,7 @@ import java.util.List;
 public class Client {
 
     @Id
+    @Column(name = "fileUploadId")
     @GeneratedValue
     private int id;
 
