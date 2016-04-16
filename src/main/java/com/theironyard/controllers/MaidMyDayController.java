@@ -1,5 +1,6 @@
 package com.theironyard.controllers;
 
+import com.theironyard.Wrapper.ListWrapper;
 import com.theironyard.entities.*;
 import com.theironyard.services.*;
 import com.theironyard.utils.Constants;
@@ -158,13 +159,13 @@ public class MaidMyDayController {
         return tClient;
     }
 
-    @RequestMapping(path = "/clientTasks/{id}", method = RequestMethod.GET)
-    public ArrayList<Task> clientTasks(@PathVariable("id") int id) {
-
-        Client client = clientRepository.findOne(id);
-
-        return (ArrayList<Task>) taskRepository.findByClient(client);
-    }
+//    @RequestMapping(path = "/clientTasks/{id}", method = RequestMethod.GET)
+//    public ArrayList<Task> clientTasks(@PathVariable("id") int id) {
+//
+//        Client client = clientRepository.findOne(id);
+//
+//        return (ArrayList<Task>) taskRepository.findByClient(client);
+//    }
 
     @RequestMapping(path = "/client/request", method = RequestMethod.GET)
     public List<Request> clientServiceHistory(HttpSession session) {
@@ -243,8 +244,8 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider", method = RequestMethod.GET)
-    public List<Provider> findMatchingProviders(@RequestBody HashMap clientTasks) {
-        List<Task> clientRequestedTasks = (List<Task>) clientTasks.get("tasks");
+    public List<Provider> findMatchingProviders(@RequestBody ListWrapper clientTasks) {
+        List<Task> clientRequestedTasks = (List<Task>) clientTasks.getTasks();
         List<Provider> providers = (List<Provider>) providerRepository.findAll();
         providers = providers.stream()
                 .filter((provider) -> {
