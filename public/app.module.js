@@ -6,6 +6,7 @@ require('./chome');
 require('./sphome');
 require('./goOnline');
 require('./loginFeature');
+require('./matches/');
 
 
 angular
@@ -16,7 +17,8 @@ angular
     'cHome',
     'spHome',
     'login',
-    'goOnline'
+    'goOnline',
+    'match'
   ])
 
   .config(function($routeProvider) {

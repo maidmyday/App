@@ -17,7 +17,7 @@
         <button ng-show="!changeOnline"  class="btn btn-default navbar-btn" ng-click="openOnlineModal()">GO ONLINE</button>
           <p ng-show="!changeOnline">You are offline</p>
           <div ng-show="!changeOnline" class="dot red"></div>
-        <button ng-show="changeOnline" ng-click='openOfflineModal()' class= 'btn btn-default navbar-btn'>Go OFFLINE</button>
+        <button ng-show="changeOnline" ng-click='goOff()' class= 'btn btn-default navbar-btn'>Go OFFLINE</button>
           <p ng-show="changeOnline">You are online</p>
           <div ng-show="changeOnline" class="dot green"></div>
     </div>
@@ -83,13 +83,14 @@
 
                <form role="form" class="photoForm">
                  <div class="form-group col-md-12 col-sm-12">
-                   <div class="tempPhoto">
+                   <!-- <div class="tempPhoto">
                      <img src="./photoUploads/{{SpCtrl.providerData.fileUpload.fileName}}" alt="photo preview">
-                   </div>
+                   </div> -->
                    <input type="file" file-model="SpCtrl.myFile" class="form-control">
                  </div>
                  <div class="uploadBtn col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
-                   <button type="button" class="btn btn-warning" ng-click="SpCtrl.uploadFile()">post upload file</button>
+                   <button type="button" class="btn btn-warning" ng-click="SpCtrl.uploadPFile()">post file</button>
+                   <button type="button" class="btn btn-danger" ng-click="SpCtrl.changePFile()">edit file</button>
                  </div>
                </form>
 

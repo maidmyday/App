@@ -68,19 +68,20 @@ public class MaidMyDayController {
         dbui = Server.createWebServer().start();
 
         if (clientRepository.count() == 0) {
-            Client client1 = new Client("Kevin", "Bacon", "123", "cbacon@sizzling.com", "843-123-4567");
+            Client client1 = new Client("Kevin", "Bacon", "123", "cbacon@sizzling.com", "843-123-4567", null, "");
+            ArrayList<Task> c1Tasks = new ArrayList<>();
             clientRepository.save(client1);
         }
         if (clientRepository.count() == 1) {
-            Client client2 = new Client("Clint", "Bozic", "456", "kbacon@sizzling.com", "843-123-4567");
+            Client client2 = new Client("Clint", "Bozic", "456", "kbacon@sizzling.com", "843-123-4567", null, "");
             clientRepository.save(client2);
         }
         if (providerRepository.count() == 0) {
-            Provider provider1 = new Provider("Caroline", "Vail", "123", "carolineevail@gmail.com", "334-669-5482");
+            Provider provider1 = new Provider("Caroline", "Vail", "123", "carolineevail@gmail.com", "334-669-5482", null, "");
             providerRepository.save(provider1);
         }
         if (providerRepository.count() == 1) {
-            Provider provider2 = new Provider("Zach", "Owens", "456", "karolineevail@gmail.com", "334-669-5482");
+            Provider provider2 = new Provider("Zach", "Owens", "456", "karolineevail@gmail.com", "334-669-5482", null, "");
             providerRepository.save(provider2);
         }
     }
@@ -116,7 +117,7 @@ public class MaidMyDayController {
         }
         else {
             client1 = new Client(client.getFirstName(), client.getLastName(), PasswordStorage.createHash(client.getPassword()),
-                    client.getEmail(), client.getPhoneNumber());
+                    client.getEmail(), client.getPhoneNumber(), client.getFileUpload(), client.getPhotoUrl());
             session.setAttribute("email", client1.getEmail());
             clientRepository.save(client1);
         }
@@ -146,6 +147,23 @@ public class MaidMyDayController {
         return updatedClient;
     }
 
+    @RequestMapping(path = "/client-tasks/{id}", method = RequestMethod.PUT)
+    public Client clientTasks(@RequestBody Client taskClient, HttpSession session) {
+        Client sClient = clientRepository.findByEmail((String) session.getAttribute("email"));
+        Client tClient = ObjectUpdateUtils.updateClientObject(sClient, taskClient);
+
+        clientRepository.save(tClient);
+        return tClient;
+    }
+
+    @RequestMapping(path = "/clientTasks/{id}", method = RequestMethod.GET)
+    public ArrayList<Task> clientTasks(@PathVariable("id") int id) {
+
+        Client client = clientRepository.findOne(id);
+
+        return (ArrayList<Task>) taskRepository.findByClient(client);
+    }
+
     @RequestMapping(path = "/client/request", method = RequestMethod.GET)
     public List<Request> clientServiceHistory(HttpSession session) {
         String clientEmail = (String) session.getAttribute("email");
@@ -162,10 +180,11 @@ public class MaidMyDayController {
         return localRatings;
     }
 
-    @RequestMapping(path = "/client{id}", method = RequestMethod.DELETE)
-    public void deleteClient(HttpSession session, @PathVariable ("id") int id) {
+    @RequestMapping(path = "/client/{id}", method = RequestMethod.DELETE)
+    public String deleteClient(HttpSession session, @PathVariable ("id") int id) {
         Client client = clientRepository.findOne(id);
         clientRepository.delete(client);
+        return null;
     }
 
     @RequestMapping(path = "/logout", method = RequestMethod.POST)
@@ -212,7 +231,7 @@ public class MaidMyDayController {
         }
         else {
             provider1 = new Provider(provider.getFirstName(), provider.getLastName(), PasswordStorage.createHash(provider.getPassword()),
-                    provider.getEmail(), provider.getPhoneNumber());
+                    provider.getEmail(), provider.getPhoneNumber(), provider.getFileUpload(), provider.getPhotoUrl());
             session.setAttribute("email", provider1.getEmail());
             providerRepository.save(provider1);
         }
@@ -264,9 +283,10 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/provider/{id}", method = RequestMethod.DELETE)
-    public void deleteProvider(HttpSession session, @PathVariable ("id") int id) {
+    public String deleteProvider(HttpSession session, @PathVariable ("id") int id) {
         Provider provider = providerRepository.findOne(id);
         providerRepository.delete(provider);
+        return null;
     }
 
     @RequestMapping(path = "/provider/{id}/isOnline", method = RequestMethod.PUT)
@@ -344,7 +364,7 @@ public class MaidMyDayController {
 
 
 
-
+    // might have to change the return type to something besides void
     @RequestMapping(path = "/rating/provider/{id}", method = RequestMethod.POST)
     public void createProviderRating(HttpSession session, @PathVariable ("id") int id, @RequestBody ProviderRating rating) {
         String clientEmail = (String) session.getAttribute("email");
@@ -352,7 +372,7 @@ public class MaidMyDayController {
         Provider provider = providerRepository.findOne(id);
         providerRatingRepository.save(rating);
     }
-
+    // might have to change the return type to something besides void
     @RequestMapping(path = "/rating/client/{id}", method = RequestMethod.POST)
     public void createClientRating(HttpSession session, @PathVariable ("id") int id, @RequestBody ClientRating rating) {
         String providerEmail = (String) session.getAttribute("email");
@@ -391,13 +411,16 @@ public class MaidMyDayController {
      * Upload single file using Spring Controller
      */
     @RequestMapping(path = "/fileUpload", method = RequestMethod.POST)
-    public void upload(MultipartFile photo, HttpSession session) throws Exception {
+    public String upload(MultipartFile photo, HttpSession session) throws Exception {
 
         String email = (String) session.getAttribute("email");
 
 
         Client client = clientRepository.findByEmail(email);
-        Provider provider = providerRepository.findByEmail(email);
+        Provider provider = new Provider();
+        if (client == null) {
+            provider = providerRepository.findByEmail(email);
+        }
 
         if (!photo.getContentType().startsWith("image")) {
             throw new Exception("You can only upload images");
@@ -405,7 +428,7 @@ public class MaidMyDayController {
 
 
         File dir = new File("public/photoUploads");
-        dir.mkdirs(); // makes directory if
+        dir.mkdirs(); // makes directory if it doesn't already exists
         File photoFile = File.createTempFile("image", photo.getOriginalFilename(), dir);
         FileOutputStream fos = new FileOutputStream(photoFile);
         fos.write(photo.getBytes());
@@ -421,6 +444,54 @@ public class MaidMyDayController {
         }
 
         fileUploadRepository.save(newPhoto);
+
+        return null;
+    }
+
+    @RequestMapping(path = "/fileUpload", method = RequestMethod.PUT)
+    public String updateUpload(MultipartFile photo, HttpSession session) throws Exception {
+        String email = (String) session.getAttribute("email");
+
+
+        Client client = clientRepository.findByEmail(email);
+        Provider provider = new Provider();
+        if (client == null) {
+            provider = providerRepository.findByEmail(email);
+        }
+
+
+        if (!photo.getContentType().startsWith("image")) {
+            throw new Exception("You can only upload images");
+        }
+
+
+        File dir = new File("public/photoUploads");
+        dir.mkdirs(); // makes directory if it doesn't already exists
+        File photoFile = File.createTempFile("image", photo.getOriginalFilename(), dir);
+        FileOutputStream fos = new FileOutputStream(photoFile);
+        fos.write(photo.getBytes());
+
+        FileUpload newPhoto = new FileUpload(photo.getOriginalFilename());
+
+        newPhoto.setFileName(photoFile.getName());
+
+        if (client != null) {
+            newPhoto.setClient(client);
+            FileUpload oldFile = fileUploadRepository.findByClient(client);
+            fileUploadRepository.delete(oldFile);
+        } else if (provider != null) {
+            newPhoto.setProvider(provider);
+            FileUpload oldFile = fileUploadRepository.findByProvider(provider);
+            fileUploadRepository.delete(oldFile);
+        }
+
+
+        fileUploadRepository.save(newPhoto);
+
+
+
+        return null;
+
     }
 
 //    @RequestMapping(path = "/fileUpload", method = RequestMethod.PUT)
@@ -466,4 +537,5 @@ public class MaidMyDayController {
 //            throw new Exception("You backenders suck at life!!! We didn't receive a photo!!");
 //        }
 //    }
+>>>>>>> 6df98aa8e11cd0cb7ae1c6beff0b03fea7342833
 }

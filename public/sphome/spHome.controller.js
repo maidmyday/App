@@ -2,9 +2,9 @@ angular
   .module('spHome')
   .controller('SpController',SpController)
 
-  SpController.$inject = ['$scope','$rootScope','$location','$uibModal','$log','SpService'];
+  SpController.$inject = ['$scope','$rootScope','$route','$location','$uibModal','$log','SpService'];
 
-  function SpController($scope,$rootScope,$location,$uibModal,$log,SpService, $modalInstance) {
+  function SpController($scope,$rootScope,$route,$location,$uibModal,$log,SpService, $modalInstance) {
     var vm = this;
 
     //logout button
@@ -14,6 +14,17 @@ angular
         window.localStorage.clear();
         console.log('hopefully empty: ',window.localStorage);
         $location.path('/');
+
+      })
+      var offline = {isOnline: false, tasks:null};
+      var userId = JSON.parse(window.localStorage.getItem('theprovider')).id
+      SpService.putProviderOffline(offline,userId)
+      .success(function(dataObj) {
+        console.log("SUCCESS", dataObj)
+          $rootScope.changeOnline = false;
+      })
+      .error(function(err) {
+        $rootScope.changeOnline = false;
       })
     }
 
@@ -22,22 +33,37 @@ angular
       //getting data from the login and register
       SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
       .then(function(data){
-        console.log('provider data from sphome controller',data);
         vm.providerData =  data.data;
-        console.log('vm provider from sphome controller',vm.providerData);
+        console.log('vm providerData from sphome controller',vm.providerData);
       })
     }
     vm.loadPage();
 
     //PHOTO UPLOAD
-    vm.uploadFile = function(){
+    vm.uploadPFile = function(){
         var file = vm.myFile;
         console.log('photo file is ',file );
         console.dir(file);
         var uploadUrl = "/fileUpload";
         SpService.uploadFileToUrl(file, uploadUrl);
+        vm.editInfo = !vm.editInfo;
+        console.log('page should have reloaded');
         vm.loadPage();
+        $route.reload();
     };
+
+    //PHOTO EDIT ROUTE
+    vm.changePFile = function(){
+      var file = vm.myFile;
+      console.log('photo file is ',file );
+      console.dir(file);
+      var uploadUrl = "/fileUpload";
+      SpService.editFile(file, uploadUrl);
+      vm.editInfo = !vm.editInfo;
+      console.log('page should have reloaded');
+      vm.loadPage();
+      $route.reload();
+    }
 
     //go online: change a boolean and show change in dom
     vm.inactive = true;
@@ -57,16 +83,18 @@ angular
       vm.editInfo = !vm.editInfo;
     }
 
-    vm.master = {};
+    // vm.master = {};
     vm.saveEdit = function(user){
       // vm.master = angular.copy(user);
       console.log('should be new profile info obj',user);
       SpService.editProvider(user).then(function(data){
         vm.edittedData =  data.data;
         console.log('provider after edit',vm.edittedData);
-      });
-      vm.editInfo = !vm.editInfo;
-      vm.loadPage();
+        vm.editInfo = !vm.editInfo;
+        console.log('page should have reloaded');
+        vm.loadPage();
+        $route.reload();
+      })
     }
 
     //edit about content
@@ -155,20 +183,23 @@ angular
       });
     }
 
-    $rootScope.openOfflineModal = function (size) {
 
-      var modalInstance = $uibModal.open({
-        animation: $scope.animationsEnabled,
-        templateUrl: './goOnline/tmpls/goOffline.html',
-        controller: 'GoOnlineModalInstanceCtrl',
-        size: size,
-        resolve: {
-          items: function () {
-            return $scope.items;
-          }
-        }
-      });
-    }
+    $scope.goOff = function () {
+      var offline = {isOnline: false, tasks:null};
+      var userId = JSON.parse(window.localStorage.getItem('theprovider')).id
+      SpService.putProviderOffline(offline,userId)
+      .success(function(dataObj) {
+        console.log("SUCCESS", dataObj)
+          $rootScope.changeOnline = false;
+      })
+      .error(function(err) {
+        $rootScope.changeOnline = false;
+      })
+    };
+
+    SpService.isUserOnline(JSON.parse(localStorage.getItem('theprovider')).id).then(function (bool) {
+      $rootScope.changeOnline = bool;
+    });
 
 
 

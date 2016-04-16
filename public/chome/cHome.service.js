@@ -5,14 +5,13 @@ angular
     var clienturl = '/client';
     var allClients = '/clients';
     var logouturl = '/logout';
-    var uploadUrl = '/fileUpload';
-    // var getPhoto = '/photo';
+    // var uploadUrl = '/fileUpload';
 
-    function deleteClient(){
-      return $http.delete(clienturl);
+    function deleteClient(id){
+      return $http.delete(clienturl + '/' + id);
     }
 
-    function logoutNow(id){
+    function logoutNow(){
       return $http.post(logouturl);
     }
 
@@ -26,9 +25,24 @@ angular
       return $http.put(clienturl, user);
     }
 
+    //putting the file
+    function editFile(file, uploadUrl){
+      var fd = new FormData();
+      fd.append('photo', file);
+      $http.put(uploadUrl, fd, {
+          transformRequest: angular.identity,
+          headers: {'Content-Type': undefined}
+      })
+      .success(function(){
+        console.log('Holy Moly it worked!');
+      })
+      .error(function(){
+        console.log('Nah the picture didnt go!');
+      });
+    }
 
     //uploading a photo to database
-    function uploadFileToUrl(file, uploadUrl){
+    function uploadFileToCUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);
         $http.post(uploadUrl, fd, {
@@ -71,8 +85,8 @@ angular
    ]
 
     return {
-      // getThatPhoto: getThatPhoto,
-      uploadFileToUrl: uploadFileToUrl,
+      editFile: editFile,
+      uploadFileToCUrl: uploadFileToCUrl,
       editClient: editClient,
       deleteClient: deleteClient,
       logoutNow: logoutNow,

@@ -29,8 +29,11 @@ public class Client {
     @Column(nullable = false)
     private String phoneNumber;
 
-//    @Column(nullable = false)
-//    private String photoUrl;
+    @Column(nullable = false)
+    private String photoUrl;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "provider")
+    private List<Task> tasks;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "client")
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -42,13 +45,22 @@ public class Client {
     }
 
 
+    public Client(String firstName, String lastName, String password, String email, String phoneNumber, FileUpload fileUpload, String photoUrl) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.fileUpload = fileUpload;
+        this.photoUrl = photoUrl;
+    }
+
     public Client(String firstName, String lastName, String password, String email, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
-//        this.photoUrl = photoUrl;
     }
 
     public String getFirstName() {
@@ -99,14 +111,13 @@ public class Client {
         this.id = id;
     }
 
-//    public String getPhotoUrl() {
-//        return photoUrl;
-//    }
-//
-//    public void setPhotoUrl(String photoUrl) {
-//        this.photoUrl = photoUrl;
-//    }
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
 
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
 
     public FileUpload getFileUpload() {
         return fileUpload;
@@ -114,5 +125,13 @@ public class Client {
 
     public void setFileUpload(FileUpload fileUpload) {
         this.fileUpload = fileUpload;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 }

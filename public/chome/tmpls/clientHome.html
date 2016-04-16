@@ -1,5 +1,5 @@
 <!-- bootstraping navbar -->
-
+  <button class="btn btn-default" ng-click="openMatchModal()">POST JOB</button>
 <nav class="navbar">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -9,7 +9,7 @@
     <ul class="nav navbar-nav navbar-right">
 
       <li><p class="navbar-text">Signed in as <span>{{CliCtrl.clientData.firstName}}</span></p></li>
-      <li><button class="btn btn-default navbar-btn" ng-click="CliCtrl.openJobModal()">POST JOB</button></li>
+
       <li><button class="btn btn-default navbar-btn" ng-click="CliCtrl.logout()">Logout</button></li>
 
     </ul>
@@ -62,13 +62,14 @@
 
                <form role="form" class="photoForm">
                  <div class="form-group col-md-12 col-sm-12">
-                   <div class="tempPhoto">
+                   <!-- <div class="tempPhoto">
                      <img src="./photoUploads/{{CliCtrl.clientData.fileUpload.fileName}}" alt="yourImg">
-                   </div>
+                   </div> -->
                    <input type="file" file-model="CliCtrl.myFile" class="form-control">
                  </div>
                  <div class="uploadBtn col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
-                   <button type="button" class="btn btn-warning" ng-click="CliCtrl.uploadFile()">post upload file</button>
+                   <button type="button" class="btn btn-warning" ng-click="CliCtrl.uploadCFile()">post file</button>
+                   <button type="button" class="btn btn-danger" ng-click="CliCtrl.changeCFile()">post file</button>
                  </div>
                </form>
 

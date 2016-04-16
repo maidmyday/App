@@ -5,7 +5,7 @@ angular
     var spurl = '/provider';
     var allProviders = '/providers';
     var logouturl = '/logout';
-    var uploadUrl = '/fileUpload';
+    // var uploadPUrl = '/fileUpload';
 
     function logoutNow(){
       return $http.post(logouturl);
@@ -22,7 +22,23 @@ angular
 
     //editing provider profile
     function editProvider(user) {
-      return $http.put(spurl, user);
+      return $http.put('/provider', user);
+    }
+
+    //putting the new file
+    function editFile(file, uploadUrl){
+      var fd = new FormData();
+      fd.append('photo', file);
+      $http.put(uploadUrl, fd, {
+          transformRequest: angular.identity,
+          headers: {'Content-Type': undefined}
+      })
+      .success(function(){
+        console.log('Holy Moly it worked!');
+      })
+      .error(function(){
+        console.log('Nah the picture didnt go!');
+      });
     }
 
     //uploading a photo to database
@@ -40,6 +56,17 @@ angular
           console.log('Nah the picture didnt go!');
         });
     }
+
+    function putProviderOffline(user,idOfUser) {
+      return $http.put(spurl + '/' + idOfUser + "/isOnline", user);
+    }
+    function isUserOnline(userId) {
+      return $http.get(spurl + '/' + userId).then(function (user) {
+        console.log('service isOnline', user.data.isOnline);
+        return user.data.isOnline;
+      });
+    }
+
 
     //temp data for history
     var historyData = [
@@ -67,7 +94,13 @@ angular
     ]
 
     return {
+      editFile: editFile,
+
+      putProviderOffline: putProviderOffline,
+      isUserOnline: isUserOnline,
+
       uploadFileToUrl: uploadFileToUrl,
+
       editProvider: editProvider,
       logoutNow: logoutNow,
       getProvider: getProvider,
