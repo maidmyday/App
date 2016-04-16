@@ -11,6 +11,7 @@ import java.util.List;
 public class Client {
 
     @Id
+    @Column(name = "fileUploadId")
     @GeneratedValue
     private int id;
 
@@ -29,7 +30,7 @@ public class Client {
     @Column(nullable = false)
     private String phoneNumber;
 
-    @Column(nullable = false)
+    @Column//(nullable = false)
     private String photoUrl;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "provider")
