@@ -49,22 +49,25 @@ angular
         SpService.uploadFileToUrl(file, uploadUrl);
         vm.editInfo = !vm.editInfo;
         console.log('page should have reloaded');
-        vm.loadPage();
-        $route.reload();
+        SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
+        .then(function(data){
+          vm.providerData =  data.data;
+          console.log('vm providerData from sphome controller',vm.providerData);
+        })
     };
 
     //PHOTO EDIT ROUTE
-    vm.changePFile = function(){
-      var file = vm.myFile;
-      console.log('photo file is ',file );
-      console.dir(file);
-      var uploadUrl = "/fileUpload";
-      SpService.editFile(file, uploadUrl);
-      vm.editInfo = !vm.editInfo;
-      console.log('page should have reloaded');
-      vm.loadPage();
-      $route.reload();
-    }
+    // vm.changePFile = function(){
+    //   var file = vm.myFile;
+    //   console.log('photo file is ',file );
+    //   console.dir(file);
+    //   var uploadUrl = "/fileUpload";
+    //   SpService.editFile(file, uploadUrl);
+    //   vm.editInfo = !vm.editInfo;
+    //   console.log('page should have reloaded');
+    //   vm.loadPage();
+    //   $route.reload();
+    // }
 
     //go online: change a boolean and show change in dom
     vm.inactive = true;

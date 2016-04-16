@@ -5,8 +5,9 @@ angular
 
 
 $scope.matchMe = function (post) {
-console.log(post);
+
   var task = {tasks:post};
+  console.log(task);
 
 
   var userId = JSON.parse(window.localStorage.getItem('theclient')).id
