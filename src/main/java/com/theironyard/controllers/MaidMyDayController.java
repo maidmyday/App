@@ -68,20 +68,20 @@ public class MaidMyDayController {
         dbui = Server.createWebServer().start();
 
         if (clientRepository.count() == 0) {
-            Client client1 = new Client("Kevin", "Bacon", "123", "cbacon@sizzling.com", "843-123-4567");
+            Client client1 = new Client("Kevin", "Bacon", "123", "cbacon@sizzling.com", "843-123-4567", null, "");
             ArrayList<Task> c1Tasks = new ArrayList<>();
             clientRepository.save(client1);
         }
         if (clientRepository.count() == 1) {
-            Client client2 = new Client("Clint", "Bozic", "456", "kbacon@sizzling.com", "843-123-4567");
+            Client client2 = new Client("Clint", "Bozic", "456", "kbacon@sizzling.com", "843-123-4567", null, "");
             clientRepository.save(client2);
         }
         if (providerRepository.count() == 0) {
-            Provider provider1 = new Provider("Caroline", "Vail", "123", "carolineevail@gmail.com", "334-669-5482");
+            Provider provider1 = new Provider("Caroline", "Vail", "123", "carolineevail@gmail.com", "334-669-5482", null, "");
             providerRepository.save(provider1);
         }
         if (providerRepository.count() == 1) {
-            Provider provider2 = new Provider("Zach", "Owens", "456", "karolineevail@gmail.com", "334-669-5482");
+            Provider provider2 = new Provider("Zach", "Owens", "456", "karolineevail@gmail.com", "334-669-5482", null, "");
             providerRepository.save(provider2);
         }
     }
@@ -118,7 +118,7 @@ public class MaidMyDayController {
         }
         else {
             client1 = new Client(client.getFirstName(), client.getLastName(), PasswordStorage.createHash(client.getPassword()),
-                    client.getEmail(), client.getPhoneNumber(), client.getFileUpload());
+                    client.getEmail(), client.getPhoneNumber(), client.getFileUpload(), client.getPhotoUrl());
             session.setAttribute("email", client1.getEmail());
             session.setAttribute("type", "client");
             clientRepository.save(client1);
@@ -234,7 +234,7 @@ public class MaidMyDayController {
         }
         else {
             provider1 = new Provider(provider.getFirstName(), provider.getLastName(), PasswordStorage.createHash(provider.getPassword()),
-                    provider.getEmail(), provider.getPhoneNumber(), provider.getFileUpload());
+                    provider.getEmail(), provider.getPhoneNumber(), provider.getFileUpload(), provider.getPhotoUrl());
             session.setAttribute("email", provider1.getEmail());
             session.setAttribute("type", "provider");
             providerRepository.save(provider1);
