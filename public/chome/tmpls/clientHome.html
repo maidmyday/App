@@ -23,7 +23,8 @@
   <div class="row userImgRow">
     <div class="userImgHomeParent col-md-12 col-sm-12">
       <div class="userImgHome">
-        <img src="./photoUploads/{{CliCtrl.clientData.fileUpload.fileName}}" alt="userImg" class="userImgHome">
+        <!-- <img ng-show="CliCtrl.empty" src="./images/bill01.jpg" alt="userImg" class="userImgHome"> -->
+        <img ng-show="CliCtrl.empty" src="./photoUploads/{{CliCtrl.clientData.fileUpload.fileName}}" alt="userImg" class="userImgHome">
         </script>
       </div>
     </div>
@@ -69,7 +70,6 @@
                  </div>
                  <div class="uploadBtn col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
                    <button type="button" class="btn btn-warning" ng-click="CliCtrl.uploadCFile()">post file</button>
-                   <button type="button" class="btn btn-danger" ng-click="CliCtrl.changeCFile()">post file</button>
                  </div>
                </form>
 
