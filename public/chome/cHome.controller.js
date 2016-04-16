@@ -10,6 +10,30 @@ angular
 
     vm.animationsEnabled = true;
 
+    // vm.clientData;
+
+    // $scope.$watch(
+    //   'vm.clientData',
+    //   function handleChange( newVal, oldVal) {
+    //     console.log('vm.clientData', newVal);
+    //   }
+    // );
+    //
+    // $scope.$watch(
+    //   'CliCtrl.clientData',
+    //   function handleChange( newVal, oldVal) {
+    //     console.log('CliCtrl.clientData', newVal);
+    //   }
+    // );
+    //
+    // $scope.$watch(
+    //   'ClientController.clientData',
+    //   function handleChange( newVal, oldVal) {
+    //     console.log('ClientController.clientData', newVal);
+    //   }
+    // );
+
+
     // THIS OPENS JOB POST FORM MODAL
       // vm.openMatchModal = function (size) {
       //
@@ -41,7 +65,7 @@ angular
       //getting data from the login and register
       ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
       .then(function(data){
-        vm.clientData =  data.data  ;
+        vm.clientData =  data.data;
         console.log('vm clientData from chome controller',vm.clientData);
       })
     }
@@ -49,6 +73,7 @@ angular
 
 
     //PHOTO UPLOAD
+    vm.empty = true;
     vm.uploadCFile = function(){
         var file = vm.myFile;
         console.log('photo file is ',file );
@@ -56,24 +81,25 @@ angular
         var uploadUrl = "/fileUpload";
         ClientService.uploadFileToCUrl(file, uploadUrl);
         vm.editInfo = !vm.editInfo;
-        console.log('page should have reloaded');
-        vm.loadPage();
-        $route.reload();
-        // $window.location.reload();
+        console.log('page should have reloaded',vm.clientData);
+        ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
+        .then(function(data){
+          vm.clientData =  data.data;
+          console.log('vm clientData inside upload file',vm.clientData);
+        })
     };
 
     //PHOTO EDIT ROUTE
-    vm.changeCFile = function(){
-      var file = vm.myFile;
-      console.log('photo file is ',file );
-      console.dir(file);
-      var uploadUrl = "/fileUpload";
-      ClientService.editFile(file, uploadUrl);
-      vm.editInfo = !vm.editInfo;
-      console.log('page should have reloaded');
-      vm.loadPage();
-      $route.reload();
-    }
+    // vm.changeCFile = function(){
+    //   var file = vm.myFile;
+    //   console.log('photo file is ',file );
+    //   console.dir(file);
+    //   var uploadUrl = "/fileUpload";
+    //   ClientService.editFile(file, uploadUrl);
+    //   vm.editInfo = !vm.editInfo;
+    //   console.log('page should have reloaded');
+    //   vm.loadPage();
+    // }
 
     //edit profile content
     vm.editInfo = false;
