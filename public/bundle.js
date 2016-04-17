@@ -676,7 +676,7 @@ angular
 },{}],18:[function(require,module,exports){
 angular
 .module('match')
-.controller('MatchModalController', function ($rootScope,$scope, $location, $uibModalInstance, MatchService) {
+.controller('MatchModalController', function ($rootScope, $scope, $location, $uibModalInstance, MatchService) {
 
 
 
