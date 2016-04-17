@@ -273,20 +273,20 @@ angular
     }
 
     //putting the file
-    function editFile(file, uploadUrl){
-      var fd = new FormData();
-      fd.append('photo', file);
-      $http.put(uploadUrl, fd, {
-          transformRequest: angular.identity,
-          headers: {'Content-Type': undefined}
-      })
-      .success(function(){
-        console.log('Holy Moly it worked!');
-      })
-      .error(function(){
-        console.log('Nah the picture didnt go!');
-      });
-    }
+    // function editFile(file, uploadUrl){
+    //   var fd = new FormData();
+    //   fd.append('photo', file);
+    //   $http.put(uploadUrl, fd, {
+    //       transformRequest: angular.identity,
+    //       headers: {'Content-Type': undefined}
+    //   })
+    //   .success(function(){
+    //     console.log('Holy Moly it worked!');
+    //   })
+    //   .error(function(){
+    //     console.log('Nah the picture didnt go!');
+    //   });
+    // }
 
     //uploading a photo to database
     function uploadFileToCUrl(file, uploadUrl){
@@ -332,7 +332,7 @@ angular
    ]
 
     return {
-      editFile: editFile,
+      // editFile: editFile,
       uploadFileToCUrl: uploadFileToCUrl,
       editClient: editClient,
       deleteClient: deleteClient,
@@ -719,13 +719,10 @@ angular
     var matches ='/provider/tasks'
 
     function putMatches(user) {
-<<<<<<< HEAD
+
       console.log(user);
       return $http.post(matches, user);
-=======
-      console.log('THIS IS THE SERVICE USER',user);
-      return $http.post(matches);
->>>>>>> b4ebc7568aea55bf2a9491933dd2623c2c11aad7
+
     }
 
     return {
@@ -40191,20 +40188,20 @@ angular
     }
 
     //putting the new file
-    function editFile(file, uploadUrl){
-      var fd = new FormData();
-      fd.append('photo', file);
-      $http.put(uploadUrl, fd, {
-          transformRequest: angular.identity,
-          headers: {'Content-Type': undefined}
-      })
-      .success(function(){
-        console.log('Holy Moly it worked!');
-      })
-      .error(function(){
-        console.log('Nah the picture didnt go!');
-      });
-    }
+    // function editFile(file, uploadUrl){
+    //   var fd = new FormData();
+    //   fd.append('photo', file);
+    //   $http.put(uploadUrl, fd, {
+    //       transformRequest: angular.identity,
+    //       headers: {'Content-Type': undefined}
+    //   })
+    //   .success(function(){
+    //     console.log('Holy Moly it worked!');
+    //   })
+    //   .error(function(){
+    //     console.log('Nah the picture didnt go!');
+    //   });
+    // }
 
     //uploading a photo to database
     function uploadFileToUrl(file, uploadUrl){
@@ -40259,7 +40256,7 @@ angular
     ]
 
     return {
-      editFile: editFile,
+      // editFile: editFile,
 
       putProviderOffline: putProviderOffline,
       isUserOnline: isUserOnline,
