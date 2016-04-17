@@ -1,5 +1,4 @@
 <!-- bootstraping navbar -->
-  <button class="btn btn-default" ng-click="openMatchModal()">POST JOB</button>
 <nav class="navbar">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -9,6 +8,8 @@
     <ul class="nav navbar-nav navbar-right">
 
       <li><p class="navbar-text">Signed in as <span>{{CliCtrl.clientData.firstName}}</span></p></li>
+
+      <li><button class="btn btn-default navbar-btn" ng-click="openMatchModal()">POST JOB</button></li>
 
       <li><button class="btn btn-default navbar-btn" ng-click="CliCtrl.logout()">Logout</button></li>
 
@@ -23,11 +24,8 @@
   <div class="row userImgRow">
     <div class="userImgHomeParent col-md-12 col-sm-12">
       <div class="userImgHome">
-
         <img ngshow="photoFill" src="./images/noProfileImage.png" alt="" class="userImgHome">
         <img ngshow="!photoFill" src="./photoUploads/{{CliCtrl.clientData.fileUpload.fileName}}" alt="userImg" class="userImgHome">
-
-        </script>
       </div>
     </div>
   </div>
