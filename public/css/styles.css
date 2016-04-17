@@ -97,7 +97,25 @@ input.form-control {
 textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
   border-color: rgba(199, 204, 219, 0.8);
   box-shadow: 0 1px 1px rgba(199, 204, 219, 0.075) inset, 0 0 8px rgba(199, 204, 219, 0.6);
-  outline: 0 none; }
+  outline: 0 none;
+  color: #767B91; }
+
+/* enable absolute positioning */
+.inner-addon {
+  position: relative; }
+
+/* style icon */
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+  height: 35px; }
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 32px; }
 
 div.history {
   width: 80%;
