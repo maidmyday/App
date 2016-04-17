@@ -1,23 +1,21 @@
 package com.theironyard.Wrapper;
 
-import com.theironyard.entities.Provider;
-
 import java.util.HashMap;
 
 /**
  * Created by Caroline on 4/16/16.
  */
 public class ListWrapper {
-    private Provider tasks = new Provider ();
+    private HashMap tasks = new HashMap ();
 
     public ListWrapper() {
     }
 
-    public Provider getTasks() {
+    public HashMap getTasks() {
         return tasks;
     }
 
-    public void setTasks(Provider tasks) {
+    public void setTasks(HashMap tasks) {
         this.tasks = tasks;
     }
 }

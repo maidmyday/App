@@ -49,6 +49,10 @@ public class Provider {
     @JoinColumn(name = "fileUploadId")
     private FileUpload fileUpload;
 
+    public Provider(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
     public Provider(String firstName, String lastName, String password, String email, String phoneNumber, FileUpload fileUpload, String photoUrl) {
         this.firstName = firstName;
         this.lastName = lastName;

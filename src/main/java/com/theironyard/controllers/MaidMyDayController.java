@@ -4,6 +4,7 @@ import com.theironyard.Wrapper.ListWrapper;
 import com.theironyard.entities.*;
 import com.theironyard.services.*;
 import com.theironyard.utils.Constants;
+import com.theironyard.utils.ListUtils;
 import com.theironyard.utils.ObjectUpdateUtils;
 import com.theironyard.utils.PasswordStorage;
 import org.h2.engine.Session;
@@ -244,38 +245,16 @@ public class MaidMyDayController {
 
 
     @RequestMapping(path = "/provider/tasks", method = RequestMethod.POST)
-    public List<Provider> findMatchingProviders(@RequestBody ListWrapper thisThing) {
-
-//        Enumeration<String> enumeration = request.getParameterNames();
-//        while(enumeration.hasMoreElements()){
-//            String param = enumeration.nextElement();
-//            System.out.println("Parameters: "+param);
-//        }
-//
-//        Enumeration<String> enumeration2 = request.getAttributeNames();
-//        while(enumeration2.hasMoreElements()){
-//            String param = enumeration2.nextElement();
-//            System.out.println("Attributes: "+param);
-//        }
-//
-//
-//        Enumeration<String> enumeration3 = request.getHeaderNames();
-//        while(enumeration3.hasMoreElements()) {
-//            String param = enumeration3.nextElement();
-//            System.out.println("Headers: " + param);
-//        }
-
-
-
-//        List<Task> clientRequestedTasks = (List<Task>) incomingProvider.getTasks();
-//        List<Provider> providers = (List<Provider>) providerRepository.findAll();
-//        providers = providers.stream()
-//                .filter((provider) -> {
-//                    return provider.getTasks().containsAll(clientRequestedTasks);
-//                })
-//                .collect(Collectors.toCollection(ArrayList<Provider>::new));
-//        return providers;
-        return null;
+    public List<Provider> findMatchingProviders(@RequestBody ListWrapper incomingProvider) {
+        List<String> clientRequestedTasks = new ArrayList<>(incomingProvider.getTasks().keySet());
+        List<Provider> providers = (List<Provider>) providerRepository.findAll();
+        List<Provider> matchingProviders = new ArrayList<Provider>();
+        for(Provider provider : providers) {
+            if (ListUtils.doesProviderContainTasks(clientRequestedTasks ,provider.getTasks())) {
+                matchingProviders.add(provider);
+            }
+        }
+        return matchingProviders;
     }
 
     @RequestMapping(path = "/provider/profile", method = RequestMethod.GET)
