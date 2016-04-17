@@ -41,7 +41,12 @@ div.modal-body {
   flex-flow: column; }
   div.modal-body input[type='text'], div.modal-body input[type='password'], div.modal-body input[type='number'] {
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 16px; }
+    font-size: 16px;
+    font-weight: 300; }
+
+h3 {
+  align-self: center;
+  font-family: 'Poiret One', cursive; }
 
 div.modal-content {
   border-color: #C7CCDB;
@@ -52,13 +57,10 @@ input.form-control {
 
 #create {
   font-family: 'Josefin Sans', sans-serif;
-  position: absolute;
-  left: 479px;
-  top: 141px;
   color: #767B91;
   background-color: #fff;
   border-color: #767B91;
-  border-width: 1px; }
+  border-width: 0px; }
   #create:hover {
     background-color: #767B91;
     color: #FFF; }

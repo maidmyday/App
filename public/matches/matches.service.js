@@ -7,7 +7,7 @@ angular
 
     function putMatches(user) {
       console.log(user);
-      return $http.post(matches);
+      return $http.post(matches, user);
     }
 
     return {
