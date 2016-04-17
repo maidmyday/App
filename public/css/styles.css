@@ -211,6 +211,8 @@ nav {
       font-family: 'Sue Ellen Francisco', cursive;
       font-size: 34px;
       color: #767B91; }
+    nav div img {
+      height: 100px; }
 
 p.navbar-text {
   display: inline-block; }
