@@ -6,8 +6,14 @@
     <h3 class="modal-title">Service Provider Login</h3>
       <form ng-submit="loginSpPath(provider)">
         <div class="red" ng-show="errorMsg.message == 'No message available'">Email does not exsit</div>
+          <div class="inner-addon left-addon">
         <input type="text" placeholder="email" ng-model="provider.email" class="form-control">
+        <img class="glyphicon glyphicon-user" src="interface.png" alt="">
+      </div>
+        <div class="inner-addon left-addon">
         <input type="password" placeholder="password" ng-model="provider.password" class="form-control">
+        <img class="glyphicon glyphicon-user" src="security.png" alt="">
+      </div>
         <div class="red" ng-show="errorMsg.message == 'Login failed.'">Incorect Password</div>
         <button class="btn btn-primary" id="login" type="submit">Login</button>
       </form>
@@ -21,12 +27,36 @@
 <div ng-if="showModalSection == 'register'" class="modal-body">
     <h3 class="modal-title">Create Account</h3>
       <form name="myForm" class="has-feedback" ng-submit="registerSpPath(provider)">
+          <div class="inner-addon left-addon">
         <input type="text" class="form-control" placeholder="first name" ng-model="provider.firstName">
+        <img class="glyphicon glyphicon-user" src="social.png" alt="">
+
+      </div>
+        <div class="inner-addon left-addon">
         <input type="text" class="form-control" placeholder="last name" ng-model="provider.lastName">
+        <img class="glyphicon glyphicon-user" src="social.png" alt="">
+
+      </div>
+        <div class="inner-addon left-addon">
         <input type="text" class="form-control" placeholder="email" ng-model="provider.email">
+        <img class="glyphicon glyphicon-user" src="interface.png" alt="">
+
+      </div>
+        <div class="inner-addon left-addon">
         <input type="number" class="form-control" placeholder="phone number" ng-model="provider.phoneNumber">
+        <img class="glyphicon glyphicon-user" src="telephone.png" alt="">
+
+      </div>
+        <div class="inner-addon left-addon">
         <input placeholder="password" class="form-control" ng-model="provider.password" type="password" name="passwordName" ng-class="{'ng-invalid': myForm.myConfirmField.$error.match }" />
+        <img class="glyphicon glyphicon-user" src="security.png" alt="">
+
+      </div>
+        <div class="inner-addon left-addon">
         <input placeholder="confirm password" class="form-control" ng-model="provider.passwordConfirm" type="password" data-match="provider.password" name="myConfirmField" />
+        <img class="glyphicon glyphicon-user" src="security.png" alt="">
+
+        </div>
           <div ng-show="myForm.myConfirmField.$error.match">Not Match?</div>
         <button class="btn register" id="signin" type="submit">Sign In</button>
       </form>

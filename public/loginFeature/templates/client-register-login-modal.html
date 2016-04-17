@@ -6,12 +6,12 @@
 <div ng-if="showModalSection == 'login'" class="modal-body">
     <h3 class="modal-title">Login</h3>
     <form   ng-submit="loginClientPath(client)">
-      <div class="inner-addon left-addon">
+    <div class="inner-addon left-addon">
       <img class="glyphicon glyphicon-user" src="interface.png" alt="">
       <input type="text" class="form-control" ng-model="client.email" placeholder="email">
     </div>
       <div class="red" ng-show="errorMsg.message == 'No message available'">Email does not exsist</div>
-          <div class="inner-addon left-addon">
+    <div class="inner-addon left-addon">
       <img class="glyphicon glyphicon-user" src="security.png" alt="">
       <input type="password" class="form-control" ng-model="client.password" placeholder="password">
     </div>

@@ -37,9 +37,13 @@ div.backgroundImg {
 input.ng-invalid {
   border-color: red; }
 
+div.modal-body {
+  display: flex;
+  flex-flow: column; }
+
 div.modal-content {
   border-color: #C7CCDB;
-  border-width: 10px; }
+  border-width: 3px; }
 
 input.form-control {
   margin-bottom: 2%; }
@@ -51,7 +55,7 @@ input.form-control {
   color: #767B91;
   background-color: #fff;
   border-color: #767B91;
-  border-width: 3px; }
+  border-width: 1px; }
   #create:hover {
     background-color: #767B91;
     color: #FFF; }
@@ -60,7 +64,7 @@ input.form-control {
   color: #767B91;
   border-color: #767B91;
   background-color: #fff;
-  border-width: 3px; }
+  border-width: 1px; }
   #backBtn .glyphicon-chevron-left {
     color: #767B91; }
   #backBtn:hover {
@@ -74,7 +78,7 @@ input.form-control {
   color: #767B91;
   background-color: #fff;
   border-color: #767B91;
-  border-width: 3px; }
+  border-width: 1px; }
   #signin:hover {
     background-color: #767B91;
     color: #FFF; }
@@ -83,7 +87,7 @@ input.form-control {
   color: #767B91;
   background-color: #fff;
   border-color: #767B91;
-  border-width: 3px; }
+  border-width: 1px; }
   #login:hover {
     background-color: #767B91;
     color: #FFF; }
