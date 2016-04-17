@@ -718,7 +718,8 @@ angular
     var match= '/clientTasks';
     var matches ='/provider/tasks'
 
-    function putMatches(user,idOfUser) {
+    function putMatches(user) {
+      console.log(user);
       return $http.post(matches);
     }
 

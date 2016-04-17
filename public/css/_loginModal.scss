@@ -6,8 +6,12 @@ input.ng-invalid {
 div.modal-body{
   display: flex;
   flex-flow: column;
-  font-family: ;
+  input[type='text'], input[type='password'], input[type='number']{
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 16px;
+  }
 }
+
 
 div.modal-content {
   border-color: #C7CCDB;
@@ -20,6 +24,7 @@ input.form-control {
 }
 
 #create {
+  font-family: 'Josefin Sans', sans-serif;
   position: absolute;
   left: 479px;
   top: 141px;
@@ -34,7 +39,7 @@ input.form-control {
 }
 
 #backBtn {
-  // font-family: 'Sue Ellen Francisco',cursive;
+  font-family: 'Josefin Sans', sans-serif;
   color: #767B91;
   border-color: #767B91;
   background-color: #fff;
@@ -50,7 +55,7 @@ input.form-control {
 
 
 #signin {
-  // font-family: 'Sue Ellen Francisco',cursive;
+  font-family: 'Josefin Sans', sans-serif;
   position: absolute;
   left: 497px;
   color: #767B91;
@@ -64,6 +69,7 @@ input.form-control {
 }
 
 #login {
+  font-family: 'Josefin Sans', sans-serif;
   color: #767B91;
   background-color: #fff;
   border-color: #767B91;
