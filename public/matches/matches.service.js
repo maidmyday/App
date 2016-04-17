@@ -6,8 +6,10 @@ angular
     var matches ='/provider/tasks'
 
     function putMatches(user) {
-      console.log('THIS IS THE SERVICE USER',user);
-      return $http.post(matches);
+
+      console.log(user);
+      return $http.post(matches, user);
+
     }
 
     return {
