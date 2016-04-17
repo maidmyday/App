@@ -244,16 +244,17 @@ public class MaidMyDayController {
     }
 
 
-    @RequestMapping(path = "/provider", method = RequestMethod.GET)
-    public List<Provider> findMatchingProviders(@RequestBody ListWrapper clientTasks) {
-        List<Task> clientRequestedTasks = (List<Task>) clientTasks.getTasks();
-        List<Provider> providers = (List<Provider>) providerRepository.findAll();
-        providers = providers.stream()
-                .filter((provider) -> {
-                    return provider.getTasks().containsAll(clientRequestedTasks);
-                })
-                .collect(Collectors.toCollection(ArrayList<Provider>::new));
-        return providers;
+    @RequestMapping(path = "/provider/tasks", method = RequestMethod.POST)
+    public List<Provider> findMatchingProviders(@RequestBody Provider incomingProvider) {
+//        List<Task> clientRequestedTasks = (List<Task>) incomingProvider.getTasks();
+//        List<Provider> providers = (List<Provider>) providerRepository.findAll();
+//        providers = providers.stream()
+//                .filter((provider) -> {
+//                    return provider.getTasks().containsAll(clientRequestedTasks);
+//                })
+//                .collect(Collectors.toCollection(ArrayList<Provider>::new));
+//        return providers;
+        return null;
     }
 
     @RequestMapping(path = "/provider/profile", method = RequestMethod.GET)
