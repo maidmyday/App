@@ -586,13 +586,13 @@ angular
 
 
 // THIS OPENS PROVIDER MODAL
-  $scope.openSpLoginModal = function (size) {
+  $scope.openSpLoginModal = function (lg) {
 
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
       templateUrl: './loginFeature/templates/provider-register-login-modal.html',
       controller: 'ModalInstanceController',
-      size: size,
+      size: lg,
       resolve: {
         items: function () {
           return $scope.items;
@@ -718,7 +718,8 @@ angular
     var match= '/clientTasks';
     var matches ='/provider/tasks'
 
-    function putMatches(user,idOfUser) {
+    function putMatches(user) {
+      console.log(user);
       return $http.post(matches);
     }
 
