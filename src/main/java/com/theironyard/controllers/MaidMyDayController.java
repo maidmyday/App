@@ -9,23 +9,22 @@ import com.theironyard.utils.PasswordStorage;
 import org.h2.engine.Session;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -245,7 +244,29 @@ public class MaidMyDayController {
 
 
     @RequestMapping(path = "/provider/tasks", method = RequestMethod.POST)
-    public List<Provider> findMatchingProviders(@RequestBody Provider incomingProvider) {
+    public List<Provider> findMatchingProviders(@RequestBody ListWrapper thisThing) {
+
+//        Enumeration<String> enumeration = request.getParameterNames();
+//        while(enumeration.hasMoreElements()){
+//            String param = enumeration.nextElement();
+//            System.out.println("Parameters: "+param);
+//        }
+//
+//        Enumeration<String> enumeration2 = request.getAttributeNames();
+//        while(enumeration2.hasMoreElements()){
+//            String param = enumeration2.nextElement();
+//            System.out.println("Attributes: "+param);
+//        }
+//
+//
+//        Enumeration<String> enumeration3 = request.getHeaderNames();
+//        while(enumeration3.hasMoreElements()) {
+//            String param = enumeration3.nextElement();
+//            System.out.println("Headers: " + param);
+//        }
+
+
+
 //        List<Task> clientRequestedTasks = (List<Task>) incomingProvider.getTasks();
 //        List<Provider> providers = (List<Provider>) providerRepository.findAll();
 //        providers = providers.stream()
