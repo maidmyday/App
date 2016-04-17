@@ -50,6 +50,30 @@ angular
 
     vm.animationsEnabled = true;
 
+    // vm.clientData;
+
+    // $scope.$watch(
+    //   'vm.clientData',
+    //   function handleChange( newVal, oldVal) {
+    //     console.log('vm.clientData', newVal);
+    //   }
+    // );
+    //
+    // $scope.$watch(
+    //   'CliCtrl.clientData',
+    //   function handleChange( newVal, oldVal) {
+    //     console.log('CliCtrl.clientData', newVal);
+    //   }
+    // );
+    //
+    // $scope.$watch(
+    //   'ClientController.clientData',
+    //   function handleChange( newVal, oldVal) {
+    //     console.log('ClientController.clientData', newVal);
+    //   }
+    // );
+
+
     // THIS OPENS JOB POST FORM MODAL
       // vm.openMatchModal = function (size) {
       //
@@ -81,7 +105,7 @@ angular
       //getting data from the login and register
       ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
       .then(function(data){
-        vm.clientData =  data.data  ;
+        vm.clientData =  data.data;
         console.log('vm clientData from chome controller',vm.clientData);
       })
     }
@@ -96,24 +120,25 @@ angular
         var uploadUrl = "/fileUpload";
         ClientService.uploadFileToCUrl(file, uploadUrl);
         vm.editInfo = !vm.editInfo;
-        console.log('page should have reloaded');
-        vm.loadPage();
-        $route.reload();
-        // $window.location.reload();
+        console.log('page should have reloaded',vm.clientData);
+        ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
+        .then(function(data){
+          vm.clientData =  data.data;
+          console.log('vm clientData inside upload file',vm.clientData);
+        })
     };
 
     //PHOTO EDIT ROUTE
-    vm.changeCFile = function(){
-      var file = vm.myFile;
-      console.log('photo file is ',file );
-      console.dir(file);
-      var uploadUrl = "/fileUpload";
-      ClientService.editFile(file, uploadUrl);
-      vm.editInfo = !vm.editInfo;
-      console.log('page should have reloaded');
-      vm.loadPage();
-      $route.reload();
-    }
+    // vm.changeCFile = function(){
+    //   var file = vm.myFile;
+    //   console.log('photo file is ',file );
+    //   console.dir(file);
+    //   var uploadUrl = "/fileUpload";
+    //   ClientService.editFile(file, uploadUrl);
+    //   vm.editInfo = !vm.editInfo;
+    //   console.log('page should have reloaded');
+    //   vm.loadPage();
+    // }
 
     //edit profile content
     vm.editInfo = false;
@@ -386,7 +411,7 @@ GoOnlineService.isUserOnline(JSON.parse($window.localStorage.getItem('theprovide
   $scope.goOn = function (post) {
 
     var online = {isOnline: true, tasks:post};
-
+console.log(online);
 
 
     var userId = JSON.parse($window.localStorage.getItem('theprovider')).id
@@ -403,22 +428,22 @@ GoOnlineService.isUserOnline(JSON.parse($window.localStorage.getItem('theprovide
 
 
 // THESE ARE THE RATING STARS THE ALEX GOT FROM SOMEWHERE
-  $scope.rate = 0;
-  $scope.max = 5;
-  $scope.isReadonly = false;
-
-  $scope.hoveringOver = function(value) {
-    $scope.overStar = value;
-    $scope.percent = 100 * (value / $scope.max);
-  };
-
-  $scope.ratingStates = [
-    {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
-    {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-    {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
-    {stateOn: 'glyphicon-heart'},
-    {stateOff: 'glyphicon-off'}
-  ];
+  // $scope.rate = 0;
+  // $scope.max = 5;
+  // $scope.isReadonly = false;
+  //
+  // $scope.hoveringOver = function(value) {
+  //   $scope.overStar = value;
+  //   $scope.percent = 100 * (value / $scope.max);
+  // };
+  //
+  // $scope.ratingStates = [
+  //   {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
+  //   {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
+  //   {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
+  //   {stateOn: 'glyphicon-heart'},
+  //   {stateOff: 'glyphicon-off'}
+  // ];
 
 });
 
@@ -561,13 +586,13 @@ angular
 
 
 // THIS OPENS PROVIDER MODAL
-  $scope.openSpLoginModal = function (size) {
+  $scope.openSpLoginModal = function (lg) {
 
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
       templateUrl: './loginFeature/templates/provider-register-login-modal.html',
       controller: 'ModalInstanceController',
-      size: size,
+      size: lg,
       resolve: {
         items: function () {
           return $scope.items;
@@ -656,61 +681,21 @@ angular
 
 
 $scope.matchMe = function (post) {
-console.log(post);
+
   var task = {tasks:post};
+  console.log(task);
 
 
   var userId = JSON.parse(window.localStorage.getItem('theclient')).id
-  MatchService.putMatches(task,userId)
+  MatchService.putMatches(task)
   .success(function(dataObj) {
       console.log("SUCCESS", dataObj);
-      // $rootScope.changeOnline = true;
       $uibModalInstance.dismiss();
   })
   .error(function(err) {
     console.log("ERROR", err)
   })
 };
-
-
-
-// THIS CHANGES THE BOOLEAN OF IS_ONLINE TO TRUE
-  // $scope.matchMe = function () {
-  //    $uibModalInstance.dismiss();
-// console.log(post);
-//     var online = {isOnline: true, tasks:post};
-
-
-    // var userId = JSON.parse($window.localStorage.getItem('theprovider')).id
-    // GoOnlineService.putProviderOnline(online,userId)
-    // .success(function(dataObj) {
-    //     console.log("SUCCESS", dataObj);
-    //     // $rootScope.changeOnline = true;
-    //     // $uibModalInstance.dismiss();
-    // })
-    // .error(function(err) {
-    //   console.log("ERROR", err)
-    // })
-  // };
-
-
-// THESE ARE THE RATING STARS THE ALEX GOT FROM SOMEWHERE
-  // $scope.rate = 0;
-  // $scope.max = 5;
-  // $scope.isReadonly = false;
-  //
-  // $scope.hoveringOver = function(value) {
-  //   $scope.overStar = value;
-  //   $scope.percent = 100 * (value / $scope.max);
-  // };
-  //
-  // $scope.ratingStates = [
-  //   {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
-  //   {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-  //   {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
-  //   {stateOn: 'glyphicon-heart'},
-  //   {stateOff: 'glyphicon-off'}
-  // ];
 
 });
 
@@ -730,31 +715,22 @@ angular
   .module('match')
   .service('MatchService',function($http) {
     var clienturl = '/client';
-    var match= '/clientTasks'
+    var match= '/clientTasks';
+    var matches ='/provider/tasks'
 
-    function putMatches(user,idOfUser) {
-      return $http.post(clienturl+ "-tasks" + '/' + idOfUser, user);
+    function putMatches(user) {
+<<<<<<< HEAD
+      console.log(user);
+      return $http.post(matches, user);
+=======
+      console.log('THIS IS THE SERVICE USER',user);
+      return $http.post(matches);
+>>>>>>> b4ebc7568aea55bf2a9491933dd2623c2c11aad7
     }
-
-    //
-    // function isUserOnline(userId) {
-    //   return $http.get(spurl + '/' + userId).then(function (user) {
-    //     console.log('service isOnline', user.data.isOnline);
-    //     return user.data.isOnline;
-    //   });
-    // }
-    //
-    // function putProviderOffline(user,idOfUser) {
-    //   return $http.put(spurl + '/' + idOfUser + "/isOnline", user);
-    // }
-
-
-
 
     return {
       putMatches: putMatches
-      // putProviderOffline: putProviderOffline,
-      // isUserOnline: isUserOnline
+
     };
   })
 
@@ -39941,6 +39917,7 @@ angular
   SpController.$inject = ['$scope','$rootScope','$route','$location','$uibModal','$log','SpService'];
 
   function SpController($scope,$rootScope,$route,$location,$uibModal,$log,SpService, $modalInstance) {
+    $scope.photoFill = false;
     var vm = this;
 
     //logout button
@@ -39984,22 +39961,25 @@ angular
         SpService.uploadFileToUrl(file, uploadUrl);
         vm.editInfo = !vm.editInfo;
         console.log('page should have reloaded');
-        vm.loadPage();
-        $route.reload();
+        SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
+        .then(function(data){
+          vm.providerData =  data.data;
+          console.log('vm providerData from sphome controller',vm.providerData);
+        })
     };
 
     //PHOTO EDIT ROUTE
-    vm.changePFile = function(){
-      var file = vm.myFile;
-      console.log('photo file is ',file );
-      console.dir(file);
-      var uploadUrl = "/fileUpload";
-      SpService.editFile(file, uploadUrl);
-      vm.editInfo = !vm.editInfo;
-      console.log('page should have reloaded');
-      vm.loadPage();
-      $route.reload();
-    }
+    // vm.changePFile = function(){
+    //   var file = vm.myFile;
+    //   console.log('photo file is ',file );
+    //   console.dir(file);
+    //   var uploadUrl = "/fileUpload";
+    //   SpService.editFile(file, uploadUrl);
+    //   vm.editInfo = !vm.editInfo;
+    //   console.log('page should have reloaded');
+    //   vm.loadPage();
+    //   $route.reload();
+    // }
 
     //go online: change a boolean and show change in dom
     vm.inactive = true;

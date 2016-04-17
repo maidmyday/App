@@ -33,6 +33,7 @@
   <div class="row userImgRow">
     <div class="userImgHomeParent col-md-12 col-sm-12">
       <div class="userImgHome">
+        <div ngshow=""><img src="" alt=""></div>
         <img src="./photoUploads/{{SpCtrl.providerData.fileUpload.fileName}}" alt="userImg" class="userImgHome">
         </script>
       </div>
@@ -90,7 +91,6 @@
                  </div>
                  <div class="uploadBtn col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
                    <button type="button" class="btn btn-warning" ng-click="SpCtrl.uploadPFile()">post file</button>
-                   <button type="button" class="btn btn-danger" ng-click="SpCtrl.changePFile()">edit file</button>
                  </div>
                </form>
 

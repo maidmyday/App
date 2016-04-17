@@ -449,6 +449,7 @@ public class MaidMyDayController {
 
         else if (type == "provider") {
             Provider provider = providerRepository.findByEmail(email);
+
             File dir = new File("public/photoUploads");
             dir.mkdirs(); // makes directory if it doesn't already exists
             File photoFile = File.createTempFile("image", photo.getOriginalFilename(), dir);
