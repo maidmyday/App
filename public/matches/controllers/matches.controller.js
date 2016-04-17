@@ -11,7 +11,7 @@ $scope.matchMe = function (post) {
 
 
   var userId = JSON.parse(window.localStorage.getItem('theclient')).id
-  MatchService.putMatches(task,userId)
+  MatchService.putMatches(task)
   .success(function(dataObj) {
       console.log("SUCCESS", dataObj);
       $uibModalInstance.dismiss();
