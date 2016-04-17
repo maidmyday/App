@@ -1,17 +1,19 @@
 .main {
   display: flex;
   justify-content: space-around;
-  min-height: 600px; }
+  min-height: 600px;
+  align-items: center; }
 
 div.mainpic {
   align-self: flex-end; }
 
 div.backgroundImg {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url(https://images.unsplash.com/photo-1422479763403-3aa672b25e0e?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=2734d2e20c48290d634e466abc7932b4);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("../background.jpeg");
   background-repeat: no-repeat;
   background-size: 100%;
   min-height: 900px;
-  width: 100%; }
+  width: 100%;
+  background-attachment: fixed; }
 
 .btn.btn-transparent {
   color: #767B91;
@@ -19,22 +21,42 @@ div.backgroundImg {
   border-color: #f0ad4e;
   height: 57px;
   border-color: transparent;
-  font-size: 25px; }
+  font-size: 25px;
+  flex: 1; }
   .btn.btn-transparent:hover {
     background-color: transparent;
     border-color: transparent;
     color: #C7CCDB; }
 
 .headline {
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  align-items: center; }
-  .headline h1 {
-    font-size: 6em; }
+  background-image: url("../logo.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 800px;
+  flex: 2; }
 
-input.ng-invalid {
-  border-color: red; }
+img.ng-invalid {
+  background-color: red; }
+
+div.title {
+  display: flex;
+  margin: 0 auto;
+  width: 35%;
+  justify-content: space-around;
+  margin-bottom: 28px; }
+  div.title img {
+    height: 17px;
+    align-self: center; }
+
+div.titleCreate {
+  display: flex;
+  margin: 0 auto;
+  width: 57%;
+  justify-content: space-around;
+  margin-bottom: 28px; }
+  div.titleCreate img {
+    height: 17px;
+    align-self: center; }
 
 div.modal-body {
   display: flex;
@@ -42,7 +64,17 @@ div.modal-body {
   div.modal-body input[type='text'], div.modal-body input[type='password'], div.modal-body input[type='number'] {
     font-family: 'Josefin Sans', sans-serif;
     font-size: 16px;
-    font-weight: 300; }
+    font-weight: 300;
+    margin-bottom: 14px; }
+  div.modal-body p {
+    font-family: 'Sue Ellen Francisco', cursive;
+    align-self: center;
+    font-size: 17px; }
+  div.modal-body form {
+    display: flex;
+    flex-flow: column;
+    align-self: center;
+    width: 58%; }
 
 h3 {
   align-self: center;
@@ -60,17 +92,16 @@ input.form-control {
   color: #767B91;
   background-color: #fff;
   border-color: #767B91;
-  border-width: 0px; }
-  #create:hover {
-    background-color: #767B91;
-    color: #FFF; }
+  border-width: 0px;
+  text-decoration: underline; }
 
 #backBtn {
   font-family: 'Josefin Sans', sans-serif;
   color: #767B91;
   border-color: #767B91;
   background-color: #fff;
-  border-width: 1px; }
+  border-width: 0px;
+  align-self: baseline; }
   #backBtn .glyphicon-chevron-left {
     color: #767B91; }
   #backBtn:hover {
@@ -80,12 +111,12 @@ input.form-control {
 
 #signin {
   font-family: 'Josefin Sans', sans-serif;
-  position: absolute;
-  left: 497px;
   color: #767B91;
   background-color: #fff;
   border-color: #767B91;
-  border-width: 1px; }
+  border-width: 1px;
+  margin-bottom: 20px;
+  font-size: 18px; }
   #signin:hover {
     background-color: #767B91;
     color: #FFF; }
@@ -95,13 +126,18 @@ input.form-control {
   color: #767B91;
   background-color: #fff;
   border-color: #767B91;
-  border-width: 1px; }
+  border-width: 1px;
+  width: 34%;
+  align-self: center; }
   #login:hover {
     background-color: #767B91;
     color: #FFF; }
 
-.red {
-  color: red; }
+.exist {
+  color: red;
+  font-size: 15px;
+  font-weight: 200;
+  font-family: 'Sue Ellen Francisco', cursive; }
 
 .btn {
   outline: none !important; }
@@ -162,6 +198,20 @@ div.userImgSm {
     top: 50%;
     -webkit-transform: translateY(-50%) translateX(-50%); }
 
+.profileBackground {
+  background-image: url(../photo.jpeg); }
+
+nav {
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 91px; }
+  nav div {
+    display: flex;
+    justify-content: space-between; }
+    nav div h2 {
+      font-family: 'Sue Ellen Francisco', cursive;
+      font-size: 34px;
+      color: #767B91; }
+
 p.navbar-text {
   display: inline-block; }
   p.navbar-text span {
@@ -183,7 +233,7 @@ div.panel div.textContent {
     font-weight: 700; }
 
 div.userImgRow {
-  margin-top: 10px;
+  margin-top: 200px;
   margin-bottom: 10px; }
 
 div.userImgHomeParent {
@@ -321,6 +371,31 @@ div.jobModal div.modal-footer {
   div.jobModal div.modal-footer div.jobFormBtns {
     display: flex;
     justify-content: space-between; }
+
+@media (min-width: 0px) and (max-width: 500px) {
+  div.backgroundImg {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("../background.jpeg");
+    background-repeat: no-repeat;
+    background-size: 200%;
+    min-height: 900px;
+    width: 100%;
+    background-attachment: fixed;
+    background-position-x: 21%; }
+  .main {
+    display: flex;
+    min-height: 600px;
+    align-items: flex-start;
+    flex-wrap: wrap; }
+  div.mainpic {
+    align-self: center; }
+  div.headline {
+    background-image: url("../logo.png");
+    background-size: 99%;
+    background-repeat: no-repeat;
+    height: 876px;
+    width: 100%;
+    order: 3;
+    flex: none; } }
 
 * {
   font-weight: bold; }

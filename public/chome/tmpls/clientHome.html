@@ -1,20 +1,22 @@
+<div class="profileBackground">
+
+
 <!-- bootstraping navbar -->
-<nav class="navbar">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <!-- <a class="navbar-brand" href="#/">Maid My Day</a> -->
-      <h4 class="navbar-brand">Maid My Day</h4>
+<nav class="navbar navbar-fixed-top">
+  <div>
+
+      <h2>maid my day</h2>
+      <img src="logo.png" alt="">
+
+
+      <!-- <li><p class="navbar-text">Signed in as <span>{{CliCtrl.clientData.firstName}}</span></p></li> -->
+
+      <!-- <button class="btn btn-default navbar-btn" ng-click="openMatchModal()">POST JOB</button> -->
+
+      <button class="btn btn-default navbar-btn" ng-click="CliCtrl.logout()">Logout</button>
     </div>
-    <ul class="nav navbar-nav navbar-right">
 
-      <li><p class="navbar-text">Signed in as <span>{{CliCtrl.clientData.firstName}}</span></p></li>
 
-      <li><button class="btn btn-default navbar-btn" ng-click="openMatchModal()">POST JOB</button></li>
-
-      <li><button class="btn btn-default navbar-btn" ng-click="CliCtrl.logout()">Logout</button></li>
-
-    </ul>
-  </div>
 </nav>
 
 
@@ -127,4 +129,6 @@
 
     </div>
   </div>
+</div>
+
 </div>
