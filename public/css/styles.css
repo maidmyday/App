@@ -14,7 +14,6 @@ div.backgroundImg {
   width: 100%; }
 
 .btn.btn-transparent {
-  font-family: 'Sue Ellen Francisco',cursive;
   color: #767B91;
   background-color: transparent;
   border-color: #f0ad4e;
@@ -37,30 +36,39 @@ div.backgroundImg {
 input.ng-invalid {
   border-color: red; }
 
+div.modal-body {
+  display: flex;
+  flex-flow: column; }
+  div.modal-body input[type='text'], div.modal-body input[type='password'], div.modal-body input[type='number'] {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 16px; }
+
 div.modal-content {
   border-color: #C7CCDB;
-  border-width: 10px; }
+  border-width: 3px; }
 
 input.form-control {
   margin-bottom: 2%; }
 
 #create {
+  font-family: 'Josefin Sans', sans-serif;
   position: absolute;
   left: 479px;
   top: 141px;
   color: #767B91;
   background-color: #fff;
   border-color: #767B91;
-  border-width: 3px; }
+  border-width: 1px; }
   #create:hover {
     background-color: #767B91;
     color: #FFF; }
 
 #backBtn {
+  font-family: 'Josefin Sans', sans-serif;
   color: #767B91;
   border-color: #767B91;
   background-color: #fff;
-  border-width: 3px; }
+  border-width: 1px; }
   #backBtn .glyphicon-chevron-left {
     color: #767B91; }
   #backBtn:hover {
@@ -69,21 +77,23 @@ input.form-control {
       color: #FFF; }
 
 #signin {
+  font-family: 'Josefin Sans', sans-serif;
   position: absolute;
   left: 497px;
   color: #767B91;
   background-color: #fff;
   border-color: #767B91;
-  border-width: 3px; }
+  border-width: 1px; }
   #signin:hover {
     background-color: #767B91;
     color: #FFF; }
 
 #login {
+  font-family: 'Josefin Sans', sans-serif;
   color: #767B91;
   background-color: #fff;
   border-color: #767B91;
-  border-width: 3px; }
+  border-width: 1px; }
   #login:hover {
     background-color: #767B91;
     color: #FFF; }
@@ -97,7 +107,25 @@ input.form-control {
 textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
   border-color: rgba(199, 204, 219, 0.8);
   box-shadow: 0 1px 1px rgba(199, 204, 219, 0.075) inset, 0 0 8px rgba(199, 204, 219, 0.6);
-  outline: 0 none; }
+  outline: 0 none;
+  color: #767B91; }
+
+/* enable absolute positioning */
+.inner-addon {
+  position: relative; }
+
+/* style icon */
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+  height: 35px; }
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 32px; }
 
 div.history {
   width: 80%;
@@ -293,5 +321,10 @@ div.jobModal div.modal-footer {
     justify-content: space-between; }
 
 * {
-  font-family: A little sunshine;
   font-weight: bold; }
+  * .poiret {
+    font-family: 'Poiret One', cursive; }
+  * .josefin {
+    font-family: 'Josefin Sans', sans-serif; }
+  * .sue {
+    font-family: 'Sue Ellen Francisco', cursive; }
