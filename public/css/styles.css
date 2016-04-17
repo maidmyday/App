@@ -14,7 +14,6 @@ div.backgroundImg {
   width: 100%; }
 
 .btn.btn-transparent {
-  font-family: 'Sue Ellen Francisco',cursive;
   color: #767B91;
   background-color: transparent;
   border-color: #f0ad4e;
@@ -295,3 +294,9 @@ div.jobModal div.modal-footer {
 * {
   font-family: A little sunshine;
   font-weight: bold; }
+  * .poiret {
+    font-family: 'Poiret One', cursive; }
+  * .josefin {
+    font-family: 'Josefin Sans', sans-serif; }
+  * .sue {
+    font-family: 'Sue Ellen Francisco', cursive; }

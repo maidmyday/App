@@ -113,7 +113,6 @@ angular
 
 
     //PHOTO UPLOAD
-    vm.empty = true;
     vm.uploadCFile = function(){
         var file = vm.myFile;
         console.log('photo file is ',file );
