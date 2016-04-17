@@ -447,30 +447,31 @@ public class MaidMyDayController {
             clientRepository.save(client);
         }
 
-//        else if (type == "provider") {
-//            File dir = new File("public/photoUploads");
-//            dir.mkdirs(); // makes directory if it doesn't already exists
-//            File photoFile = File.createTempFile("image", photo.getOriginalFilename(), dir);
-//            FileOutputStream fos = new FileOutputStream(photoFile);
-//            fos.write(photo.getBytes());
-//
-//            if (client.getFileUpload() != null) {
-//                FileUpload oldFile = fileUploadRepository.findByClient(client);
-//                oldFile.setClient(null);
-//                client.setFileUpload(null);
-//                clientRepository.save(client);
-//                fileUploadRepository.delete(oldFile);
-//                File diskFile = new File("public", oldFile.getFileName());
-//                diskFile.delete();
-//            }
-//
-//            FileUpload newPhoto = new FileUpload(photo.getOriginalFilename());
-//            newPhoto.setFileName(photoFile.getName());
-//            newPhoto.setClient(client);
-//            client.setFileUpload(newPhoto);
-//            fileUploadRepository.save(newPhoto);
-//            clientRepository.save(client);
-//        }
+        else if (type == "provider") {
+            Provider provider = providerRepository.findByEmail(email);
+            File dir = new File("public/photoUploads");
+            dir.mkdirs(); // makes directory if it doesn't already exists
+            File photoFile = File.createTempFile("image", photo.getOriginalFilename(), dir);
+            FileOutputStream fos = new FileOutputStream(photoFile);
+            fos.write(photo.getBytes());
+
+            if (provider.getFileUpload() != null) {
+                FileUpload oldFile = fileUploadRepository.findByProvider(provider);
+                oldFile.setClient(null);
+                provider.setFileUpload(null);
+                providerRepository.save(provider);
+                fileUploadRepository.delete(oldFile);
+                File diskFile = new File("public", oldFile.getFileName());
+                diskFile.delete();
+            }
+
+            FileUpload newPhoto = new FileUpload(photo.getOriginalFilename());
+            newPhoto.setFileName(photoFile.getName());
+            newPhoto.setProvider(provider);
+            provider.setFileUpload(newPhoto);
+            fileUploadRepository.save(newPhoto);
+            providerRepository.save(provider);
+        }
 
         if (!photo.getContentType().startsWith("image")) {
             throw new Exception("You can only upload images");
