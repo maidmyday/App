@@ -3,21 +3,25 @@
 <!-- LOGIN SECTION -->
 
 <div ng-if="showModalSection == 'login'" class="modal-body">
-    <h3 class="modal-title">Service Provider Login</h3>
+  <div class='title'>
+  <img src="MadeMyDayLogo.png" alt="">
+    <h3 class="modal-title">login</h3>
+    <img src="MadeMyDayLogo2.png" alt="">
+  </div>
       <form ng-submit="loginSpPath(provider)">
-        <div class="red" ng-show="errorMsg.message == 'No message available'">Email does not exsit</div>
+        <div class="exist" ng-show="errorMsg.message == 'No message available'">email does not exist</div>
           <div class="inner-addon left-addon">
         <input type="text" placeholder="email" ng-model="provider.email" class="form-control">
         <img class="glyphicon glyphicon-user" src="interface.png" alt="">
       </div>
+
         <div class="inner-addon left-addon">
         <input type="password" placeholder="password" ng-model="provider.password" class="form-control">
         <img class="glyphicon glyphicon-user" src="security.png" alt="">
       </div>
-        <div class="red" ng-show="errorMsg.message == 'Login failed.'">Incorect Password</div>
         <button class="btn btn-primary" id="login" type="submit">login</button>
       </form>
-    <p>don't have an account?<button class="btn register" id="create" type="button" btn-toggle="" ng-click="showRegisterSection()">sign up</button>
+    <p>don't have an account?<button class="btn register" id="create" type="button" btn-toggle="" ng-click="showRegisterSection()">sign up</button></p>
 </div>
 
 
@@ -25,7 +29,12 @@
 
 
 <div ng-if="showModalSection == 'register'" class="modal-body">
-    <h3 class="modal-title">Create Account</h3>
+  <button class="btn btn-primary" id="backBtn" type="button" ng-click="showLoginSection()"> <span class="glyphicon glyphicon-chevron-left"></span> </button>
+  <div class='titleCreate'>
+  <img src="MadeMyDayLogo.png" alt="">
+    <h3 class="modal-title">create account</h3>
+    <img src="MadeMyDayLogo2.png" alt="">
+  </div>
       <form name="myForm" class="has-feedback" ng-submit="registerSpPath(provider)">
           <div class="inner-addon left-addon">
         <input type="text" class="form-control" placeholder="first name" ng-model="provider.firstName">
@@ -48,19 +57,20 @@
 
       </div>
         <div class="inner-addon left-addon">
-        <input placeholder="password" class="form-control" ng-model="provider.password" type="password" name="passwordName" ng-class="{'ng-invalid': myForm.myConfirmField.$error.match }" />
-        <img class="glyphicon glyphicon-user" src="security.png" alt="">
+        <input placeholder="password" class="form-control" ng-model="provider.password" type="password" name="passwordName"  />
+        <img  class="glyphicon glyphicon-user" src="security.png" alt="">
 
       </div>
         <div class="inner-addon left-addon">
         <input placeholder="confirm password" class="form-control" ng-model="provider.passwordConfirm" type="password" data-match="provider.password" name="myConfirmField" />
         <img class="glyphicon glyphicon-user" src="security.png" alt="">
+        <img class="glyphicon glyphicon-user" src="securityred.png" ng-show="myForm.myConfirmField.$error.match" alt="">
+
 
         </div>
-          <div ng-show="myForm.myConfirmField.$error.match">Not Match?</div>
+
         <button class="btn register" id="signin" type="submit">sign in</button>
       </form>
-    <button class="btn btn-primary" id="backBtn" type="button" ng-click="showLoginSection()"> <span class="glyphicon glyphicon-chevron-left"></span> </button>
 </div>
 
 

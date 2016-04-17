@@ -4,7 +4,11 @@
 <!-- LOGIN SECTION -->
 
 <div ng-if="showModalSection == 'login'" class="modal-body">
-    <h3 class="modal-title">Login</h3>
+  <div class='title'>
+  <img src="MadeMyDayLogo.png" alt="">
+    <h3 class="modal-title">login</h3>
+    <img src="MadeMyDayLogo2.png" alt="">
+  </div>
     <form   ng-submit="loginClientPath(client)">
     <div class="inner-addon left-addon">
       <img class="glyphicon glyphicon-user" src="interface.png" alt="">
@@ -18,7 +22,7 @@
       <div class="red" ng-show="errorMsg.message == 'Login failed.'">Incorect Password</div>
       <button class="btn btn-primary" id="login" type="submit">login</button>
     </form>
-  <button class="btn register" id="create" type="button" btn-toggle="" ng-click="showRegisterSection()">create account</button>
+      <p>don't have an account?<button class="btn register" id="create" type="button" btn-toggle="" ng-click="showRegisterSection()">sign up</button></p>
 </div>
 
 
@@ -28,18 +32,47 @@
 
 
 <div ng-if="showModalSection == 'register'" class="modal-body">
-    <h3 class="modal-title">Create Account</h3>
+  <button class="btn btn-primary" id="backBtn" type="button" ng-click="showLoginSection()"> <span class="glyphicon glyphicon-chevron-left"></span> </button>
+  <div class='titleCreate'>
+  <img src="MadeMyDayLogo.png" alt="">
+    <h3 class="modal-title">create account</h3>
+    <img src="MadeMyDayLogo2.png" alt="">
+  </div>
     <form name="myForm" class="has-feedback" ng-submit="registerClientPath(client)">
-      <input type="text" class="form-control" placeholder="first name" ng-model="client.firstName">
-      <input type="text" class="form-control" placeholder="last name" ng-model="client.lastName">
-      <input type="text" class="form-control" placeholder="email" ng-model="client.email">
-      <input type="number" class="form-control" placeholder="phone number" ng-model="client.phoneNumber">
-      <input placeholder="password" class="form-control" ng-model="client.password" type="password" name="passwordName" data-ng-class="{'ng-invalid':myForm.confirmPassword.$error.match}" />
-      <input placeholder="confrim password" class="form-control" ng-model="client.passwordConfirm" type="password" data-match="client.password" name="myConfirmField" />
-        <div ng-show="myForm.myConfirmField.$error.match"></div>
+      <div class="inner-addon left-addon">
+    <input type="text" class="form-control" placeholder="first name" ng-model="client.firstName">
+    <img class="glyphicon glyphicon-user" src="social.png" alt="">
+
+    </div>
+    <div class="inner-addon left-addon">
+    <input type="text" class="form-control" placeholder="last name" ng-model="client.lastName">
+    <img class="glyphicon glyphicon-user" src="social.png" alt="">
+
+  </div>
+  <div class="inner-addon left-addon">
+  <input type="text" class="form-control" placeholder="email" ng-model="client.email">
+  <img class="glyphicon glyphicon-user" src="interface.png" alt="">
+
+</div>
+<div class="inner-addon left-addon">
+<input type="number" class="form-control" placeholder="phone number" ng-model="client.phoneNumber">
+<img class="glyphicon glyphicon-user" src="telephone.png" alt="">
+
+</div>
+<div class="inner-addon left-addon">
+<input placeholder="password" class="form-control" ng-model="client.password" type="password" name="passwordName"  />
+<img  class="glyphicon glyphicon-user" src="security.png" alt="">
+
+</div>
+<div class="inner-addon left-addon">
+<input placeholder="confirm password" class="form-control" ng-model="client.passwordConfirm" type="password" data-match="client.password" name="myConfirmField" />
+<img class="glyphicon glyphicon-user" src="security.png" alt="">
+<img class="glyphicon glyphicon-user" src="securityred.png" ng-show="myForm.myConfirmField.$error.match" alt="">
+
+
+</div>
       <button class="btn register" id="signin" type="submit">Sign In</button>
     </form>
-  <button class="btn btn-primary" id="backBtn" type="button" ng-click="showLoginSection()"> <img src="arrows.png" alt=""> <p>Back</p></button>
 
 </div>
 
