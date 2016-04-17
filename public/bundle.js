@@ -411,7 +411,7 @@ GoOnlineService.isUserOnline(JSON.parse($window.localStorage.getItem('theprovide
   $scope.goOn = function (post) {
 
     var online = {isOnline: true, tasks:post};
-
+console.log(online);
 
 
     var userId = JSON.parse($window.localStorage.getItem('theprovider')).id
@@ -428,22 +428,22 @@ GoOnlineService.isUserOnline(JSON.parse($window.localStorage.getItem('theprovide
 
 
 // THESE ARE THE RATING STARS THE ALEX GOT FROM SOMEWHERE
-  $scope.rate = 0;
-  $scope.max = 5;
-  $scope.isReadonly = false;
-
-  $scope.hoveringOver = function(value) {
-    $scope.overStar = value;
-    $scope.percent = 100 * (value / $scope.max);
-  };
-
-  $scope.ratingStates = [
-    {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
-    {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-    {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
-    {stateOn: 'glyphicon-heart'},
-    {stateOff: 'glyphicon-off'}
-  ];
+  // $scope.rate = 0;
+  // $scope.max = 5;
+  // $scope.isReadonly = false;
+  //
+  // $scope.hoveringOver = function(value) {
+  //   $scope.overStar = value;
+  //   $scope.percent = 100 * (value / $scope.max);
+  // };
+  //
+  // $scope.ratingStates = [
+  //   {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
+  //   {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
+  //   {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
+  //   {stateOn: 'glyphicon-heart'},
+  //   {stateOff: 'glyphicon-off'}
+  // ];
 
 });
 
@@ -681,61 +681,21 @@ angular
 
 
 $scope.matchMe = function (post) {
-console.log(post);
+
   var task = {tasks:post};
+  console.log(task);
 
 
   var userId = JSON.parse(window.localStorage.getItem('theclient')).id
   MatchService.putMatches(task,userId)
   .success(function(dataObj) {
       console.log("SUCCESS", dataObj);
-      // $rootScope.changeOnline = true;
       $uibModalInstance.dismiss();
   })
   .error(function(err) {
     console.log("ERROR", err)
   })
 };
-
-
-
-// THIS CHANGES THE BOOLEAN OF IS_ONLINE TO TRUE
-  // $scope.matchMe = function () {
-  //    $uibModalInstance.dismiss();
-// console.log(post);
-//     var online = {isOnline: true, tasks:post};
-
-
-    // var userId = JSON.parse($window.localStorage.getItem('theprovider')).id
-    // GoOnlineService.putProviderOnline(online,userId)
-    // .success(function(dataObj) {
-    //     console.log("SUCCESS", dataObj);
-    //     // $rootScope.changeOnline = true;
-    //     // $uibModalInstance.dismiss();
-    // })
-    // .error(function(err) {
-    //   console.log("ERROR", err)
-    // })
-  // };
-
-
-// THESE ARE THE RATING STARS THE ALEX GOT FROM SOMEWHERE
-  // $scope.rate = 0;
-  // $scope.max = 5;
-  // $scope.isReadonly = false;
-  //
-  // $scope.hoveringOver = function(value) {
-  //   $scope.overStar = value;
-  //   $scope.percent = 100 * (value / $scope.max);
-  // };
-  //
-  // $scope.ratingStates = [
-  //   {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
-  //   {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-  //   {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
-  //   {stateOn: 'glyphicon-heart'},
-  //   {stateOff: 'glyphicon-off'}
-  // ];
 
 });
 
@@ -755,31 +715,16 @@ angular
   .module('match')
   .service('MatchService',function($http) {
     var clienturl = '/client';
-    var match= '/clientTasks'
+    var match= '/clientTasks';
+    var matches ='/provider/tasks'
 
     function putMatches(user,idOfUser) {
-      return $http.post(clienturl+ "-tasks" + '/' + idOfUser, user);
+      return $http.post(matches);
     }
-
-    //
-    // function isUserOnline(userId) {
-    //   return $http.get(spurl + '/' + userId).then(function (user) {
-    //     console.log('service isOnline', user.data.isOnline);
-    //     return user.data.isOnline;
-    //   });
-    // }
-    //
-    // function putProviderOffline(user,idOfUser) {
-    //   return $http.put(spurl + '/' + idOfUser + "/isOnline", user);
-    // }
-
-
-
 
     return {
       putMatches: putMatches
-      // putProviderOffline: putProviderOffline,
-      // isUserOnline: isUserOnline
+
     };
   })
 
@@ -39966,6 +39911,7 @@ angular
   SpController.$inject = ['$scope','$rootScope','$route','$location','$uibModal','$log','SpService'];
 
   function SpController($scope,$rootScope,$route,$location,$uibModal,$log,SpService, $modalInstance) {
+    $scope.photoFill = false;
     var vm = this;
 
     //logout button
