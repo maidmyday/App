@@ -27,6 +27,8 @@ angular
 
 
     //uploading a photo to database
+    // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
+    // thanks to Jenny Louthan !!! <3
     function uploadFileToCUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);
