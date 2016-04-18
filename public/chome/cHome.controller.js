@@ -158,7 +158,7 @@ angular
 
       var modalInstance = $uibModal.open({
         animation: $scope.animationsEnabled,
-        templateUrl: './matches/tmpls/match-modal.html',
+        templateUrl: './matches/tmpls/postjob-modal.html',
         controller: 'MatchModalController',
         size: size,
         resolve: {
