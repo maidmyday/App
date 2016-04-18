@@ -198,20 +198,22 @@ div.userImgSm {
     -webkit-transform: translateY(-50%) translateX(-50%); }
 
 .profileBackground {
-  background-image: url(../photo.jpeg); }
+  background-color: lightblue; }
 
 nav {
   background-color: rgba(255, 255, 255, 0.5);
-  height: 91px; }
+  height: 100px; }
   nav div {
     display: flex;
-    justify-content: space-between; }
+    justify-content: space-between;
+    height: 100px; }
     nav div h2 {
       font-family: 'Sue Ellen Francisco', cursive;
       font-size: 34px;
       color: #767B91; }
     nav div img {
-      height: 100px; }
+      height: 56px;
+      align-self: flex-end; }
 
 p.navbar-text {
   display: inline-block; }
