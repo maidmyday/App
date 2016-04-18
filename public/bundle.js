@@ -72,6 +72,8 @@ angular
     vm.loadPage();
 
     //PHOTO UPLOAD
+    // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
+    // thanks to Jenny Louthan !!! <3
     vm.uploadCFile = function(){
         var file = vm.myFile;
         console.log('photo file is ',file );
@@ -224,6 +226,8 @@ angular
 
 
     //uploading a photo to database
+    // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
+    // thanks to Jenny Louthan !!! <3
     function uploadFileToCUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);
@@ -271,6 +275,9 @@ angular
   })
 
 },{}],6:[function(require,module,exports){
+// got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
+// thanks to Jenny Louthan !!! <3
+
 angular
   .module('cHome')
   .directive('fileModel', ['$parse',function ($parse) {
@@ -39787,6 +39794,9 @@ require('./angular');
 module.exports = angular;
 
 },{"./angular":29}],31:[function(require,module,exports){
+// got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
+// thanks to Jenny Louthan !!! <3
+
 angular
   .module('spHome')
   .directive('fileModel', ['$parse',function ($parse) {
@@ -39861,6 +39871,8 @@ angular
     vm.loadPage();
 
     //PHOTO UPLOAD
+    // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
+    // thanks to Jenny Louthan !!! <3
     vm.uploadPFile = function(){
         var file = vm.myFile;
         // console.log('photo file is ',file );
@@ -40034,6 +40046,9 @@ angular
   }
 
 },{}],34:[function(require,module,exports){
+// got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
+// thanks to Jenny Louthan !!! <3
+
 angular
   .module('spHome')
   .directive('spHomeDir', function () {
@@ -40103,6 +40118,8 @@ angular
     }
 
     //uploading a photo to database
+    // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
+    // thanks to Jenny Louthan !!! <3
     function uploadFileToUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);
