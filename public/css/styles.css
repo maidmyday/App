@@ -16,6 +16,7 @@ div.backgroundImg {
   background-attachment: fixed; }
 
 .btn.btn-transparent {
+  font-family: 'Sue Ellen Francisco', cursive;
   color: #767B91;
   background-color: transparent;
   border-color: #f0ad4e;
@@ -78,7 +79,7 @@ div.modal-body {
 
 h3 {
   align-self: center;
-  font-family: 'Poiret One', cursive; }
+  font-family: 'Poiret One', cursive !important; }
 
 div.modal-content {
   border-color: #C7CCDB;
@@ -148,11 +149,9 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
   outline: 0 none;
   color: #767B91; }
 
-/* enable absolute positioning */
 .inner-addon {
   position: relative; }
 
-/* style icon */
 .inner-addon .glyphicon {
   position: absolute;
   padding: 10px;
@@ -336,12 +335,6 @@ div.paragraph {
   background: #32936f;
   box-shadow: inset 0px 0px 10px 2px #32936f, 0px 0px 10px 2px #32936f; }
 
-#stars .stars {
-  outline: none; }
-
-#stars i {
-  font-size: 30px; }
-
 div.jobModal div.modal-header {
   text-align: center;
   border: none; }
@@ -399,11 +392,12 @@ div.jobModal div.modal-footer {
     order: 3;
     flex: none; } }
 
-* {
-  font-weight: bold; }
-  * .poiret {
-    font-family: 'Poiret One', cursive; }
-  * .josefin {
-    font-family: 'Josefin Sans', sans-serif; }
-  * .sue {
-    font-family: 'Sue Ellen Francisco', cursive; }
+.cardsContainer h1 {
+  font-family: 'Poiret One', cursive !important; }
+
+.cardsContainer .cards {
+  display: flex; }
+  .cardsContainer .cards img {
+    height: 100px;
+    width: 100px;
+    border-radius: 100%; }
