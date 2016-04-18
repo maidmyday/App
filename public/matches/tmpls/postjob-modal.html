@@ -61,23 +61,29 @@
 </div>
 
 
+
+
+
+
+
+
 <!-- MATCH MODAL -->
-<div ng-if="showSection == 'matches'" class="modal-body">
-  <h1>request a maid</h1>
+<div class="cardsContainer" ng-if="showSection == 'matches'" class="modal-body">
+  <h3>matching providers</h3>
   <div class="cards">
   <div  ng-repeat="matchUser in matchUsers" class="">
-    <div class="w3-card-8">
+
 
     <div class="w3-container w3-center">
 
-      <img src="profile.png" alt="Avatar" style="width:80%">
+      <img src="../../photoUploads/{{matchUser.fileUpload.fileName}}" alt="Avatar" >
       <h5>{{matchUser.firstName}}</h5>
 
-      <button class="w3-btn w3-green">Accept</button>
-      
-    </div>
+      <button class="btn">Request</button>
 
     </div>
+
+
   </div>
 
 

@@ -16,6 +16,7 @@ div.backgroundImg {
   background-attachment: fixed; }
 
 .btn.btn-transparent {
+  font-family: 'Sue Ellen Francisco', cursive;
   color: #767B91;
   background-color: transparent;
   border-color: #f0ad4e;
@@ -78,7 +79,7 @@ div.modal-body {
 
 h3 {
   align-self: center;
-  font-family: 'Poiret One', cursive; }
+  font-family: 'Poiret One', cursive !important; }
 
 div.modal-content {
   border-color: #C7CCDB;
@@ -391,5 +392,12 @@ div.jobModal div.modal-footer {
     order: 3;
     flex: none; } }
 
-.cards {
+.cardsContainer h1 {
+  font-family: 'Poiret One', cursive !important; }
+
+.cardsContainer .cards {
   display: flex; }
+  .cardsContainer .cards img {
+    height: 100px;
+    width: 100px;
+    border-radius: 100%; }
