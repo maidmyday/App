@@ -215,7 +215,8 @@ angular
        SpService.getRequest(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
       .success(function(dataObj) {
         console.log("SUCCESS", dataObj)
-          // $rootScope.changeOnline = false;
+        $scope.show = 'hello';
+          $rootScope.friendRequests = dataObj;
       })
       .error(function(err) {
         console.log("ERROR", err);

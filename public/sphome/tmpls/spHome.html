@@ -176,6 +176,11 @@
         </uib-accordion>
 
         <button ng-click="seeRequest()">See Request</button>
+        <div ng-show="show === 'hello'">
+          <div ng-repeat="friendRequest in friendRequests">
+            <p>{{friendRequests.address}}</p>
+          </div>
+        </div>
 
 
     </div>
