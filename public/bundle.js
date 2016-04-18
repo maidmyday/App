@@ -37,7 +37,7 @@ angular
       })
   })
 
-},{"./chome":7,"./goOnline":12,"./loginFeature":15,"./matches/":19,"./sphome":31,"angular":29,"angular-route":23,"angular-ui-bootstrap":25,"angular-validation-match":27}],2:[function(require,module,exports){
+},{"./chome":7,"./goOnline":12,"./loginFeature":15,"./matches/":19,"./sphome":32,"angular":30,"angular-route":24,"angular-ui-bootstrap":26,"angular-validation-match":28}],2:[function(require,module,exports){
 angular
   .module('cHome')
   .controller('ClientController', ClientController);
@@ -198,7 +198,7 @@ angular
 
       var modalInstance = $uibModal.open({
         animation: $scope.animationsEnabled,
-        templateUrl: './matches/tmpls/match-modal.html',
+        templateUrl: './matches/tmpls/postjob-modal.html',
         controller: 'MatchModalController',
         size: size,
         resolve: {
@@ -244,7 +244,7 @@ angular
     })
   })
 
-},{"angular":29,"angular-route":23,"angular-ui-bootstrap":25}],5:[function(require,module,exports){
+},{"angular":30,"angular-route":24,"angular-ui-bootstrap":26}],5:[function(require,module,exports){
 angular
   .module('cHome')
   .service('ClientService',function($http, $q, $cacheFactory) {
@@ -399,52 +399,27 @@ angular
 .module('goOnline')
 .controller('GoOnlineModalInstanceCtrl', function ($rootScope,$scope, $location, $uibModalInstance, GoOnlineService,$window) {
 
-// THIS CHANGES USER FROM ONLINE TO OFFLINE ON UI
+// THIS CHANGES USER FROM ONLINE TO OFFLINE ON UI AND NOT HAVING TO REFRESH
+
 GoOnlineService.isUserOnline(JSON.parse($window.localStorage.getItem('theprovider')).id).then(function (bool) {
-  console.log(bool);
   $rootScope.changeOnline = bool;
 });
 
 
 
 // THIS CHANGES THE BOOLEAN OF IS_ONLINE TO TRUE
+
   $scope.goOn = function (post) {
-
     var online = {isOnline: true, tasks:post};
-console.log(online);
-
-
     var userId = JSON.parse($window.localStorage.getItem('theprovider')).id
     GoOnlineService.putProviderOnline(online,userId)
     .success(function(dataObj) {
-        console.log("SUCCESS", dataObj);
         $rootScope.changeOnline = true;
         $uibModalInstance.dismiss();
     })
     .error(function(err) {
-      console.log("ERROR", err)
     })
   };
-
-
-// THESE ARE THE RATING STARS THE ALEX GOT FROM SOMEWHERE
-  // $scope.rate = 0;
-  // $scope.max = 5;
-  // $scope.isReadonly = false;
-  //
-  // $scope.hoveringOver = function(value) {
-  //   $scope.overStar = value;
-  //   $scope.percent = 100 * (value / $scope.max);
-  // };
-  //
-  // $scope.ratingStates = [
-  //   {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
-  //   {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-  //   {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
-  //   {stateOn: 'glyphicon-heart'},
-  //   {stateOff: 'glyphicon-off'}
-  // ];
-
 });
 
 },{}],10:[function(require,module,exports){
@@ -465,7 +440,6 @@ angular
 
     function isUserOnline(userId) {
       return $http.get(spurl + '/' + userId).then(function (user) {
-        console.log('service isOnline', user.data.isOnline);
         return user.data.isOnline;
       });
     }
@@ -473,8 +447,6 @@ angular
     function putProviderOffline(user,idOfUser) {
       return $http.put(spurl + '/' + idOfUser + "/isOnline", user);
     }
-
-
 
 
     return {
@@ -497,7 +469,7 @@ angular
 // SWITCHES THE SECTIONS OF THE MODAL
 
 
-$scope.showModalSection = 'login';
+  $scope.showModalSection = 'login';
 
   $scope.showRegisterSection = function () {
       $scope.showModalSection = 'register';
@@ -515,14 +487,12 @@ $scope.showModalSection = 'login';
   $scope.registerClientPath = function (client) {
     LoginService.postClient(client)
     .success(function(data) {
-      console.log("SUCCESS", data)
       window.localStorage.setItem('theclient', window.JSON.stringify(data));
-      console.log("localstorage data", localStorage);
       $uibModalInstance.dismiss();
       $location.path('/clienthome/' + data.id);
     })
     .error(function(err) {
-      console.log("ERROR", err)
+      $scope.registerError = err;
     })
   };
 
@@ -531,12 +501,12 @@ $scope.showModalSection = 'login';
     LoginService.postSp(provider)
     .success(function(data) {
       window.localStorage.setItem('theprovider', window.JSON.stringify(data));
-      console.log("SUCCESS", data)
       $uibModalInstance.dismiss();
       $location.path('/sphome/' + data.id);
     })
     .error(function(err) {
-      console.log("ERROR", err)
+      $scope.registerError = err;
+
     })
   };
 
@@ -551,12 +521,10 @@ $scope.showModalSection = 'login';
     LoginService.providerLogin(provider)
     .success(function(data) {
       window.localStorage.setItem('theprovider', window.JSON.stringify(data));
-      console.log("SUCCESS", data)
       $uibModalInstance.dismiss();
       $location.path('/sphome/' + data.id);
     })
     .error(function(err) {
-      console.log("ERROR", err)
       $scope.errorMsg = err
     })
   };
@@ -565,12 +533,10 @@ $scope.showModalSection = 'login';
     LoginService.clientLogin(client)
     .success(function(data) {
       window.localStorage.setItem('theclient', window.JSON.stringify(data));
-      console.log("SUCCESS", data)
       $uibModalInstance.dismiss();
       $location.path('/clienthome/' + data.id);
     })
     .error(function(err) {
-      console.log("ERROR", err)
       $scope.errorMsg = err
     })
   };
@@ -635,14 +601,12 @@ angular
 
   ]);
 
-},{"angular-validation-match":27}],17:[function(require,module,exports){
+},{"angular-validation-match":28}],17:[function(require,module,exports){
 angular
   .module('login')
   .service('LoginService',function($http) {
     var clientUrl = '/client';
-    var clientsUrl = '/clients';
     var spUrl = '/provider';
-    var spsUrl = '/providers';
     var clientLoginUrl ='/clientLogin';
     var spLoginUrl ='/providerLogin';
 
@@ -676,24 +640,32 @@ angular
 },{}],18:[function(require,module,exports){
 angular
 .module('match')
-.controller('MatchModalController', function ($rootScope, $scope, $location, $uibModalInstance, MatchService) {
+.controller('MatchModalController', function ($scope, $uibModalInstance, MatchService) {
 
 
+  $scope.showSection = 'postjob';
+
+  // $scope.showMatchSection = function () {
+  //     $scope.showSection = 'matches';
+  // };
+
+
+// MATCHES CLIENTS WITH PROVIDERS ON CLIENT SIDE
 
 $scope.matchMe = function (post) {
-
   var task = {tasks:post};
-  console.log(task);
-
-
-  var userId = JSON.parse(window.localStorage.getItem('theclient')).id
   MatchService.putMatches(task)
   .success(function(dataObj) {
-      console.log("SUCCESS", dataObj);
-      $uibModalInstance.dismiss();
+$scope.showSection = 'matches';
+$scope.matchUsers = dataObj;
+
+    window.glob = $scope.matchUsers;
+    // $uibModalInstance.dismiss();
+
+
+
   })
   .error(function(err) {
-    console.log("ERROR", err)
   })
 };
 
@@ -703,35 +675,46 @@ $scope.matchMe = function (post) {
 require('./matches.module.js');
 require('./controllers/matches.controller.js');
 require('./matches.service.js');
+require('./matches.directive.js');
 
-},{"./controllers/matches.controller.js":18,"./matches.module.js":20,"./matches.service.js":21}],20:[function(require,module,exports){
+},{"./controllers/matches.controller.js":18,"./matches.directive.js":20,"./matches.module.js":21,"./matches.service.js":22}],20:[function(require,module,exports){
+// require('../../matches/controllers/matches.controller');
+
+angular
+  .module('match')
+  .directive('matchReader', function(){
+    return {
+      templateUrl: '../../matches/tmpls/match-reader.html',
+      restrict: 'E',
+      scope: {
+        question: '=',},
+      controller:"MatchModalController"}
+  })
+
+},{}],21:[function(require,module,exports){
 angular
   .module('match',[
     'ngRoute'
   ]);
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 angular
   .module('match')
   .service('MatchService',function($http) {
-    var clienturl = '/client';
-    var match= '/clientTasks';
     var matches ='/provider/tasks'
 
     function putMatches(user) {
-
-      console.log(user);
       return $http.post(matches, user);
-
     }
 
-    return {
-      putMatches: putMatches
+
+return {
+    putMatches: putMatches
 
     };
   })
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -1755,11 +1738,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":22}],24:[function(require,module,exports){
+},{"./angular-route":23}],25:[function(require,module,exports){
 /*
  * angular-ui-bootstrap
  * http://angular-ui.github.io/bootstrap/
@@ -9088,12 +9071,12 @@ angular.module('ui.bootstrap.datepickerPopup').run(function() {!angular.$$csp().
 angular.module('ui.bootstrap.tooltip').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTooltipCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-tooltip-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-bottom > .tooltip-arrow,[uib-popover-popup].popover.top-left > .arrow,[uib-popover-popup].popover.top-right > .arrow,[uib-popover-popup].popover.bottom-left > .arrow,[uib-popover-popup].popover.bottom-right > .arrow,[uib-popover-popup].popover.left-top > .arrow,[uib-popover-popup].popover.left-bottom > .arrow,[uib-popover-popup].popover.right-top > .arrow,[uib-popover-popup].popover.right-bottom > .arrow,[uib-popover-html-popup].popover.top-left > .arrow,[uib-popover-html-popup].popover.top-right > .arrow,[uib-popover-html-popup].popover.bottom-left > .arrow,[uib-popover-html-popup].popover.bottom-right > .arrow,[uib-popover-html-popup].popover.left-top > .arrow,[uib-popover-html-popup].popover.left-bottom > .arrow,[uib-popover-html-popup].popover.right-top > .arrow,[uib-popover-html-popup].popover.right-bottom > .arrow,[uib-popover-template-popup].popover.top-left > .arrow,[uib-popover-template-popup].popover.top-right > .arrow,[uib-popover-template-popup].popover.bottom-left > .arrow,[uib-popover-template-popup].popover.bottom-right > .arrow,[uib-popover-template-popup].popover.left-top > .arrow,[uib-popover-template-popup].popover.left-bottom > .arrow,[uib-popover-template-popup].popover.right-top > .arrow,[uib-popover-template-popup].popover.right-bottom > .arrow{top:auto;bottom:auto;left:auto;right:auto;margin:0;}[uib-popover-popup].popover,[uib-popover-html-popup].popover,[uib-popover-template-popup].popover{display:block !important;}</style>'); angular.$$uibTooltipCss = true; });
 angular.module('ui.bootstrap.timepicker').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTimepickerCss && angular.element(document).find('head').prepend('<style type="text/css">.uib-time input{width:50px;}</style>'); angular.$$uibTimepickerCss = true; });
 angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTypeaheadCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-typeahead-popup].dropdown-menu{display:block;}</style>'); angular.$$uibTypeaheadCss = true; });
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 require('./dist/ui-bootstrap-tpls');
 
 module.exports = 'ui.bootstrap';
 
-},{"./dist/ui-bootstrap-tpls":24}],26:[function(require,module,exports){
+},{"./dist/ui-bootstrap-tpls":25}],27:[function(require,module,exports){
 /*!
  * angular-validation-match
  * Checks if one input matches another
@@ -9152,11 +9135,11 @@ function match ($parse) {
 }
 match.$inject = ["$parse"];
 })(window, window.angular);
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 require('./dist/angular-validation-match');
 module.exports = 'validation.match';
 
-},{"./dist/angular-validation-match":26}],28:[function(require,module,exports){
+},{"./dist/angular-validation-match":27}],29:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -39871,11 +39854,11 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":28}],30:[function(require,module,exports){
+},{"./angular":29}],31:[function(require,module,exports){
 angular
   .module('spHome')
   .directive('fileModel', ['$parse',function ($parse) {
@@ -39899,14 +39882,14 @@ angular
     }
 }]);
 
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 require('./spHome.module');
 require('./spHome.controller');
 require('./spHome.service');
 require('./spHome.directive');
 require('./fileUpload.directive');
 
-},{"./fileUpload.directive":30,"./spHome.controller":32,"./spHome.directive":33,"./spHome.module":34,"./spHome.service":35}],32:[function(require,module,exports){
+},{"./fileUpload.directive":31,"./spHome.controller":33,"./spHome.directive":34,"./spHome.module":35,"./spHome.service":36}],33:[function(require,module,exports){
 angular
   .module('spHome')
   .controller('SpController',SpController)
@@ -40118,7 +40101,7 @@ angular
 
   }
 
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 angular
   .module('spHome')
   .directive('spHomeDir', function () {
@@ -40139,7 +40122,7 @@ angular
 
   // <sp-home-dir mydata="angularObject"></sp-home-dir>
 
-},{}],34:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
@@ -40159,7 +40142,7 @@ angular
     })
   })
 
-},{"angular":29,"angular-route":23,"angular-ui-bootstrap":25}],35:[function(require,module,exports){
+},{"angular":30,"angular-route":24,"angular-ui-bootstrap":26}],36:[function(require,module,exports){
 angular
   .module('spHome')
   .service('SpService',function($http, $q, $cacheFactory) {

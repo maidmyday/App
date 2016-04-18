@@ -5,7 +5,7 @@ angular
 // SWITCHES THE SECTIONS OF THE MODAL
 
 
-$scope.showModalSection = 'login';
+  $scope.showModalSection = 'login';
 
   $scope.showRegisterSection = function () {
       $scope.showModalSection = 'register';
@@ -23,14 +23,12 @@ $scope.showModalSection = 'login';
   $scope.registerClientPath = function (client) {
     LoginService.postClient(client)
     .success(function(data) {
-      console.log("SUCCESS", data)
       window.localStorage.setItem('theclient', window.JSON.stringify(data));
-      console.log("localstorage data", localStorage);
       $uibModalInstance.dismiss();
       $location.path('/clienthome/' + data.id);
     })
     .error(function(err) {
-      console.log("ERROR", err)
+      $scope.registerError = err;
     })
   };
 
@@ -39,12 +37,12 @@ $scope.showModalSection = 'login';
     LoginService.postSp(provider)
     .success(function(data) {
       window.localStorage.setItem('theprovider', window.JSON.stringify(data));
-      console.log("SUCCESS", data)
       $uibModalInstance.dismiss();
       $location.path('/sphome/' + data.id);
     })
     .error(function(err) {
-      console.log("ERROR", err)
+      $scope.registerError = err;
+
     })
   };
 
@@ -59,12 +57,10 @@ $scope.showModalSection = 'login';
     LoginService.providerLogin(provider)
     .success(function(data) {
       window.localStorage.setItem('theprovider', window.JSON.stringify(data));
-      console.log("SUCCESS", data)
       $uibModalInstance.dismiss();
       $location.path('/sphome/' + data.id);
     })
     .error(function(err) {
-      console.log("ERROR", err)
       $scope.errorMsg = err
     })
   };
@@ -73,12 +69,10 @@ $scope.showModalSection = 'login';
     LoginService.clientLogin(client)
     .success(function(data) {
       window.localStorage.setItem('theclient', window.JSON.stringify(data));
-      console.log("SUCCESS", data)
       $uibModalInstance.dismiss();
       $location.path('/clienthome/' + data.id);
     })
     .error(function(err) {
-      console.log("ERROR", err)
       $scope.errorMsg = err
     })
   };

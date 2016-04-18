@@ -2,9 +2,7 @@ angular
   .module('login')
   .service('LoginService',function($http) {
     var clientUrl = '/client';
-    var clientsUrl = '/clients';
     var spUrl = '/provider';
-    var spsUrl = '/providers';
     var clientLoginUrl ='/clientLogin';
     var spLoginUrl ='/providerLogin';
 

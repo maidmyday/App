@@ -14,12 +14,12 @@
       <img class="glyphicon glyphicon-user" src="interface.png" alt="">
       <input type="text" class="form-control" ng-model="client.email" placeholder="email">
     </div>
-      <div class="red" ng-show="errorMsg.message == 'No message available'">Email does not exsist</div>
+      <div class="exist" ng-show="errorMsg.message == 'No message available'">email does not exsist</div>
     <div class="inner-addon left-addon">
       <img class="glyphicon glyphicon-user" src="security.png" alt="">
       <input type="password" class="form-control" ng-model="client.password" placeholder="password">
     </div>
-      <div class="red" ng-show="errorMsg.message == 'Login failed.'">Incorect Password</div>
+      <div class="exist" ng-show="errorMsg.message == 'Login failed.'">incorect password</div>
       <button class="btn btn-primary" id="login" type="submit">login</button>
     </form>
       <p>don't have an account?<button class="btn register" id="create" type="button" btn-toggle="" ng-click="showRegisterSection()">sign up</button></p>
@@ -47,31 +47,31 @@
     <div class="inner-addon left-addon">
     <input type="text" class="form-control" placeholder="last name" ng-model="client.lastName">
     <img class="glyphicon glyphicon-user" src="social.png" alt="">
-
   </div>
+
+  <div class="exist" ng-show="registerError.message == 'Account with this email already exists'">email already exists</div>
   <div class="inner-addon left-addon">
   <input type="text" class="form-control" placeholder="email" ng-model="client.email">
   <img class="glyphicon glyphicon-user" src="interface.png" alt="">
-
 </div>
+
 <div class="inner-addon left-addon">
 <input type="number" class="form-control" placeholder="phone number" ng-model="client.phoneNumber">
 <img class="glyphicon glyphicon-user" src="telephone.png" alt="">
-
 </div>
+
 <div class="inner-addon left-addon">
 <input placeholder="password" class="form-control" ng-model="client.password" type="password" name="passwordName"  />
 <img  class="glyphicon glyphicon-user" src="security.png" alt="">
-
 </div>
+
 <div class="inner-addon left-addon">
 <input placeholder="confirm password" class="form-control" ng-model="client.passwordConfirm" type="password" data-match="client.password" name="myConfirmField" />
 <img class="glyphicon glyphicon-user" src="security.png" alt="">
 <img class="glyphicon glyphicon-user" src="securityred.png" ng-show="myForm.myConfirmField.$error.match" alt="">
-
-
 </div>
-      <button class="btn register" id="signin" type="submit">Sign In</button>
+
+  <button class="btn register" id="signin" type="submit">Sign In</button>
     </form>
 
 </div>
