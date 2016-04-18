@@ -1,7 +1,33 @@
 // WHEN PASSWORDS DONT MATCH
-input.ng-invalid {
-  border-color: red;
+img.ng-invalid {
+  background-color: red;
 }
+div.title{
+
+display: flex;
+margin: 0 auto;
+width: 35%;
+justify-content: space-around;
+margin-bottom: 28px;
+img{
+  height: 17px;
+  align-self: center;
+}
+}
+
+div.titleCreate{
+
+display: flex;
+margin: 0 auto;
+width: 57%;
+justify-content: space-around;
+margin-bottom: 28px;
+img{
+  height: 17px;
+  align-self: center;
+}
+}
+
 
 div.modal-body{
   display: flex;
@@ -10,6 +36,19 @@ div.modal-body{
     font-family: 'Josefin Sans', sans-serif;
     font-size: 16px;
     font-weight: 300;
+    margin-bottom: 14px;
+  }
+  p{
+    font-family: 'Sue Ellen Francisco', cursive;
+    align-self: center;
+    font-size: 17px;
+  }
+  form{
+    display: flex;
+    flex-flow: column;
+    align-self: center;
+    width: 58%;
+
   }
 }
 
@@ -34,10 +73,11 @@ input.form-control {
   background-color: #fff;
   border-color: #767B91;
   border-width: 0px;
-  &:hover{
-  background-color: #767B91;
-  color: #FFF;
-}
+  text-decoration: underline;
+//   &:hover{
+//   background-color: #767B91;
+//   color: #FFF;
+// }
 }
 
 #backBtn {
@@ -45,7 +85,8 @@ input.form-control {
   color: #767B91;
   border-color: #767B91;
   background-color: #fff;
-  border-width: 1px;
+  border-width: 0px;
+  align-self: baseline;
   .glyphicon-chevron-left{color: #767B91;}
   &:hover {
     background-color: #767B91;
@@ -58,12 +99,12 @@ input.form-control {
 
 #signin {
   font-family: 'Josefin Sans', sans-serif;
-  position: absolute;
-  left: 497px;
   color: #767B91;
   background-color: #fff;
   border-color: #767B91;
   border-width: 1px;
+  margin-bottom: 20px;
+  font-size: 18px;
   &:hover{
     background-color: #767B91;
     color: #FFF;
@@ -76,14 +117,19 @@ input.form-control {
   background-color: #fff;
   border-color: #767B91;
   border-width: 1px;
+  width: 34%;
+  align-self: center;
   &:hover{
     background-color: #767B91;
     color: #FFF;
   }
 }
 
-.red {
+.exist {
   color: red;
+  font-size: 15px;
+  font-weight: 200;
+  font-family: 'Sue Ellen Francisco', cursive;
 }
 
 .btn {

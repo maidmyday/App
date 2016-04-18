@@ -1,30 +1,31 @@
 package com.theironyard.controllers;
 
+import com.theironyard.Wrapper.ListWrapper;
 import com.theironyard.entities.*;
 import com.theironyard.services.*;
 import com.theironyard.utils.Constants;
+import com.theironyard.utils.ListUtils;
 import com.theironyard.utils.ObjectUpdateUtils;
 import com.theironyard.utils.PasswordStorage;
 import org.h2.engine.Session;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -158,13 +159,13 @@ public class MaidMyDayController {
         return tClient;
     }
 
-    @RequestMapping(path = "/clientTasks/{id}", method = RequestMethod.GET)
-    public ArrayList<Task> clientTasks(@PathVariable("id") int id) {
-
-        Client client = clientRepository.findOne(id);
-
-        return (ArrayList<Task>) taskRepository.findByClient(client);
-    }
+//    @RequestMapping(path = "/clientTasks/{id}", method = RequestMethod.GET)
+//    public ArrayList<Task> clientTasks(@PathVariable("id") int id) {
+//
+//        Client client = clientRepository.findOne(id);
+//
+//        return (ArrayList<Task>) taskRepository.findByClient(client);
+//    }
 
     @RequestMapping(path = "/client/request", method = RequestMethod.GET)
     public List<Request> clientServiceHistory(HttpSession session) {
@@ -242,16 +243,18 @@ public class MaidMyDayController {
         return provider1;
     }
 
-    @RequestMapping(path = "/provider", method = RequestMethod.GET)
-    public List<Provider> findMatchingProviders(@RequestBody HashMap clientTasks) {
-        List<Task> clientRequestedTasks = (List<Task>) clientTasks.get("tasks");
+
+    @RequestMapping(path = "/provider/tasks", method = RequestMethod.POST)
+    public List<Provider> findMatchingProviders(@RequestBody ListWrapper incomingProvider) {
+        List<String> clientRequestedTasks = new ArrayList<>(incomingProvider.getTasks().keySet());
         List<Provider> providers = (List<Provider>) providerRepository.findAll();
-        providers = providers.stream()
-                .filter((provider) -> {
-                    return provider.getTasks().containsAll(clientRequestedTasks);
-                })
-                .collect(Collectors.toCollection(ArrayList<Provider>::new));
-        return providers;
+        List<Provider> matchingProviders = new ArrayList<Provider>();
+        for(Provider provider : providers) {
+            if (ListUtils.doesProviderContainTasks(clientRequestedTasks ,provider.getTasks())) {
+                matchingProviders.add(provider);
+            }
+        }
+        return matchingProviders;
     }
 
     @RequestMapping(path = "/provider/profile", method = RequestMethod.GET)

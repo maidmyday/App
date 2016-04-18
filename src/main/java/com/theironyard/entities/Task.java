@@ -30,6 +30,10 @@ public class Task {
     public Task() {
     }
 
+    public Task(String taskName) {
+        this.taskName = taskName;
+    }
+
     public Task(String taskName, Provider provider, Request request) {
         this.taskName = taskName;
         this.provider = provider;

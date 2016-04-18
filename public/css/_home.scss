@@ -1,9 +1,26 @@
-//header
-nav.navbar{
-  .navbar-btn{
-    // margin-right: 15px;
+.profileBackground{
+  background-image: url(../photo.jpeg);
+}
+
+
+nav{
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 91px;
+  div{
+    display: flex;
+    justify-content: space-between;
+    h2{
+      font-family: 'Sue Ellen Francisco', cursive;
+      font-size: 34px;
+      color: #767B91;
+    }
+    img{
+      height: 100px;
+    }
   }
 }
+
+
 p.navbar-text{
   display: inline-block;
   span{
@@ -33,7 +50,7 @@ div.panel{
 
 //user image
 div.userImgRow{
-  margin-top: 10px;
+  margin-top: 200px;
   margin-bottom: 10px;
 }
 

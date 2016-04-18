@@ -676,7 +676,7 @@ angular
 },{}],18:[function(require,module,exports){
 angular
 .module('match')
-.controller('MatchModalController', function ($rootScope,$scope, $location, $uibModalInstance, MatchService) {
+.controller('MatchModalController', function ($rootScope, $scope, $location, $uibModalInstance, MatchService) {
 
 
 
@@ -719,13 +719,10 @@ angular
     var matches ='/provider/tasks'
 
     function putMatches(user) {
-<<<<<<< HEAD
+
       console.log(user);
       return $http.post(matches, user);
-=======
-      console.log('THIS IS THE SERVICE USER',user);
-      return $http.post(matches);
->>>>>>> b4ebc7568aea55bf2a9491933dd2623c2c11aad7
+
     }
 
     return {

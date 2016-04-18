@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-around;
   min-height: 600px;
+  align-items: center;
 }
 
 div.mainpic {
@@ -9,21 +10,22 @@ div.mainpic {
 }
 
 div.backgroundImg {
-  background-image: linear-gradient(rgba(255,255,255,0.7),rgba(255,255,255,0.7)),url(https://images.unsplash.com/photo-1422479763403-3aa672b25e0e?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=2734d2e20c48290d634e466abc7932b4);
+  background-image: linear-gradient(rgba(255,255,255,0.7),rgba(255,255,255,0.7)),url('../background.jpeg');
   background-repeat: no-repeat;
   background-size: 100%;
   min-height: 900px;
   width: 100%;
+  background-attachment: fixed;
 }
 
 .btn.btn-transparent {
-  // font-family: 'Sue Ellen Francisco',cursive;
   color: #767B91;
   background-color: transparent;
   border-color: #f0ad4e;
   height: 57px;
   border-color: transparent;
   font-size: 25px;
+  flex: 1;
   &:hover{
   background-color: transparent;
   border-color: transparent;
@@ -32,11 +34,9 @@ div.backgroundImg {
 }
 
 .headline{
-  display: flex;
-flex-flow: column;
-justify-content: center;
-align-items: center;
-h1{
-  font-size: 6em;
-}
+  background-image: url("../logo.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 800px;
+  flex: 2;
 }

@@ -1,6 +1,6 @@
 angular
 .module('match')
-.controller('MatchModalController', function ($rootScope,$scope, $location, $uibModalInstance, MatchService) {
+.controller('MatchModalController', function ($rootScope, $scope, $location, $uibModalInstance, MatchService) {
 
 
 

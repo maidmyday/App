@@ -1,0 +1,36 @@
+@media (min-width: 0px ) and (max-width: 500px){
+
+  div.backgroundImg {
+    background-image: linear-gradient(rgba(255,255,255,0.7),rgba(255,255,255,0.7)),url('../background.jpeg');
+    background-repeat: no-repeat;
+    background-size: 200%;
+    min-height: 900px;
+    width: 100%;
+    background-attachment: fixed;
+    background-position-x: 21%;
+  }
+
+  .main {
+    display: flex;
+    // justify-content: space-around;
+    min-height: 600px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  div.mainpic {
+    align-self: center;
+  }
+
+  div.headline{
+    background-image: url("../logo.png");
+background-size: 99%;
+background-repeat: no-repeat;
+height: 876px;
+
+width: 100%;
+order: 3;
+flex: none;
+  }
+
+}
