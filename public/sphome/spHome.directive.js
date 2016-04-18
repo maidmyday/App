@@ -1,3 +1,6 @@
+// got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
+// thanks to Jenny Louthan !!! <3
+
 angular
   .module('spHome')
   .directive('spHomeDir', function () {

@@ -32,6 +32,8 @@ angular
     vm.loadPage();
 
     //PHOTO UPLOAD
+    // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
+    // thanks to Jenny Louthan !!! <3
     vm.uploadCFile = function(){
         var file = vm.myFile;
         console.log('photo file is ',file );
