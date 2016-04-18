@@ -50,46 +50,6 @@ angular
 
     vm.animationsEnabled = true;
 
-    // vm.clientData;
-
-    // $scope.$watch(
-    //   'vm.clientData',
-    //   function handleChange( newVal, oldVal) {
-    //     console.log('vm.clientData', newVal);
-    //   }
-    // );
-    //
-    // $scope.$watch(
-    //   'CliCtrl.clientData',
-    //   function handleChange( newVal, oldVal) {
-    //     console.log('CliCtrl.clientData', newVal);
-    //   }
-    // );
-    //
-    // $scope.$watch(
-    //   'ClientController.clientData',
-    //   function handleChange( newVal, oldVal) {
-    //     console.log('ClientController.clientData', newVal);
-    //   }
-    // );
-
-
-    // THIS OPENS JOB POST FORM MODAL
-      // vm.openMatchModal = function (size) {
-      //
-      //   var modalInstance = $uibModal.open({
-      //     animation: vm.animationsEnabled,
-      //     templateUrl: './goOnline/tmpls/goOnline.html',
-      //     controller: 'JobInstanceCtrl as JobCtrl',
-      //     size: size,
-      //     resolve: {
-      //       items: function () {
-      //         return vm.items;
-      //       }
-      //     }
-      //   });
-      // };
-
     //logout button
     vm.logout = function(){
       console.log('data inside logout function',window.localStorage);
@@ -113,32 +73,41 @@ angular
 
 
     //PHOTO UPLOAD
+    // vm.uploadCFile = function(){
+    //     var file = vm.myFile;
+    //     // console.log('photo file is ',file );
+    //     // console.dir(file);
+    //     var uploadUrl = "/fileUpload";
+    //     ClientService.uploadFileToCUrl(file, uploadUrl).then(function() {
+    //       vm.editInfo = !vm.editInfo;
+    //       // console.log('page should have reloaded', data);
+    //       ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
+    //       .then(function(data){
+    //         console.log("DATA BACK FROM SERVER", data.data);
+    //         console.log("CLIENT id", window.JSON.parse(window.localStorage.getItem('theclient')).id)
+    //         vm.clientData =  data.data;
+    //       })
+    //     });
+    // };
+
+    //PHOTO UPLOAD
     vm.uploadCFile = function(){
         var file = vm.myFile;
         console.log('photo file is ',file );
         console.dir(file);
         var uploadUrl = "/fileUpload";
-        ClientService.uploadFileToCUrl(file, uploadUrl);
-        vm.editInfo = !vm.editInfo;
-        console.log('page should have reloaded',vm.clientData);
-        ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
-        .then(function(data){
-          vm.clientData =  data.data;
-          console.log('vm clientData inside upload file',vm.clientData);
-        })
-    };
+        ClientService.uploadFileToCUrl(file, uploadUrl).then(function() {
+          ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
+          .then(function(data){
+            console.log("DATA BACK FROM SERVER", data.data);
+            console.log("client id", window.JSON.parse(window.localStorage.getItem('theclient')).id)
+            vm.clientData =  data.data;
+            console.log('vm clientData from sphome controller',vm.clientData);
+            vm.editInfo = !vm.editInfo;
+          })
+        });
 
-    //PHOTO EDIT ROUTE
-    // vm.changeCFile = function(){
-    //   var file = vm.myFile;
-    //   console.log('photo file is ',file );
-    //   console.dir(file);
-    //   var uploadUrl = "/fileUpload";
-    //   ClientService.editFile(file, uploadUrl);
-    //   vm.editInfo = !vm.editInfo;
-    //   console.log('page should have reloaded');
-    //   vm.loadPage();
-    // }
+    };
 
     //edit profile content
     vm.editInfo = false;
@@ -292,16 +261,16 @@ angular
     function uploadFileToCUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);
-        $http.post(uploadUrl, fd, {
+        return $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })
-        .success(function(){
-          console.log('Holy Moly it worked!');
-        })
-        .error(function(){
-          console.log('Nah the picture didnt go!');
-        });
+        // .success(function(){
+        //   console.log('Holy Moly it worked!');
+        // })
+        // .error(function(){
+        //   console.log('Nah the picture didnt go!');
+        // });
     }
 
    var historyData = [
@@ -39935,17 +39904,21 @@ angular
     //PHOTO UPLOAD
     vm.uploadPFile = function(){
         var file = vm.myFile;
-        console.log('photo file is ',file );
-        console.dir(file);
+        // console.log('photo file is ',file );
+        // console.dir(file);
         var uploadUrl = "/fileUpload";
-        SpService.uploadFileToUrl(file, uploadUrl);
-        vm.editInfo = !vm.editInfo;
-        console.log('page should have reloaded');
-        SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
-        .then(function(data){
-          vm.providerData =  data.data;
-          console.log('vm providerData from sphome controller',vm.providerData);
-        })
+        SpService.uploadFileToUrl(file, uploadUrl).then(function() {
+          vm.editInfo = !vm.editInfo;
+          // console.log('page should have reloaded');
+          SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
+          .then(function(data){
+            console.log("DATA BACK FROM SERVER", data.data);
+            console.log("provider id", window.JSON.parse(window.localStorage.getItem('theprovider')).id)
+            vm.providerData =  data.data;
+            // console.log('vm providerData from sphome controller',vm.providerData);
+          })
+        });
+
     };
 
     //PHOTO EDIT ROUTE
@@ -40190,16 +40163,16 @@ angular
     function uploadFileToUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);
-        $http.post(uploadUrl, fd, {
+        return $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })
-        .success(function(){
-          console.log('Holy Moly it worked!');
-        })
-        .error(function(){
-          console.log('Nah the picture didnt go!');
-        });
+        // .success(function(){
+        //   console.log('Holy Moly it worked!');
+        // })
+        // .error(function(){
+        //   console.log('Nah the picture didnt go!');
+        // });
     }
 
     function putProviderOffline(user,idOfUser) {

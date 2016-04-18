@@ -43,17 +43,21 @@ angular
     //PHOTO UPLOAD
     vm.uploadPFile = function(){
         var file = vm.myFile;
-        console.log('photo file is ',file );
-        console.dir(file);
+        // console.log('photo file is ',file );
+        // console.dir(file);
         var uploadUrl = "/fileUpload";
-        SpService.uploadFileToUrl(file, uploadUrl);
-        vm.editInfo = !vm.editInfo;
-        console.log('page should have reloaded');
-        SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
-        .then(function(data){
-          vm.providerData =  data.data;
-          console.log('vm providerData from sphome controller',vm.providerData);
-        })
+        SpService.uploadFileToUrl(file, uploadUrl).then(function() {
+          vm.editInfo = !vm.editInfo;
+          // console.log('page should have reloaded');
+          SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
+          .then(function(data){
+            console.log("DATA BACK FROM SERVER", data.data);
+            console.log("provider id", window.JSON.parse(window.localStorage.getItem('theprovider')).id)
+            vm.providerData =  data.data;
+            // console.log('vm providerData from sphome controller',vm.providerData);
+          })
+        });
+
     };
 
     //PHOTO EDIT ROUTE

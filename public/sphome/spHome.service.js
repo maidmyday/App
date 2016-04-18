@@ -45,16 +45,16 @@ angular
     function uploadFileToUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);
-        $http.post(uploadUrl, fd, {
+        return $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })
-        .success(function(){
-          console.log('Holy Moly it worked!');
-        })
-        .error(function(){
-          console.log('Nah the picture didnt go!');
-        });
+        // .success(function(){
+        //   console.log('Holy Moly it worked!');
+        // })
+        // .error(function(){
+        //   console.log('Nah the picture didnt go!');
+        // });
     }
 
     function putProviderOffline(user,idOfUser) {
