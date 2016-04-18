@@ -211,6 +211,26 @@ angular
       $rootScope.changeOnline = bool;
     });
 
+    $scope.seeRequest = function(){
+       SpService.getRequest(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
+      .success(function(dataObj) {
+        console.log("SUCCESS", dataObj)
+          // $rootScope.changeOnline = false;
+      })
+      .error(function(err) {
+        console.log("ERROR", err);
+        // $rootScope.changeOnline = false;
+      })
+
+
+      //getting data from the login and register
+      // SpService.getRequest(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
+      // .then(function(data){
+      //   $scope.providerData =  data;
+      //   console.log($scope.providerData);
+      // })
+    }
+
 
 
   }
