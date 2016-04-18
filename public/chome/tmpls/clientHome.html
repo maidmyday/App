@@ -11,7 +11,6 @@
 
       <!-- <li><p class="navbar-text">Signed in as <span>{{CliCtrl.clientData.firstName}}</span></p></li> -->
 
-      <!-- <button class="btn btn-default navbar-btn" ng-click="openMatchModal()">POST JOB</button> -->
 
       <button class="btn btn-default navbar-btn" ng-click="CliCtrl.logout()">Logout</button>
     </div>
@@ -20,12 +19,15 @@
 </nav>
 
 
+
 <!-- user image: still needs JS to fit any img size to div -->
 
 <div class="container">
+
   <div class="row userImgRow">
     <div class="userImgHomeParent col-md-12 col-sm-12">
       <div class="userImgHome">
+
         <img ngshow="photoFill" src="./images/noProfileImage.png" alt="" class="userImgHome">
         <img ngshow="!photoFill" src="./photoUploads/{{CliCtrl.clientData.fileUpload.fileName}}" alt="userImg" class="userImgHome">
       </div>
@@ -125,6 +127,8 @@
          </uib-accordion-group>
 
         </uib-accordion>
+        <button class="btn btn-default navbar-btn" ng-click="openMatchModal()">POST JOB</button>
+
 
 
     </div>
