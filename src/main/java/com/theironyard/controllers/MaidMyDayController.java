@@ -147,6 +147,7 @@ public class MaidMyDayController {
         Client client = clientRepository.findByEmail(clientEmail);
         Client updatedClient = ObjectUpdateUtils.updateClientObject(client, clientUpdates);
         clientRepository.save(updatedClient);
+        session.setAttribute("email", client.getEmail());
         return updatedClient;
     }
 
@@ -270,6 +271,7 @@ public class MaidMyDayController {
         Provider provider = providerRepository.findByEmail(providerEmail);
         Provider updatedProvider = ObjectUpdateUtils.updateProviderObject(provider, providerUpdates);
         providerRepository.save(updatedProvider);
+        session.setAttribute("email", provider.getEmail());
         return updatedProvider;
     }
 
@@ -461,7 +463,7 @@ public class MaidMyDayController {
 
             if (provider.getFileUpload() != null) {
                 FileUpload oldFile = fileUploadRepository.findByProvider(provider);
-                oldFile.setClient(null);
+                oldFile.setProvider(null);
                 provider.setFileUpload(null);
                 providerRepository.save(provider);
                 fileUploadRepository.delete(oldFile);
