@@ -18,11 +18,11 @@ public class Request {
     @Column
     private String specialInstructions;
 
-    @Column(nullable = false)
-    private LocalDateTime requestDateTime;
+//    @Column(nullable = false)
+//    private LocalDateTime requestDateTime;
 
-    @Column(nullable = false)
-    private boolean isDone;
+//    @Column(nullable = false)
+//    private boolean isDone;
 
     @ManyToOne
     private Client client;
@@ -36,8 +36,8 @@ public class Request {
     public Request(String address, String specialInstructions, LocalDateTime requestDateTime, boolean isDone, Client client, Provider provider) {
         this.address = address;
         this.specialInstructions = specialInstructions;
-        this.requestDateTime = requestDateTime;
-        this.isDone = isDone;
+//        this.requestDateTime = requestDateTime;
+//        this.isDone = isDone;
         this.client = client;
         this.provider = provider;
     }
@@ -58,21 +58,21 @@ public class Request {
         this.specialInstructions = specialInstructions;
     }
 
-    public LocalDateTime getRequestDateTime() {
-        return requestDateTime;
-    }
+//    public LocalDateTime getRequestDateTime() {
+//        return requestDateTime;
+//    }
+//
+//    public void setRequestDateTime(LocalDateTime requestDateTime) {
+//        this.requestDateTime = requestDateTime;
+//    }
 
-    public void setRequestDateTime(LocalDateTime requestDateTime) {
-        this.requestDateTime = requestDateTime;
-    }
-
-    public boolean getIsDone() {
-        return isDone;
-    }
-
-    public void setIsDone(boolean done) {
-        this.isDone = done;
-    }
+//    public boolean getIsDone() {
+//        return isDone;
+//    }
+//
+//    public void setIsDone(boolean done) {
+//        this.isDone = done;
+//    }
 
     public Client getClient() {
         return client;
