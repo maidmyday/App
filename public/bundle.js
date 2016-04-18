@@ -71,25 +71,6 @@ angular
     }
     vm.loadPage();
 
-
-    //PHOTO UPLOAD
-    // vm.uploadCFile = function(){
-    //     var file = vm.myFile;
-    //     // console.log('photo file is ',file );
-    //     // console.dir(file);
-    //     var uploadUrl = "/fileUpload";
-    //     ClientService.uploadFileToCUrl(file, uploadUrl).then(function() {
-    //       vm.editInfo = !vm.editInfo;
-    //       // console.log('page should have reloaded', data);
-    //       ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
-    //       .then(function(data){
-    //         console.log("DATA BACK FROM SERVER", data.data);
-    //         console.log("CLIENT id", window.JSON.parse(window.localStorage.getItem('theclient')).id)
-    //         vm.clientData =  data.data;
-    //       })
-    //     });
-    // };
-
     //PHOTO UPLOAD
     vm.uploadCFile = function(){
         var file = vm.myFile;
@@ -241,21 +222,6 @@ angular
       return $http.put(clienturl, user);
     }
 
-    //putting the file
-    // function editFile(file, uploadUrl){
-    //   var fd = new FormData();
-    //   fd.append('photo', file);
-    //   $http.put(uploadUrl, fd, {
-    //       transformRequest: angular.identity,
-    //       headers: {'Content-Type': undefined}
-    //   })
-    //   .success(function(){
-    //     console.log('Holy Moly it worked!');
-    //   })
-    //   .error(function(){
-    //     console.log('Nah the picture didnt go!');
-    //   });
-    // }
 
     //uploading a photo to database
     function uploadFileToCUrl(file, uploadUrl){
@@ -265,12 +231,6 @@ angular
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })
-        // .success(function(){
-        //   console.log('Holy Moly it worked!');
-        // })
-        // .error(function(){
-        //   console.log('Nah the picture didnt go!');
-        // });
     }
 
    var historyData = [
@@ -301,7 +261,6 @@ angular
    ]
 
     return {
-      // editFile: editFile,
       uploadFileToCUrl: uploadFileToCUrl,
       editClient: editClient,
       deleteClient: deleteClient,
@@ -40143,22 +40102,6 @@ angular
       return $http.put('/provider', user);
     }
 
-    //putting the new file
-    // function editFile(file, uploadUrl){
-    //   var fd = new FormData();
-    //   fd.append('photo', file);
-    //   $http.put(uploadUrl, fd, {
-    //       transformRequest: angular.identity,
-    //       headers: {'Content-Type': undefined}
-    //   })
-    //   .success(function(){
-    //     console.log('Holy Moly it worked!');
-    //   })
-    //   .error(function(){
-    //     console.log('Nah the picture didnt go!');
-    //   });
-    // }
-
     //uploading a photo to database
     function uploadFileToUrl(file, uploadUrl){
         var fd = new FormData();
@@ -40167,12 +40110,6 @@ angular
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })
-        // .success(function(){
-        //   console.log('Holy Moly it worked!');
-        // })
-        // .error(function(){
-        //   console.log('Nah the picture didnt go!');
-        // });
     }
 
     function putProviderOffline(user,idOfUser) {
@@ -40212,7 +40149,6 @@ angular
     ]
 
     return {
-      // editFile: editFile,
 
       putProviderOffline: putProviderOffline,
       isUserOnline: isUserOnline,

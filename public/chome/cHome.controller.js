@@ -31,25 +31,6 @@ angular
     }
     vm.loadPage();
 
-
-    //PHOTO UPLOAD
-    // vm.uploadCFile = function(){
-    //     var file = vm.myFile;
-    //     // console.log('photo file is ',file );
-    //     // console.dir(file);
-    //     var uploadUrl = "/fileUpload";
-    //     ClientService.uploadFileToCUrl(file, uploadUrl).then(function() {
-    //       vm.editInfo = !vm.editInfo;
-    //       // console.log('page should have reloaded', data);
-    //       ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
-    //       .then(function(data){
-    //         console.log("DATA BACK FROM SERVER", data.data);
-    //         console.log("CLIENT id", window.JSON.parse(window.localStorage.getItem('theclient')).id)
-    //         vm.clientData =  data.data;
-    //       })
-    //     });
-    // };
-
     //PHOTO UPLOAD
     vm.uploadCFile = function(){
         var file = vm.myFile;
