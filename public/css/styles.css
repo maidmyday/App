@@ -148,11 +148,9 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
   outline: 0 none;
   color: #767B91; }
 
-/* enable absolute positioning */
 .inner-addon {
   position: relative; }
 
-/* style icon */
 .inner-addon .glyphicon {
   position: absolute;
   padding: 10px;
@@ -336,12 +334,6 @@ div.paragraph {
   background: #32936f;
   box-shadow: inset 0px 0px 10px 2px #32936f, 0px 0px 10px 2px #32936f; }
 
-#stars .stars {
-  outline: none; }
-
-#stars i {
-  font-size: 30px; }
-
 div.jobModal div.modal-header {
   text-align: center;
   border: none; }
@@ -399,11 +391,5 @@ div.jobModal div.modal-footer {
     order: 3;
     flex: none; } }
 
-* {
-  font-weight: bold; }
-  * .poiret {
-    font-family: 'Poiret One', cursive; }
-  * .josefin {
-    font-family: 'Josefin Sans', sans-serif; }
-  * .sue {
-    font-family: 'Sue Ellen Francisco', cursive; }
+.cards {
+  display: flex; }

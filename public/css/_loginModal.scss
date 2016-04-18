@@ -2,8 +2,8 @@
 img.ng-invalid {
   background-color: red;
 }
-div.title{
 
+div.title{
 display: flex;
 margin: 0 auto;
 width: 35%;
@@ -16,7 +16,6 @@ img{
 }
 
 div.titleCreate{
-
 display: flex;
 margin: 0 auto;
 width: 57%;
@@ -48,7 +47,6 @@ div.modal-body{
     flex-flow: column;
     align-self: center;
     width: 58%;
-
   }
 }
 
@@ -74,10 +72,6 @@ input.form-control {
   border-color: #767B91;
   border-width: 0px;
   text-decoration: underline;
-//   &:hover{
-//   background-color: #767B91;
-//   color: #FFF;
-// }
 }
 
 #backBtn {
@@ -93,9 +87,6 @@ input.form-control {
     .glyphicon-chevron-left{color: #FFF;}
 }
 }
-
-
-
 
 #signin {
   font-family: 'Josefin Sans', sans-serif;
@@ -144,12 +135,11 @@ textarea:focus,input:focus,input[type]:focus,.uneditable-input:focus {
   color: #767B91;
 }
 
-/* enable absolute positioning */
+// STYLE OF ICONS GOT FROM STACKOVERFLOW
 .inner-addon {
     position: relative;
 }
 
-/* style icon */
 .inner-addon .glyphicon {
   position: absolute;
   padding: 10px;
