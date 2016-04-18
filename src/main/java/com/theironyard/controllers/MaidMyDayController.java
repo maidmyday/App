@@ -330,20 +330,26 @@ public class MaidMyDayController {
         String clientEmail = (String) session.getAttribute("email");
         Client client = clientRepository.findByEmail(clientEmail);
         Provider provider = providerRepository.findOne(id);
-        request.setRequestDateTime(LocalDateTime.now());
+//        request.setRequestDateTime(LocalDateTime.now());
         request.setClient(client);
         request.setProvider(provider);
         requestRepository.save(request);
     }
 
-    @RequestMapping(path = "/request/{id}/isDone", method = RequestMethod.PUT)
-    public void requestCompleted(@PathVariable ("id") int id) {
-        Request request = requestRepository.findOne(id);
-        request.setIsDone(true);
-        requestRepository.save(request);
-        Notification notification = new Notification(Constants.NOTIFICAITON_TEXT, LocalDateTime.now());
-        notificationRepository.save(notification);
+    @RequestMapping(path = "/request/provider/{id}", method = RequestMethod.GET)
+    public Request providerGetRequest(@PathVariable ("id") int id) {
+        Provider provider = providerRepository.findOne(id);
+        return requestRepository.findFirstByProvider(provider);
     }
+
+//    @RequestMapping(path = "/request/{id}/isDone", method = RequestMethod.PUT)
+//    public void requestCompleted(@PathVariable ("id") int id) {
+//        Request request = requestRepository.findOne(id);
+//        request.setIsDone(true);
+//        requestRepository.save(request);
+//        Notification notification = new Notification(Constants.NOTIFICAITON_TEXT, LocalDateTime.now());
+//        notificationRepository.save(notification);
+//    }
 
     @RequestMapping(path = "/request/{id}", method = RequestMethod.DELETE)
     public void deleteRequest(@PathVariable ("id") int id) {
