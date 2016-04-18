@@ -10,4 +10,5 @@ import java.util.List;
 public interface RequestRepository extends CrudRepository<Request, Integer> {
     List<Request> findByClient (Client client);
     List<Request> findByProvider (Provider provider);
+    Request findFirstByProvider(Provider provider);
 }

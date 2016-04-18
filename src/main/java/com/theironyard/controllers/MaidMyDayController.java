@@ -337,14 +337,9 @@ public class MaidMyDayController {
     }
 
     @RequestMapping(path = "/request/provider/{id}", method = RequestMethod.GET)
-    public void providerGetRequest(@RequestBody Request request, HttpSession session, @PathVariable ("id") int id) {
-        String clientEmail = (String) session.getAttribute("email");
-        Client client = clientRepository.findByEmail(clientEmail);
+    public Request providerGetRequest(@PathVariable ("id") int id) {
         Provider provider = providerRepository.findOne(id);
-//        request.setRequestDateTime(LocalDateTime.now());
-        request.setClient(client);
-        request.setProvider(provider);
-        requestRepository.save(request);
+        return requestRepository.findFirstByProvider(provider);
     }
 
 //    @RequestMapping(path = "/request/{id}/isDone", method = RequestMethod.PUT)
