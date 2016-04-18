@@ -5,7 +5,7 @@ angular
     var spurl = '/provider';
     var allProviders = '/providers';
     var logouturl = '/logout';
-    // var uploadPUrl = '/fileUpload';
+    var request = '/request/provider';
 
     function logoutNow(){
       return $http.post(logouturl);
@@ -45,6 +45,10 @@ angular
       });
     }
 
+    function getRequest(userId,post) {
+      return $http.get(request + "/" + userId, post);
+    }
+
 
     //temp data for history
     var historyData = [
@@ -75,14 +79,13 @@ angular
 
       putProviderOffline: putProviderOffline,
       isUserOnline: isUserOnline,
-
       uploadFileToUrl: uploadFileToUrl,
-
       editProvider: editProvider,
       logoutNow: logoutNow,
       getProvider: getProvider,
       historyData: historyData,
-      deleteSpAccount: deleteSpAccount
+      deleteSpAccount: deleteSpAccount,
+      getRequest: getRequest
     }
 
   })
