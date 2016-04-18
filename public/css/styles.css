@@ -36,6 +36,15 @@ div.backgroundImg {
   height: 800px;
   flex: 2; }
 
+.arrowDown {
+  position: absolute;
+  top: 84%;
+  left: 45%; }
+  .arrowDown img {
+    height: 111px;
+    background-color: rgba(158, 158, 166, 0.5);
+    border-radius: 47%; }
+
 img.ng-invalid {
   background-color: red; }
 
