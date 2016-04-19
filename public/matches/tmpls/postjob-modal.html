@@ -78,13 +78,15 @@
 
       <img ng-click="showSubmitForm()" src="../../photoUploads/{{matchUser.fileUpload.fileName}}" alt="Avatar" >
       <h5>{{matchUser.firstName}}</h5>
+      <h5>{{matchUser.phoneNumber}}</h5>
+      <h5>{{matchUser.email}}</h5>
 
-      <form ng-submit="requestSent(matchUser,post)">
+      <!-- <form ng-submit="requestSent(matchUser,post)">
         <input type="text" placeholder="address" ng-model="post.address">
         <input type="text" placeholder="special requests"ng-model="post.specialInstructions">
         <button class="btn" type="submit">Send Request</button>
 
-      </form>
+      </form> -->
     </div>
 
 
