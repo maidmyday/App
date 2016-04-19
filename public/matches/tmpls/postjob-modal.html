@@ -1,60 +1,25 @@
 <!-- POST JOB MODAL -->
+
+
 <div ng-if="showSection == 'postjob'" class="modal-body">
 <div class= 'overallModal'>
 <h3>What Services are you looking for today?</h3>
-
-
-
   <form ng-submit="matchMe(post)">
-
     <div class="kitchen">
         <input type="checkbox" ng-model="post.kitchen"><h2>Kitchen</h2>
-        <!-- <h3>This will include:</h3> -->
-          <!-- <p>Counters</p>
-          <p>Dishes</p>
-          <p>Dusting</p>
-          <p>Floors</p> -->
     </div>
     <div class="bathrooms">
         <input type="checkbox" ng-model="post.bathrooms"><h2>Bathrooms</h2>
-        <!-- <h3>This will include:</h3> -->
-          <!-- <p>Counters & Mirrors</p>
-          <p>Dusting</p>
-          <p>Floors</p>
-          <p>Showers/Tubs</p>
-          <p>Toilets</p> -->
     </div>
     <div class="bedrooms">
         <input type="checkbox" ng-model="post.bedrooms"><h2>Bedrooms</h2>
-        <!-- <h3>This will include:</h3> -->
-          <!-- <p>Dusting</p>
-          <p>Floors</p>
-          <p>Make Beds</p> -->
     </div>
     <div class="laundry">
         <input type="checkbox" ng-model="post.laundry"><h2>Laundry</h2>
-        <!-- <h3>This will include:</h3> -->
-          <!-- <p>Wash and Dry</p>
-          <p>Fold</p> -->
     </div>
     <div class="commonareas">
         <input type="checkbox" ng-model="post.commonareas"><h2>Common Areas</h2>
-        <!-- <h3>This will include:</h3> -->
-          <!-- <p>Dusting</p>
-          <p>Floors</p> -->
     </div>
-    <!-- <div>
-    <div class="location">
-        <input type="text" name="jobLocation" ng-model="post.location" class="form-control" placeholder="Neighborhood">
-    </div>
-    <div class="rate">
-        <input type="text" name="rate" ng-model="post.rate" class="form-control" placeholder="rate">
-    </div>
-  </div> -->
-
-
-
-
 <button  class="btn" type="submit">Find Matching Providers</button>
 </form>
 </div>
@@ -64,58 +29,23 @@
 
 
 
-
-
-
 <!-- MATCH MODAL -->
+
+
+
 <div class="cardsContainer" ng-if="showSection == 'matches'" class="modal-body">
   <h3>matching providers</h3>
   <div class="cards">
   <div  ng-repeat="matchUser in matchUsers" class="">
-
-
     <div class="w3-container w3-center">
-
       <img ng-click="showSubmitForm()" src="../../photoUploads/{{matchUser.fileUpload.fileName}}" alt="Avatar" >
       <h5>{{matchUser.firstName}}</h5>
-
       <form ng-submit="requestSent(matchUser,post)">
         <input type="text" placeholder="address" ng-model="post.address">
         <input type="text" placeholder="special requests"ng-model="post.specialInstructions">
         <button class="btn" type="submit">Send Request</button>
-
       </form>
     </div>
-
-
   </div>
-
-
-
-
-
-
-
-
-
-
 </div>
-
 </div>
-
-
-<!-- REQUEST MODAL -->
-<div ng-if="showSection == 'request'" class="modal-body">
-<h1>request user</h1>
-
-
-</div>
-
-
-
-
-
-
-
-    <!-- <p>{{matchUser.firstName}}</p>
-<match-reader question=matchUser.data></match-reader> -->

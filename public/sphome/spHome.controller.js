@@ -41,8 +41,6 @@ angular
     vm.loadPage();
 
     //PHOTO UPLOAD
-    // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
-    // thanks to Jenny Louthan !!! <3
     vm.uploadPFile = function(){
         var file = vm.myFile;
         // console.log('photo file is ',file );
@@ -215,8 +213,7 @@ angular
        SpService.getRequest(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
       .success(function(dataObj) {
         console.log("SUCCESS", dataObj)
-        $scope.show = 'hello';
-          $rootScope.friendRequests = dataObj;
+          // $rootScope.changeOnline = false;
       })
       .error(function(err) {
         console.log("ERROR", err);

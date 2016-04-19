@@ -39835,7 +39835,7 @@ module.exports = angular;
 
 },{"./angular":29}],31:[function(require,module,exports){
 // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
-// thanks to Jenny Louthan !!! <3
+
 
 angular
   .module('spHome')
@@ -39844,15 +39844,9 @@ angular
       restrict: 'A',
       link: function(scope, element, attrs) {
             var model = $parse(attrs.fileModel);
-            // window.glob = model;
-            // window.glob2 = attrs.fileModel;
             var modelSetter = model.assign;
-            // console.log("THIS IS MODEL", model)
-            // console.log("THIS IS MODELSETTER", modelSetter)
-
             element.bind('change', function(){
                 scope.$apply(function(){
-                    // console.log("THIS IS ELEMENT", element);
                     modelSetter(scope, element[0].files[0]);
                 });
             });
@@ -39911,8 +39905,6 @@ angular
     vm.loadPage();
 
     //PHOTO UPLOAD
-    // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
-    // thanks to Jenny Louthan !!! <3
     vm.uploadPFile = function(){
         var file = vm.myFile;
         // console.log('photo file is ',file );
@@ -40085,8 +40077,7 @@ angular
        SpService.getRequest(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
       .success(function(dataObj) {
         console.log("SUCCESS", dataObj)
-        $scope.show = 'hello';
-          $rootScope.friendRequests = dataObj;
+          // $rootScope.changeOnline = false;
       })
       .error(function(err) {
         console.log("ERROR", err);
@@ -40109,7 +40100,6 @@ angular
 },{}],34:[function(require,module,exports){
 // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
 // thanks to Jenny Louthan !!! <3
-
 angular
   .module('spHome')
   .directive('spHomeDir', function () {
@@ -40128,8 +40118,6 @@ angular
     }
   });
 
-  // <sp-home-dir mydata="angularObject"></sp-home-dir>
-
 },{}],35:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
@@ -40140,7 +40128,6 @@ angular
   .module('spHome',[
     'ngRoute',
     'ui.bootstrap'
-
     ])
   .config(function($routeProvider){
     $routeProvider
@@ -40179,8 +40166,6 @@ angular
     }
 
     //uploading a photo to database
-    // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
-    // thanks to Jenny Louthan !!! <3
     function uploadFileToUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);

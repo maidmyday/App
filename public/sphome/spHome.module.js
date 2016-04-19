@@ -7,7 +7,6 @@ angular
   .module('spHome',[
     'ngRoute',
     'ui.bootstrap'
-
     ])
   .config(function($routeProvider){
     $routeProvider
