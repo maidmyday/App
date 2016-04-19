@@ -11,7 +11,8 @@
 
       <!-- <li><p class="navbar-text">Signed in as <span>{{CliCtrl.clientData.firstName}}</span></p></li> -->
 
-
+      <button class="btn btn-default navbar-btn" ng-click="openMatchModal()">POST JOB</button>
+      <!-- <button ng-show="activePost" class="btn btn-default navbar-btn" ng-click="activeRequest()">ACTIVE REQUEST</button> -->
       <button class="btn btn-default navbar-btn" ng-click="CliCtrl.logout()">Logout</button>
     </div>
 
@@ -43,7 +44,7 @@
 
         <uib-accordion>
 
-         <uib-accordion-group panel-class="panel-default">
+         <uib-accordion-group panel-class="panel-default" is-open="true">
            <uib-accordion-heading>
              <h3>Profile</h3>
            </uib-accordion-heading>
@@ -127,9 +128,6 @@
          </uib-accordion-group> -->
 
         </uib-accordion>
-        <button class="btn btn-default navbar-btn" ng-click="openMatchModal()">POST JOB</button>
-
-
 
     </div>
   </div>

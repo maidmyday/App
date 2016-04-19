@@ -139,13 +139,7 @@ angular
       {stateOff: 'glyphicon-off'}
     ];
 
-    //temporary accordion history data injecting the page
-
-    vm.historyData = ClientService.historyData;
-
-
-
-       $scope.animationsEnabled = true;
+    $scope.animationsEnabled = true;
     $scope.openMatchModal = function (size) {
 
       var modalInstance = $uibModal.open({
@@ -159,6 +153,14 @@ angular
           }
         }
       });
+    }
+
+    $scope.activePost = false;
+    $scope.activeRequest = function(){
+      $rootScope.requestedUser = window.JSON.parse(window.localStorage.getItem('requestedUser'));
+      $rootScope.requestedData = window.JSON.parse(window.localStorage.getItem('requestInfo'));
+      console.log('the provider',requestedUser);
+      console.log('the request info',requestedData);
     }
 
   }
@@ -237,40 +239,40 @@ angular
         })
     }
 
-   var historyData = [
-     {
-       img: './images/bill04.jpg',
-       firstName: 'Thachary',
-       lastName: 'Binx',
-       rating: '5',
-       date: 'date/time',
-       comment: 'Wakka wakka'
-     },
-     {
-       img: './images/bill02.jpg',
-       firstName: 'Will',
-       lastName: 'Graham',
-       rating: '2',
-       date: 'date/time',
-       comment: 'Like a good neighbor, state farm is there!'
-     },
-     {
-       img: './images/bill03.jpg',
-       firstName: 'Spencer',
-       lastName: 'Reid',
-       rating: '1',
-       date: 'date/time',
-       comment: 'Whazzahhhp'
-     }
-   ]
+  //  var historyData = [
+  //    {
+  //      img: './images/bill04.jpg',
+  //      firstName: 'Thachary',
+  //      lastName: 'Binx',
+  //      rating: '5',
+  //      date: 'date/time',
+  //      comment: 'Wakka wakka'
+  //    },
+  //    {
+  //      img: './images/bill02.jpg',
+  //      firstName: 'Will',
+  //      lastName: 'Graham',
+  //      rating: '2',
+  //      date: 'date/time',
+  //      comment: 'Like a good neighbor, state farm is there!'
+  //    },
+  //    {
+  //      img: './images/bill03.jpg',
+  //      firstName: 'Spencer',
+  //      lastName: 'Reid',
+  //      rating: '1',
+  //      date: 'date/time',
+  //      comment: 'Whazzahhhp'
+  //    }
+  //  ]
 
     return {
       uploadFileToCUrl: uploadFileToCUrl,
       editClient: editClient,
       deleteClient: deleteClient,
       logoutNow: logoutNow,
-      getClient: getClient,
-      historyData: historyData
+      getClient: getClient
+      // historyData: historyData
     }
   })
 
@@ -588,7 +590,7 @@ angular
 },{}],18:[function(require,module,exports){
 angular
 .module('match')
-.controller('MatchModalController', function ($scope, $uibModalInstance, MatchService) {
+.controller('MatchModalController', function ($scope, $rootScope, $uibModalInstance, MatchService) {
 
 
   $scope.showSection = 'postjob';
@@ -599,14 +601,9 @@ $scope.matchMe = function (post) {
   var task = {tasks:post};
   MatchService.putMatches(task)
   .success(function(dataObj) {
-$scope.showSection = 'matches';
-$scope.matchUsers = dataObj;
-window.glob = $scope.matchUsers;
-
-
-
-
-
+  $scope.showSection = 'matches';
+  $scope.matchUsers = dataObj;
+  window.glob = $scope.matchUsers;
 
   })
   .error(function(err) {
@@ -616,21 +613,17 @@ window.glob = $scope.matchUsers;
 
 // SENDS REQUEST TO POST ROUTE
 
-
-
-
 $scope.requestSent = function (user,post){
   console.log("USER IS THIS", user);
-  console.log("REQUESTS ARETHESE", post);
+  console.log("REQUESTS ARE THESE", post);
+  window.localStorage.setItem('requestedUser', window.JSON.stringify(user));
+  window.localStorage.setItem('requestInfo', window.JSON.stringify(post));
+  $rootScope.activePost = !$rootScope.activePost;
 
   MatchService.postRequest(user,post)
   .success(function(dataObj) {
-    console.log("SUCCESS");
+    console.log("SUCCESS",dataObj);
       $uibModalInstance.dismiss();
-
-
-
-
 
   })
   .error(function(err) {
