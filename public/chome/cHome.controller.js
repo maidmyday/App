@@ -99,13 +99,7 @@ angular
       {stateOff: 'glyphicon-off'}
     ];
 
-    //temporary accordion history data injecting the page
-
-    vm.historyData = ClientService.historyData;
-
-
-
-       $scope.animationsEnabled = true;
+    $scope.animationsEnabled = true;
     $scope.openMatchModal = function (size) {
 
       var modalInstance = $uibModal.open({
@@ -119,6 +113,14 @@ angular
           }
         }
       });
+    }
+
+    $scope.activePost = false;
+    $scope.activeRequest = function(){
+      $rootScope.requestedUser = window.JSON.parse(window.localStorage.getItem('requestedUser'));
+      $rootScope.requestedData = window.JSON.parse(window.localStorage.getItem('requestInfo'));
+      console.log('the provider',requestedUser);
+      console.log('the request info',requestedData);
     }
 
   }

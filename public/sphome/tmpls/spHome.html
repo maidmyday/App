@@ -41,17 +41,8 @@
   </div>
 </div>
 
-<!-- uib rating from site: SAVING THIS FOR LATER-->
 
-<!-- <div>
-    <uib-rating ng-model="rate" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
-    <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
 
-    <pre style="margin:15px 0;">Rate: <b>{{rate}}</b> - Readonly is: <i>{{isReadonly}}</i> - Hovering over: <b>{{overStar || "none"}}</b></pre>
-
-    <button type="button" class="btn btn-sm btn-danger" ng-click="rate = 0" ng-disabled="isReadonly">Clear</button>
-    <button type="button" class="btn btn-sm btn-default" ng-click="isReadonly = ! isReadonly">Toggle Readonly</button>
-</div> -->
 
 <!-- angular bootstrap accordion content -->
 
@@ -61,7 +52,7 @@
 
         <uib-accordion>
 
-         <uib-accordion-group panel-class="panel-default">
+         <uib-accordion-group panel-class="panel-default" is-open="true">
            <uib-accordion-heading>
              <h3>Profile</h3>
            </uib-accordion-heading>
@@ -175,7 +166,15 @@
 
         </uib-accordion>
 
-        <button ng-click="seeRequest()">See Request</button>
+        <!-- <button ng-click="seeRequest()">See Request</button>
+        <div ng-show="show === 'hello'">
+          <div ng-repeat="friendRequest in friendRequests">
+            <p>{{friendRequests.address}}</p>
+          </div>
+        </div> -->
+
+        <!-- <button ng-click="seeRequest()">See Request</button> -->
+
 
 
     </div>
