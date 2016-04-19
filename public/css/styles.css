@@ -311,31 +311,32 @@ div.panel div.textContent {
     display: inline-block;
     font-weight: 700; }
 
+div.row {
+  display: block; }
+
 div.userImgRow {
   margin-top: 200px;
   margin-bottom: 10px; }
-
-div.userImgHomeParent {
-  text-align: center; }
-
-div.userImgHome {
-  margin: 0;
-  padding: 0;
-  position: relative;
-  display: inline-block;
-  border-radius: 100%;
-  overflow: hidden;
-  width: 300px;
-  height: 300px; }
-  div.userImgHome img.userImgHome {
-    height: auto;
-    width: 140%;
-    display: block;
-    margin: 0 auto;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translateY(-50%) translateX(-50%); }
+  div.userImgRow div.userImgHomeParent {
+    text-align: center; }
+    div.userImgRow div.userImgHomeParent div.userImgHome {
+      margin: 0;
+      padding: 0;
+      position: relative;
+      display: inline-block;
+      border-radius: 100%;
+      overflow: hidden;
+      width: 300px;
+      height: 300px; }
+      div.userImgRow div.userImgHomeParent div.userImgHome img.userImgHome {
+        height: auto;
+        width: 140%;
+        display: block;
+        margin: 0 auto;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translateY(-50%) translateX(-50%); }
 
 div.panel > .panel-heading {
   background-color: #9CAFB7;
