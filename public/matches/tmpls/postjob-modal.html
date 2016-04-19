@@ -70,6 +70,7 @@
 <!-- MATCH MODAL -->
 <div class="cardsContainer" ng-if="showSection == 'matches'" class="modal-body">
   <h3>matching providers</h3>
+  <p>Choose your favorite and contact them!</p>
   <div class="cards">
   <div  ng-repeat="matchUser in matchUsers" class="">
 
@@ -78,13 +79,15 @@
 
       <img ng-click="showSubmitForm()" src="../../photoUploads/{{matchUser.fileUpload.fileName}}" alt="Avatar" >
       <h5>{{matchUser.firstName}}</h5>
+      <h5>{{matchUser.phoneNumber}}</h5>
+      <h5>{{matchUser.email}}</h5>
 
-      <form ng-submit="requestSent(matchUser,post)">
+      <!-- <form ng-submit="requestSent(matchUser,post)">
         <input type="text" placeholder="address" ng-model="post.address">
         <input type="text" placeholder="special requests"ng-model="post.specialInstructions">
         <button class="btn" type="submit">Send Request</button>
 
-      </form>
+      </form> -->
     </div>
 
 
