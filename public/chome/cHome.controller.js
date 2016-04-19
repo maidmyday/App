@@ -10,46 +10,6 @@ angular
 
     vm.animationsEnabled = true;
 
-    // vm.clientData;
-
-    // $scope.$watch(
-    //   'vm.clientData',
-    //   function handleChange( newVal, oldVal) {
-    //     console.log('vm.clientData', newVal);
-    //   }
-    // );
-    //
-    // $scope.$watch(
-    //   'CliCtrl.clientData',
-    //   function handleChange( newVal, oldVal) {
-    //     console.log('CliCtrl.clientData', newVal);
-    //   }
-    // );
-    //
-    // $scope.$watch(
-    //   'ClientController.clientData',
-    //   function handleChange( newVal, oldVal) {
-    //     console.log('ClientController.clientData', newVal);
-    //   }
-    // );
-
-
-    // THIS OPENS JOB POST FORM MODAL
-      // vm.openMatchModal = function (size) {
-      //
-      //   var modalInstance = $uibModal.open({
-      //     animation: vm.animationsEnabled,
-      //     templateUrl: './goOnline/tmpls/goOnline.html',
-      //     controller: 'JobInstanceCtrl as JobCtrl',
-      //     size: size,
-      //     resolve: {
-      //       items: function () {
-      //         return vm.items;
-      //       }
-      //     }
-      //   });
-      // };
-
     //logout button
     vm.logout = function(){
       console.log('data inside logout function',window.localStorage);
@@ -71,34 +31,26 @@ angular
     }
     vm.loadPage();
 
-
     //PHOTO UPLOAD
+    // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
+    // thanks to Jenny Louthan !!! <3
     vm.uploadCFile = function(){
         var file = vm.myFile;
         console.log('photo file is ',file );
         console.dir(file);
         var uploadUrl = "/fileUpload";
-        ClientService.uploadFileToCUrl(file, uploadUrl);
-        vm.editInfo = !vm.editInfo;
-        console.log('page should have reloaded',vm.clientData);
-        ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
-        .then(function(data){
-          vm.clientData =  data.data;
-          console.log('vm clientData inside upload file',vm.clientData);
-        })
-    };
+        ClientService.uploadFileToCUrl(file, uploadUrl).then(function() {
+          ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
+          .then(function(data){
+            console.log("DATA BACK FROM SERVER", data.data);
+            console.log("client id", window.JSON.parse(window.localStorage.getItem('theclient')).id)
+            vm.clientData =  data.data;
+            console.log('vm clientData from sphome controller',vm.clientData);
+            vm.editInfo = !vm.editInfo;
+          })
+        });
 
-    //PHOTO EDIT ROUTE
-    // vm.changeCFile = function(){
-    //   var file = vm.myFile;
-    //   console.log('photo file is ',file );
-    //   console.dir(file);
-    //   var uploadUrl = "/fileUpload";
-    //   ClientService.editFile(file, uploadUrl);
-    //   vm.editInfo = !vm.editInfo;
-    //   console.log('page should have reloaded');
-    //   vm.loadPage();
-    // }
+    };
 
     //edit profile content
     vm.editInfo = false;

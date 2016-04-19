@@ -50,46 +50,6 @@ angular
 
     vm.animationsEnabled = true;
 
-    // vm.clientData;
-
-    // $scope.$watch(
-    //   'vm.clientData',
-    //   function handleChange( newVal, oldVal) {
-    //     console.log('vm.clientData', newVal);
-    //   }
-    // );
-    //
-    // $scope.$watch(
-    //   'CliCtrl.clientData',
-    //   function handleChange( newVal, oldVal) {
-    //     console.log('CliCtrl.clientData', newVal);
-    //   }
-    // );
-    //
-    // $scope.$watch(
-    //   'ClientController.clientData',
-    //   function handleChange( newVal, oldVal) {
-    //     console.log('ClientController.clientData', newVal);
-    //   }
-    // );
-
-
-    // THIS OPENS JOB POST FORM MODAL
-      // vm.openMatchModal = function (size) {
-      //
-      //   var modalInstance = $uibModal.open({
-      //     animation: vm.animationsEnabled,
-      //     templateUrl: './goOnline/tmpls/goOnline.html',
-      //     controller: 'JobInstanceCtrl as JobCtrl',
-      //     size: size,
-      //     resolve: {
-      //       items: function () {
-      //         return vm.items;
-      //       }
-      //     }
-      //   });
-      // };
-
     //logout button
     vm.logout = function(){
       console.log('data inside logout function',window.localStorage);
@@ -111,34 +71,26 @@ angular
     }
     vm.loadPage();
 
-
     //PHOTO UPLOAD
+    // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
+    // thanks to Jenny Louthan !!! <3
     vm.uploadCFile = function(){
         var file = vm.myFile;
         console.log('photo file is ',file );
         console.dir(file);
         var uploadUrl = "/fileUpload";
-        ClientService.uploadFileToCUrl(file, uploadUrl);
-        vm.editInfo = !vm.editInfo;
-        console.log('page should have reloaded',vm.clientData);
-        ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
-        .then(function(data){
-          vm.clientData =  data.data;
-          console.log('vm clientData inside upload file',vm.clientData);
-        })
-    };
+        ClientService.uploadFileToCUrl(file, uploadUrl).then(function() {
+          ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
+          .then(function(data){
+            console.log("DATA BACK FROM SERVER", data.data);
+            console.log("client id", window.JSON.parse(window.localStorage.getItem('theclient')).id)
+            vm.clientData =  data.data;
+            console.log('vm clientData from sphome controller',vm.clientData);
+            vm.editInfo = !vm.editInfo;
+          })
+        });
 
-    //PHOTO EDIT ROUTE
-    // vm.changeCFile = function(){
-    //   var file = vm.myFile;
-    //   console.log('photo file is ',file );
-    //   console.dir(file);
-    //   var uploadUrl = "/fileUpload";
-    //   ClientService.editFile(file, uploadUrl);
-    //   vm.editInfo = !vm.editInfo;
-    //   console.log('page should have reloaded');
-    //   vm.loadPage();
-    // }
+    };
 
     //edit profile content
     vm.editInfo = false;
@@ -272,36 +224,17 @@ angular
       return $http.put(clienturl, user);
     }
 
-    //putting the file
-    function editFile(file, uploadUrl){
-      var fd = new FormData();
-      fd.append('photo', file);
-      $http.put(uploadUrl, fd, {
-          transformRequest: angular.identity,
-          headers: {'Content-Type': undefined}
-      })
-      .success(function(){
-        console.log('Holy Moly it worked!');
-      })
-      .error(function(){
-        console.log('Nah the picture didnt go!');
-      });
-    }
 
     //uploading a photo to database
+    // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
+    // thanks to Jenny Louthan !!! <3
     function uploadFileToCUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);
-        $http.post(uploadUrl, fd, {
+        return $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })
-        .success(function(){
-          console.log('Holy Moly it worked!');
-        })
-        .error(function(){
-          console.log('Nah the picture didnt go!');
-        });
     }
 
    var historyData = [
@@ -332,7 +265,6 @@ angular
    ]
 
     return {
-      editFile: editFile,
       uploadFileToCUrl: uploadFileToCUrl,
       editClient: editClient,
       deleteClient: deleteClient,
@@ -343,6 +275,9 @@ angular
   })
 
 },{}],6:[function(require,module,exports){
+// got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
+// thanks to Jenny Louthan !!! <3
+
 angular
   .module('cHome')
   .directive('fileModel', ['$parse',function ($parse) {
@@ -584,6 +519,19 @@ angular
     });
   };
 
+
+  $(document).ready(function () {
+
+      // scroll positioning
+      $('[data-scroll]').click(function() {
+          var a = $($(this).attr('data-scroll')).position();
+          a = a.top;
+          $('html, body').animate({scrollTop: a-40}, 500);
+      });
+
+
+  });
+
 })
 
 },{}],15:[function(require,module,exports){
@@ -645,11 +593,6 @@ angular
 
   $scope.showSection = 'postjob';
 
-  // $scope.showMatchSection = function () {
-  //     $scope.showSection = 'matches';
-  // };
-
-
 // MATCHES CLIENTS WITH PROVIDERS ON CLIENT SIDE
 
 $scope.matchMe = function (post) {
@@ -658,9 +601,10 @@ $scope.matchMe = function (post) {
   .success(function(dataObj) {
 $scope.showSection = 'matches';
 $scope.matchUsers = dataObj;
+window.glob = $scope.matchUsers;
 
-    window.glob = $scope.matchUsers;
-    // $uibModalInstance.dismiss();
+
+
 
 
 
@@ -668,6 +612,31 @@ $scope.matchUsers = dataObj;
   .error(function(err) {
   })
 };
+
+
+// SENDS REQUEST TO POST ROUTE
+
+
+
+
+$scope.requestSent = function (user,post){
+  console.log("USER IS THIS", user);
+  console.log("REQUESTS ARETHESE", post);
+
+  MatchService.postRequest(user,post)
+  .success(function(dataObj) {
+    console.log("SUCCESS");
+      $uibModalInstance.dismiss();
+
+
+
+
+
+  })
+  .error(function(err) {
+  })
+
+}
 
 });
 
@@ -701,15 +670,21 @@ angular
 angular
   .module('match')
   .service('MatchService',function($http) {
-    var matches ='/provider/tasks'
+    var matches ='/provider/tasks';
+    var request = '/request/provider';
 
     function putMatches(user) {
       return $http.post(matches, user);
     }
 
+    function postRequest(user,post) {
+      return $http.post(request + "/" + user.id, post);
+    }
+
 
 return {
-    putMatches: putMatches
+    putMatches: putMatches,
+    postRequest: postRequest
 
     };
   })
@@ -39859,6 +39834,9 @@ require('./angular');
 module.exports = angular;
 
 },{"./angular":29}],31:[function(require,module,exports){
+// got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
+// thanks to Jenny Louthan !!! <3
+
 angular
   .module('spHome')
   .directive('fileModel', ['$parse',function ($parse) {
@@ -39933,19 +39911,25 @@ angular
     vm.loadPage();
 
     //PHOTO UPLOAD
+    // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
+    // thanks to Jenny Louthan !!! <3
     vm.uploadPFile = function(){
         var file = vm.myFile;
-        console.log('photo file is ',file );
-        console.dir(file);
+        // console.log('photo file is ',file );
+        // console.dir(file);
         var uploadUrl = "/fileUpload";
-        SpService.uploadFileToUrl(file, uploadUrl);
-        vm.editInfo = !vm.editInfo;
-        console.log('page should have reloaded');
-        SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
-        .then(function(data){
-          vm.providerData =  data.data;
-          console.log('vm providerData from sphome controller',vm.providerData);
-        })
+        SpService.uploadFileToUrl(file, uploadUrl).then(function() {
+          vm.editInfo = !vm.editInfo;
+          // console.log('page should have reloaded');
+          SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
+          .then(function(data){
+            console.log("DATA BACK FROM SERVER", data.data);
+            console.log("provider id", window.JSON.parse(window.localStorage.getItem('theprovider')).id)
+            vm.providerData =  data.data;
+            // console.log('vm providerData from sphome controller',vm.providerData);
+          })
+        });
+
     };
 
     //PHOTO EDIT ROUTE
@@ -40097,11 +40081,34 @@ angular
       $rootScope.changeOnline = bool;
     });
 
+    $scope.seeRequest = function(){
+       SpService.getRequest(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
+      .success(function(dataObj) {
+        console.log("SUCCESS", dataObj)
+          // $rootScope.changeOnline = false;
+      })
+      .error(function(err) {
+        console.log("ERROR", err);
+        // $rootScope.changeOnline = false;
+      })
+
+
+      //getting data from the login and register
+      // SpService.getRequest(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
+      // .then(function(data){
+      //   $scope.providerData =  data;
+      //   console.log($scope.providerData);
+      // })
+    }
+
 
 
   }
 
 },{}],34:[function(require,module,exports){
+// got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
+// thanks to Jenny Louthan !!! <3
+
 angular
   .module('spHome')
   .directive('spHomeDir', function () {
@@ -40150,7 +40157,7 @@ angular
     var spurl = '/provider';
     var allProviders = '/providers';
     var logouturl = '/logout';
-    // var uploadPUrl = '/fileUpload';
+    var request = '/request/provider';
 
     function logoutNow(){
       return $http.post(logouturl);
@@ -40170,36 +40177,16 @@ angular
       return $http.put('/provider', user);
     }
 
-    //putting the new file
-    function editFile(file, uploadUrl){
-      var fd = new FormData();
-      fd.append('photo', file);
-      $http.put(uploadUrl, fd, {
-          transformRequest: angular.identity,
-          headers: {'Content-Type': undefined}
-      })
-      .success(function(){
-        console.log('Holy Moly it worked!');
-      })
-      .error(function(){
-        console.log('Nah the picture didnt go!');
-      });
-    }
-
     //uploading a photo to database
+    // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
+    // thanks to Jenny Louthan !!! <3
     function uploadFileToUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);
-        $http.post(uploadUrl, fd, {
+        return $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })
-        .success(function(){
-          console.log('Holy Moly it worked!');
-        })
-        .error(function(){
-          console.log('Nah the picture didnt go!');
-        });
     }
 
     function putProviderOffline(user,idOfUser) {
@@ -40210,6 +40197,10 @@ angular
         console.log('service isOnline', user.data.isOnline);
         return user.data.isOnline;
       });
+    }
+
+    function getRequest(userId,post) {
+      return $http.get(request + "/" + userId, post);
     }
 
 
@@ -40239,18 +40230,16 @@ angular
     ]
 
     return {
-      editFile: editFile,
 
       putProviderOffline: putProviderOffline,
       isUserOnline: isUserOnline,
-
       uploadFileToUrl: uploadFileToUrl,
-
       editProvider: editProvider,
       logoutNow: logoutNow,
       getProvider: getProvider,
       historyData: historyData,
-      deleteSpAccount: deleteSpAccount
+      deleteSpAccount: deleteSpAccount,
+      getRequest: getRequest
     }
 
   })

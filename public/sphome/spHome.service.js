@@ -5,7 +5,7 @@ angular
     var spurl = '/provider';
     var allProviders = '/providers';
     var logouturl = '/logout';
-    // var uploadPUrl = '/fileUpload';
+    var request = '/request/provider';
 
     function logoutNow(){
       return $http.post(logouturl);
@@ -25,36 +25,16 @@ angular
       return $http.put('/provider', user);
     }
 
-    //putting the new file
-    function editFile(file, uploadUrl){
-      var fd = new FormData();
-      fd.append('photo', file);
-      $http.put(uploadUrl, fd, {
-          transformRequest: angular.identity,
-          headers: {'Content-Type': undefined}
-      })
-      .success(function(){
-        console.log('Holy Moly it worked!');
-      })
-      .error(function(){
-        console.log('Nah the picture didnt go!');
-      });
-    }
-
     //uploading a photo to database
+    // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
+    // thanks to Jenny Louthan !!! <3
     function uploadFileToUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);
-        $http.post(uploadUrl, fd, {
+        return $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })
-        .success(function(){
-          console.log('Holy Moly it worked!');
-        })
-        .error(function(){
-          console.log('Nah the picture didnt go!');
-        });
     }
 
     function putProviderOffline(user,idOfUser) {
@@ -65,6 +45,10 @@ angular
         console.log('service isOnline', user.data.isOnline);
         return user.data.isOnline;
       });
+    }
+
+    function getRequest(userId,post) {
+      return $http.get(request + "/" + userId, post);
     }
 
 
@@ -94,18 +78,16 @@ angular
     ]
 
     return {
-      editFile: editFile,
 
       putProviderOffline: putProviderOffline,
       isUserOnline: isUserOnline,
-
       uploadFileToUrl: uploadFileToUrl,
-
       editProvider: editProvider,
       logoutNow: logoutNow,
       getProvider: getProvider,
       historyData: historyData,
-      deleteSpAccount: deleteSpAccount
+      deleteSpAccount: deleteSpAccount,
+      getRequest: getRequest
     }
 
   })
