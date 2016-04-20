@@ -557,7 +557,15 @@ div.userImgHome {
     width: 13%; }
   .onlineBtn {
     margin-left: 98px;
-    margin-bottom: 33px; } }
+    margin-bottom: 33px; }
+  .footer {
+    background-color: #2A324B;
+    height: 200px;
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline; }
+    .footer img {
+      display: none; } }
 
 label {
   margin-left: 25px;
