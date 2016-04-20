@@ -464,6 +464,25 @@ div.userImgHome {
   height: 30px;
   margin-top: 83px; }
 
+div.overallModal h3 {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px; }
+
+div.overallModal div.active1, div.overallModal div.active2, div.overallModal div.active3, div.overallModal div.active4 {
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+  margin: 0 auto; }
+  div.overallModal div.active1 h2, div.overallModal div.active2 h2, div.overallModal div.active3 h2, div.overallModal div.active4 h2 {
+    font-size: 20px;
+    display: inline-block;
+    margin-left: 10px; }
+
+div.overallModal button {
+  margin-top: 30px;
+  margin-bottom: 30px; }
+
 @media (min-width: 0px) and (max-width: 500px) {
   div.backgroundImg {
     background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("../background.jpeg");
@@ -642,6 +661,18 @@ label {
   -webkit-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg); }
+
+form {
+  margin: 0 auto;
+  width: 100%; }
+  form div.post1, form div.post2 {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; }
+    form div.post1 h2, form div.post2 h2 {
+      font-size: 20px;
+      display: inline-block;
+      margin-left: 10px; }
 
 .cardsContainer h1 {
   font-family: 'Poiret One', cursive !important; }
