@@ -2,43 +2,51 @@
 <div class= 'overallModal'>
 <h3>What Services are you offering today?</h3>
 
-
-
   <form ng-submit="goOn(post)">
 
-    <div class="kitchen">
-        <input type="checkbox" ng-model="post.kitchen"><h2>Kitchen</h2>
+    <div class="active1">
+      <div class="kitchen">
+          <input type="checkbox" ng-model="post.kitchen"><h2>Kitchen</h2>
+      </div>
+
+      <!-- <input  id="check-1" type="checkbox" name='check-1' checked='checked' />
+     <label for="check-1">kitchen</label> -->
+
+      <div class="bathrooms">
+          <input type="checkbox" ng-model="post.bathrooms"><h2>Bathrooms</h2>
+      </div>
+      <div class="bedrooms">
+          <input type="checkbox" ng-model="post.bedrooms"><h2>Bedrooms</h2>
+      </div>
     </div>
 
-    <!-- <input  id="check-1" type="checkbox" name='check-1' checked='checked' />
-   <label for="check-1">kitchen</label> -->
-
-    <div class="bathrooms">
-        <input type="checkbox" ng-model="post.bathrooms"><h2>Bathrooms</h2>
-    </div>
-    <div class="bedrooms">
-        <input type="checkbox" ng-model="post.bedrooms"><h2>Bedrooms</h2>
-    </div>
-    <div class="laundry">
-        <input type="checkbox" ng-model="post.laundry"><h2>Laundry</h2>
-    </div>
-    <div class="commonareas">
-        <input type="checkbox" ng-model="post.commonareas"><h2>Common Areas</h2>
-    </div>
-    <div class="rate">
-        <input type="checkbox" ng-model="post.$10"><h2>$10</h2>
-    </div>
-    <div class="rate">
-        <input type="checkbox" ng-model="post.$15"><h2>$15</h2>
-    </div>
-    <div class="rate">
-        <input type="checkbox" ng-model="post.$20"><h2>$20</h2>
-    </div>
-    <div class="rate">
-        <input type="checkbox" ng-model="post.negotiable"><h2>negotiable</h2>
+    <div class="active2">
+      <div class="laundry">
+          <input type="checkbox" ng-model="post.laundry"><h2>Laundry</h2>
+      </div>
+      <div class="commonareas">
+          <input type="checkbox" ng-model="post.commonareas"><h2>Common Areas</h2>
+      </div>
     </div>
 
-<button  class="btn" type="submit">Go online</button>
+    <div class="active3">
+      <div class="rate">
+          <input type="checkbox" ng-model="post.$10"><h2>$10/hr</h2>
+      </div>
+      <div class="rate">
+          <input type="checkbox" ng-model="post.$15"><h2>$15/hr</h2>
+      </div>
+      <div class="rate">
+          <input type="checkbox" ng-model="post.$20"><h2>$20/hr</h2>
+      </div>
+      <div class="rate">
+          <input type="checkbox" ng-model="post.negotiable"><h2>negotiable</h2>
+      </div>
+    </div>
+
+    <div class="active4">
+      <button  class="btn" type="submit">Go online</button>
+    </div>
 
 </form>
 </div>
