@@ -79,6 +79,44 @@ footer {
   background-repeat: no-repeat;
   height: 753px; }
 
+.footerBtn {
+  font-family: 'Josefin Sans', sans-serif !important;
+  font-size: 17px !important;
+  height: 48px !important;
+  width: 200px !important;
+  border: 2px solid  #E1E5EE !important;
+  color: #E1E5EE !important;
+  flex: 0 !important; }
+  .footerBtn:hover {
+    background-color: #C7CCDB !important;
+    color: #2A324B !important;
+    border: 2px solid  #C7CCDB !important; }
+
+.more {
+  font-family: 'Josefin Sans', sans-serif !important;
+  font-size: 17px !important;
+  background-color: #C7CCDB !important;
+  height: 48px !important;
+  width: 200px !important;
+  border: 2px solid  #C7CCDB !important;
+  color: #2A324B !important;
+  flex: 0 !important; }
+  .more:hover {
+    background-color: #2A324B !important;
+    color: #C7CCDB !important;
+    border: 2px solid  #C7CCDB !important; }
+
+.footer {
+  background-color: #2A324B;
+  height: 200px;
+  display: flex;
+  justify-content: space-around;
+  align-items: baseline; }
+  .footer img {
+    height: 100px;
+    align-self: flex-start;
+    margin-top: -93px; }
+
 ::-webkit-scrollbar {
   width: 1%; }
 
@@ -95,6 +133,22 @@ footer {
 
 ::-webkit-scrollbar-thumb:window-inactive {
   background: rgba(255, 0, 0, 0.4); }
+
+.linetwo {
+  height: 2px !important;
+  background: url("../../ht-border.png");
+  /* padding: 0; */
+  background-color: #767B91;
+  width: 81% !important;
+  margin: 0 auto !important;
+  margin-top: -52px !important; }
+
+.terms {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px; }
+  .terms p {
+    color: #C7CCDB; }
 
 img.ng-invalid {
   background-color: red; }
@@ -476,13 +530,15 @@ div.userImgHome {
     justify-content: space-around;
     width: 88%;
     flex-flow: column;
-    margin: 200px auto; }
+    margin-top: 10px; }
+    .profileWrapper .imageContainer {
+      flex: 1;
+      margin-bottom: 80px; }
   .postjob {
     font-family: 'Josefin Sans', sans-serif;
     margin-top: 102px;
     margin-left: 95px;
     height: 48px;
-    margin-bottom: -152px;
     width: 200px;
     border: 2px solid #767B91;
     color: #767B91; }
@@ -496,7 +552,12 @@ div.userImgHome {
     margin-bottom: 78px; }
   .profileWrapper .profileContent button img {
     height: 25px;
-    width: 101%; } }
+    width: 101%; }
+  .profileWrapper .profileContent button {
+    width: 13%; }
+  .onlineBtn {
+    margin-left: 98px;
+    margin-bottom: 33px; } }
 
 label {
   margin-left: 25px;
