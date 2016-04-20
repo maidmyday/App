@@ -74,10 +74,10 @@ section::-webkit-scrollbar {
   display: none; }
 
 footer {
-  background-image: url("../../Footer2.png");
+  background-image: url("../../Footer-empty.png");
   background-size: 100%;
   background-repeat: no-repeat;
-  height: 753px; }
+  height: 816px; }
 
 .footerBtn {
   font-family: 'Josefin Sans', sans-serif !important;
@@ -390,7 +390,14 @@ form.photoForm {
   background-image: url("../../Footer2.png");
   background-size: 100%;
   background-repeat: no-repeat;
-  height: 753px; }
+  height: 880px; }
+
+.footer {
+  background-color: #2A324B;
+  height: 239px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center; }
 
 .postjob {
   font-family: 'Josefin Sans', sans-serif;

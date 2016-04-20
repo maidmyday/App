@@ -144,7 +144,15 @@ form.photoForm{
   background-image: url("../../Footer2.png");
   background-size: 100%;
   background-repeat: no-repeat;
-  height: 753px;
+  height: 880px;
+}
+
+.footer{
+  background-color: #2A324B;
+    height: 239px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .postjob{
