@@ -37,7 +37,7 @@ angular
       })
   })
 
-},{"./chome":7,"./goOnline":12,"./loginFeature":15,"./matches/":19,"./sphome":32,"angular":30,"angular-route":24,"angular-ui-bootstrap":26,"angular-validation-match":28}],2:[function(require,module,exports){
+},{"./chome":7,"./goOnline":11,"./loginFeature":14,"./matches/":18,"./sphome":31,"angular":29,"angular-route":23,"angular-ui-bootstrap":25,"angular-validation-match":27}],2:[function(require,module,exports){
 angular
   .module('cHome')
   .controller('ClientController', ClientController);
@@ -50,7 +50,7 @@ angular
 
     vm.animationsEnabled = true;
 
-    //logout button
+// LOGOUT BUTTON
     vm.logout = function(){
       console.log('data inside logout function',window.localStorage);
       ClientService.logoutNow().then(function(){
@@ -60,7 +60,8 @@ angular
       })
     }
 
-    //to load the page after changes
+
+// LOADS PAGE AFTER CHANGES
     vm.loadPage = function(){
       //getting data from the login and register
       ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
@@ -71,9 +72,9 @@ angular
     }
     vm.loadPage();
 
-    //PHOTO UPLOAD
-    // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
-    // thanks to Jenny Louthan !!! <3
+
+//PHOTO UPLOAD
+  // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
     vm.uploadCFile = function(){
         var file = vm.myFile;
         console.log('photo file is ',file );
@@ -89,18 +90,15 @@ angular
             vm.editInfo = !vm.editInfo;
           })
         });
-
     };
 
-    //edit profile content
+
+// EDIT PROFILE CONTENT
     vm.editInfo = false;
     vm.editBtn = function(){
       vm.editInfo = !vm.editInfo;
     }
-
-    // vm.master = {};
     vm.saveEdit = function(user){
-      // vm.master = angular.copy(user);
       console.log('should be new profile info obj',user);
       ClientService.editClient(user).then(function(data){
         vm.edittedData =  data.data;
@@ -111,7 +109,8 @@ angular
       })
     }
 
-    //delete client account
+
+// DELETE CLIENT
     vm.deleteC = function(){
       console.log('data inside delete function',window.localStorage);
       ClientService.deleteClient(window.JSON.parse(window.localStorage.getItem('theclient')).id).then(function(){
@@ -121,24 +120,8 @@ angular
       })
     }
 
-    //the rating stars
-    vm.rate = 0;
-    vm.max = 5;
-    vm.isReadonly = false;
 
-    vm.hoveringOver = function(value) {
-      vm.overStar = value;
-      vm.percent = 100 * (value / vm.max);
-    };
-
-    vm.ratingStates = [
-      {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
-      {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-      {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
-      {stateOn: 'glyphicon-heart'},
-      {stateOff: 'glyphicon-off'}
-    ];
-
+// OPENS MATCH MODAL
     $scope.animationsEnabled = true;
     $scope.openMatchModal = function (size) {
 
@@ -153,14 +136,6 @@ angular
           }
         }
       });
-    }
-
-    $scope.activePost = false;
-    $scope.activeRequest = function(){
-      $rootScope.requestedUser = window.JSON.parse(window.localStorage.getItem('requestedUser'));
-      $rootScope.requestedData = window.JSON.parse(window.localStorage.getItem('requestInfo'));
-      console.log('the provider',requestedUser);
-      console.log('the request info',requestedData);
     }
 
   }
@@ -198,7 +173,7 @@ angular
     })
   })
 
-},{"angular":30,"angular-route":24,"angular-ui-bootstrap":26}],5:[function(require,module,exports){
+},{"angular":29,"angular-route":23,"angular-ui-bootstrap":25}],5:[function(require,module,exports){
 angular
   .module('cHome')
   .service('ClientService',function($http, $q, $cacheFactory) {
@@ -206,7 +181,7 @@ angular
     var clienturl = '/client';
     var allClients = '/clients';
     var logouturl = '/logout';
-    // var uploadUrl = '/fileUpload';
+
 
     function deleteClient(id){
       return $http.delete(clienturl + '/' + id);
@@ -216,20 +191,17 @@ angular
       return $http.post(logouturl);
     }
 
-    //registering a client account
     function getClient(id) {
       return $http.get(clienturl + '/' + id);
     }
 
-    //editing the client profile
     function editClient(user) {
       return $http.put(clienturl, user);
     }
 
 
-    //uploading a photo to database
+// UPLOAD PHOTO TO DATABASE
     // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
-    // thanks to Jenny Louthan !!! <3
     function uploadFileToCUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);
@@ -239,32 +211,7 @@ angular
         })
     }
 
-  //  var historyData = [
-  //    {
-  //      img: './images/bill04.jpg',
-  //      firstName: 'Thachary',
-  //      lastName: 'Binx',
-  //      rating: '5',
-  //      date: 'date/time',
-  //      comment: 'Wakka wakka'
-  //    },
-  //    {
-  //      img: './images/bill02.jpg',
-  //      firstName: 'Will',
-  //      lastName: 'Graham',
-  //      rating: '2',
-  //      date: 'date/time',
-  //      comment: 'Like a good neighbor, state farm is there!'
-  //    },
-  //    {
-  //      img: './images/bill03.jpg',
-  //      firstName: 'Spencer',
-  //      lastName: 'Reid',
-  //      rating: '1',
-  //      date: 'date/time',
-  //      comment: 'Whazzahhhp'
-  //    }
-  //  ]
+
 
     return {
       uploadFileToCUrl: uploadFileToCUrl,
@@ -272,7 +219,6 @@ angular
       deleteClient: deleteClient,
       logoutNow: logoutNow,
       getClient: getClient
-      // historyData: historyData
     }
   })
 
@@ -308,30 +254,9 @@ require('./cHome.module');
 require('./cHome.controller');
 require('./cHome.service');
 require('./cHome.directive');
-require('./jobInstance.controller');
 require('./fileUpload.directive');
 
-},{"./cHome.controller":2,"./cHome.directive":3,"./cHome.module":4,"./cHome.service":5,"./fileUpload.directive":6,"./jobInstance.controller":8}],8:[function(require,module,exports){
-angular
-.module('cHome')
-.controller('JobInstanceCtrl',JobInstanceCtrl)
-
-  JobInstanceCtrl.$inject = ['$scope','$rootScope','$location','$uibModal','$log','$uibModalInstance'];
-
-  function JobInstanceCtrl($rootScope,$scope,$uibModal,$log,$location,$uibModalInstance){
-    var vm = this;
-
-    vm.ok = function(post){
-      console.log('ok btn triggered',post);
-      $uibModalInstance.close();
-    }
-
-    vm.cancel = function(){
-      $uibModalInstance.dismiss('cancel');
-    }
-  }
-
-},{}],9:[function(require,module,exports){
+},{"./cHome.controller":2,"./cHome.directive":3,"./cHome.module":4,"./cHome.service":5,"./fileUpload.directive":6}],8:[function(require,module,exports){
 angular
 .module('goOnline')
 .controller('GoOnlineModalInstanceCtrl', function ($rootScope,$scope, $location, $uibModalInstance, GoOnlineService,$window) {
@@ -359,13 +284,13 @@ GoOnlineService.isUserOnline(JSON.parse($window.localStorage.getItem('theprovide
   };
 });
 
-},{}],10:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 angular
   .module('goOnline',[
     'ngRoute'
   ]);
 
-},{}],11:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 angular
   .module('goOnline')
   .service('GoOnlineService',function($http) {
@@ -393,12 +318,12 @@ angular
     };
   })
 
-},{}],12:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 require('./goOnline.module.js');
 require('./controllers/goOnlineInstance.controller.js');
 require('./goOnline.service.js');
 
-},{"./controllers/goOnlineInstance.controller.js":9,"./goOnline.module.js":10,"./goOnline.service.js":11}],13:[function(require,module,exports){
+},{"./controllers/goOnlineInstance.controller.js":8,"./goOnline.module.js":9,"./goOnline.service.js":10}],12:[function(require,module,exports){
 angular
 .module('login')
 .controller('ModalInstanceController', function ($rootScope,$scope, $uibModalInstance, LoginService, $location) {
@@ -481,7 +406,7 @@ angular
 
 });
 
-},{}],14:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 angular
 .module('login')
 .controller('LoginModalController', function ($scope, $uibModal, $log, $location) {
@@ -522,36 +447,32 @@ angular
   };
 
 
+// SCROLL THAT I NEED TO CITE
   $(document).ready(function () {
-
-      // scroll positioning
       $('[data-scroll]').click(function() {
           var a = $($(this).attr('data-scroll')).position();
           a = a.top;
           $('html, body').animate({scrollTop: a-40}, 500);
       });
-
-
   });
 
 })
 
-},{}],15:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 require('./login.module.js')
 require('./login.service.js')
 require('./controllers/login-modal.controller.js');
 require('./controllers/login-modal-instance.controller.js');
 
-},{"./controllers/login-modal-instance.controller.js":13,"./controllers/login-modal.controller.js":14,"./login.module.js":16,"./login.service.js":17}],16:[function(require,module,exports){
+},{"./controllers/login-modal-instance.controller.js":12,"./controllers/login-modal.controller.js":13,"./login.module.js":15,"./login.service.js":16}],15:[function(require,module,exports){
 require('angular-validation-match');
 
 angular
   .module('login',[
     'validation.match'
-
   ]);
 
-},{"angular-validation-match":28}],17:[function(require,module,exports){
+},{"angular-validation-match":27}],16:[function(require,module,exports){
 angular
   .module('login')
   .service('LoginService',function($http) {
@@ -587,7 +508,7 @@ angular
     };
   })
 
-},{}],18:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 angular
 .module('match')
 .controller('MatchModalController', function ($scope, $rootScope, $uibModalInstance, MatchService) {
@@ -633,13 +554,13 @@ $scope.requestSent = function (user,post){
 
 });
 
-},{}],19:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 require('./matches.module.js');
 require('./controllers/matches.controller.js');
 require('./matches.service.js');
 require('./matches.directive.js');
 
-},{"./controllers/matches.controller.js":18,"./matches.directive.js":20,"./matches.module.js":21,"./matches.service.js":22}],20:[function(require,module,exports){
+},{"./controllers/matches.controller.js":17,"./matches.directive.js":19,"./matches.module.js":20,"./matches.service.js":21}],19:[function(require,module,exports){
 // require('../../matches/controllers/matches.controller');
 
 angular
@@ -653,13 +574,13 @@ angular
       controller:"MatchModalController"}
   })
 
-},{}],21:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 angular
   .module('match',[
     'ngRoute'
   ]);
 
-},{}],22:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 angular
   .module('match')
   .service('MatchService',function($http) {
@@ -682,7 +603,7 @@ return {
     };
   })
 
-},{}],23:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -1706,11 +1627,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],24:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":23}],25:[function(require,module,exports){
+},{"./angular-route":22}],24:[function(require,module,exports){
 /*
  * angular-ui-bootstrap
  * http://angular-ui.github.io/bootstrap/
@@ -9039,12 +8960,12 @@ angular.module('ui.bootstrap.datepickerPopup').run(function() {!angular.$$csp().
 angular.module('ui.bootstrap.tooltip').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTooltipCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-tooltip-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-bottom > .tooltip-arrow,[uib-popover-popup].popover.top-left > .arrow,[uib-popover-popup].popover.top-right > .arrow,[uib-popover-popup].popover.bottom-left > .arrow,[uib-popover-popup].popover.bottom-right > .arrow,[uib-popover-popup].popover.left-top > .arrow,[uib-popover-popup].popover.left-bottom > .arrow,[uib-popover-popup].popover.right-top > .arrow,[uib-popover-popup].popover.right-bottom > .arrow,[uib-popover-html-popup].popover.top-left > .arrow,[uib-popover-html-popup].popover.top-right > .arrow,[uib-popover-html-popup].popover.bottom-left > .arrow,[uib-popover-html-popup].popover.bottom-right > .arrow,[uib-popover-html-popup].popover.left-top > .arrow,[uib-popover-html-popup].popover.left-bottom > .arrow,[uib-popover-html-popup].popover.right-top > .arrow,[uib-popover-html-popup].popover.right-bottom > .arrow,[uib-popover-template-popup].popover.top-left > .arrow,[uib-popover-template-popup].popover.top-right > .arrow,[uib-popover-template-popup].popover.bottom-left > .arrow,[uib-popover-template-popup].popover.bottom-right > .arrow,[uib-popover-template-popup].popover.left-top > .arrow,[uib-popover-template-popup].popover.left-bottom > .arrow,[uib-popover-template-popup].popover.right-top > .arrow,[uib-popover-template-popup].popover.right-bottom > .arrow{top:auto;bottom:auto;left:auto;right:auto;margin:0;}[uib-popover-popup].popover,[uib-popover-html-popup].popover,[uib-popover-template-popup].popover{display:block !important;}</style>'); angular.$$uibTooltipCss = true; });
 angular.module('ui.bootstrap.timepicker').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTimepickerCss && angular.element(document).find('head').prepend('<style type="text/css">.uib-time input{width:50px;}</style>'); angular.$$uibTimepickerCss = true; });
 angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTypeaheadCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-typeahead-popup].dropdown-menu{display:block;}</style>'); angular.$$uibTypeaheadCss = true; });
-},{}],26:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 require('./dist/ui-bootstrap-tpls');
 
 module.exports = 'ui.bootstrap';
 
-},{"./dist/ui-bootstrap-tpls":25}],27:[function(require,module,exports){
+},{"./dist/ui-bootstrap-tpls":24}],26:[function(require,module,exports){
 /*!
  * angular-validation-match
  * Checks if one input matches another
@@ -9103,11 +9024,11 @@ function match ($parse) {
 }
 match.$inject = ["$parse"];
 })(window, window.angular);
-},{}],28:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 require('./dist/angular-validation-match');
 module.exports = 'validation.match';
 
-},{"./dist/angular-validation-match":27}],29:[function(require,module,exports){
+},{"./dist/angular-validation-match":26}],28:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -39822,13 +39743,12 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],30:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":29}],31:[function(require,module,exports){
+},{"./angular":28}],30:[function(require,module,exports){
 // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
-
 
 angular
   .module('spHome')
@@ -39847,14 +39767,14 @@ angular
     }
 }]);
 
-},{}],32:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 require('./spHome.module');
 require('./spHome.controller');
 require('./spHome.service');
 require('./spHome.directive');
 require('./fileUpload.directive');
 
-},{"./fileUpload.directive":31,"./spHome.controller":33,"./spHome.directive":34,"./spHome.module":35,"./spHome.service":36}],33:[function(require,module,exports){
+},{"./fileUpload.directive":30,"./spHome.controller":32,"./spHome.directive":33,"./spHome.module":34,"./spHome.service":35}],32:[function(require,module,exports){
 angular
   .module('spHome')
   .controller('SpController',SpController)
@@ -39865,14 +39785,14 @@ angular
     $scope.photoFill = false;
     var vm = this;
 
-    //logout button
+
+// LOGOUT PROVIDER
     vm.logout = function(){
       console.log('data inside logout function',window.localStorage);
       SpService.logoutNow().then(function(){
         window.localStorage.clear();
         console.log('hopefully empty: ',window.localStorage);
         $location.path('/');
-
       })
       var offline = {isOnline: false, tasks:null};
       var userId = JSON.parse(window.localStorage.getItem('theprovider')).id
@@ -39886,71 +39806,39 @@ angular
       })
     }
 
-    //to load the page after changes
+
+// PAGE LOAD EDIT REFRESH
     vm.loadPage = function(){
-      //getting data from the login and register
       SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
       .then(function(data){
         vm.providerData =  data.data;
-        console.log('vm providerData from sphome controller',vm.providerData);
       })
     }
     vm.loadPage();
 
-    //PHOTO UPLOAD
+
+// PHOTO UPLOAD
     vm.uploadPFile = function(){
         var file = vm.myFile;
-        // console.log('photo file is ',file );
-        // console.dir(file);
         var uploadUrl = "/fileUpload";
         SpService.uploadFileToUrl(file, uploadUrl).then(function() {
           vm.editInfo = !vm.editInfo;
-          // console.log('page should have reloaded');
           SpService.getProvider(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
           .then(function(data){
-            console.log("DATA BACK FROM SERVER", data.data);
-            console.log("provider id", window.JSON.parse(window.localStorage.getItem('theprovider')).id)
             vm.providerData =  data.data;
-            // console.log('vm providerData from sphome controller',vm.providerData);
           })
         });
-
     };
 
-    //PHOTO EDIT ROUTE
-    // vm.changePFile = function(){
-    //   var file = vm.myFile;
-    //   console.log('photo file is ',file );
-    //   console.dir(file);
-    //   var uploadUrl = "/fileUpload";
-    //   SpService.editFile(file, uploadUrl);
-    //   vm.editInfo = !vm.editInfo;
-    //   console.log('page should have reloaded');
-    //   vm.loadPage();
-    //   $route.reload();
-    // }
 
-    //go online: change a boolean and show change in dom
-    vm.inactive = true;
-    vm.goOnline = function(){
-      vm.active = true;
-    }
 
-    //go offline: change a boolean and show change in dom
-    vm.goOffline = function(){
-      vm.active = false;
-      vm.inactive = true;
-    }
+// EDIT PROFILE CONTENT
 
-    //edit profile content
     vm.editInfo = false;
     vm.editBtn1 = function(){
       vm.editInfo = !vm.editInfo;
     }
-
-    // vm.master = {};
     vm.saveEdit = function(user){
-      // vm.master = angular.copy(user);
       console.log('should be new profile info obj',user);
       SpService.editProvider(user).then(function(data){
         vm.edittedData =  data.data;
@@ -39961,13 +39849,10 @@ angular
         $route.reload();
       })
     }
-
-    //edit about content
     vm.editAbout = false;
     vm.editBtn2 = function(){
       vm.editAbout = !vm.editAbout;
     }
-
     vm.saveAbout = function(user){
       console.log('should be about content obj',user);
       SpService.editProvider(user).then(function(data){
@@ -39978,23 +39863,9 @@ angular
       vm.loadPage();
     }
 
-    //edit specialties content
-    vm.editSpecial = false;
-    vm.editBtn3 = function(){
-      vm.editSpecial = !vm.editSpecial;
-    }
 
-    vm.saveSpecialties = function(user){
-      console.log('should be about content obj',user);
-      SpService.editProvider(user).then(function(data){
-        vm.edittedData =  data.data;
-        console.log('provider after edit',vm.edittedData);
-      });
-      vm.editSpecial = !vm.editSpecial;
-      vm.loadPage();
-    }
 
-    //delete provider account
+// DELETE PROVIDER ACCOUNT
     vm.deleteSp = function(){
       console.log('data inside delete function',window.localStorage);
       SpService.deleteSpAccount(window.JSON.parse(window.localStorage.getItem('theprovider')).id).then(function(){
@@ -40004,37 +39875,10 @@ angular
       })
     }
 
-    //the rating stars
-    vm.rate = 0;
-    vm.max = 5;
-    vm.isReadonly = false;
 
-    vm.hoveringOver = function(value) {
-      vm.overStar = value;
-      vm.percent = 100 * (value / vm.max);
-    };
-
-    vm.ratingStates = [
-      {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
-      {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-      {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
-      {stateOn: 'glyphicon-heart'},
-      {stateOff: 'glyphicon-off'}
-    ];
-
-    // temporary accordion data to inject the page moved to service
-    vm.historyData = SpService.historyData;
-
-    function standardSwitch($scope) {
-    $scope.switch = 'off';
-    }
-
-    function alternateSwitch($scope) {
-    $scope.switchAlternate = 'off';
-    }
+// OPENS GO ONLINE MODAL
 
     $rootScope.openOnlineModal = function (size) {
-
       var modalInstance = $uibModal.open({
         animation: $scope.animationsEnabled,
         templateUrl: './goOnline/tmpls/goOnline.html',
@@ -40049,6 +39893,7 @@ angular
     }
 
 
+// USER GOES OFFLINE
     $scope.goOff = function () {
       var offline = {isOnline: false, tasks:null};
       var userId = JSON.parse(window.localStorage.getItem('theprovider')).id
@@ -40062,37 +39907,35 @@ angular
       })
     };
 
+
+
+// NOT TAKING USER OFFLINE ON PAGE REFRESH
     SpService.isUserOnline(JSON.parse(localStorage.getItem('theprovider')).id).then(function (bool) {
       $rootScope.changeOnline = bool;
     });
 
-    $scope.seeRequest = function(){
-       SpService.getRequest(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
-      .success(function(dataObj) {
-        console.log("SUCCESS", dataObj)
-          // $rootScope.changeOnline = false;
-      })
-      .error(function(err) {
-        console.log("ERROR", err);
-        // $rootScope.changeOnline = false;
-      })
 
 
-      //getting data from the login and register
-      // SpService.getRequest(window.JSON.parse(window.localStorage.getItem('theprovider')).id)
-      // .then(function(data){
-      //   $scope.providerData =  data;
-      //   console.log($scope.providerData);
-      // })
-    }
-
-
+    //edit specialties content
+    // vm.editSpecial = false;
+    // vm.editBtn3 = function(){
+    //   vm.editSpecial = !vm.editSpecial;
+    // }
+    //
+    // vm.saveSpecialties = function(user){
+    //   console.log('should be about content obj',user);
+    //   SpService.editProvider(user).then(function(data){
+    //     vm.edittedData =  data.data;
+    //     console.log('provider after edit',vm.edittedData);
+    //   });
+    //   vm.editSpecial = !vm.editSpecial;
+    //   vm.loadPage();
+    // }
 
   }
 
-},{}],34:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
-// thanks to Jenny Louthan !!! <3
 angular
   .module('spHome')
   .directive('spHomeDir', function () {
@@ -40102,16 +39945,10 @@ angular
       scope: {
         theProviderData: '='
       },
-      link: function (scope, elem, attrs) {
-       // dom stuff here
-       elem.on('click', function (e) {
-         elem.css('background-color', 'red');
-       })
-      }
     }
   });
 
-},{}],35:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiBoot = require('angular-ui-bootstrap');
@@ -40130,7 +39967,7 @@ angular
     })
   })
 
-},{"angular":30,"angular-route":24,"angular-ui-bootstrap":26}],36:[function(require,module,exports){
+},{"angular":29,"angular-route":23,"angular-ui-bootstrap":25}],35:[function(require,module,exports){
 angular
   .module('spHome')
   .service('SpService',function($http, $q, $cacheFactory) {
@@ -40148,17 +39985,14 @@ angular
       return $http.delete(spurl + '/' + id);
     }
 
-    //registering a provider
     function getProvider(id) {
       return $http.get(spurl + '/' + id);
     }
 
-    //editing provider profile
     function editProvider(user) {
       return $http.put('/provider', user);
     }
 
-    //uploading a photo to database
     function uploadFileToUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);
@@ -40171,6 +40005,7 @@ angular
     function putProviderOffline(user,idOfUser) {
       return $http.put(spurl + '/' + idOfUser + "/isOnline", user);
     }
+
     function isUserOnline(userId) {
       return $http.get(spurl + '/' + userId).then(function (user) {
         console.log('service isOnline', user.data.isOnline);
@@ -40209,7 +40044,6 @@ angular
     ]
 
     return {
-
       putProviderOffline: putProviderOffline,
       isUserOnline: isUserOnline,
       uploadFileToUrl: uploadFileToUrl,

@@ -1,37 +1,16 @@
-#online{
-  background-color: green;
-}
-#offline{
-  background-color: red;
-}
-
-.dot {
-    box-sizing: border-box;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    border: .125rem;
-    display: inline-block;
+.drawer{
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  height: 30px;
+  margin-top: 83px;
 }
 
-.red{
-  background: rgba(230, 57, 70, 1);
-  box-shadow: inset 0px 0px 10px 2px rgba(230, 57, 70, 1),
-                    0px 0px 10px 2px rgba(230, 57, 70, 1);
-}
 
-.green{
-  background: rgba(50, 147, 111, 1);
-  box-shadow: inset 0px 0px 10px 2px rgba(50, 147, 111, 1),
-                    0px 0px 10px 2px rgba(50, 147, 111, 1);
-}
-// 
-// #stars{
-//   .stars{
-//   outline: none;
-// }
-//   i{
-//   font-size: 30px;
-//
-// }
+
+
+// .green{
+//   background: rgba(50, 147, 111, 1);
+//   box-shadow: inset 0px 0px 10px 2px rgba(50, 147, 111, 1),
+//                     0px 0px 10px 2px rgba(50, 147, 111, 1);
 // }

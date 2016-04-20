@@ -1,6 +1,5 @@
 // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
 
-
 angular
   .module('spHome')
   .directive('fileModel', ['$parse',function ($parse) {

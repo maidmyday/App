@@ -5,7 +5,6 @@
   justify-content: space-around;
   min-height: 600px;
   align-items: center;
-
 }
 
 div.mainpic {
@@ -19,14 +18,8 @@ div.backgroundImg {
   min-height: 900px;
   width: 100%;
   background-attachment: fixed;
-  overflow-y: scroll;
-
 }
 
-div.backgroundImg::-webkit-scrollbar {
-  /* This is the magic bit */
-  display: none;
-}
 
 .btn.btn-transparent {
   font-family: 'Sue Ellen Francisco', cursive;
@@ -51,11 +44,13 @@ div.backgroundImg::-webkit-scrollbar {
   height: 800px;
   flex: 2;
 }
+
+// ARROW BOUNCE
 .arrowDown{
-  position: absolute;
   width: 100%;
-  top: 83%;
-  left: 48%;
+  display: flex;
+  justify-content: center;
+  margin-top: -150px;
   &:hover{
   -webkit-animation: bounce 2200ms ease-out;
 }
@@ -81,28 +76,27 @@ div.backgroundImg::-webkit-scrollbar {
   }
 }
 
+
+// HOW TO SECTION
 .container{
   display: flex;
   margin-top: 87px;
+
   aside{
     flex:2;
-
   }
+
   section{
     flex:2;
     overflow: hidden;
     overflow-y: scroll;
     height: 400px;
-
-
   }
 }
-
-
 section::-webkit-scrollbar {
-  /* This is the magic bit */
   display: none;
 }
+
 footer{
   background-image: url("../../Footer2.png");
   background-size: 100%;
@@ -110,49 +104,18 @@ footer{
   height: 753px;
 }
 
-// ::-webkit-scrollbar{
-//   width: 10px;
-// 	height: 10px;
-// 	cursor: pointer;
-// }
-// ::-webkit-scrollbar-track {
-//     -webkit-box-shadow: inset 0 0 6px 2px rgba(0,0,0,0.3);
-//     background: #C7CCDB;
-// }
-// ::-webkit-scrollbar-thumb {
-//     background: #E1E5EE;
-//     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-//     cursor: pointer;
-// }
-// ::selection{
-//     background: mintcream;
-// }
-
-@keyframes flip{
-  0%{
-    transform: rotateX(0deg);
-  }
-  15%{
-    transform: rotateX(360deg);
-  }
-  100%{
-    transform: rotateX(360deg);
-  }
-}
 
 
+// SCROLL BAR
+// HELP FROM https://css-tricks.com/examples/WebKitScrollbars/
 ::-webkit-scrollbar {
-    width: 12px;
+        width: 1%;
 }
-
-/* Track */
 ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     -webkit-border-radius: 10px;
     border-radius: 10px;
 }
-
-/* Handle */
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
