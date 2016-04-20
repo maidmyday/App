@@ -1,99 +1,64 @@
-.profileBackground{
-  background-color: lightblue;
-}
-
-
-nav{
-  background-color: rgba(255, 255, 255, 0.5);
-  height: 100px;
-  div{
-    display: flex;
-    justify-content: space-between;
-    height: 100px;
-    h2{
-      font-family: 'Sue Ellen Francisco', cursive;
-      font-size: 34px;
-      color: #767B91;
+.logout{
+  display: flex;
+  justify-content: space-between;
+  height: 83px;
+  background-color: rgba(241, 241, 241, 0.5);
+      img{
+            height: 66px;
+      }
+    .welcome{
+      display: flex;
+      width: 20%;
+      .notmiddle{
+        width: 45%;
+      }
+      img{
+        height: 31px;
+        align-self: center;
+      }
+      p{
+        align-self: center;
+        font-family: 'Josefin Sans', sans-serif;
+        color: #767B91;
+        font-size: 20px;
+        width: 120%;
+        margin-left: -16px;
+        margin-top: 25px;
+      }
     }
-    img{
-      height: 56px;
-      align-self: flex-end;
+    .exit{
+      display: flex;
+      margin-right: 11px;
+      img{
+        height: 12px;
+    align-self: center;
+    margin-left: -8px;
+    margin-top: -4px;
+      }
+      button {
+        align-self: center;
+        font-family: 'Josefin Sans', sans-serif;
+        color: #767B91;
+        border: none;
+        font-size: 16px;
+        background-color: rgba(241, 241, 241, -0.5);
+      &:hover{
+        background-color: rgba(241, 241, 241, -0.5);
+        color:#C7CCDB;
+      }
+      }
     }
-  }
 }
 
 
-p.navbar-text{
-  display: inline-block;
-  span{
-    font-weight: 800;
-  }
-}
-h4.navbar-brand{
-  padding: 0 10px;
-  font-size: 30px;
-}
-div.panel{
-  div.textContent{
-    display: inline-block;
-    text-align: right;
-    height: 100%;
-    p.headerText{
-      display: inline-block;
-      font-weight: 400;
-    }
-    p.headerUser{
-      display: inline-block;
-      font-weight: 700;
-    }
-  }
-}
 
-
-//user image
-div.userImgRow{
-  margin-top: 200px;
-  margin-bottom: 10px;
-}
-
-div.userImgHomeParent{
-  text-align: center;
-}
-
-div.userImgHome{
-  margin: 0;
+.line{
+  height: 1px;
+  background: url("../../ht-border.png");
   padding: 0;
-  position: relative;
-  display: inline-block;
-  border-radius: 100%;
-  overflow: hidden;
-  width: 300px;
-  height: 300px;
-
-  img.userImgHome{
-    height: auto;
-    width:140%;
-    display: block;
-    margin: 0 auto;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translateY(-50%) translateX(-50%);
-  }
+  background-color: #767B91;
 }
 
-//for accordion content
-div.panel > .panel-heading {
-  background-color: #9CAFB7;
-  border-radius: 0;
-  h3{
-    text-align: center;
-    color: #FFFFFF;
-    a{
-      text-decoration: none;
-    }
-  }
-}
 
 form.photoForm{
   margin-bottom: 10px;
@@ -122,32 +87,128 @@ form.photoForm{
   }
 }
 
-uib-accordion-heading{
-  background-color: #EAD2AC;
-}
-div.profile-panels{
-  h4{
-    display: inline-block;
+
+
+.profileWrapper{
+  display: flex;
+  justify-content: space-between;
+  width: 96%;
+  margin: 0 auto;
+  margin-top: 100px;
+  .imageContainer{
+    flex: 1;
   }
-  div.profile-btns{
+  .profileContainer{
+    flex: 1;
+  }
+  .profileContent{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 223px;
+    button{
+      align-self: flex-start;
+      height: 31px;
+      border: none;
+      &:focus{
+        background-color:#FFF;
+      }
+      &:hover{
+        background-color: white;
+      }
+      img{
+        height: 25px;
+        width: 9%;
+        &:hover
+            {
+              background-color: #FFF;
+          -webkit-animation: spin 1000ms ease-out;
+          }
+      }
+      &:active{
+        background-color: none;
+      }
+
+    }
   }
 }
 
-div.profileContent{
-  min-height: 180px;
+
+@keyframes spin {
+  0% { transform: rotate(0deg);}
+  100% {transform: rotate(360deg);}
 }
 
-div.paragraph{
-  max-height: 500px;
-  overflow: auto;
+
+.footerhome{
+  background-image: url("../../Footer2.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 753px;
 }
 
-//star rating
-.glyphicon-star {
-  color:#EAD2AC;
+.postjob{
+    font-family: 'Josefin Sans', sans-serif;
+  margin-top: 178px;
+margin-left: 546px;
+height: 48px;
+width: 200px;
+border: 2px solid  #767B91;
+color: #767B91;
+&:hover {
+  background-color: #767B91;
+  color: #FFF;
+  border: 2px solid  #767B91;
 }
-.glyphicon-star-empty{
-  color: #9CAFB7;
+}
+
+.onlineBtn{
+    font-family: 'Josefin Sans', sans-serif;
+  margin-top: 178px;
+margin-left: 546px;
+height: 48px;
+width: 200px;
+border: 2px solid  #767B91;
+color: #767B91;
+&:hover {
+  background-color: #767B91;
+  color: #FFF;
+  border: 2px solid  #767B91;
+}
+}
+
+.offlineBtn{
+    font-family: 'Josefin Sans', sans-serif;
+    margin-top: 178px;
+    margin-left: 546px;
+    height: 48px;
+    width: 200px;
+    border: 2px solid  #FFF;
+    color: #FFF;
+&:hover {
+  background-color: #FFF;
+  color: #FFF;
+  border: 2px solid  #FFF;
+}
+}
+
+div.userImgHome{
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: inline-block;
+  border-radius: 100%;
+  overflow: hidden;
+  width: 400px;
+  height: 400px;
+  img{
+          height: auto;
+          width:140%;
+          display: block;
+          margin: 0 auto;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          -webkit-transform: translateY(-50%) translateX(-50%);
+        }
 }

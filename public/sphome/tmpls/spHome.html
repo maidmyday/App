@@ -1,182 +1,118 @@
-<!-- bootstraping navbar -->
-
-<nav class="navbar">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <h4 class="navbar-brand mmd">Maid My Day</h4>
+<!-- NAVBAR -->
+<nav class=" navbar-fixed-top">
+  <div class="logout">
+    <div class="welcome">
+      <div class="notmiddle">
+        <input type="checkbox" class="check" id="checked">
+        <label class="menu-btn" for="checked">
+          <img class="bar top" src="../../MadeMyDayLogo.png" alt="">
+          <img class="bar middle" src="../../MadeMyDayLogo2.png" alt="">
+          <img class="bar bottom" src="../../MadeMyDayLogo.png" alt="">
+        </label>
+      </div>
+      <input type="checkbox" class="check" id="checked">
+      <label for="checked" class="welcomeuser"><p>Hello, {{SpCtrl.providerData.firstName}}!</p></label>
     </div>
-    <ul class="nav navbar-nav navbar-right">
-      <li><p class="navbar-text">Signed in as <span>{{SpCtrl.providerData.firstName}}</span></p></li>
-      <li>
-
-
-      </li>
-
-
-<div id="onlinesection">
-        <button ng-show="!changeOnline"  class="btn btn-default navbar-btn" ng-click="openOnlineModal()">GO ONLINE</button>
-          <p ng-show="!changeOnline">You are offline</p>
-          <div ng-show="!changeOnline" class="dot red"></div>
-        <button ng-show="changeOnline" ng-click='goOff()' class= 'btn btn-default navbar-btn'>Go OFFLINE</button>
-          <p ng-show="changeOnline">You are online</p>
-          <div ng-show="changeOnline" class="dot green"></div>
+    <img class="first" src="LogoName.png" alt="">
+    <div class="exit">
+      <button class="btn btn-default navbar-btn" ng-click="SpCtrl.logout()">Logout </button>
+      <img src="../../exit.png" alt="">
     </div>
-      <li><button class="btn btn-default navbar-btn" ng-click="SpCtrl.logout()">Logout</button></li>
-    </ul>
   </div>
+  <div class="line"></div>
 </nav>
 
 
-<!-- user image: still needs JS to fit any img size to div -->
 
-<div class="container">
-  <div class="row userImgRow">
-    <div class="userImgHomeParent col-md-12 col-sm-12">
-      <div class="userImgHome">
-        <div ngshow=""><img src="" alt=""></div>
-        <img src="./photoUploads/{{SpCtrl.providerData.fileUpload.fileName}}" alt="userImg" class="userImgHome">
-        </script>
+
+<!-- YOU ARE ONLINE -->
+<div ng-show="changeOnline" class="drawer">
+  <nav>
+    <div>
+      <p>you are online</p>
+      <button ng-show="changeOnline" ng-click='goOff()' class= 'btn btn-default'>GO OFFLINE</button>
+    </div>
+    <div class="line"></div>
+  </nav>
+</div>
+
+
+
+<!-- CHANGES ONLINE BUTTON -->
+  <div id="onlinesection">
+        <button ng-show="!changeOnline"  class=" onlineBtn btn btn-default navbar-btn" ng-click="openOnlineModal()">GO ONLINE</button>
+        <button ng-show="changeOnline" class= 'offlineBtn btn btn-default navbar-btn'></button>
+    </div>
+
+
+
+<!-- PROFILE CONTAINER -->
+    <div class="profileWrapper">
+      <div class= "imageContainer">
+        <div ng-show="!changeOnline" class= "awesome userImgHome">
+          <img ngshow="photoFill" src="./images/noProfileImage.png" alt="" class="userImgHome">
+          <img ngshow="!photoFill" src="./photoUploads/{{SpCtrl.providerData.fileUpload.fileName}}"  class="userImgHome">
+        </div>
+        <div ng-show="changeOnline" class= "userImgHome">
+          <img ngshow="photoFill" src="./images/noProfileImage.png" alt="" class="userImgHome">
+          <img ngshow="!photoFill" src="./photoUploads/{{SpCtrl.providerData.fileUpload.fileName}}"  class="userImgHome">
+        </div>
+      </div>
+      <div class="profileContainer">
+        <h4>account settings</h4>
+        <div class="profileContent">
+          <div>
+            <p>First Name: </p>
+            <p>Last Name: </p>
+            <p>Phone Number: </p>
+            <p>Email: </p>
+          </div>
+          <sp-home-dir the-provider-data=SpCtrl.providerData></sp-home-dir>
+          <button title="edit profile" class="pull-right btn btn-default" ng-click="SpCtrl.editBtn1()"><img src=".././/icon.png" alt=""></button>
+
+        </div>
+        <div ng-show="SpCtrl.editInfo">
+          <form role="form" class="photoForm">
+            <div class="form-group">
+              <input type="file" file-model="SpCtrl.myFile" class="form-control">
+            </div>
+            <div class="uploadBtn">
+              <button type="button" class="btn btn-warning" ng-click="SpCtrl.uploadPFile()">post file</button>
+            </div>
+          </form>
+          <form role="form">
+            <div class="form-group">
+              <input type="text" ng-model="user.firstName" class="form-control" placeholder="{{SpCtrl.providerData.firstName}}">
+              <input type="text" ng-model="user.lastName" class="form-control" placeholder="{{SpCtrl.providerData.lastName}}">
+              <input type="text" ng-model="user.phoneNumber" class="form-control" placeholder="{{SpCtrl.providerData.phoneNumber}}">
+              <input type="text" ng-model="user.email" class="form-control" placeholder="{{SpCtrl.providerData.email}}">
+            </div>
+            <div class="profile-btns">
+              <button type="submit" class="btn btn-default" ng-click="SpCtrl.saveEdit(user)">Save Edit</button>
+              <button type="button" class="btn btn-default" ng-click="SpCtrl.deleteP()">Delete Account</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
+
+<!-- FOOTER SECTION -->
+<footer></footer>
+
+
+<!-- THIS WILL BE THE ABOUT ME SECTION -->
+<!-- <div class="panel-heading">
+  <h4>About Me</h4>
+  <button class="pull-right btn btn-default" ng-click="SpCtrl.editBtn2()">Edit</button>
 </div>
-
-
-
-
-<!-- angular bootstrap accordion content -->
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-10 col-md-offset-1 col-sm-12">
-
-        <uib-accordion>
-
-         <uib-accordion-group panel-class="panel-default" is-open="true">
-           <uib-accordion-heading>
-             <h3>Profile</h3>
-           </uib-accordion-heading>
-           <div class="profile-panels col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
-             <div class="panel-heading">
-               <h4>Settings</h4>
-               <button class="pull-right btn btn-default" ng-click="SpCtrl.editBtn1()">Edit</button>
-             </div>
-             <div class="profileContent">
-               <div class="panel-body col-md-3 col-md-offset-3 col-sm-6">
-                 <p>First Name: </p>
-                 <p>Last Name: </p>
-                 <p>Phone Number: </p>
-                 <p>Email: </p>
-               </div>
-               <sp-home-dir the-provider-data=SpCtrl.providerData></sp-home-dir>
-             </div>
-             <div class="panel-body" ng-show="SpCtrl.editInfo">
-
-
-               <form role="form" class="photoForm">
-                 <div class="form-group col-md-12 col-sm-12">
-                   <!-- <div class="tempPhoto">
-                     <img src="./photoUploads/{{SpCtrl.providerData.fileUpload.fileName}}" alt="photo preview">
-                   </div> -->
-                   <input type="file" file-model="SpCtrl.myFile" class="form-control">
-                 </div>
-                 <div class="uploadBtn col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
-                   <button type="button" class="btn btn-warning" ng-click="SpCtrl.uploadPFile()">post file</button>
-                 </div>
-               </form>
-
-
-               <form role="form">
-                 <div class="form-group col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
-                   <input type="text" ng-model="user.firstName" class="form-control" placeholder="{{SpCtrl.providerData.firstName}}">
-                   <input type="text" ng-model="user.lastName" class="form-control" placeholder="{{SpCtrl.providerData.lastName}}">
-                   <input type="text" ng-model="user.phoneNumber" class="form-control" placeholder="{{SpCtrl.providerData.phoneNumber}}">
-                   <input type="text" ng-model="user.email" class="form-control" placeholder="{{SpCtrl.providerData.email}}">
-                 </div>
-                 <div class="profile-btns col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
-                   <button type="submit" class="btn btn-default" ng-click="SpCtrl.saveEdit(user)">Save Edit</button>
-                   <button type="button" class="btn btn-default" ng-click="SpCtrl.deleteSp()">Delete Account</button>
-                 </div>
-               </form>
-             </div>
-             <div class="panel-heading">
-               <h4>About Me</h4>
-               <button class="pull-right btn btn-default" ng-click="SpCtrl.editBtn2()">Edit</button>
-             </div>
-             <div class="panel-body paragraph">
-               <p>{{SpCtrl.providerData.about}}</p>
-             </div>
-             <div class="panel-body" ng-show="SpCtrl.editAbout">
-               <form role="form">
-                 <div class="form-group">
-                   <textarea type="text" rows="5" class="form-control" ng-model="user.about" placeholder="About you . . ." value=""></textarea>
-                 </div>
-                 <button type="submit" class="btn btn-default" ng-click="SpCtrl.saveAbout(user)">Save Edit</button>
-               </form>
-             </div>
-             <div class="panel-heading">
-               <h4>Specialties</h4>
-               <button class="pull-right btn btn-default" ng-click="SpCtrl.editBtn3()">Edit</button>
-             </div>
-             <div class="panel-body paragraph">
-               <p>{{SpCtrl.providerData.specialties}}</p>
-             </div>
-             <div class="panel-body" ng-show="SpCtrl.editSpecial">
-               <form role="form">
-                 <div class="form-group">
-                   <textarea type="text" rows="5" class="form-control" ng-model="user.specialties" placeholder="Your Specialties . . ." value=""></textarea>
-                 </div>
-                 <button type="submit" class="btn btn-default" ng-click="SpCtrl.saveSpecialties(user)">Save Edit</button>
-               </form>
-             </div>
-           </div>
-         </uib-accordion-group>
-
-         <!-- <uib-accordion-group panel-class="panel-default">
-           <uib-accordion-heading>
-             <h3>History</h3>
-           </uib-accordion-heading>
-
-           <div class="history">
-             <div class="panel-body">
-
-               <div class="historyRow" ng-repeat="user in SpCtrl.historyData">
-                 <div class="historyBlock">
-                   <div class="userImgSm">
-                     <img src={{user.img}} alt="" class="userIcon">
-                   </div>
-                 </div>
-                 <div class="historyBlock">
-                     <p>{{user.firstName}} {{user.lastName}}</p>
-                 </div>
-                 <div class="historyBlock">
-                     <uib-rating ng-model="user.rating" max="{{user.rating}}" read-only="true" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
-                 </div>
-                 <div class="historyBlock comment">
-                     <p>{{user.comment}}</p>
-                 </div>
-                 <div class="historyBlock">
-                     <p class="date">{{user.date}}</p>
-                 </div>
-               </div>
-
-             </div>
-           </div>
-         </uib-accordion-group> -->
-
-        </uib-accordion>
-
-        <!-- <button ng-click="seeRequest()">See Request</button>
-        <div ng-show="show === 'hello'">
-          <div ng-repeat="friendRequest in friendRequests">
-            <p>{{friendRequests.address}}</p>
-          </div>
-        </div> -->
-
-        <!-- <button ng-click="seeRequest()">See Request</button> -->
-
-
-
+<div class="panel-body paragraph">
+  <p>{{SpCtrl.providerData.about}}</p>
+</div>
+<div class="panel-body" ng-show="SpCtrl.editAbout">
+  <form role="form">
+    <div class="form-group">
+      <textarea type="text" rows="5" class="form-control" ng-model="user.about" placeholder="About you . . ." value=""></textarea>
     </div>
-  </div>
-</div>
+    <button type="submit" class="btn btn-default" ng-click="SpCtrl.saveAbout(user)">Save Edit</button>
+  </form>
+</div> -->

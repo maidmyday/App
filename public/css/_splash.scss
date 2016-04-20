@@ -5,7 +5,6 @@
   justify-content: space-around;
   min-height: 600px;
   align-items: center;
-
 }
 
 div.mainpic {
@@ -19,14 +18,8 @@ div.backgroundImg {
   min-height: 900px;
   width: 100%;
   background-attachment: fixed;
-  overflow-y: scroll;
-
 }
 
-div.backgroundImg::-webkit-scrollbar {
-  /* This is the magic bit */
-  display: none;
-}
 
 .btn.btn-transparent {
   font-family: 'Sue Ellen Francisco', cursive;
@@ -51,11 +44,13 @@ div.backgroundImg::-webkit-scrollbar {
   height: 800px;
   flex: 2;
 }
+
+// ARROW BOUNCE
 .arrowDown{
-  position: absolute;
   width: 100%;
-  top: 83%;
-  left: 48%;
+  display: flex;
+  justify-content: center;
+  margin-top: -150px;
   &:hover{
   -webkit-animation: bounce 2200ms ease-out;
 }
@@ -81,78 +76,89 @@ div.backgroundImg::-webkit-scrollbar {
   }
 }
 
+
+// HOW TO SECTION
 .container{
   display: flex;
   margin-top: 87px;
+
   aside{
     flex:2;
-
   }
+
   section{
     flex:2;
     overflow: hidden;
     overflow-y: scroll;
     height: 400px;
-
-
   }
 }
-
-
 section::-webkit-scrollbar {
-  /* This is the magic bit */
   display: none;
 }
+
 footer{
   background-image: url("../../Footer2.png");
   background-size: 100%;
   background-repeat: no-repeat;
   height: 753px;
 }
+.footerBtn{    font-family: 'Josefin Sans', sans-serif !important;
+font-size: 17px !important;
+height: 48px !important;
+width: 200px !important;
+border: 2px solid  #E1E5EE !important;
+color: #E1E5EE !important;
+flex: 0 !important;
+&:hover {
+  background-color: #C7CCDB !important;
+  color: #2A324B !important;
+  border: 2px solid  #C7CCDB !important;
+}
+}
 
-// ::-webkit-scrollbar{
-//   width: 10px;
-// 	height: 10px;
-// 	cursor: pointer;
-// }
-// ::-webkit-scrollbar-track {
-//     -webkit-box-shadow: inset 0 0 6px 2px rgba(0,0,0,0.3);
-//     background: #C7CCDB;
-// }
-// ::-webkit-scrollbar-thumb {
-//     background: #E1E5EE;
-//     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-//     cursor: pointer;
-// }
-// ::selection{
-//     background: mintcream;
-// }
+.more{    font-family: 'Josefin Sans', sans-serif !important;
+font-size: 17px !important;
+background-color: #C7CCDB !important;
+height: 48px !important;
+width: 200px !important;
+border: 2px solid  #C7CCDB !important;
+color: #2A324B!important;
+flex: 0 !important;
+&:hover {
+  background-color: #2A324B !important;
+  color: #C7CCDB !important;
+  border: 2px solid  #C7CCDB !important;
+}
 
-@keyframes flip{
-  0%{
-    transform: rotateX(0deg);
-  }
-  15%{
-    transform: rotateX(360deg);
-  }
-  100%{
-    transform: rotateX(360deg);
+}
+
+
+.footer{
+  background-color: #2A324B;
+  height: 200px;
+  display: flex;
+  justify-content: space-around;
+align-items: baseline;;
+  img{
+    height: 100px;
+    align-self: flex-start;
+margin-top: -93px;
   }
 }
 
 
+
+// SCROLL BAR
+// HELP FROM https://css-tricks.com/examples/WebKitScrollbars/
 ::-webkit-scrollbar {
-    width: 12px;
+        width: 1%;
 }
-
-/* Track */
 ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     -webkit-border-radius: 10px;
     border-radius: 10px;
 }
-
-/* Handle */
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
@@ -161,4 +167,25 @@ footer{
 }
 ::-webkit-scrollbar-thumb:window-inactive {
 	background: rgba(255,0,0,0.4);
+}
+
+
+.linetwo{
+  height: 2px !important;
+background: url("../../ht-border.png");
+/* padding: 0; */
+background-color: #767B91;
+
+width: 81% !important;
+margin: 0 auto !important;
+margin-top: -52px !important;
+}
+
+.terms{
+  display: flex;
+justify-content: center;
+margin-top: 10px;
+  p{
+    color: #C7CCDB;
+  }
 }

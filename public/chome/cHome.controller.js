@@ -10,7 +10,7 @@ angular
 
     vm.animationsEnabled = true;
 
-    //logout button
+// LOGOUT BUTTON
     vm.logout = function(){
       console.log('data inside logout function',window.localStorage);
       ClientService.logoutNow().then(function(){
@@ -20,7 +20,8 @@ angular
       })
     }
 
-    //to load the page after changes
+
+// LOADS PAGE AFTER CHANGES
     vm.loadPage = function(){
       //getting data from the login and register
       ClientService.getClient(window.JSON.parse(window.localStorage.getItem('theclient')).id)
@@ -31,9 +32,9 @@ angular
     }
     vm.loadPage();
 
-    //PHOTO UPLOAD
-    // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
-    // thanks to Jenny Louthan !!! <3
+
+//PHOTO UPLOAD
+  // got this from https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
     vm.uploadCFile = function(){
         var file = vm.myFile;
         console.log('photo file is ',file );
@@ -49,18 +50,15 @@ angular
             vm.editInfo = !vm.editInfo;
           })
         });
-
     };
 
-    //edit profile content
+
+// EDIT PROFILE CONTENT
     vm.editInfo = false;
     vm.editBtn = function(){
       vm.editInfo = !vm.editInfo;
     }
-
-    // vm.master = {};
     vm.saveEdit = function(user){
-      // vm.master = angular.copy(user);
       console.log('should be new profile info obj',user);
       ClientService.editClient(user).then(function(data){
         vm.edittedData =  data.data;
@@ -71,7 +69,8 @@ angular
       })
     }
 
-    //delete client account
+
+// DELETE CLIENT
     vm.deleteC = function(){
       console.log('data inside delete function',window.localStorage);
       ClientService.deleteClient(window.JSON.parse(window.localStorage.getItem('theclient')).id).then(function(){
@@ -81,24 +80,8 @@ angular
       })
     }
 
-    //the rating stars
-    vm.rate = 0;
-    vm.max = 5;
-    vm.isReadonly = false;
 
-    vm.hoveringOver = function(value) {
-      vm.overStar = value;
-      vm.percent = 100 * (value / vm.max);
-    };
-
-    vm.ratingStates = [
-      {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
-      {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-      {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
-      {stateOn: 'glyphicon-heart'},
-      {stateOff: 'glyphicon-off'}
-    ];
-
+// OPENS MATCH MODAL
     $scope.animationsEnabled = true;
     $scope.openMatchModal = function (size) {
 
@@ -113,14 +96,6 @@ angular
           }
         }
       });
-    }
-
-    $scope.activePost = false;
-    $scope.activeRequest = function(){
-      $rootScope.requestedUser = window.JSON.parse(window.localStorage.getItem('requestedUser'));
-      $rootScope.requestedData = window.JSON.parse(window.localStorage.getItem('requestInfo'));
-      console.log('the provider',requestedUser);
-      console.log('the request info',requestedData);
     }
 
   }

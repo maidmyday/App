@@ -41,6 +41,7 @@
     <div class="w3-container w3-center">
       <img ng-click="showSubmitForm()" src="../../photoUploads/{{matchUser.fileUpload.fileName}}" alt="Avatar" >
       <h5>{{matchUser.firstName}}</h5>
+      <h5>{{matchUser.tasks[matchUser.tasks.length-1].taskName}}</h5>
 
       <!-- <form ng-submit="requestSent(matchUser,post)">
         <input type="text" placeholder="address" ng-model="post.address">

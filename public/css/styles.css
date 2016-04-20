@@ -13,12 +13,7 @@ div.backgroundImg {
   background-size: 100%;
   min-height: 900px;
   width: 100%;
-  background-attachment: fixed;
-  overflow-y: scroll; }
-
-div.backgroundImg::-webkit-scrollbar {
-  /* This is the magic bit */
-  display: none; }
+  background-attachment: fixed; }
 
 .btn.btn-transparent {
   font-family: 'Sue Ellen Francisco', cursive;
@@ -42,10 +37,10 @@ div.backgroundImg::-webkit-scrollbar {
   flex: 2; }
 
 .arrowDown {
-  position: absolute;
   width: 100%;
-  top: 83%;
-  left: 48%; }
+  display: flex;
+  justify-content: center;
+  margin-top: -150px; }
   .arrowDown:hover {
     -webkit-animation: bounce 2200ms ease-out; }
 
@@ -76,7 +71,6 @@ div.backgroundImg::-webkit-scrollbar {
     height: 400px; }
 
 section::-webkit-scrollbar {
-  /* This is the magic bit */
   display: none; }
 
 footer {
@@ -85,24 +79,52 @@ footer {
   background-repeat: no-repeat;
   height: 753px; }
 
-@keyframes flip {
-  0% {
-    transform: rotateX(0deg); }
-  15% {
-    transform: rotateX(360deg); }
-  100% {
-    transform: rotateX(360deg); } }
+.footerBtn {
+  font-family: 'Josefin Sans', sans-serif !important;
+  font-size: 17px !important;
+  height: 48px !important;
+  width: 200px !important;
+  border: 2px solid  #E1E5EE !important;
+  color: #E1E5EE !important;
+  flex: 0 !important; }
+  .footerBtn:hover {
+    background-color: #C7CCDB !important;
+    color: #2A324B !important;
+    border: 2px solid  #C7CCDB !important; }
+
+.more {
+  font-family: 'Josefin Sans', sans-serif !important;
+  font-size: 17px !important;
+  background-color: #C7CCDB !important;
+  height: 48px !important;
+  width: 200px !important;
+  border: 2px solid  #C7CCDB !important;
+  color: #2A324B !important;
+  flex: 0 !important; }
+  .more:hover {
+    background-color: #2A324B !important;
+    color: #C7CCDB !important;
+    border: 2px solid  #C7CCDB !important; }
+
+.footer {
+  background-color: #2A324B;
+  height: 200px;
+  display: flex;
+  justify-content: space-around;
+  align-items: baseline; }
+  .footer img {
+    height: 100px;
+    align-self: flex-start;
+    margin-top: -93px; }
 
 ::-webkit-scrollbar {
-  width: 12px; }
+  width: 1%; }
 
-/* Track */
 ::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   -webkit-border-radius: 10px;
   border-radius: 10px; }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   -webkit-border-radius: 10px;
   border-radius: 10px;
@@ -111,6 +133,22 @@ footer {
 
 ::-webkit-scrollbar-thumb:window-inactive {
   background: rgba(255, 0, 0, 0.4); }
+
+.linetwo {
+  height: 2px !important;
+  background: url("../../ht-border.png");
+  /* padding: 0; */
+  background-color: #767B91;
+  width: 81% !important;
+  margin: 0 auto !important;
+  margin-top: -52px !important; }
+
+.terms {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px; }
+  .terms p {
+    color: #C7CCDB; }
 
 img.ng-invalid {
   background-color: red; }
@@ -240,111 +278,53 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
   height: 34px;
   padding: 6px 32px; }
 
-div.history {
-  width: 80%;
-  margin: 0 auto; }
-  div.history div.historyRow {
-    width: 100%;
+.logout {
+  display: flex;
+  justify-content: space-between;
+  height: 83px;
+  background-color: rgba(241, 241, 241, 0.5); }
+  .logout img {
+    height: 66px; }
+  .logout .welcome {
     display: flex;
-    justify-content: space-between; }
-    div.history div.historyRow div.historyBlock {
+    width: 20%; }
+    .logout .welcome .notmiddle {
+      width: 45%; }
+    .logout .welcome img {
+      height: 31px;
+      align-self: center; }
+    .logout .welcome p {
       align-self: center;
-      max-height: 200px;
-      width: 200px; }
-      div.history div.historyRow div.historyBlock div.historyBlock.comment {
-        overflow: scroll; }
-      div.history div.historyRow div.historyBlock p.date {
-        text-align: right; }
-
-div.userImgSm {
-  background-color: #ead2ac;
-  display: inline-block;
-  overflow: hidden;
-  border-radius: 100%;
-  width: 100px;
-  height: 100px;
-  position: relative; }
-  div.userImgSm img.userIcon {
-    width: 170%;
-    height: auto;
-    display: block;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translateY(-50%) translateX(-50%); }
-
-.profileBackground {
-  background-color: lightblue; }
-
-nav {
-  background-color: rgba(255, 255, 255, 0.5);
-  height: 100px; }
-  nav div {
+      font-family: 'Josefin Sans', sans-serif;
+      color: #767B91;
+      font-size: 20px;
+      width: 120%;
+      margin-left: -16px;
+      margin-top: 25px; }
+  .logout .exit {
     display: flex;
-    justify-content: space-between;
-    height: 100px; }
-    nav div h2 {
-      font-family: 'Sue Ellen Francisco', cursive;
-      font-size: 34px;
-      color: #767B91; }
-    nav div img {
-      height: 56px;
-      align-self: flex-end; }
+    margin-right: 11px; }
+    .logout .exit img {
+      height: 12px;
+      align-self: center;
+      margin-left: -8px;
+      margin-top: -4px; }
+    .logout .exit button {
+      align-self: center;
+      font-family: 'Josefin Sans', sans-serif;
+      color: #767B91;
+      border: none;
+      font-size: 16px;
+      background-color: rgba(241, 241, 241, 0); }
+      .logout .exit button:hover {
+        background-color: rgba(241, 241, 241, 0);
+        color: #C7CCDB; }
 
-p.navbar-text {
-  display: inline-block; }
-  p.navbar-text span {
-    font-weight: 800; }
-
-h4.navbar-brand {
-  padding: 0 10px;
-  font-size: 30px; }
-
-div.panel div.textContent {
-  display: inline-block;
-  text-align: right;
-  height: 100%; }
-  div.panel div.textContent p.headerText {
-    display: inline-block;
-    font-weight: 400; }
-  div.panel div.textContent p.headerUser {
-    display: inline-block;
-    font-weight: 700; }
-
-div.userImgRow {
-  margin-top: 200px;
-  margin-bottom: 10px; }
-
-div.userImgHomeParent {
-  text-align: center; }
-
-div.userImgHome {
-  margin: 0;
+.line {
+  height: 1px;
+  background: url("../../ht-border.png");
   padding: 0;
-  position: relative;
-  display: inline-block;
-  border-radius: 100%;
-  overflow: hidden;
-  width: 300px;
-  height: 300px; }
-  div.userImgHome img.userImgHome {
-    height: auto;
-    width: 140%;
-    display: block;
-    margin: 0 auto;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translateY(-50%) translateX(-50%); }
-
-div.panel > .panel-heading {
-  background-color: #9CAFB7;
-  border-radius: 0; }
-  div.panel > .panel-heading h3 {
-    text-align: center;
-    color: #FFFFFF; }
-    div.panel > .panel-heading h3 a {
-      text-decoration: none; }
+  background-color: #767B91; }
 
 form.photoForm {
   margin-bottom: 10px; }
@@ -368,88 +348,120 @@ form.photoForm {
     justify-content: space-between;
     margin-bottom: 20px; }
 
-uib-accordion-heading {
-  background-color: #EAD2AC; }
-
-div.profile-panels h4 {
-  display: inline-block; }
-
-div.profile-panels div.profile-btns {
+.profileWrapper {
   display: flex;
-  justify-content: space-between; }
-
-div.profileContent {
-  min-height: 180px; }
-
-div.paragraph {
-  max-height: 500px;
-  overflow: auto; }
-
-.glyphicon-star {
-  color: #EAD2AC; }
-
-.glyphicon-star-empty {
-  color: #9CAFB7; }
-
-#online {
-  background-color: green; }
-
-#offline {
-  background-color: red; }
-
-.dot {
-  box-sizing: border-box;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  border: .125rem;
-  display: inline-block; }
-
-.red {
-  background: #e63946;
-  box-shadow: inset 0px 0px 10px 2px #e63946, 0px 0px 10px 2px #e63946; }
-
-.green {
-  background: #32936f;
-  box-shadow: inset 0px 0px 10px 2px #32936f, 0px 0px 10px 2px #32936f; }
-
-div.jobModal div.modal-header {
-  text-align: center;
-  border: none; }
-
-div.jobModal div.modal-body {
-  border: none; }
-  div.jobModal div.modal-body p {
-    display: inline-block; }
-  div.jobModal div.modal-body table {
-    width: 100%; }
-    div.jobModal div.modal-body table tr.jobChecks {
-      vertical-align: text-top;
-      width: 100%;
-      display: flex;
-      justify-content: space-around; }
-      div.jobModal div.modal-body table tr.jobChecks p {
-        margin-left: 10px; }
-    div.jobModal div.modal-body table tr.instruction div.instruction, div.jobModal div.modal-body table tr.instruction div.location, div.jobModal div.modal-body table tr.location div.instruction, div.jobModal div.modal-body table tr.location div.location {
-      display: flex;
-      justify-content: space-around; }
-      div.jobModal div.modal-body table tr.instruction div.instruction input[name='jobLocation'], div.jobModal div.modal-body table tr.instruction div.location input[name='jobLocation'], div.jobModal div.modal-body table tr.location div.instruction input[name='jobLocation'], div.jobModal div.modal-body table tr.location div.location input[name='jobLocation'] {
-        width: 70%; }
-      div.jobModal div.modal-body table tr.instruction div.instruction textarea[name='instruction'], div.jobModal div.modal-body table tr.instruction div.location textarea[name='instruction'], div.jobModal div.modal-body table tr.location div.instruction textarea[name='instruction'], div.jobModal div.modal-body table tr.location div.location textarea[name='instruction'] {
-        width: 70%; }
-
-div.jobModal div.modal-footer {
-  border: none;
-  display: block; }
-  div.jobModal div.modal-footer div.jobFormBtns {
+  justify-content: space-between;
+  width: 96%;
+  margin: 0 auto;
+  margin-top: 100px; }
+  .profileWrapper .imageContainer {
+    flex: 1; }
+  .profileWrapper .profileContainer {
+    flex: 1; }
+  .profileWrapper .profileContent {
     display: flex;
-    justify-content: space-between; }
+    justify-content: space-around;
+    align-items: center;
+    min-height: 223px; }
+    .profileWrapper .profileContent button {
+      align-self: flex-start;
+      height: 31px;
+      border: none; }
+      .profileWrapper .profileContent button:focus {
+        background-color: #FFF; }
+      .profileWrapper .profileContent button:hover {
+        background-color: white; }
+      .profileWrapper .profileContent button img {
+        height: 25px;
+        width: 9%; }
+        .profileWrapper .profileContent button img:hover {
+          background-color: #FFF;
+          -webkit-animation: spin 1000ms ease-out; }
+      .profileWrapper .profileContent button:active {
+        background-color: none; }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
+
+.footerhome {
+  background-image: url("../../Footer2.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 753px; }
+
+.postjob {
+  font-family: 'Josefin Sans', sans-serif;
+  margin-top: 178px;
+  margin-left: 546px;
+  height: 48px;
+  width: 200px;
+  border: 2px solid  #767B91;
+  color: #767B91; }
+  .postjob:hover {
+    background-color: #767B91;
+    color: #FFF;
+    border: 2px solid  #767B91; }
+
+.onlineBtn {
+  font-family: 'Josefin Sans', sans-serif;
+  margin-top: 178px;
+  margin-left: 546px;
+  height: 48px;
+  width: 200px;
+  border: 2px solid  #767B91;
+  color: #767B91; }
+  .onlineBtn:hover {
+    background-color: #767B91;
+    color: #FFF;
+    border: 2px solid  #767B91; }
+
+.offlineBtn {
+  font-family: 'Josefin Sans', sans-serif;
+  margin-top: 178px;
+  margin-left: 546px;
+  height: 48px;
+  width: 200px;
+  border: 2px solid  #FFF;
+  color: #FFF; }
+  .offlineBtn:hover {
+    background-color: #FFF;
+    color: #FFF;
+    border: 2px solid  #FFF; }
+
+div.userImgHome {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: inline-block;
+  border-radius: 100%;
+  overflow: hidden;
+  width: 400px;
+  height: 400px; }
+  div.userImgHome img {
+    height: auto;
+    width: 140%;
+    display: block;
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translateY(-50%) translateX(-50%); }
+
+.drawer {
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  height: 30px;
+  margin-top: 83px; }
 
 @media (min-width: 0px) and (max-width: 500px) {
   div.backgroundImg {
     background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("../background.jpeg");
     background-repeat: no-repeat;
-    background-size: 200%;
+    background-size: 225%;
     min-height: 900px;
     width: 100%;
     background-attachment: fixed;
@@ -459,26 +471,170 @@ div.jobModal div.modal-footer {
     min-height: 600px;
     align-items: flex-start;
     flex-wrap: wrap; }
+  .container {
+    flex-flow: column; }
   div.mainpic {
     align-self: center; }
   div.headline {
     background-image: url("../logo.png");
     background-size: 99%;
     background-repeat: no-repeat;
-    height: 876px;
+    height: 846px;
     width: 100%;
     order: 3;
-    flex: none; }
+    flex: none;
+    margin-top: 93px; }
   .arrowDown {
-    position: absolute;
-    top: 83%;
-    left: 42%; }
-  .arrow {
-    width: 18%; }
+    display: none; }
   footer {
     background-size: 100%;
     background-repeat: no-repeat;
-    height: 259px; } }
+    height: 239px; }
+  .btn.btn-transparent {
+    font-size: 25px; }
+  .logout {
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    background-color: rgba(241, 241, 241, 0.5); }
+    .logout img {
+      height: 44px;
+      align-self: flex-end; }
+    .logout .welcome {
+      display: none; }
+      .logout .welcome img {
+        height: 31px;
+        align-self: center; }
+      .logout .welcome p {
+        align-self: flex-end;
+        font-family: 'Josefin Sans', sans-serif;
+        color: #767B91;
+        font-size: 20px; }
+    .logout .exit {
+      display: flex; }
+      .logout .exit img {
+        height: 14px;
+        align-self: center; }
+      .logout .exit button {
+        align-self: flex-end;
+        font-family: 'Josefin Sans', sans-serif;
+        color: #767B91;
+        border: none;
+        font-size: 16px;
+        background-color: rgba(241, 241, 241, 0); }
+        .logout .exit button:hover {
+          background-color: rgba(241, 241, 241, 0);
+          color: #C7CCDB; }
+  .profileWrapper {
+    display: flex;
+    justify-content: space-around;
+    width: 88%;
+    flex-flow: column;
+    margin-top: 10px; }
+    .profileWrapper .imageContainer {
+      flex: 1;
+      margin-bottom: 80px; }
+  .postjob {
+    font-family: 'Josefin Sans', sans-serif;
+    margin-top: 102px;
+    margin-left: 95px;
+    height: 48px;
+    width: 200px;
+    border: 2px solid #767B91;
+    color: #767B91; }
+  div.userImgHome {
+    position: relative;
+    display: inline-block;
+    border-radius: 100%;
+    overflow: hidden;
+    width: 100%;
+    height: 400px;
+    margin-bottom: 78px; }
+  .profileWrapper .profileContent button img {
+    height: 25px;
+    width: 101%; }
+  .profileWrapper .profileContent button {
+    width: 13%; }
+  .onlineBtn {
+    margin-left: 98px;
+    margin-bottom: 33px; }
+  .footer {
+    background-color: #2A324B;
+    height: 200px;
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline; }
+    .footer img {
+      display: none; } }
+
+label {
+  margin-left: 25px;
+  font-weight: normal; }
+
+.drawer-menu {
+  box-sizing: border-box;
+  -webkit-transition-property: all;
+  transition-property: all;
+  -webkit-transition-duration: .5s;
+  transition-duration: .5s;
+  -webkit-transition-delay: 0s;
+  transition-delay: 0s;
+  -webkit-transform-origin: right center;
+  -ms-transform-origin: right center;
+  transform-origin: right center;
+  -webkit-transform: perspective(500px) rotateY(-90deg);
+  transform: perspective(500px) rotateY(-90deg);
+  opacity: 0; }
+
+.check {
+  display: none; }
+
+.menu-btn {
+  width: 40px;
+  height: 40px; }
+
+.bar {
+  width: 82px;
+  height: 22px !important;
+  -webkit-transition: all .5s;
+  transition: all .5s;
+  -webkit-transform-origin: left top;
+  -ms-transform-origin: left top;
+  transform-origin: left top; }
+
+.bar.middle {
+  top: 15px;
+  opacity: 1; }
+
+.bar.bottom {
+  top: 30px;
+  -webkit-transform-origin: left bottom left;
+  -ms-transform-origin: left bottom;
+  transform-origin: left bottom;
+  margin-top: 6px; }
+
+.bar.top {
+  margin-top: 8px; }
+
+.check:checked ~ .menu-btn .menu {
+  visibility: hidden;
+  opacity: 0; }
+
+.check:checked ~ .menu-btn .bar.top {
+  width: 69px;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg); }
+
+.check:checked ~ .menu-btn .bar.middle {
+  opacity: 0; }
+
+.check:checked ~ .menu-btn .bar.bottom {
+  width: 69px;
+  top: 40px;
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg); }
 
 .cardsContainer h1 {
   font-family: 'Poiret One', cursive !important; }
