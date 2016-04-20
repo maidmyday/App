@@ -100,7 +100,11 @@ align-self: flex-end;
     justify-content: space-around;
     width: 88%;
     flex-flow: column;
-    margin: 200px auto;
+    margin-top: 10px;
+    .imageContainer {
+    flex: 1;
+    margin-bottom: 80px;
+  }
 }
 
 .postjob{
@@ -108,14 +112,14 @@ align-self: flex-end;
   margin-top: 102px;
   margin-left: 95px;
   height: 48px;
-  margin-bottom: -152px;
+  // margin-bottom: -152px;
   width: 200px;
   border: 2px solid #767B91;
   color: #767B91;
 }
 
 div.userImgHome {
-  
+
     position: relative;
     display: inline-block;
     border-radius: 100%;
@@ -128,6 +132,14 @@ div.userImgHome {
 .profileWrapper .profileContent button img {
     height: 25px;
     width: 101%;
+}
+
+.profileWrapper .profileContent button{
+  width: 13%;
+}
+.onlineBtn{
+  margin-left: 98px;
+margin-bottom: 33px;
 }
 
 }
