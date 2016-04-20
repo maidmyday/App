@@ -38,16 +38,13 @@ angular
   };
 
 
+// SCROLL THAT I NEED TO CITE
   $(document).ready(function () {
-
-      // scroll positioning
       $('[data-scroll]').click(function() {
           var a = $($(this).attr('data-scroll')).position();
           a = a.top;
           $('html, body').animate({scrollTop: a-40}, 500);
       });
-
-
   });
 
 })

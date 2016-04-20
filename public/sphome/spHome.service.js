@@ -15,17 +15,14 @@ angular
       return $http.delete(spurl + '/' + id);
     }
 
-    //registering a provider
     function getProvider(id) {
       return $http.get(spurl + '/' + id);
     }
 
-    //editing provider profile
     function editProvider(user) {
       return $http.put('/provider', user);
     }
 
-    //uploading a photo to database
     function uploadFileToUrl(file, uploadUrl){
         var fd = new FormData();
         fd.append('photo', file);
@@ -38,6 +35,7 @@ angular
     function putProviderOffline(user,idOfUser) {
       return $http.put(spurl + '/' + idOfUser + "/isOnline", user);
     }
+
     function isUserOnline(userId) {
       return $http.get(spurl + '/' + userId).then(function (user) {
         console.log('service isOnline', user.data.isOnline);
@@ -76,7 +74,6 @@ angular
     ]
 
     return {
-
       putProviderOffline: putProviderOffline,
       isUserOnline: isUserOnline,
       uploadFileToUrl: uploadFileToUrl,
