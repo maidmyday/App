@@ -142,4 +142,15 @@ div.userImgHome {
 margin-bottom: 33px;
 }
 
+.footer{
+  background-color: #2A324B;
+  height: 200px;
+  display: flex;
+  justify-content: space-around;
+align-items: baseline;;
+  img{
+    display: none;
+  }
+}
+
 }
