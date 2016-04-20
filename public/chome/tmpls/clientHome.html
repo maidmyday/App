@@ -1,3 +1,4 @@
+
 <!-- NAVBAR -->
 <nav class=" navbar-fixed-top">
   <div class="logout">
@@ -24,61 +25,61 @@
 
 
 
-
 <!-- POST JOB BUTTON -->
-
 <button class="btn btn-default navbar-btn postjob" ng-click="openMatchModal()">POST JOB</button>
 
 
 
+
 <!-- PROFILE CONTAINER -->
-
-          <div class="profileWrapper">
-            <div class= "imageContainer">
-              <div class="userImgHome">
-                <img ngshow="photoFill" src="./images/noProfileImage.png" alt="" class="userImgHome">
-                <img ngshow="!photoFill" src="./photoUploads/{{CliCtrl.clientData.fileUpload.fileName}}"  class="userImgHome">
-              </div>
-            </div>
-            <div class="profileContainer">
-              <h4>account settings</h4>
-              <div class="profileContent">
-                <div>
-                  <p>First Name: </p>
-                  <p>Last Name: </p>
-                  <p>Phone Number: </p>
-                  <p>Email: </p>
-                </div>
-                <cli-home-dir the-client-data=CliCtrl.clientData></cli-home-dir>
-                <button title="edit profile" class="pull-right btn btn-default" ng-click="CliCtrl.editBtn()"><img src=".././/icon.png" alt=""></button>
-
-              </div>
-              <div ng-show="CliCtrl.editInfo">
-                <form role="form" class="photoForm">
-                  <div class="form-group">
-                    <input type="file" file-model="CliCtrl.myFile" class="form-control">
-                  </div>
-                  <div class="uploadBtn">
-                    <button type="button" class="btn btn-warning" ng-click="CliCtrl.uploadCFile()">post file</button>
-                  </div>
-                </form>
-                <form role="form">
-                  <div class="form-group">
-                    <input type="text" ng-model="user.firstName" class="form-control" placeholder="{{CliCtrl.clientData.firstName}}">
-                    <input type="text" ng-model="user.lastName" class="form-control" placeholder="{{CliCtrl.clientData.lastName}}">
-                    <input type="text" ng-model="user.phoneNumber" class="form-control" placeholder="{{CliCtrl.clientData.phoneNumber}}">
-                    <input type="text" ng-model="user.email" class="form-control" placeholder="{{CliCtrl.clientData.email}}">
-                  </div>
-                  <div class="profile-btns">
-                    <button type="submit" class="btn btn-default" ng-click="CliCtrl.saveEdit(user)">Save Edit</button>
-                    <button type="button" class="btn btn-default" ng-click="CliCtrl.deleteC()">Delete Account</button>
-                  </div>
-                </form>
-              </div>
-            </div>
+    <div class="profileWrapper">
+      <div class= "imageContainer">
+        <div ng-show="!changeOnline" class= "userImgHome">
+          <img ngshow="photoFill" src="./images/noProfileImage.png" alt="" class="userImgHome">
+          <img ngshow="!photoFill" src="./photoUploads/{{CliCtrl.clientData.fileUpload.fileName}}"  class="userImgHome">
+        </div>
+        <div ng-show="changeOnline" class= "userImgHome">
+          <img ngshow="photoFill" src="./images/noProfileImage.png" alt="" class="userImgHome">
+          <img ngshow="!photoFill" src="./photoUploads/{{CliCtrl.clientData.fileUpload.fileName}}"  class="userImgHome">
+        </div>
+      </div>
+      <div class="profileContainer">
+        <h4>account settings</h4>
+        <div class="profileContent">
+          <div>
+            <p>First Name: </p>
+            <p>Last Name: </p>
+            <p>Phone Number: </p>
+            <p>Email: </p>
           </div>
+          <cli-home-dir the-client-data=CliCtrl.clientData></cli-home-dir>
+          <button title="edit profile" class="pull-right btn btn-default" ng-click="CliCtrl.editBtn()"><img src=".././/icon.png" alt=""></button>
 
+        </div>
+        <div ng-show="CliCtrl.editInfo">
+          <form role="form" class="photoForm">
+            <div class="form-group">
+              <input type="file" file-model="CliCtrl.myFile" class="form-control">
+            </div>
+            <div class="uploadBtn">
+              <button type="button" class="btn btn-warning" ng-click="CliCtrl.uploadCFile()">post file</button>
+            </div>
+          </form>
+          <form role="form">
+            <div class="form-group">
+              <input type="text" ng-model="user.firstName" class="form-control" placeholder="{{CliCtrl.clientData.firstName}}">
+              <input type="text" ng-model="user.lastName" class="form-control" placeholder="{{CliCtrl.clientData.lastName}}">
+              <input type="text" ng-model="user.phoneNumber" class="form-control" placeholder="{{CliCtrl.clientData.phoneNumber}}">
+              <input type="text" ng-model="user.email" class="form-control" placeholder="{{CliCtrl.clientData.email}}">
+            </div>
+            <div class="profile-btns">
+              <button type="submit" class="btn btn-default" ng-click="CliCtrl.saveEdit(user)">Save Edit</button>
+              <button type="button" class="btn btn-default" ng-click="CliCtrl.deleteP()">Delete Account</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
 
-
-<!-- FOOTER -->
+<!-- FOOTER SECTION -->
 <footer></footer>
