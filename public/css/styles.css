@@ -64,13 +64,21 @@ div.backgroundImg {
   margin-top: 87px; }
   .container aside {
     flex: 2;
-    font-family: 'Josefin Sans', sans-serif !important; }
+    font-family: 'Sue Ellen Francisco', cursive !important;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .container aside h2 {
+      font-family: 'Sue Ellen Francisco', cursive;
+      font-size: 58px;
+      color: #767B91; }
   .container section {
     font-family: 'Josefin Sans', sans-serif !important;
     flex: 2;
     overflow: hidden;
     overflow-y: scroll;
-    height: 400px; }
+    height: 400px;
+    align-self: center; }
 
 section::-webkit-scrollbar {
   display: none; }
@@ -156,6 +164,18 @@ footer {
 .three {
   width: 18%;
   height: 2px !important; }
+
+.border {
+  display: flex;
+  flex-flow: column; }
+  .border img {
+    width: 106px;
+    height: 83px; }
+
+#pageTop {
+  margin-left: -1%;
+  margin-bottom: -11%;
+  margin-top: 0%; }
 
 img.ng-invalid {
   background-color: red; }
@@ -472,6 +492,13 @@ div.userImgHome {
   flex-flow: column;
   justify-content: flex-end; }
 
+.btn-warning {
+  background-color: #767B91 !important;
+  border: none !important; }
+
+.form-control {
+  margin-top: 2% !important; }
+
 .drawer {
   position: fixed;
   width: 100%;
@@ -618,7 +645,9 @@ div.overallModal button {
     justify-content: space-around;
     align-items: baseline; }
     .footer img {
-      display: none; } }
+      display: none; }
+  .border {
+    display: none !important; } }
 
 label {
   margin-left: 25px;
@@ -735,6 +764,8 @@ form {
     height: 700px; } }
 
 @media (min-width: 301px) and (max-width: 500px) {
+  .border {
+    display: none !important; }
   footer {
     height: 240px; }
   .footer img {
@@ -770,6 +801,8 @@ form {
     display: none; } }
 
 @media (min-width: 501px) and (max-width: 600px) {
+  .border {
+    display: none !important; }
   footer {
     height: 313px; }
   .footer img {
@@ -805,6 +838,8 @@ form {
     display: none; } }
 
 @media (min-width: 601px) and (max-width: 700px) {
+  .border {
+    display: none !important; }
   footer {
     height: 375px; }
   .footer img {
@@ -840,6 +875,8 @@ form {
     display: none; } }
 
 @media (min-width: 701px) and (max-width: 800px) {
+  .border {
+    display: none !important; }
   footer {
     height: 441px; }
   .footer img {
@@ -908,3 +945,6 @@ form {
     margin-top: 93px; }
   .arrowDown {
     display: none; } }
+
+.glyphicon {
+  top: 4px !important; }
