@@ -344,6 +344,20 @@ public class MaidMyDayController {
         return requestRepository.findFirstByProvider(provider);
     }
 
+//    @RequestMapping(path = "/requests/provider/{id}", method = RequestMethod.GET)
+//    public List<Request> providerJobHistory(@PathVariable ("id") int id) {
+//        Provider provider = providerRepository.findOne(id);
+//        List<Request> providerHistory = requestRepository.findByProvider(provider);
+//        return providerHistory;
+//    }
+//
+//    @RequestMapping(path = "/requests/client/{id}", method = RequestMethod.GET)
+//    public List<Request> clientJobHistory(@PathVariable ("id") int id) {
+//        Client client = clientRepository.findOne(id);
+//        List<Request> clientHistory = requestRepository.findByClient(client);
+//        return clientHistory;
+//    }
+
 //    @RequestMapping(path = "/request/{id}/isDone", method = RequestMethod.PUT)
 //    public void requestCompleted(@PathVariable ("id") int id) {
 //        Request request = requestRepository.findOne(id);
