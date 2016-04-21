@@ -50,6 +50,7 @@ public class ObjectUpdateUtils {
         String newPhoneNumber = updates.getPhoneNumber();
         String newAbout = updates.getAbout();
         String newSpecialties = updates.getSpecialties();
+        String newRate = updates.getRate();
 
         if (!StringUtils.isEmptyOrNull(newfirstName)) {
             provider.setFirstName(newfirstName);
@@ -68,6 +69,9 @@ public class ObjectUpdateUtils {
         }
         if (!StringUtils.isEmptyOrNull(newSpecialties)) {
             provider.setSpecialties(newSpecialties);
+        }
+        if (!StringUtils.isEmptyOrNull(newRate)) {
+            provider.setRate(newRate);
         }
 
         return provider;
