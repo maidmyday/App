@@ -33,7 +33,7 @@ div.backgroundImg {
   background-image: url("../logo.png");
   background-size: 100%;
   background-repeat: no-repeat;
-  height: 800px;
+  height: 742px;
   flex: 2; }
 
 .arrowDown {
@@ -63,8 +63,10 @@ div.backgroundImg {
   display: flex;
   margin-top: 87px; }
   .container aside {
-    flex: 2; }
+    flex: 2;
+    font-family: 'Josefin Sans', sans-serif !important; }
   .container section {
+    font-family: 'Josefin Sans', sans-serif !important;
     flex: 2;
     overflow: hidden;
     overflow-y: scroll;
@@ -74,10 +76,10 @@ section::-webkit-scrollbar {
   display: none; }
 
 footer {
-  background-image: url("../../Footer2.png");
+  background-image: url("../../Footer-empty.png");
   background-size: 100%;
   background-repeat: no-repeat;
-  height: 753px; }
+  height: 816px; }
 
 .footerBtn {
   font-family: 'Josefin Sans', sans-serif !important;
@@ -86,7 +88,8 @@ footer {
   width: 200px !important;
   border: 2px solid  #E1E5EE !important;
   color: #E1E5EE !important;
-  flex: 0 !important; }
+  flex: 0 !important;
+  align-self: baseline; }
   .footerBtn:hover {
     background-color: #C7CCDB !important;
     color: #2A324B !important;
@@ -100,7 +103,8 @@ footer {
   width: 200px !important;
   border: 2px solid  #C7CCDB !important;
   color: #2A324B !important;
-  flex: 0 !important; }
+  flex: 0 !important;
+  align-self: baseline; }
   .more:hover {
     background-color: #2A324B !important;
     color: #C7CCDB !important;
@@ -137,7 +141,6 @@ footer {
 .linetwo {
   height: 2px !important;
   background: url("../../ht-border.png");
-  /* padding: 0; */
   background-color: #767B91;
   width: 81% !important;
   margin: 0 auto !important;
@@ -149,6 +152,10 @@ footer {
   margin-top: 10px; }
   .terms p {
     color: #C7CCDB; }
+
+.three {
+  width: 18%;
+  height: 2px !important; }
 
 img.ng-invalid {
   background-color: red; }
@@ -390,7 +397,17 @@ form.photoForm {
   background-image: url("../../Footer2.png");
   background-size: 100%;
   background-repeat: no-repeat;
-  height: 753px; }
+  height: 880px; }
+  .footerhome p {
+    z-index: 10000;
+    color: white; }
+
+.footer {
+  background-color: #2A324B;
+  height: 239px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center; }
 
 .postjob {
   font-family: 'Josefin Sans', sans-serif;
@@ -450,6 +467,11 @@ div.userImgHome {
     top: 50%;
     -webkit-transform: translateY(-50%) translateX(-50%); }
 
+.homefooter {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-end; }
+
 .drawer {
   position: fixed;
   width: 100%;
@@ -476,7 +498,18 @@ div.overallModal button {
   margin-top: 30px;
   margin-bottom: 30px; }
 
-@media (min-width: 0px) and (max-width: 500px) {
+.onlineButton {
+  font-size: 21px;
+  font-family: 'Josefin Sans', sans-serif;
+  margin-top: 0px;
+  margin-left: 0px;
+  height: 48px;
+  width: 200px;
+  border: 2px solid #767B91;
+  color: #767B91;
+  background-color: white; }
+
+@media (min-width: 0px) and (max-width: 300px) {
   div.backgroundImg {
     background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("../background.jpeg");
     background-repeat: no-repeat;
@@ -491,7 +524,8 @@ div.overallModal button {
     align-items: flex-start;
     flex-wrap: wrap; }
   .container {
-    flex-flow: column; }
+    flex-flow: column;
+    margin-top: 29px; }
   div.mainpic {
     align-self: center; }
   div.headline {
@@ -676,3 +710,201 @@ form {
     height: 100px;
     width: 100px;
     border-radius: 100%; }
+
+.matchBtn {
+  font-size: 21px;
+  font-family: 'Josefin Sans', sans-serif;
+  margin-top: 0px;
+  margin-left: 22px;
+  height: 48px;
+  width: 266px;
+  border: 2px solid #767B91;
+  color: #767B91;
+  background-color: white; }
+
+@media (min-width: 901px) and (max-width: 1000px) {
+  footer {
+    height: 567px; } }
+
+@media (min-width: 1001px) and (max-width: 1100px) {
+  footer {
+    height: 648px; } }
+
+@media (min-width: 1101px) and (max-width: 1200px) {
+  footer {
+    height: 700px; } }
+
+@media (min-width: 301px) and (max-width: 500px) {
+  footer {
+    height: 240px; }
+  .footer img {
+    display: none; }
+  div.backgroundImg {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("../background.jpeg");
+    background-repeat: no-repeat;
+    background-size: 225%;
+    min-height: 900px;
+    width: 100%;
+    background-attachment: fixed;
+    background-position-x: 21%; }
+  .main {
+    display: flex;
+    min-height: 600px;
+    align-items: flex-start;
+    flex-wrap: wrap; }
+  .container {
+    flex-flow: column;
+    margin-top: 29px; }
+  div.mainpic {
+    align-self: center; }
+  div.headline {
+    background-image: url("../logo.png");
+    background-size: 99%;
+    background-repeat: no-repeat;
+    height: 586px;
+    width: 76%;
+    order: 3;
+    flex: none;
+    margin-top: 93px; }
+  .arrowDown {
+    display: none; } }
+
+@media (min-width: 501px) and (max-width: 600px) {
+  footer {
+    height: 313px; }
+  .footer img {
+    display: none; }
+  div.backgroundImg {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("../background.jpeg");
+    background-repeat: no-repeat;
+    background-size: 225%;
+    min-height: 900px;
+    width: 100%;
+    background-attachment: fixed;
+    background-position-x: 21%; }
+  .main {
+    display: flex;
+    min-height: 600px;
+    align-items: flex-start;
+    flex-wrap: wrap; }
+  .container {
+    flex-flow: column;
+    margin-top: 29px; }
+  div.mainpic {
+    align-self: center; }
+  div.headline {
+    background-image: url("../logo.png");
+    background-size: 99%;
+    background-repeat: no-repeat;
+    height: 586px;
+    width: 76%;
+    order: 3;
+    flex: none;
+    margin-top: 93px; }
+  .arrowDown {
+    display: none; } }
+
+@media (min-width: 601px) and (max-width: 700px) {
+  footer {
+    height: 375px; }
+  .footer img {
+    display: none; }
+  div.backgroundImg {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("../background.jpeg");
+    background-repeat: no-repeat;
+    background-size: 225%;
+    min-height: 900px;
+    width: 100%;
+    background-attachment: fixed;
+    background-position-x: 21%; }
+  .main {
+    display: flex;
+    min-height: 600px;
+    align-items: flex-start;
+    flex-wrap: wrap; }
+  .container {
+    flex-flow: column;
+    margin-top: 29px; }
+  div.mainpic {
+    align-self: center; }
+  div.headline {
+    background-image: url("../logo.png");
+    background-size: 99%;
+    background-repeat: no-repeat;
+    height: 586px;
+    width: 76%;
+    order: 3;
+    flex: none;
+    margin-top: 93px; }
+  .arrowDown {
+    display: none; } }
+
+@media (min-width: 701px) and (max-width: 800px) {
+  footer {
+    height: 441px; }
+  .footer img {
+    display: none; }
+  div.backgroundImg {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("../background.jpeg");
+    background-repeat: no-repeat;
+    background-size: 225%;
+    min-height: 900px;
+    width: 100%;
+    background-attachment: fixed;
+    background-position-x: 21%; }
+  .main {
+    display: flex;
+    min-height: 600px;
+    align-items: flex-start;
+    flex-wrap: wrap; }
+  .container {
+    flex-flow: column;
+    margin-top: 29px; }
+  div.mainpic {
+    align-self: center; }
+  div.headline {
+    background-image: url("../logo.png");
+    background-size: 99%;
+    background-repeat: no-repeat;
+    height: 586px;
+    width: 76%;
+    order: 3;
+    flex: none;
+    margin-top: 93px; }
+  .arrowDown {
+    display: none; } }
+
+@media (min-width: 801px) and (max-width: 900px) {
+  footer {
+    height: 500px; }
+  .footer img {
+    display: none; }
+  div.backgroundImg {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("../background.jpeg");
+    background-repeat: no-repeat;
+    background-size: 225%;
+    min-height: 900px;
+    width: 100%;
+    background-attachment: fixed;
+    background-position-x: 21%; }
+  .main {
+    display: flex;
+    min-height: 600px;
+    align-items: flex-start;
+    flex-wrap: wrap; }
+  .container {
+    flex-flow: column;
+    margin-top: 29px; }
+  div.mainpic {
+    align-self: center; }
+  div.headline {
+    background-image: url("../logo.png");
+    background-size: 99%;
+    background-repeat: no-repeat;
+    height: 586px;
+    width: 76%;
+    order: 3;
+    flex: none;
+    margin-top: 93px; }
+  .arrowDown {
+    display: none; } }

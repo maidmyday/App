@@ -41,7 +41,7 @@ div.backgroundImg {
   background-image: url("../logo.png");
   background-size: 100%;
   background-repeat: no-repeat;
-  height: 800px;
+  height: 742px;
   flex: 2;
 }
 
@@ -84,9 +84,11 @@ div.backgroundImg {
 
   aside{
     flex:2;
+     font-family: 'Josefin Sans', sans-serif !important;
   }
 
   section{
+     font-family: 'Josefin Sans', sans-serif !important;
     flex:2;
     overflow: hidden;
     overflow-y: scroll;
@@ -98,10 +100,10 @@ section::-webkit-scrollbar {
 }
 
 footer{
-  background-image: url("../../Footer2.png");
+  background-image: url("../../Footer-empty.png");
   background-size: 100%;
   background-repeat: no-repeat;
-  height: 753px;
+  height: 816px;
 }
 .footerBtn{    font-family: 'Josefin Sans', sans-serif !important;
 font-size: 17px !important;
@@ -110,6 +112,7 @@ width: 200px !important;
 border: 2px solid  #E1E5EE !important;
 color: #E1E5EE !important;
 flex: 0 !important;
+    align-self: baseline;
 &:hover {
   background-color: #C7CCDB !important;
   color: #2A324B !important;
@@ -125,6 +128,7 @@ width: 200px !important;
 border: 2px solid  #C7CCDB !important;
 color: #2A324B!important;
 flex: 0 !important;
+    align-self: baseline;
 &:hover {
   background-color: #2A324B !important;
   color: #C7CCDB !important;
@@ -173,7 +177,6 @@ margin-top: -93px;
 .linetwo{
   height: 2px !important;
 background: url("../../ht-border.png");
-/* padding: 0; */
 background-color: #767B91;
 
 width: 81% !important;
@@ -188,4 +191,9 @@ margin-top: 10px;
   p{
     color: #C7CCDB;
   }
+}
+
+.three{
+  width: 18%;
+  height: 2px !important;
 }

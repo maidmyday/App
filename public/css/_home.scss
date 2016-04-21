@@ -144,7 +144,19 @@ form.photoForm{
   background-image: url("../../Footer2.png");
   background-size: 100%;
   background-repeat: no-repeat;
-  height: 753px;
+  height: 880px;
+  p{
+    z-index: 10000;
+    color: white;
+  }
+}
+
+.footer{
+  background-color: #2A324B;
+    height: 239px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .postjob{
@@ -211,4 +223,12 @@ div.userImgHome{
           top: 50%;
           -webkit-transform: translateY(-50%) translateX(-50%);
         }
+}
+
+
+.homefooter{
+  display: flex;
+flex-flow: column;
+
+justify-content: flex-end;
 }
