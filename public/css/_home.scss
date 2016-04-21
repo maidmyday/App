@@ -145,6 +145,10 @@ form.photoForm{
   background-size: 100%;
   background-repeat: no-repeat;
   height: 880px;
+  p{
+    z-index: 10000;
+    color: white;
+  }
 }
 
 .footer{
@@ -219,4 +223,12 @@ div.userImgHome{
           top: 50%;
           -webkit-transform: translateY(-50%) translateX(-50%);
         }
+}
+
+
+.homefooter{
+  display: flex;
+flex-flow: column;
+
+justify-content: flex-end;
 }

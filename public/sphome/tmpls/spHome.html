@@ -88,6 +88,7 @@
               <input type="text" ng-model="user.phoneNumber" class="form-control" placeholder="{{SpCtrl.providerData.phoneNumber}}">
               <input type="text" ng-model="user.email" class="form-control" placeholder="{{SpCtrl.providerData.email}}">
               <textarea type="text" rows="5" class="form-control" ng-model="user.about" placeholder="About you . . ." value=""></textarea>
+              <input type="text" ng-model="user.rate" class="form-control" placeholder="rate">
             </div>
             <div class="profile-btns">
               <button type="submit" class="btn btn-default" ng-click="SpCtrl.saveEdit(user)">Save Edit</button>
@@ -98,23 +99,6 @@
       </div>
     </div>
 
-<!-- FOOTER SECTION -->
-<footer></footer>
-
-
-<!-- THIS WILL BE THE ABOUT ME SECTION -->
-<!-- <div class="panel-heading">
-  <h4>About Me</h4>
-  <button class="pull-right btn btn-default" ng-click="SpCtrl.editBtn2()">Edit</button>
-</div>
-<div class="panel-body paragraph">
-  <p>{{SpCtrl.providerData.about}}</p>
-</div>
-<div class="panel-body" ng-show="SpCtrl.editAbout">
-  <form role="form">
-    <div class="form-group">
-      <textarea type="text" rows="5" class="form-control" ng-model="user.about" placeholder="About you . . ." value=""></textarea>
-    </div>
-    <button type="submit" class="btn btn-default" ng-click="SpCtrl.saveAbout(user)">Save Edit</button>
-  </form>
-</div> -->
+    <!-- FOOTER SECTION -->
+    <footer class="homefooter"><div class="line linetwo"></div>
+    <div class="terms"><p>© 2016 Maid My Day Inc</p></div></footer>
