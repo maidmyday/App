@@ -41,6 +41,9 @@ public class Provider {
     @Column
     private String specialties;
 
+    @Column
+    private String rate;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "provider")
     private List<Task> tasks;
 
@@ -63,7 +66,7 @@ public class Provider {
         this.photoUrl = photoUrl;
     }
 
-    public Provider(String firstName, String lastName, String password, String email, String phoneNumber, boolean isOnline, String about, String specialties, List<Task> tasks) {
+    public Provider(String firstName, String lastName, String password, String email, String phoneNumber, boolean isOnline, String about, String specialties, List<Task> tasks, String rate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
@@ -73,6 +76,7 @@ public class Provider {
         this.about = about;
         this.specialties = specialties;
         this.tasks = tasks;
+        this.rate = rate;
     }
 
     public Provider(String firstName, String lastName, String password, String email, String phoneNumber) {
@@ -179,5 +183,13 @@ public class Provider {
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    public String getRate() {
+        return rate;
+    }
+
+    public void setRate(String rate) {
+        this.rate = rate;
     }
 }
