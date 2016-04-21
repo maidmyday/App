@@ -711,6 +711,17 @@ form {
     width: 100px;
     border-radius: 100%; }
 
+.matchBtn {
+  font-size: 21px;
+  font-family: 'Josefin Sans', sans-serif;
+  margin-top: 0px;
+  margin-left: 22px;
+  height: 48px;
+  width: 266px;
+  border: 2px solid #767B91;
+  color: #767B91;
+  background-color: white; }
+
 @media (min-width: 901px) and (max-width: 1000px) {
   footer {
     height: 567px; } }
