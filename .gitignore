@@ -52,7 +52,5 @@ crashlytics-build.properties
 *.db
 public/photoUploads
 
-node_modules/
-bower_components/
 .gradle
 build
