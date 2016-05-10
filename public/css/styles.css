@@ -536,6 +536,12 @@ div.overallModal button {
   color: #767B91;
   background-color: white; }
 
+.youareonline {
+  display: flex;
+  justify-content: space-around;
+  padding: 1%;
+  background-color: #9AC79A; }
+
 @media (min-width: 0px) and (max-width: 300px) {
   div.backgroundImg {
     background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("../background.jpeg");
